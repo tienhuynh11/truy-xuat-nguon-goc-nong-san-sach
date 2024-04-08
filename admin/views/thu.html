@@ -1,0 +1,51 @@
+<div class="modal-body" id="productDetails">
+    <?php 
+     $product_Details =  $obj->display_product();   
+     $cata_info = $obj-> p_display_catagory();
+     $admin_info = $obj-> show_admin_user();
+    ?>
+    <?php $pdt = mysqli_fetch_assoc($product_Details)?>
+                        <div class="form-group">
+                            <label for="" class="control-label col-md -12"><b>Tên nông sản:</b> <?php echo $pdt['tensanpham'] ;?> </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label col-md -12"><b>Mã nông sản: </b><?php echo $pdt['masanpham'] ;?> </label>
+                        </div>
+                        <div class="form-group">
+                        <div class="form-group">
+                            <label for="" class="control-label col-md -12"><b>Mã QR : </b><?php echo $pdt['maqr'] ;?> </label>
+                        </div>
+                            <label for="" class="control-label col-md -12"><b>Giá: </b><?php echo $pdt['gia'] ;?> </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label col-md -12"><b>Mô tả: </b> <?php echo $pdt['mota'] ;?></label>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label col-md -12"><b>Danh mục:</b> 
+                                    <?php while($cata = mysqli_fetch_assoc($cata_info)){ 
+                                            if($pdt['danhmuc'] == $cata['id_dm']){
+                                                echo $cata['tendanhmuc'];
+                                            }
+                                    }?>
+                                    
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label col-md -12"><b>Hình ảnh: </b> <img src="uploads/<?php echo $pdt['hinhanh']?>" style="width: 80px;" > </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label col-md -12"><b>Xuất xứ: </b> <?php echo $pdt['xuatxu'] ;?></label>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label col-md -12"><b>Hướng dẫn sử dụng:</b>  <?php echo $pdt['hdsd'] ;?></label>
+                        </div>             
+                        <div class="form-group">
+                            <label for="" class="control-label col-md -12"><b>Người đăng:  </b>
+                            <?php while($admin = mysqli_fetch_assoc($admin_info)){ 
+                                            if($pdt['taikhoan'] == $admin['id_acc']){
+                                                echo $admin['hoten'];
+                                            }
+                                    }?>
+                        
+                        </label>
+                        </div>    
