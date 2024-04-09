@@ -112,13 +112,13 @@ include_once("includes/head.php");
                                 <li class="product-item col-lg-3 col-md-3 col-sm-4 col-xs-6">
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
-                                            <a href="single_product.php?status=singleproduct&&id=<?php echo $pdt_data['pdt_id'] ?>" class="link-to-product">
+                                            <a href="chitietsanpham.php?status=singleproduct&&id=<?php echo $pdt_data['pdt_id'] ?>" class="link-to-product">
                                                 <img src="admin/uploads/<?php echo $pdt_data['pdt_img'] ?>" alt="dd" width="270" height="270" class="product-thumnail">
                                             </a>
                                         </div>
                                         <div class="info">
                                             <b class="categories"> <?php echo $pdt_data['ctg_name'] ?> </b>
-                                            <h4 class="product-title"><a href="single_product.php?status=singleproduct&&id=<?php echo $pdt_data['pdt_id'] ?>" class="pr-name"><?php echo $pdt_data['pdt_name'] ?></a></h4>
+                                            <h4 class="product-title"><a href="chitietsanpham.php?status=singleproduct&&id=<?php echo $pdt_data['pdt_id'] ?>" class="pr-name"><?php echo $pdt_data['pdt_name'] ?></a></h4>
                                             <div class="price">
                                                 <ins><span class="price-amount"><span class="currencySymbol">Tk. </span><?php echo $pdt_data['pdt_price'] ?></span></ins>
 

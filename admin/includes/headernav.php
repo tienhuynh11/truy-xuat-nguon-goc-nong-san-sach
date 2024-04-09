@@ -24,7 +24,7 @@
                        $logo = mysqli_fetch_assoc($logo_info);
 
                        ?>
-                           <img class="img-fluid" src="uploads/<?php echo $logo['img']; ?>" alt="Theme-Logo" /> 
+                           <img width="50" height="50" src="uploads/<?php echo $logo['img']; ?>" alt="Theme-Logo" /> 
                        </a>
                        <a class="mobile-options">
                            <i class="ti-more"></i>

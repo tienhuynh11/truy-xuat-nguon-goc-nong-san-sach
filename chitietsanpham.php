@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include_once("admin/class/adminback.php");
 $obj = new adminback();
@@ -9,14 +10,13 @@ while ($data = mysqli_fetch_assoc($cata_info)) {
     $cataDatas[] = $data;
 }
 
-if (isset($_GET['status'])) {
-    $pdtId = $_GET['id'];
-    if ($_GET['status'] == 'singleproduct') {
-        $pdt_info = $obj->display_product_byId($pdtId);
-        $pdt_fetch = mysqli_fetch_assoc($pdt_info);
-        $pro_datas = array();
-        $pro_datas[] = $pdt_fetch;
-    }
+
+if (isset($_GET['id'])) {
+    $pdtId = $_GET['id'];   
+	$pdt_info = $obj->display_product_byId($pdtId);
+	$pdt_fetch = mysqli_fetch_assoc($pdt_info);
+	$pro_datas = array();
+	$pro_datas[] = $pdt_fetch;
 }
 
 
@@ -561,3 +561,4 @@ include_once("includes/head.php");
 </body>
 
 </html>
+

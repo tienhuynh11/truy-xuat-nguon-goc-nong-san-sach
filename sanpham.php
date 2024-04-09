@@ -81,7 +81,7 @@ include_once("includes/head.php");
                                 <li class="product-item col-lg-3 col-md-3 col-sm-4 col-xs-6">
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
-                                            <a href="single_product.php?status=singleproduct&&id=<?php echo $pdt_data['id_sp'] ?>" class="link-to-product">
+                                            <a href="chitietsanpham.php?id=<?php echo $pdt_data['id_sp'] ?>" class="link-to-product">
                                                 <img style="border-radius: 10px;" src="admin/uploads/<?php echo $pdt_data['hinhanh'] ?>" alt="dd" width="270" height="270" class="product-thumnail">
                                             </a>
                                         </div>
@@ -90,7 +90,7 @@ include_once("includes/head.php");
                                         <b class="categories"> <?php echo $tendm['tendanhmuc'] ?> </b>
                                         
                                             
-                                            <h4 class="product-title"><a href="single_product.php?status=singleproduct&&id=<?php echo $pdt_data['id_sp'] ?>" class="pr-name"><?php echo $pdt_data['tensanpham'] ?></a></h4>
+                                            <h4 class="product-title"><a href="chitietsanpham.php?id=<?php echo $pdt_data['id_sp'] ?>" class="pr-name"><?php echo $pdt_data['tensanpham'] ?></a></h4>
                                             <div class="price">
                                                 <ins><span class="price-amount"><span class="currencySymbol">Mã sản phẩm: </span><?php echo $pdt_data['masanpham'] ?></span></ins>
 

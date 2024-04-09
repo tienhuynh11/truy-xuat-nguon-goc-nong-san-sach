@@ -1,10 +1,17 @@
+
 <?php 
-
-
     $obj=new adminback();
-
-
 ?>
+
+<style>
+.primary-menu ul li a{
+    text-decoration: none;
+}
+
+.primary-menu .menu .menu-item a{
+    font-weight: bold;
+}
+</style>
 
 <?php 
     if(isset($del_msg)){
@@ -29,7 +36,7 @@
 
                         <li class="menu-item"><a href="index.php">Bảng tin</a></li>
                         <!-- <li class="menu-item"><a href="index.php">Trang chủ</a></li> -->
-                        <li class="menu-item"><a href="all_product.php">Nông sản</a></li>
+                        <li class="menu-item"><a href="sanpham.php">Nông sản</a></li>
                         
                        
                         

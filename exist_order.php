@@ -114,7 +114,7 @@ include_once("includes/head.php");
 
                                                 <tr class="cart_item">
                                                     <td class="product-thumbnail" data-title="Product Name">
-                                                        <a class="prd-thumb" href="single_product.php?status=singleproduct&&id=<?php echo $order_info['order_id']  ?>">
+                                                        <a class="prd-thumb" href="chitietsanpham.php?status=singleproduct&&id=<?php echo $order_info['order_id']  ?>">
                                                         <div class="price price-contain">
                                                             <span class="price-amount"><?php echo $order_info['order_id'] ?></span>
 
@@ -125,7 +125,7 @@ include_once("includes/head.php");
                                                     </td>
 
                                                     <td class="" data-title="Product Name">
-                                                        <a class="" href="single_product.php?status=singleproduct&&id=<?php echo $order_info['order_id']  ?>" style="text-decoration: none; color:black" >
+                                                        <a class="" href="chitietsanpham.php?status=singleproduct&&id=<?php echo $order_info['order_id']  ?>" style="text-decoration: none; color:black" >
                                                         <div class="price price-contain">
                                                             <h5 class="text-left" ><?php echo $order_info['product_name'] ?></h5>
 

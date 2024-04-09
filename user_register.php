@@ -22,6 +22,20 @@ if(isset($_SESSION['user_id'])){
 
 ?>
 
+<style>
+        /* CSS cho phần tử select */
+        .form-row .nice-select {
+            width: 100%; /* Độ rộng của select sẽ là 100% của phần tử cha */
+            border: 1px solid #ccc; /* Viền của select */
+            background-color: #fff; /* Màu nền của select */
+            color: blue; /* Màu chữ của select */
+            height: 34px;
+            line-height: 50%;
+        }
+        .form-row .nice-select .current {
+            color: black;
+        }
+    </style>
 
 <?php
 include_once("includes/head.php");
@@ -45,10 +59,6 @@ include_once("includes/head.php");
         include_once("includes/header_middle.php");
         ?>
 
-        <?php
-        include_once("includes/header_bottom.php");
-        ?>
-
     </header>
 
     <!-- Page Contain -->
@@ -58,9 +68,9 @@ include_once("includes/head.php");
         <div id="main-content" class="main-content">
 
 
-            <div class="container">
+            <div  class="container">
 
-                <h2 class="text-center">Register as user</h2>
+                <h2 style="font-weight: bold;" class="text-center">Đăng ký</h2>
 
                 <h4>
                     <?php if (isset($reg_msg)) {
@@ -75,22 +85,36 @@ include_once("includes/head.php");
                     <!--Form Sign In-->
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="signin-container">
+
                             <form action="" name="frm-register" method="POST">
 
-                      
+                                <p sty class="form-row">
+                                    <label for="user_roles">Loại thành viên</label>
+                                    <select name="user_roles">
+                                        <option selected value="1">Nông dân</option>
+                                        <option value="2">Người đánh giá</option>
+                                        <option value="3">Chuyên gia</option>
+                                        <option value="4">Chuyên viên</option>
+                                        <option value="5">Kỹ thuật viên</option>
+                                        <option value="6">Người kiểm định</option>
+                                        <!-- Thêm các option khác nếu cần -->
+                                    </select>
+                                </p>
+
+
                                 <p class="form-row">
-                                    <label for="username">Username:<span class="requite">*</span></label>
+                                    <label for="username">Tên tài khoản:<span class="requite">*</span></label>
                                     <input type="text" name="username" class="txt-input form-control" required>
                                 </p>
 
                                 <p class="form-row">
-                                    <label for="user_firstname">First Name<span class="requite">*</span></label>
+                                    <label for="user_firstname">Họ đệm<span class="requite">*</span></label>
                                     <input type="text" name="user_firstname" class="txt-input form-control" required>
                                 </p>
 
 
                                 <p class="form-row">
-                                    <label for="user_lastname">Last Name</label>
+                                    <label for="user_lastname">Tên</label>
                                     <input type="text" name="user_lastname" class="txt-input form-control">
                                 </p>
 
@@ -100,20 +124,20 @@ include_once("includes/head.php");
                                 </p>
 
                                 <p class="form-row">
-                                    <label for="user_password">Password <span class="requite">*</span> </label>
+                                    <label for="user_password">Mật khẩu <span class="requite">*</span> </label>
                                     <input type="password" id="fid-pass" name="user_password" class="form-control" required>
                                 </p>
 
                                 <p class="form-row">
-                                    <label for="user_mobile">Mobile <span class="requite">*</span> </label>
+                                    <label for="user_mobile">Số điện thoại <span class="requite">*</span> </label>
                                     <input type="tel" id="fid-pass" name="user_mobile"class="form-control" required>
                                 </p>
                                 <p class="form-row">
-                                    <label for="user_address">Address <span class="requite">*</span> </label>
+                                    <label for="user_address">Địa chỉ <span class="requite">*</span> </label>
                                     <textarea name="user_address" id="" cols="10" class="form-control"></textarea>
                                 </p>
 
-                                <input type="hidden" name="user_roles" value="5">
+                                <input type="text" name="user_roles" value="5">
                                 <p class=" wrap-btn ">
 
                                     <input type="submit" value="Sign Up" name="user_register_btn" class="btn btn-block btn-success">

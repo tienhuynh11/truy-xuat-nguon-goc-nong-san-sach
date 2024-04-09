@@ -152,10 +152,10 @@ include_once("includes/head.php");
                                         ?>
                                                 <tr class="cart_item">
                                                     <td class="product-thumbnail" data-title="Product Name">
-                                                        <a class="prd-thumb" href="single_product.php?status=singleproduct&&id=<?php echo $value['pdt_id'] ?>">
+                                                        <a class="prd-thumb" href="chitietsanpham.php?status=singleproduct&&id=<?php echo $value['pdt_id'] ?>">
                                                             <figure><img width="113" height="113" src="admin/uploads/<?php echo $value['pdt_img'] ?>" alt="shipping cart"></figure>
                                                         </a>
-                                                        <a class="prd-name" href="single_product.php?status=singleproduct&&id=<?php echo $value['pdt_id'] ?>"><?php echo $value['pdt_name'] ?></a>
+                                                        <a class="prd-name" href="chitietsanpham.php?status=singleproduct&&id=<?php echo $value['pdt_id'] ?>"><?php echo $value['pdt_name'] ?></a>
 
                                                     </td>
 

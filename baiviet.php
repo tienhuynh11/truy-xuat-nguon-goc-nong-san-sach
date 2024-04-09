@@ -77,6 +77,11 @@ body{
     text-align: center;
     text-shadow: 2px 2px #fff;
 }
+
+.media img {
+    max-width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước của phần tử cha */
+    height: auto; /* Tự động điều chỉnh chiều cao để giữ tỷ lệ khung hình */
+}
 </style>
 <?php 
 

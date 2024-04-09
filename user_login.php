@@ -49,10 +49,6 @@ include_once("includes/head.php");
         include_once("includes/header_middle.php");
         ?>
 
-        <?php
-        include_once("includes/header_bottom.php");
-        ?>
-
     </header>
 
     <!-- Page Contain -->
@@ -63,7 +59,7 @@ include_once("includes/head.php");
 
 
             <div class="container">
-                <h2 class="text-center">Log in</h2>
+                <h2 style="font-weight: bold;" class="text-center">Đăng nhập</h2>
 
                 <h4 class="text-danger"> <?php 
                     if(isset($logmsg)){
@@ -83,12 +79,12 @@ include_once("includes/head.php");
                                     <input type="email" id="fid-name" name="user_email" class="txt-input">
                                 </p>
                                 <p class="form-row">
-                                    <label for="user_password">Password:</label>
+                                    <label for="user_password">Mật khẩu:</label>
                                     <input type="password" name="user_password" class="txt-input">
                                 </p>
                                 <p class="wrap-btn">
-                                    <input type="submit" value="Log In" name="user_login_btn" class="btn btn-success">
-                                    <a href="user_password_recover.php" class="link-to-help">Forgot your password</a>
+                                    <input type="submit" value="Đăng nhập" name="user_login_btn" class="btn btn-success">
+                                    <a href="user_password_recover.php" class="link-to-help">Quên mật khẩu?</a>
                                 </p>
                             </form>
                         </div>
@@ -98,16 +94,16 @@ include_once("includes/head.php");
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="register-in-container">
                             <div class="intro">
-                                <h4 class="box-title">New Customer?</h4>
-                                <p class="sub-title">Create an account with us and you’ll be able to:</p>
-                                <ul class="lis">
+                                <h4 class="box-title">Tạo một tài khoản</h4>
+                                 <p style="line-height: normal;" class="sub-title">Chào mừng bạn đến với trang web truy xuất nguồn gốc nông sản sạch! Nếu chưa có tài khoản, hãy nhấn nút Đăng ký bên dưới!!</p>
+                                <!-- <ul class="lis"> 
                                     <li>Check out faster</li>
                                     <li>Save multiple shipping anddesses</li>
                                     <li>Access your order history</li>
                                     <li>Track new orders</li>
                                     <li>Save items to your Wishlist</li>
-                                </ul>
-                                <a href="user_register.php" class="btn btn-bold">Create an account</a>
+                                </ul> -->
+                                <a href="user_register.php" class="btn btn-bold">Đăng ký</a>
                             </div>
                         </div>
                     </div>

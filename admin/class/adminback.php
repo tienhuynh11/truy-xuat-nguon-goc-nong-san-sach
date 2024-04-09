@@ -736,9 +736,9 @@ class  adminback
         }
     }
 
-    function display_logo($id)
+    function display_logo()
     {
-        $query = "SELECT * FROM add_logo where id = $id";
+        $query = "SELECT * FROM add_logo";
 
         if (mysqli_query($this->connection, $query)) {
             $pdt_info = mysqli_query($this->connection, $query);
