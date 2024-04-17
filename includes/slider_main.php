@@ -4,7 +4,7 @@
                 <?php 
                     $obj = new adminback();
 
-                   $rows =  $obj->SlideShow();
+                   $rows =  $obj->SliderShow();
 
                    while ($row = mysqli_fetch_assoc($rows)){
                        
