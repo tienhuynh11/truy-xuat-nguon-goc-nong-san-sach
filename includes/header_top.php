@@ -38,7 +38,7 @@ $obj= new adminback();
                     </ul> -->
                     <ul class="horizontal-menu">
 
-                        <li><a href="user_login.php" class="login-link"><i class="biolife-icon icon-login"></i>
+                        <li><a href="dangnhap.php" class="login-link"><i class="biolife-icon icon-login"></i>
                         <?php 
                         if(isset($_SESSION['username'])){
                             echo $_SESSION['username'];

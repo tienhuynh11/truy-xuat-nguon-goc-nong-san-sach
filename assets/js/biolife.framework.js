@@ -137,7 +137,7 @@
 		    	if($body.find('#biolife-clone-wrap').length) return 0;
 				let mb_menu	='<div id="biolife-clone-wrap" class="biolife-clone-wrap">';
 				mb_menu +='<div class="biolife-panels-actions-wrap" data-root_title="Main Panel">';
-				mb_menu +='<span class="biolife-current-panel-title">Main Panel</span>';
+				mb_menu +='<span class="biolife-current-panel-title">Menu</span>';
 				mb_menu +='<a class="biolife-close-btn biolife-close-panels" href="#" data-object="open-mobile-menu">&times;</a>';
 				mb_menu +='</div>';
 				mb_menu +='<div class="biolife-panels">';

@@ -103,7 +103,7 @@ include_once("includes/head.php");
                                     <li>Track new orders</li>
                                     <li>Save items to your Wishlist</li>
                                 </ul> -->
-                                <a href="user_register.php" class="btn btn-bold">Đăng ký</a>
+                                <a href="dangky.php" class="btn btn-bold">Đăng ký</a>
                             </div>
                         </div>
                     </div>

@@ -47,21 +47,21 @@
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Danh mục</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Danh mục nông sản</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
                                             <a href="add_cata.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Thêm danh mục</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Thêm danh mục nông sản</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
                                             <a href="manage_cata.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs" style="font-weight: 400;">Quản lý danh mục</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs" style="font-weight: 400;">Quản lý danh mục nông sản</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -69,7 +69,31 @@
 
                                     </ul>
                                 </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Danh mục DN</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
 
+                                    
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="manage_dm_dn.php">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Quản lý Danh mục doanh nghiệp</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="add_dm_dn.php">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Thêm Danh mục doanh nghiệp</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
@@ -152,43 +176,7 @@
                                     </ul>
                                 </li>
 
-                                <?php 
-                                    if($_SESSION['role']==1){
-                                ?>
-
-                                <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">User</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="add_admin_user.php">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;" >Add User</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                     
-
-                                    </ul>
-
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="manage_user.php">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;" >Manage User</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                     
-
-                                    </ul>
-                                </li>
-
-                                <?php }?>
+                               
 
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
@@ -214,31 +202,31 @@
                                  
                                 
                                 
-                                <!-- <li class="pcoded-hasmenu">
+                                <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Customization</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Doanh nghiệp</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="add_links.php">
+                                            <a href="manage_doanhnghiep.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Social Media</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Quản lý doanh nghiệp</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="add_logo.php">
+                                            <a href="add_dn.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs" style="font-weight: 400;">Add Logo</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs" style="font-weight: 400;">Thêm doanh nghiệp</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
    
 
                                     </ul>
-                                </li> -->
+                                </li>
 
 
 
@@ -268,6 +256,31 @@
                                     </ul>
                                 </li>
 
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Cây giống</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+
+                                    
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="manage_caygiong.php">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Quản lý cây giống</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="add_caygiong.php">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Thêm cây giống</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
                                 <li class="pcoded-hasmenu">
                                 <a href="../index.php" target="_blank">

@@ -71,6 +71,7 @@ body{
     overflow-x: hidden;
     -ms-word-wrap: break-word;
     word-wrap: break-word;
+    background-color: #fafafa;
 }
 label{
     font-weight: 400;
@@ -570,6 +571,7 @@ body{
         bottom: 80px;
         right: 30px;
     }
+    
 }
 .btn-scroll-top.showUp{
     -webkit-transform: scale(1);
@@ -787,8 +789,8 @@ body{
 }
 .biolife-nav{
     display: block;
-    margin-top: 37px;
-    margin-bottom: 38px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 .biolife-nav ul{
     padding: 0;
@@ -4498,31 +4500,77 @@ body.open-overlay #overlay{
 }
 .product-tabs.single-layout .tab-head .tabs{
     display: block;
-    padding: 9px 0;
+    padding: 45px 0;
     margin: 0;
     font-size: 0;
     line-height: 0;
-    border-bottom: 2px  solid #e6e6e6;
+    margin: 10px 0;
+    border: #e3e3e3 solid 1px;
+    border-radius: 5px;
+    background-color: #ffff;
+    /* border-bottom: 2px  solid #e6e6e6; */
 }
 .product-tabs.single-layout .tab-head .tabs li{
     display: inline-block;
     list-style: none;
 }
 .product-tabs.single-layout .tab-head .tabs li:not(:last-child){
-    margin-right: 43px;
+    margin-right: 10px;
+}
+.product-tabs.single-layout .tab-head .tabs li i{
+    color: white;
+    margin: 3px;
+    font-weight: 500;
 }
 .product-tabs.single-layout .tab-head .tabs li a{
-    color: #bbbbbb;
-    font-size: 16px;
+    color: #333333 ;
     font-weight: 700;
     line-height: 1;
-    text-transform: uppercase;
+
     -webkit-transition: all 350ms ease;
     -moz-transition: all 350ms ease;
     -o-transition: all 350ms ease;
     transition: all 350ms ease;
     position: relative;
+    background-color: #FFD700;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 7px; /* Bo tròn góc */
+    padding: 30px;
 }
+
+.product-tabs.single-layout .tab-head .tabs li .center{
+    color: #333333;
+    font-weight: 700;
+    line-height: 1;
+    
+    -webkit-transition: all 350ms ease;
+    -moz-transition: all 350ms ease;
+    -o-transition: all 350ms ease;
+    transition: all 350ms ease;
+    position: relative;
+    background-color: #FFA500;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 7px; /* Bo tròn góc */
+    padding: 30px;
+}
+
+.product-tabs.single-layout .tab-head .tabs li .right{
+    color: #333333;
+    font-weight: 700;
+    line-height: 1;
+    
+    -webkit-transition: all 350ms ease;
+    -moz-transition: all 350ms ease;
+    -o-transition: all 350ms ease;
+    transition: all 350ms ease;
+    position: relative;
+    background-color: #FF6347;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 7px; /* Bo tròn góc */
+    padding: 30px;
+}
+
+
 .product-tabs.single-layout .tab-head .tabs li a::before{
     content: '';
     position: absolute;
@@ -4536,20 +4584,26 @@ body.open-overlay #overlay{
     -o-transition: all 550ms ease;
     transition: all 550ms ease;
 }
-.product-tabs.single-layout .tab-head .tabs li a:hover{
-    color: #222222;
-}
+/* .product-tabs.single-layout .tab-head .tabs li a:hover{
+    padding: 31px;
+} */
 .product-tabs.single-layout .tab-head .tabs li.active a{
     font-weight: 700;
-    color: #222222;
+    border: #3b7f17 solid 1px;
 }
-.product-tabs.single-layout .tab-head .tabs li.active a::before{
+/* .product-tabs.single-layout .tab-head .tabs li.active a::before{
     width: 127px;
-}
+} */
+
+
 .product-tabs.single-layout .tab-content{
     position: relative;
     display: inline-block;
     width: 100%;
+    border: #e3e3e3 solid 1px;
+    border-radius: 5px;
+    background-color: #ffff;
+    padding: 0 5px;
 }
 .product-tabs.single-layout .tab-content .tab-contain{
     display: inline-block;
@@ -4564,6 +4618,7 @@ body.open-overlay #overlay{
     padding-top: 28px;
     border-bottom: 1px solid #e6e6e6;
     padding-bottom: 52px;
+    padding: 10px 10px 20px;
 }
 .product-tabs.single-layout .tab-content .tab-contain.review-tab{
     padding-top: 33px;
@@ -4581,11 +4636,11 @@ body.open-overlay #overlay{
 }
 .product-tabs .tab-content .desc-expand{
     display: block;
-    margin-top: 26px;
+
     text-align: justify;
 }
 .product-tabs .tab-content .desc-expand .title{
-    font-size: 15px;
+    font-size: 18px;
     line-height: 24px;
     color: #333333;
     margin: 0;
@@ -4634,6 +4689,11 @@ body.open-overlay #overlay{
     font-weight: 700;
     line-height: 1;
     text-transform: uppercase;
+}
+.accodition-tab{
+    display: block;
+    border: 10px so #ca7373;
+    padding: 10px 10px;
 }
 .accodition-tab>ul{
     padding: 0;
@@ -11342,8 +11402,7 @@ body.open-quickview-block .biolife-quickview-block{
         border-bottom: none;
     }
     .product-tabs.single-layout .tab-content .tab-contain{
-        border: 1px solid #e6e6e6;
-        padding: 10px 10px 20px;
+        /* border: 1px solid #e6e6e6; */
     }
     .product-tabs.single-layout .tab-content .tab-contain .container{
         width: 100%;
@@ -11355,11 +11414,26 @@ body.open-quickview-block .biolife-quickview-block{
     .product-tabs.single-layout .tab-head .tabs li a::before{
         height: 2px;
     }
+
+    /* Kích thước Mobile */
     .product-tabs.single-layout .tab-head .tabs li a{
         width: 100%;
         display: inline-block;
         padding: 8px 0;
     }
+
+    .product-tabs.single-layout .tab-head .tabs li .center{
+        width: 100%;
+        display: inline-block;
+        padding: 8px 0;
+    }
+
+    .product-tabs.single-layout .tab-head .tabs li .right{
+        width: 100%;
+        display: inline-block;
+        padding: 8px 0;
+    }
+
     .product-tabs.single-layout .tab-head .tabs li:not(:last-child){
         margin-right: 0;
         border-bottom: none;
@@ -11367,8 +11441,7 @@ body.open-quickview-block .biolife-quickview-block{
     .product-tabs.single-layout .tab-head .tabs li{
         width: 100%;
         text-align: center;
-        border: 1px solid #e6e6e6;
-        padding: 3px 0;
+        padding: 3px 5px;
     }
     .sumary-product .product-attribute{
         width: 50%;
@@ -11538,6 +11611,21 @@ body.open-quickview-block .biolife-quickview-block{
 }
 
 @media ( max-width: 767px){
+    .product-tabs.single-layout .tab-head .tabs{
+        padding: 15px 0;
+    }
+
+    .product-tabs .tab-content .desc-expand .title{
+        font-size: 15px;
+        line-height: 24px;
+        color: #333333;
+        margin: 0;
+        font-weight: 600;
+    }
+    .desc-expand{
+        font-size: 15px;
+    }
+
     .grid-twice-item>li+li{
         margin-top: 80px;
     }

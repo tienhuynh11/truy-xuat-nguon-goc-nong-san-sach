@@ -37,7 +37,28 @@ if (isset($_GET['id'])) {
 ?>
 
 
+<style>
+    /* Kích thước chữ mặc định */
+    .tab-link {
+        font-size: 16px;
+    }
 
+    /* Kích thước chữ trên các thiết bị lớn hơn */
+    @media only screen and (min-width: 768px) {
+        .tab-link {
+            font-size: 25px;
+        }
+    }
+    .desc-expand{
+        font-size: 18px;
+    }
+    .sumary-product {
+        border: #e3e3e3 solid 1px;
+        border-radius: 5px;
+        background-color: #ffff;
+        padding: 10px 10px;
+    }
+</style>
 
 <?php
 include_once("includes/head.php");
@@ -62,7 +83,7 @@ include_once("includes/head.php");
         ?>
 
         <?php
-        include_once("includes/header_bottom.php");
+        // include_once("includes/header_bottom.php");
         ?>
 
     </header>
@@ -185,18 +206,18 @@ include_once("includes/head.php");
                         </div>
 
                         <!-- Tab info -->
-                        <div class="product-tabs single-layout biolife-tab-contain">
-                            <div class="tab-head">
+                        <div style="margin-top: 5px;" class="product-tabs single-layout biolife-tab-contain">
+                            <div class="tab-head text-center">
                                 <ul class="tabs">
-                                    <li class="tab-element active"><a href="#tab_1st" class="tab-link">Thông tin về sản phẩm</a></li>
-                                    <li class="tab-element"><a href="#tab_3rd" class="tab-link">Cây giống</a></li>
-                                    <li class="tab-element"><a href="#tab_3rd" class="tab-link">Vùng sản xuất</a></li>
-                                    <li class="tab-element"><a href="#tab_3rd" class="tab-link">Nhật ký</a></li>
-                                    <li class="tab-element"><a href="#tab_4th" class="tab-link">Đánh giá khách hàng<sup>(3)</sup></a></li>
+                                    <li class="tab-element active"><a href="#tab_1st" class="tab-link"><i class="fa fa-tags"></i>Thông tin</a></li>
+                                    <li class="tab-element"><a href="#tab_3rd" class="tab-link center"><i class="fa fa-paperclip"></i>Chuỗi liên kết</a></li>
+                                    <li class="tab-element"><a href="#tab_4th" class="tab-link right"><i class="fa fa-check-square-o"></i>Kiểm định</a></li>
+                                    <!-- <li class="tab-element"><a href="#tab_3rd" class="tab-link">Nhật ký</a></li> -->
+                                    <!-- <li class="tab-element"><a href="#tab_4th" class="tab-link">Đánh giá khách hàng<sup>(3)</sup></a></li> -->
                                 </ul>
                             </div>
                             <div class="tab-content">
-                                <div id="tab_1st" class="tab-contain desc-tab active">
+                                <div id="tab_1st" class="tab-contain desc-tab">
                                     <?php 
                                         if($pro_data['mota'] != null){
                                             echo '<div class="desc-expand" style="margin-top:0;">
@@ -259,22 +280,27 @@ include_once("includes/head.php");
                                     ?>
                                 </div>
 
-                                <div id="tab_3rd" class="tab-contain shipping-delivery-tab">
+                                <div id="tab_3rd" style="padding: 5px 0;" class="tab-contain shipping-delivery-tab active ">
                                     <div class="accodition-tab biolife-accodition">
-                                        <ul class="tabs">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="col-md-1">
+                                                    <i class="fa fa-info"></i>
+                                                </div>
+                                                <div class="col-md-11">
+                                                    <p style="font-size: 30px;">Nhà xưởng</p> 
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-md-6 col-sm-6" >
+                                                <a class="btn btn-danger" style="float:right;" href="">Xem chi tiết</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- <ul class="tabs">
                                             <li class="tab-item">
-                                                <span class="title btn-expand">How long will it take to receive my order?</span>
                                                 <div class="content">
-                                                    <p>Orders placed before 3pm eastern time will normally be processed and shipped by the following business day. For orders received after 3pm, they will generally be processed and shipped on the second business day. For example if you place your order after 3pm on Monday the order will ship on Wednesday. Business days do not include Saturday and Sunday and all Holidays. Please allow additional processing time if you order is placed on a weekend or holiday. Once an order is processed, speed of delivery will be determined as follows based on the shipping mode selected:</p>
-                                                    <div class="desc-expand">
-                                                        <span class="title">Shipping mode</span>
-                                                        <ul class="list">
-                                                            <li>Standard (in transit 3-5 business days)</li>
-                                                            <li>Priority (in transit 2-3 business days)</li>
-                                                            <li>Express (in transit 1-2 business days)</li>
-                                                            <li>Gift Card Orders are shipped via USPS First Class Mail. First Class mail will be delivered within 8 business days</li>
-                                                        </ul>
-                                                    </div>
+                                                    
                                                 </div>
                                             </li>
                                             <li class="tab-item">
@@ -302,7 +328,7 @@ include_once("includes/head.php");
                                                     <p>Occasionally packages are returned to us as undeliverable by the carrier. When the carrier returns an undeliverable package to us, we will cancel the order and refund the purchase price less the shipping charges. Here are a few reasons packages may be returned to us as undeliverable:</p>
                                                 </div>
                                             </li>
-                                        </ul>
+                                        </ul> -->
                                     </div>
                                 </div>
                                 <div id="tab_4th" class="tab-contain review-tab">

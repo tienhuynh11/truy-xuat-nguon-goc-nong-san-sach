@@ -107,6 +107,24 @@
                                             include ("views/make_report_view.php");
                                         }elseif($views=="add-vsx"){
                                             include ("views/add_vsx_view.php");
+                                        }elseif($views=="manage_caygiong"){
+                                            include ("views/manage_caygiong_view.php");
+                                        }elseif($views=="edit_caygiong"){
+                                            include ("views/edit_caygiong_view.php");
+                                        }elseif($views=="add_caygiong"){
+                                            include ("views/add_caygiong_view.php");
+                                        }elseif($views=="add_dm_dn"){
+                                            include ("views/add_dm_dn_view.php");
+                                        }elseif($views=="manage_dm_dn"){
+                                            include ("views/manage_dm_dn_view.php");
+                                        }elseif($views=="edit_dm_dn"){
+                                            include ("views/edit_dm_dn_view.php");
+                                        }elseif($views=="edit_dn"){
+                                            include ("views/edit_dn_view.php");
+                                        }elseif($views=="add_dn"){
+                                            include ("views/add_dn_view.php");
+                                        }elseif($views=="manage_dn"){
+                                            include ("views/manage_doanhnghiep_view.php");
                                         }
 
                                     }

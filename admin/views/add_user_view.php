@@ -6,7 +6,7 @@
     }
 ?>
 
-<h2>Add User</h2>
+<h2>Thêm người dùng</h2>
 <h6 class="text-success">
    <?php 
      if(isset($rtn_msg)){

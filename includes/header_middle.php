@@ -18,7 +18,7 @@
         echo "{$del_msg}";
     }
 ?>
-<div class="header-middle biolife-sticky-object ">
+<div class="header-middle biolife-sticky-object" style="background-color: #ffff;">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
@@ -43,7 +43,6 @@
                         <li class="menu-item"><a href="vungsanxuat.php">Vùng sản xuất</a></li>
                         <li class="menu-item"><a href="vungsanxuat.php">Cây giống</a></li>
                         <li class="menu-item"><a href="vungsanxuat.php">Nhật ký</a></li>
-                        
                     </ul>
                 </div>
             </div>

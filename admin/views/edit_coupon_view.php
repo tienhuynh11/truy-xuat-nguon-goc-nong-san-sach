@@ -26,14 +26,10 @@
             }
         ?>
     </h6>
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <h4>Người đăng</h4>
         <input type="text" name="nguoidang" class="form-control" value="<?php echo $bv['nguoidang'] ?>" required>
-    </div>
-    <div class="form-group">
-        <h4>Sản phẩm</h4>
-        <input type="text" name="sanpham" class="form-control" value="<?php echo $bv['sanpham'] ?>" required>
     </div>
 
     <div class="form-group">
@@ -43,9 +39,15 @@
     <input type="hidden" name="id_bv" value="<?php echo $bv['id_bv'] ?>">
     <div class="form-group">
         <h4>Nội dung</h4>
-        <textarea name="noidung" id="" cols="30" rows="10" ><?php echo $bv['noidung'] ?></textarea>
+        <textarea name="noidung" id="" cols="30" rows="10" class="form-control" ><?php echo $bv['noidung'] ?></textarea>
     </div>
-   
+    <div class="form-group">
+        <label for="bv_img">Hình ảnh </label>
+        <div class="mb-3">
+        <img src="uploads/<?php echo $bv['hinhanh']?>" style="width: 80px;" >
+    </div>
+        <input type="file" name="bv_img" class="form-control">
+    </div>
     <div class="form-group">
         <input type="submit" name="update_baiviet" class="btn btn-primary">
     </div>

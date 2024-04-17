@@ -108,7 +108,7 @@
                                   
                                    <li>
                                        <a href="?adminLogout=logout">
-                                       <i class="ti-layout-sidebar-left"></i> Logout
+                                       <i class="ti-layout-sidebar-left"></i> Đăng xuất
                                    </a>
                                    </li>
                                </ul>
