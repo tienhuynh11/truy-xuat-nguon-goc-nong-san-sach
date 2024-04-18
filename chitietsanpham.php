@@ -39,6 +39,10 @@ if (isset($_GET['id'])) {
 
 <style>
     /* Kích thước chữ mặc định */
+    .media img {
+        max-width: 100%;
+        height: auto;
+    }
     .tab-link {
         font-size: 16px;
     }
@@ -57,6 +61,95 @@ if (isset($_GET['id'])) {
         border-radius: 5px;
         background-color: #ffff;
         padding: 10px 10px;
+    }
+    .accodition-tab .row .col-md-12{
+        padding: 0;
+    }
+    .production-area-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    }
+
+    :root{ --main-color: #A0C438; }
+    .serviceBox{
+        color: var(--main-color);
+        background: var(--main-color);
+        font-family: 'Raleway', sans-serif;
+        text-align: center;
+        border-radius: 0 0 20px 20px;
+        padding: 20px 20px 25px;
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        margin-bottom: 10px;
+    }
+    .serviceBox:before,
+    .serviceBox:after{
+        content: "";
+        width: calc( 100% - 25px);
+        transform: translateX(-50%);
+        position: absolute;
+        left: 50%;
+    }
+    .serviceBox:before{
+        background: #fff;
+        height: calc( 100% - 15px);
+        top: 15px;
+        z-index: -1;
+    }
+    .serviceBox:after{
+        border: 12px solid var(--main-color);
+        height: 100px;
+        border-radius: 0 0 100px 100px;
+        top: 0;
+    }
+    .serviceBox .service-icon{
+        font-size: 40px;
+        margin: 0 0 35px;
+        display: inline-block;
+    }
+    .serviceBox .title{
+        font-size: 26px;
+        font-weight: 700;
+        margin: 0 0 5px;
+        padding-top: 10px;
+    }
+    .serviceBox h5{
+        font-size: 20px;
+        margin: 0;
+        margin-bottom: 2px;
+    }
+    .serviceBox .title-sub{
+        text-align: left;
+        font-weight: bold;
+    }
+    .serviceBox .description{
+        text-align: left;
+        color: #888;
+        font-size: 13.2px;
+        margin: 0;
+        font-weight: bold;
+        text-align: justify;
+        line-height: -0.9px;
+    }
+    .serviceBox a{
+        margin-top: 2px;
+    }
+    .product-tabs .tab-content .serviceBox p {
+        line-height: normal;
+    }
+    .product-tabs.single-layout .tab-content{
+        padding: 0;
+    }
+    .serviceBox.pink{ --main-color: #FA68A0; }
+    .serviceBox.blue{ --main-color: #01748E; }
+    .serviceBox.green{ --main-color: #06BD7F; }
+    @media only screen and (max-width: 1199px){
+    .serviceBox{
+        margin: 0 0 20px;
+    }
     }
 </style>
 
@@ -99,7 +192,7 @@ include_once("includes/head.php");
                 <h1 class="page-title"> -->
                     <?php
                     foreach ($pro_datas as $pro_data) {
-                        $tendm = $obj->display_cataByID($pro_data['danhmuc']);
+                        // $tendm = $obj->display_cataByID($pro_data['danhmuc']);
                         // echo $pro_data['tensanpham'];
                     }
                     ?>
@@ -193,17 +286,7 @@ include_once("includes/head.php");
                                                     <p class="for-today">Pree Pickup Today</p>
                                                 </div> -->
                                             </div>
-                                            
-
-                                                
-                                                
-
-                               
-
-                                
-
-                                
-                        </div>
+                                    </div>
 
                         <!-- Tab info -->
                         <div style="margin-top: 5px;" class="product-tabs single-layout biolife-tab-contain">
@@ -216,10 +299,10 @@ include_once("includes/head.php");
                                     <!-- <li class="tab-element"><a href="#tab_4th" class="tab-link">Đánh giá khách hàng<sup>(3)</sup></a></li> -->
                                 </ul>
                             </div>
-                            <div class="tab-content">
-                                <div id="tab_1st" class="tab-contain desc-tab">
+                            <div class="tab-content" style="border: none;background-color:transparent;padding: 0;">
+                                <div id="tab_1st" style="background-color: #fff;border: #e3e3e3 solid 1px;" class="tab-contain desc-tab  active">
                                     <?php 
-                                        if($pro_data['mota'] != null){
+                                        if(!is_null($pro_data['mota'])){
                                             echo '<div class="desc-expand" style="margin-top:0;">
                                                     <span class="title">Mô tả</span>
                                                     ';
@@ -280,55 +363,78 @@ include_once("includes/head.php");
                                     ?>
                                 </div>
 
-                                <div id="tab_3rd" style="padding: 5px 0;" class="tab-contain shipping-delivery-tab active ">
+                                <div id="tab_3rd" class="tab-contain">
                                     <div class="accodition-tab biolife-accodition">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6">
-                                                <div class="col-md-1">
-                                                    <i class="fa fa-info"></i>
+                                        <div class="row" style="margin: 0 -10px;">
+                                            <?php if($pro_data['vungsanxuat'] != 0 || is_null($pro_data['vungsanxuat']) ){ ?>
+                                            <div class="col-md-12 col-sm-12">
+                                                <div class="serviceBox">
+                                                    <div class="service-icon">
+                                                        <span><i class="fa fa-globe"></i></span>
+                                                    </div>
+                                                    <h3 class="title">Vùng sản xuất</h3>
+                                                    <h5 class="title-sub">Tên vùng sản xuất:</h5>
+                                                    <p class="description">
+                                                    <?php
+                                                        foreach ($pro_datas as $pro_data) {
+                                                            $tenvsx = $obj->display_vsxbyID($pro_data['vungsanxuat']);
+                                                            echo $tenvsx['tenvung'];
+                                                        }
+                                                    ?>
+                                                    </p>
+                                                    <h5 class="title-sub">Địa chỉ:</h5>
+                                                    <p class="description">
+                                                    <?php
+                                                        foreach ($pro_datas as $pro_data) {
+                                                            $tenvsx = $obj->display_vsxbyID($pro_data['vungsanxuat']);
+                                                            echo $tenvsx['diachi'];
+                                                        }
+                                                    ?>
+                                                    </p>
+                                                    <a class="btn btn-info" href="">Xem chi tiết</a>
                                                 </div>
-                                                <div class="col-md-11">
-                                                    <p style="font-size: 30px;">Nhà xưởng</p> 
+                                            </div>
+                                            <?php }?>
+                                            <?php
+                                                if($pro_data['caygiong'] != 0 || is_null($pro_data['caygiong']) ){ ?>
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <div class="serviceBox blue">
+                                                            <div class="service-icon">
+                                                                <span><i class="fa fa-industry"></i></span>
+                                                            </div>
+                                                            <h3 class="title">Nhà phân phối</h3>
+                                                            <h5 class="title-sub">Tên nhà phân phối:</h5>
+                                                            <p class="description">
+                                                            <?php
+                                                                foreach ($pro_datas as $pro_data) {
+                                                                    $tenvsx = $obj->display_vsxbyID($pro_data['vungsanxuat']);
+                                                                    echo $tenvsx['tenvung'];
+                                                                }
+                                                            ?>
+                                                            </p>
+                                                            <h5 class="title-sub">Địa chỉ:</h5>
+                                                            <p class="description">
+                                                            <?php
+                                                                foreach ($pro_datas as $pro_data) {
+                                                                    $tenvsx = $obj->display_vsxbyID($pro_data['vungsanxuat']);
+                                                                    echo $tenvsx['diachi'];
+                                                                }
+                                                            ?>
+                                                            </p>
+                                                            <a class="btn btn-info" href="">Xem chi tiết</a>
+                                                        </div>
+                                                    </div>
+                                            <?php }?>
+                                            <!-- <div class="col-md-12 col-sm-12">
+                                                <div class="serviceBox pink">
+                                                    <div class="service-icon">
+                                                        <span><i class="fa fa-rocket"></i></span>
+                                                    </div>
+                                                    <h3 class="title">Web Development</h3>
+                                                    <p class="description">Lorem ipsum dolor sit amet conse ctetur adipisicing elit. Qui quaerat fugit quas veniam perferendis repudiandae sequi, dolore quisquam illum.</p>
                                                 </div>
-                                                
-                                            </div>
-                                            <div class="col-md-6 col-sm-6" >
-                                                <a class="btn btn-danger" style="float:right;" href="">Xem chi tiết</a>
-                                            </div>
+                                            </div> -->
                                         </div>
-
-                                        <!-- <ul class="tabs">
-                                            <li class="tab-item">
-                                                <div class="content">
-                                                    
-                                                </div>
-                                            </li>
-                                            <li class="tab-item">
-                                                <span class="title btn-expand">How is the shipping cost calculated?</span>
-                                                <div class="content">
-                                                    <p>You will pay a shipping rate based on the weight and size of the order. Large or heavy items may include an oversized handling fee. Total shipping fees are shown in your shopping cart. Please refer to the following shipping table:</p>
-                                                    <p>Note: Shipping weight calculated in cart may differ from weights listed on product pages due to size and actual weight of the item.</p>
-                                                </div>
-                                            </li>
-                                            <li class="tab-item">
-                                                <span class="title btn-expand">Why Didn’t My Order Qualify for FREE shipping?</span>
-                                                <div class="content">
-                                                    <p>We do not deliver to P.O. boxes or military (APO, FPO, PSC) boxes. We deliver to all 50 states plus Puerto Rico. Certain items may be excluded for delivery to Puerto Rico. This will be indicated on the product page.</p>
-                                                </div>
-                                            </li>
-                                            <li class="tab-item">
-                                                <span class="title btn-expand">Shipping Restrictions?</span>
-                                                <div class="content">
-                                                    <p>We do not deliver to P.O. boxes or military (APO, FPO, PSC) boxes. We deliver to all 50 states plus Puerto Rico. Certain items may be excluded for delivery to Puerto Rico. This will be indicated on the product page.</p>
-                                                </div>
-                                            </li>
-                                            <li class="tab-item">
-                                                <span class="title btn-expand">Undeliverable Packages?</span>
-                                                <div class="content">
-                                                    <p>Occasionally packages are returned to us as undeliverable by the carrier. When the carrier returns an undeliverable package to us, we will cancel the order and refund the purchase price less the shipping charges. Here are a few reasons packages may be returned to us as undeliverable:</p>
-                                                </div>
-                                            </li>
-                                        </ul> -->
                                     </div>
                                 </div>
                                 <div id="tab_4th" class="tab-contain review-tab">

@@ -4693,7 +4693,6 @@ body.open-overlay #overlay{
 .accodition-tab{
     display: block;
     border: 10px so #ca7373;
-    padding: 10px 10px;
 }
 .accodition-tab>ul{
     padding: 0;

@@ -1,0 +1,101 @@
+<div id="tab_3rd" class="tab-contain active">
+                                    <div class="accodition-tab biolife-accodition">
+                                        <div class="row" style="margin: 0 -10px;">
+                                            <div class="col-md-12 col-sm-12">
+                                                <div class="serviceBox">
+                                                    <div class="service-icon">
+                                                        <span><i class="fa fa-globe"></i></span>
+                                                    </div>
+                                                    <h3 class="title">Vùng sản xuất</h3>
+                                                    <h5 class="title-sub">Tên vùng sản xuất:</h5>
+                                                    <p class="description">
+                                                    <?php
+                                                        foreach ($pro_datas as $pro_data) {
+                                                            $tenvsx = $obj->display_vsxbyID($pro_data['vungsanxuat']);
+                                                            echo $tenvsx['tenvung'];
+                                                        }
+                                                    ?>
+                                                    </p>
+                                                    <h5 class="title-sub">Địa chỉ:</h5>
+                                                    <p class="description">
+                                                    <?php
+                                                        foreach ($pro_datas as $pro_data) {
+                                                            $tenvsx = $obj->display_vsxbyID($pro_data['vungsanxuat']);
+                                                            echo $tenvsx['diachi'];
+                                                        }
+                                                    ?>
+                                                    </p>
+                                                    <a class="btn btn-info" href="">Xem chi tiết</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12">
+                                                <div class="serviceBox pink">
+                                                    <div class="service-icon">
+                                                        <span><i class="fa fa-rocket"></i></span>
+                                                    </div>
+                                                    <h3 class="title">Web Development</h3>
+                                                    <p class="description">Lorem ipsum dolor sit amet conse ctetur adipisicing elit. Qui quaerat fugit quas veniam perferendis repudiandae sequi, dolore quisquam illum.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="row" >
+                                            <div class="col-md-12">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="col-md-1">
+                                                        <i class="fa fa-info"></i>
+                                                    </div>
+                                                    <div class="col-md-11">
+                                                        <p style="font-size: 30px;">Nhà xưởng</p> 
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-md-6 col-sm-6" >
+                                                    <a class="btn btn-danger" style="float:right;" href="">Xem chi tiết</a>
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-4 col-sm-4">
+                                                    <p style="font-size: 30px;">Nhà xưởng</p>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8" >
+                                                    <a class="btn btn-danger" style="float:right;" href="">Xem chi tiết</a>
+                                                </div> 
+                                            </div>
+                                        </div> -->
+                                        
+
+                                        <!-- <ul class="tabs">
+                                            <li class="tab-item">
+                                                <div class="content">
+                                                    
+                                                </div>
+                                            </li>
+                                            <li class="tab-item">
+                                                <span class="title btn-expand">How is the shipping cost calculated?</span>
+                                                <div class="content">
+                                                    <p>You will pay a shipping rate based on the weight and size of the order. Large or heavy items may include an oversized handling fee. Total shipping fees are shown in your shopping cart. Please refer to the following shipping table:</p>
+                                                    <p>Note: Shipping weight calculated in cart may differ from weights listed on product pages due to size and actual weight of the item.</p>
+                                                </div>
+                                            </li>
+                                            <li class="tab-item">
+                                                <span class="title btn-expand">Why Didn’t My Order Qualify for FREE shipping?</span>
+                                                <div class="content">
+                                                    <p>We do not deliver to P.O. boxes or military (APO, FPO, PSC) boxes. We deliver to all 50 states plus Puerto Rico. Certain items may be excluded for delivery to Puerto Rico. This will be indicated on the product page.</p>
+                                                </div>
+                                            </li>
+                                            <li class="tab-item">
+                                                <span class="title btn-expand">Shipping Restrictions?</span>
+                                                <div class="content">
+                                                    <p>We do not deliver to P.O. boxes or military (APO, FPO, PSC) boxes. We deliver to all 50 states plus Puerto Rico. Certain items may be excluded for delivery to Puerto Rico. This will be indicated on the product page.</p>
+                                                </div>
+                                            </li>
+                                            <li class="tab-item">
+                                                <span class="title btn-expand">Undeliverable Packages?</span>
+                                                <div class="content">
+                                                    <p>Occasionally packages are returned to us as undeliverable by the carrier. When the carrier returns an undeliverable package to us, we will cancel the order and refund the purchase price less the shipping charges. Here are a few reasons packages may be returned to us as undeliverable:</p>
+                                                </div>
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                    <!-- <i style="width: 0;  height: 0;  border-bottom: 30px solid green;  border-left: 30px solid transparent;float:right;"></i> -->
+                                </div>

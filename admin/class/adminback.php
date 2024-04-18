@@ -1154,12 +1154,13 @@ class  adminback
         $result = mysqli_query($this->connection, $query);
         return $result;
     }
-    function display_vsx_byId($Idvsx)
+    function display_vsxbyID($id)
     {
-        $query = "SELECT * FROM `vungsanxuat` WHERE id_vung= $Idvsx";
+        $query = "SELECT * FROM `vungsanxuat` WHERE id_vung = $id";
+
         if (mysqli_query($this->connection, $query)) {
-            $pdt_info = mysqli_query($this->connection, $query);
-            return $pdt_info;
+            $vsx_info = mysqli_query($this->connection, $query);
+            return mysqli_fetch_assoc($vsx_info);
         }
     }
 
