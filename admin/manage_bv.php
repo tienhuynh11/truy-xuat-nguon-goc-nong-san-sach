@@ -1,5 +1,5 @@
 <?php 
-    $views = "manage_slider";
+    $views = "manage_bv";
     include ("template.php");
 
 ?>

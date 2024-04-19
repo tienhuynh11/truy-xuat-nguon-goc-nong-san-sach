@@ -1,51 +1,49 @@
-<div class="modal-body" id="productDetails">
-    <?php 
-     $product_Details =  $obj->display_product();   
-     $cata_info = $obj-> p_display_catagory();
-     $admin_info = $obj-> show_admin_user();
-    ?>
-    <?php $pdt = mysqli_fetch_assoc($product_Details)?>
-                        <div class="form-group">
-                            <label for="" class="control-label col-md -12"><b>Tên nông sản:</b> <?php echo $pdt['tensanpham'] ;?> </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label col-md -12"><b>Mã nông sản: </b><?php echo $pdt['masanpham'] ;?> </label>
-                        </div>
-                        <div class="form-group">
-                        <div class="form-group">
-                            <label for="" class="control-label col-md -12"><b>Mã QR : </b><?php echo $pdt['maqr'] ;?> </label>
-                        </div>
-                            <label for="" class="control-label col-md -12"><b>Giá: </b><?php echo $pdt['gia'] ;?> </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label col-md -12"><b>Mô tả: </b> <?php echo $pdt['mota'] ;?></label>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label col-md -12"><b>Danh mục:</b> 
-                                    <?php while($cata = mysqli_fetch_assoc($cata_info)){ 
-                                            if($pdt['danhmuc'] == $cata['id_dm']){
-                                                echo $cata['tendanhmuc'];
-                                            }
-                                    }?>
-                                    
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label col-md -12"><b>Hình ảnh: </b> <img src="uploads/<?php echo $pdt['hinhanh']?>" style="width: 80px;" > </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label col-md -12"><b>Xuất xứ: </b> <?php echo $pdt['xuatxu'] ;?></label>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label col-md -12"><b>Hướng dẫn sử dụng:</b>  <?php echo $pdt['hdsd'] ;?></label>
-                        </div>             
-                        <div class="form-group">
-                            <label for="" class="control-label col-md -12"><b>Người đăng:  </b>
-                            <?php while($admin = mysqli_fetch_assoc($admin_info)){ 
-                                            if($pdt['taikhoan'] == $admin['id_acc']){
-                                                echo $admin['hoten'];
-                                            }
-                                    }?>
-                        
-                        </label>
-                        </div>    
+function add_bv($data)
+{
+    // $nguoidang = $data['nguoidang'];
+    $tieude = $data['tieude'];
+    $noidung = $data['noidung'];
+
+        $bv_img_name = $_FILES['hinhanh']['name'];
+        $bv_img_size = $_FILES['hinhanh']['size'];
+        $bv_img_tmp = $_FILES['hinhanh']['tmp_name'];
+        $img_ext = pathinfo($bv_img_name, PATHINFO_EXTENSION);
+    
+
+
+    list($width, $height) = getimagesize("$bv_img_tmp");
+
+    if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
+        if ($dn_img_size <= 2e+6) {
+            
+            if($width<2071 && $height<2071){
+                $query = "INSERT INTO `baiviet` (`nguoidang`, `tieude`, `noidung`, `hinhanh`) VALUES (' $nguoidang', '$tieude', '$noidung', '$bv_img_name');";
+
+                if (mysqli_query($this->connection, $query)) {
+                    move_uploaded_file($bv_img_tmp, "uploads/".$bv_img_name);
+                    $msg = "Product uploaded successfully";
+                        echo '<script>
+                        alert(" Thêm  thành công");
+                        window.location.href = "manage_bv.php";
+                        </script>';
+                }
+                else {
+                    $msg = "Failed to upload product: " . mysqli_error($this->connection);
+                    return $msg;
+                }   
+                
+            }else{
+                $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
+                return $msg;
+            }
+
+
+        } else {
+            $msg = "File size should not be large 2MB";
+            return $msg;
+        }
+    } else {
+        $msg = "File should be jpg or png format";
+        return $msg;
+    }
+}

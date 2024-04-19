@@ -1,6 +1,10 @@
 <?php
- $rows = $obj->SlideShow();
- $admin_info = $obj-> show_admin_user();       
+ $rows = $obj->vsxShow();
+ $nguoidang_info = $obj-> show_admin_user();  
+ $nguoidang_array = array();
+    while($nguoidang = mysqli_fetch_assoc($nguoidang_info)){
+        $nguoidang_array[] = $nguoidang;
+    }     
  if(isset($_GET['status'])){
     $id = $_GET['id'];
     if($_GET['status']=="delete"){
@@ -27,11 +31,12 @@
     <tbody>
 
     <?php 
+    $dem=1;
         while($row = mysqli_fetch_assoc($rows)){
     ?>
     
         <tr>
-            <td> <?php echo $row['id_vung'] ?></td>
+            <td> <?php echo $dem ?></td>
         
 
       
@@ -40,13 +45,11 @@
      
             <td> <img src="uploads/<?php echo $row['hinhanh'] ?>" width="200px"> </td>
        
-            <td>  <?php while($admin = mysqli_fetch_assoc($admin_info)){ 
-                                                if($row['nguoidang'] == $admin['id_acc']){
-                                                    echo $admin['hoten'];
-                                                }else{
-                                                    echo "Không rõ";
-                                                }
-                                        }?></td>
+            <td>  <?php foreach($nguoidang_array as $nguoidang){
+                                if($row['nguoidang'] == $nguoidang['id_acc']){
+                                    echo $nguoidang['hoten'];
+                                }
+                            }?></td>
         
             <td> <?php echo $row['sdt'] ?></td>
             <td> <?php echo $row['diachi'] ?></td>
@@ -60,7 +63,9 @@
             </td>
         </tr>
 
-        <?php } ?>
+        <?php
+        $dem++;
+    } ?>
     </tbody>
 </table>
 

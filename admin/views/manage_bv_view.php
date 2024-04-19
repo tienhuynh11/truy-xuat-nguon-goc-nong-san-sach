@@ -53,7 +53,7 @@
                         <td><img style="height:60px" src="uploads/<?php echo $bv['hinhanh'] ?>" alt=""></td>
                         <td><?php echo $bv['ngaydang'] ?></td>
                         <td>  
-                            <a href="edit_coupon.php?status=couponEdit&&id=<?php echo $bv['id_bv'] ?>" class="btn btn-sm btn-warning">Edit </a>
+                            <a href="edit_bv.php?status=couponEdit&&id=<?php echo $bv['id_bv'] ?>" class="btn btn-sm btn-warning">Edit </a>
                             <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $bv['id_bv'] ?>)">Delete</a>
                         </td>
                     </tr>

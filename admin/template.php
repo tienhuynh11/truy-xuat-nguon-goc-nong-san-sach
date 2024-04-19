@@ -83,18 +83,18 @@
                                             include ("views/add_logo_view.php");
                                         }elseif($views=="edit_links"){
                                             include ("views/edit_links_view.php");
-                                        }elseif($views=="manage_slider"){
-                                            include ("views/manage_slider_view.php");
+                                        }elseif($views=="manage_vsx"){
+                                            include ("views/manage_vsx_view.php");
                                         }elseif($views=="edit_vsx"){
                                             include ("views/edit_vsx_view.php");
                                         }elseif($views=="add_order"){
                                             include ("views/add_order_view.php");
-                                        }elseif($views=="add_coupon"){
-                                            include ("views/add_coupon_view.php");
-                                        }elseif($views=="manage_coupon"){
-                                            include ("views/manage_coupon_view.php");
-                                        }elseif($views=="edit_coupon"){
-                                            include ("views/edit_coupon_view.php");                                   
+                                        }elseif($views=="add_bv"){
+                                            include ("views/add_bv_view.php");
+                                        }elseif($views=="manage_bv"){
+                                            include ("views/manage_bv_view.php");
+                                        }elseif($views=="edit_bv"){
+                                            include ("views/edit_bv_view.php");                                   
                                         }elseif($views=="customer_feedback"){
                                             include ("views/customer_feedback_view.php");
                                         }elseif($views=="edit_comment"){
@@ -125,6 +125,12 @@
                                             include ("views/add_dn_view.php");
                                         }elseif($views=="manage_dn"){
                                             include ("views/manage_doanhnghiep_view.php");
+                                        }elseif($views=="manage_nhatky"){
+                                            include ("views/manage_nhatky_view.php");
+                                        }elseif($views=="add_nhatky"){
+                                            include ("views/add_nhatky_view.php");
+                                        }elseif($views=="edit_nhatky"){
+                                            include ("views/edit_nhatky_view.php");
                                         }
 
                                     }

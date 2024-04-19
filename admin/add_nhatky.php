@@ -1,5 +1,5 @@
 <?php 
-    $views = "add_coupon";
+    $views = "add_nhatky";
     include ("template.php");
 
 ?>

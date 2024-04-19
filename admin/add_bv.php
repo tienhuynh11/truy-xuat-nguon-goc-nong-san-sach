@@ -1,5 +1,5 @@
 <?php 
-    $views = "edit_coupon";
+    $views = "add_bv";
     include ("template.php");
 
 ?>

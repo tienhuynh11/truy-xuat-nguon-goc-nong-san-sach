@@ -165,13 +165,19 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="manage_coupon.php">
+                                            <a href="manage_bv.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs" style="font-weight: 400;" >Quản lý bài viết</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-   
+                                        <li class=" ">
+                                            <a href="add_bv.php">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Thêm Bài viết</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
 
                                     </ul>
                                 </li>
@@ -240,7 +246,7 @@
                                     
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="manage_slider.php">
+                                            <a href="manage_vsx.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Quản lý vùng sản xuất</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -281,7 +287,31 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Nhật ký sản phẩm</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
 
+                                    
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="manage_nhatky.php">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Quản lý nhật ký sản phẩm</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="add_nhatky.php">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Thêm nhật ký sản phẩm</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li class="pcoded-hasmenu">
                                 <a href="../index.php" target="_blank">
                                    

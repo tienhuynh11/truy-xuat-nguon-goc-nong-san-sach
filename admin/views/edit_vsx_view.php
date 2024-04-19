@@ -5,24 +5,16 @@ if (isset($_GET['status'])) {
     }
 }
 
-$row = $obj->slide_By_id($slide_id);
+$row = $obj->vsx_By_id($slide_id);
 $slide = mysqli_fetch_assoc($row);
 
-if (isset($_POST['update_slider_btn'])) {
-    $slider_msg =  $obj->slider_update($_POST);
+if (isset($_POST['update_vsx_btn'])) {
+    $slider_msg =  $obj->vsx_update($_POST);
 }
 ?>
 
-<h2>Edit Slider</h2>
+<h2>Chỉnh sửa vùng sản xuất</h2>
 
-
-<h4>
-    <?php
-    if (isset($slider_msg)) {
-        echo $slider_msg;
-    }
-    ?>
-</h4>
 
 <form action="" method="post" enctype="multipart/form-data">
 
@@ -64,6 +56,6 @@ if (isset($_POST['update_slider_btn'])) {
 
 
 
-    <input type="submit" value="Cập nhật" name="update_slider_btn" class="btn btn-primary">
+    <input type="submit" value="Cập nhật" name="update_vsx_btn" class="btn btn-primary">
 
 </form>

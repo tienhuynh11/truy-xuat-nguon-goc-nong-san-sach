@@ -615,29 +615,7 @@ class  adminback
         }
     }
 
-    function confirm_order($post, $session){
-        $user_id = $post['user_id'];
-        $order_status = $post['order_status'];
-        $trans_id = $post['txid'];
-        $mobile = $post['shipping_Mobile'];
-        $shiping = $post['shiping'];
-        $coupon = $_POST['coupon'];
-
-        foreach($session as $key){
-            $pdt_name = $key['pdt_name'];
-            $pdt_price= $key['pdt_price'];
-            $pdt_id= $key['pdt_id'];
-            $pdt_quantity=$key['quantity'];
-
-           $query= "INSERT INTO `order_details`(`user_id`, `product_name`,`pdt_quantity`, `amount`,`uses_coupon`, `order_status`, `trans_id`, `Shipping_mobile`, `shiping`, `order_time`) VALUES ($user_id,'$pdt_name',$pdt_quantity, $pdt_price,'$coupon', $order_status,'$trans_id','$mobile','$shiping',NOW())";
-           $result= mysqli_query($this->connection, $query);
-           unset($_SESSION['cart']);
-            header("location:exist_order.php");
-           
-
-        }
-
-    }
+    
 
     function order_details_by_id($user_id)
     {
@@ -802,23 +780,14 @@ class  adminback
         }
     }
 
-    function SlideShow(){
+    function vsxShow(){
         $query = "SELECT * FROM `vungsanxuat`";
         if(mysqli_query($this->connection, $query)){
             $row = mysqli_query($this->connection, $query);
             return $row;
         }
     }
-
-    function SliderShow(){
-        $query = "SELECT * FROM `slider`";
-        if(mysqli_query($this->connection, $query)){
-            $row = mysqli_query($this->connection, $query);
-            return $row;
-        }
-    }
-    
-    function slide_By_id($id){
+    function vsx_By_id($id){
         $query = "SELECT * FROM `vungsanxuat` WHERE `id_vung`=$id";
         if(mysqli_query($this->connection, $query)){
             $row = mysqli_query($this->connection, $query);
@@ -826,7 +795,7 @@ class  adminback
         }
     }
 
-    function slider_update($data){
+    function vsx_update($data){
         $id_vung = $data['id_vung'];
         $mavung = $data['mavung'];
         $nguoidang = $data['nguoidang'];
@@ -859,7 +828,7 @@ class  adminback
                         move_uploaded_file($lg_tmp, "uploads/" . $lg_name);
                         echo '<script>
                                 alert("Cập nhật thành công");
-                                window.location.href = "manage_slider.php";
+                                window.location.href = "manage_vsx.php";
                                 </script>';
                     }
                 }else{
@@ -889,7 +858,7 @@ class  adminback
             // unlink('uploads/' . $img_name);
             echo '<script>
                                 alert("Xóa thành công");
-                                window.location.href = "manage_slider.php";
+                                window.location.href = "manage_vsx.php";
                                 </script>';
 
         }
@@ -961,24 +930,6 @@ class  adminback
             </script>';
         }
     }
-
-    function add_coupon($data){
-        $coupon_code = $data['cuopon_code'];
-        $coupon_description = $data['cuopon_description'];
-        $coupon_discount = $data['cuopon_discount'];
-        $coupon_status = $data['cuopon_status'];
-
-
-        $query = "INSERT INTO `cupon`( `cupon_code`, `description`, `discount`, `status`) VALUES ('$coupon_code','$coupon_description',$coupon_discount,$coupon_status)";
-
-        if(mysqli_query($this->connection, $query)){
-
-            
-            $add_msg = "Coupon added successfully";
-            return $add_msg;
-        }
-    }
-
     function show_baiviet(){
         $query = "SELECT * FROM `baiviet`";
         if(mysqli_query($this->connection, $query)){
@@ -998,10 +949,60 @@ class  adminback
         if(mysqli_query($this->connection, $query)){
             echo '<script>
             alert("Xóa bài viết thành công");
-            window.location.href = "manage_coupon.php";
+            window.location.href = "manage_bv.php";
             </script>';
         }
     }
+    function add_bv($data)
+    {
+        // $nguoidang = $data['nguoidang'];
+        $tieude = $data['tieude'];
+        $noidung = $data['noidung'];
+    
+            $bv_img_name = $_FILES['hinhanh']['name'];
+            $bv_img_size = $_FILES['hinhanh']['size'];
+            $bv_img_tmp = $_FILES['hinhanh']['tmp_name'];
+            $img_ext = pathinfo($bv_img_name, PATHINFO_EXTENSION);
+        
+
+
+        list($width, $height) = getimagesize("$bv_img_tmp");
+
+        if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
+            if ($bv_img_size <= 2e+6) {
+                
+                if($width<2071 && $height<2071){
+                    $query = "INSERT INTO `baiviet` (`nguoidang`, `tieude`, `noidung`, `hinhanh`) VALUES (' $nguoidang', '$tieude', '$noidung', '$bv_img_name');";
+
+                    if (mysqli_query($this->connection, $query)) {
+                        move_uploaded_file($bv_img_tmp, "uploads/".$bv_img_name);
+                        $msg = "Product uploaded successfully";
+                            echo '<script>
+                            alert(" Thêm  thành công");
+                            window.location.href = "manage_bv.php";
+                            </script>';
+                    }
+                    else {
+                        $msg = "Failed to upload product: " . mysqli_error($this->connection);
+                        return $msg;
+                    }   
+                    
+                }else{
+                    $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
+                    return $msg;
+                }
+
+
+            } else {
+                $msg = "File size should not be large 2MB";
+                return $msg;
+            }
+        } else {
+            $msg = "File should be jpg or png format";
+            return $msg;
+        }
+    }
+
     function update_baiviet($data)
 {
     $id_bv = $data['id_bv'];
@@ -1029,7 +1030,7 @@ class  adminback
                 if (mysqli_query($this->connection, $query) && move_uploaded_file($bv_img_tmp, "uploads/" . $bv_img_name)) {
                     echo '<script>
                         alert("Chỉnh sửa bài viết thành công");
-                        window.location.href = "manage_coupon.php";
+                        window.location.href = "manage_bv.php";
                     </script>';
                 } else {
                     echo "Upload failed!";
@@ -1048,7 +1049,7 @@ class  adminback
         if (mysqli_query($this->connection, $query)) {
             echo '<script>
                 alert("Chỉnh sửa bài viết thành công");
-                window.location.href = "manage_coupon.php";
+                window.location.href = "manage_bv.php";
             </script>';
         } else {
             echo "Update failed!";
@@ -1084,7 +1085,7 @@ class  adminback
                         $msg = "Product uploaded successfully";
                             echo '<script>
                             alert(" Thêm Vùng sản xuất thành công");
-                            window.location.href = "manage_slider.php";
+                            window.location.href = "manage_vsx.php";
                             </script>';
                     }
                     else {
@@ -1511,5 +1512,135 @@ class  adminback
             return $msg;
         }
     }
+    function show_nhatky(){
+        $query = "SELECT * FROM `nhatkysanpham`";
+        if(mysqli_query($this->connection, $query)){
+            $result = mysqli_query($this->connection, $query);
+            return $result;
+        }
+    }
+    function delete_nhatky($id_nk){
+        $query = "DELETE FROM `nhatkysanpham` WHERE `id_nk`=$id_nk";
+        if(mysqli_query($this->connection, $query)){
+            echo '<script>
+            alert("Xóa nhật ký sản phẩm thành công");
+            window.location.href = "manage_nhatky.php";
+            </script>';
+        }
+    }
+    function show_nhatky_by_id($id_nk){
+        $query = "SELECT * FROM `nhatkysanpham` WHERE `id_nk`=$id_nk";
+        if(mysqli_query($this->connection, $query)){
+            $result = mysqli_query($this->connection, $query);
+            return $result;
+        }
+    }
 
+
+    function update_nhatky($data)
+    {
+        $id_nk = $data['id_nk'];
+        $sanpham = $data['sanpham'];
+       
+        $tennhatky = $data['tennhatky'];
+        $chitiet = $data['chitiet'];
+    
+        // Kiểm tra xem có tập tin hình ảnh nào được tải lên không
+        if (!empty($_FILES['nk_img']['tmp_name'])) {
+            $nk_img_name = $_FILES['nk_img']['name'];
+            $nk_img_size = $_FILES['nk_img']['size'];
+            $nk_img_tmp = $_FILES['nk_img']['tmp_name'];
+            $img_ext = pathinfo($nk_img_name, PATHINFO_EXTENSION);
+            list($width, $height) = getimagesize($nk_img_tmp);
+    
+            if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
+                if ($nk_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
+                    $select_query = "SELECT * FROM `nhatkysanpham` WHERE id_nk=$id_nk";
+                    $result = mysqli_query($this->connection, $select_query);
+                    $row = mysqli_fetch_assoc($result);
+                    $pre_img = $row['hinhanh'];
+                    unlink("uploads/" . $pre_img);
+    
+                    $query = "UPDATE `nhatkysanpham` SET `sanpham` = '$sanpham', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `hinhanh` = '$nk_img_name' WHERE `id_nk` ='$id_nk';";
+                    if (mysqli_query($this->connection, $query) && move_uploaded_file($nk_img_tmp, "uploads/" . $nk_img_name)) {
+                        echo '<script>
+                            alert("Chỉnh sửa thành công");
+                            window.location.href = "manage_nhatky.php";
+                        </script>';
+                    } else {
+                        echo "Upload failed!";
+                    }
+                } else {
+                    $msg = "Sorry !! Pdt image max height: 2701 px and width: 2701 px, but you are trying {$width} px and {$height} px";
+                    return $msg;
+                }
+            } else {
+                $msg = "File should be jpg or png format";
+                return $msg;
+            }
+        } else {
+            // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của bài viết
+            $query = "UPDATE `nhatkysanpham` SET `sanpham` = '$sanpham',`tennhatky` = '$tennhatky', `chitiet` = '$chitiet' WHERE `id_nk` ='$id_nk';";
+            if (mysqli_query($this->connection, $query)) {
+                echo '<script>
+                    alert("Chỉnh sửa thành công");
+                    window.location.href = "manage_nhatky.php";
+                </script>';
+            } else {
+                echo "Update failed!";
+            }
+        }
+    }
+
+    function add_nhatky($data)
+    {
+        // $nguoidang = $data['nguoidang'];
+        $sanpham = $data['sanpham'];
+       
+        $tennhatky = $data['tennhatky'];
+        $chitiet = $data['chitiet'];
+    
+        $nk_img_name = $_FILES['nk_img']['name'];
+        $nk_img_size = $_FILES['nk_img']['size'];
+        $nk_img_tmp = $_FILES['nk_img']['tmp_name'];
+            $img_ext = pathinfo($nk_img_name, PATHINFO_EXTENSION);
+        
+
+
+        list($width, $height) = getimagesize("$nk_img_tmp");
+
+        if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
+            if ($nk_img_size <= 2e+6) {
+                
+                if($width<2071 && $height<2071){
+                    $query = "INSERT INTO `nhatkysanpham` (`sanpham`, `tennhatky`, `chitiet`, `hinhanh`) VALUES ( '$sanpham', '$tennhatky', '$chitiet', '$nk_img_name');";
+
+                    if (mysqli_query($this->connection, $query)) {
+                        move_uploaded_file($nk_img_tmp, "uploads/".$nk_img_name);
+                        $msg = "Product uploaded successfully";
+                            echo '<script>
+                            alert(" Thêm  thành công");
+                            window.location.href = "manage_nhatky.php";
+                            </script>';
+                    }
+                    else {
+                        $msg = "Failed to upload product: " . mysqli_error($this->connection);
+                        return $msg;
+                    }   
+                    
+                }else{
+                    $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
+                    return $msg;
+                }
+
+
+            } else {
+                $msg = "File size should not be large 2MB";
+                return $msg;
+            }
+        } else {
+            $msg = "File should be jpg or png format";
+            return $msg;
+        }
+    }
 }   
