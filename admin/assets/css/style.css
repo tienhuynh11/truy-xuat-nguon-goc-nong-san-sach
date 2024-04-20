@@ -14316,8 +14316,8 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
   .card h5 {
     font-size: 16px; }
 
-  .header-navbar .navbar-wrapper .navbar-logo {
-    display: inherit; }
+  /* .header-navbar .navbar-wrapper .navbar-logo {
+    display: inherit; } */
     .header-navbar .navbar-wrapper .navbar-logo a {
       display: inline-block; }
     .header-navbar .navbar-wrapper .navbar-logo .mobile-options {

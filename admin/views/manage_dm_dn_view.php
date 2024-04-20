@@ -29,7 +29,7 @@ $dem=1;
        <?php while($ctgdn = mysqli_fetch_assoc($catagories_dn)){ ?>
         <tr>
             <td><?php echo $dem ?></td>
-            <td><?php echo $ctgdn['tendanhnghiep'] ?></td> 
+            <td><?php echo $ctgdn['tendoanhnghiep'] ?></td> 
             <td>
                 <a href="edit_dm_dn.php?trangthai=edit&&id=<?php echo $ctgdn['id_dmdn'] ?>" class="btn btn-sm btn-warning">Edit</a>
                 <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $ctgdn['id_dmdn'] ?>)">Delete</a>

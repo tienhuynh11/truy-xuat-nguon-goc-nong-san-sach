@@ -403,7 +403,7 @@ include_once("includes/head.php");
                                                                 <span><i class="fa fa-industry"></i></span>
                                                             </div>
                                                             <h3 class="title">Nhà phân phối</h3>
-                                                            <h5 class="title-sub">Tên nhà phân phối:</h5>
+                                                            <h5 class="title-sub">Tên:</h5>
                                                             <p class="description">
                                                             <?php
                                                                 foreach ($pro_datas as $pro_data) {

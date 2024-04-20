@@ -937,6 +937,15 @@ class  adminback
             return $result;
         }
     }
+
+    function SliderShow(){
+        $query = "SELECT * FROM `slider`";
+        if(mysqli_query($this->connection, $query)){
+            $result = mysqli_query($this->connection, $query);
+            return $result;
+        }
+    }
+
     function show_baiviet_by_id($id_bv){
         $query = "SELECT * FROM `baiviet` WHERE `id_bv`=$id_bv";
         if(mysqli_query($this->connection, $query)){
@@ -955,7 +964,7 @@ class  adminback
     }
     function add_bv($data)
     {
-        // $nguoidang = $data['nguoidang'];
+        $nguoidang = $data['nguoidang'];
         $tieude = $data['tieude'];
         $noidung = $data['noidung'];
     
@@ -1345,7 +1354,7 @@ class  adminback
         $dn_ctg_name = $data['dn_ctg_name'];
       
 
-        $query = "UPDATE `danhmuc_dn` SET `tendanhnghiep`='$dn_ctg_name' WHERE id_dmdn =  $dn_ctg_id";
+        $query = "UPDATE `danhmuc_dn` SET `tendoanhnghiep`='$dn_ctg_name' WHERE id_dmdn =  $dn_ctg_id";
         if (mysqli_query($this->connection, $query)) {
             echo '<script>
             alert(" Chỉnh sửa thành công");
@@ -1356,7 +1365,7 @@ class  adminback
     function add_catagory_dn($data)
     {
         $ctgdn_name = $data['ctgdn_name'];
-        $query = "INSERT INTO `danhmuc_dn`( `tendanhnghiep`) VALUES ('$ctgdn_name')";
+        $query = "INSERT INTO `danhmuc_dn`( `tendoanhnghiep`) VALUES ('$ctgdn_name')";
 
         if (mysqli_query($this->connection, $query)) {
             echo '<script>

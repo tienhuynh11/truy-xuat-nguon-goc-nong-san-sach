@@ -25,7 +25,7 @@
 
     <div class="form-group">
         <label for="dn_ctg_name">Tên danh mục danh nghiệp</label>
-        <input type="text" name="dn_ctg_name" class="form-control" value="<?php echo $catadn['tendanhnghiep'] ?>">
+        <input type="text" name="dn_ctg_name" class="form-control" value="<?php echo $catadn['tendoanhnghiep'] ?>">
     </div>
     
     <input type="hidden" name="dn_ctg_id" value="<?php echo $catadn['id_dmdn'] ?>" >

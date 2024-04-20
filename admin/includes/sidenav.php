@@ -81,14 +81,14 @@
                                         <li class=" ">
                                             <a href="manage_dm_dn.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Quản lý Danh mục doanh nghiệp</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Quản lý danh mục DN</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
                                             <a href="add_dm_dn.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Thêm Danh mục doanh nghiệp</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Thêm danh mục DN</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -299,14 +299,14 @@
                                         <li class=" ">
                                             <a href="manage_nhatky.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Quản lý nhật ký sản phẩm</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Quản lý nhật ký</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
                                             <a href="add_nhatky.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Thêm nhật ký sản phẩm</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert" style="font-weight: 400;">Thêm nhật ký</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
