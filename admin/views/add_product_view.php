@@ -1,4 +1,12 @@
+<?php
+    if(isset($_SESSION['admin_id'])) {
+        $nguoidang_id = $_SESSION['admin_id'];
+    } else {
+        header("Location: login.php");
+        exit();
+    }
 
+?>
 <?php 
     $cata_info = $obj-> p_display_catagory();
 
@@ -17,6 +25,7 @@
 
 </h6>
 <form action="" method="post" enctype="multipart/form-data" class="form">
+    <input type="hidden" name="taikhoan" value="<?php echo $nguoidang_id ?>">
     <div class="form-group">
         <label for="pdt_name">Tên sản phẩm</label>
         <input type="text" name="pdt_name" class="form-control">

@@ -1,4 +1,12 @@
+<?php
+    if(isset($_SESSION['admin_id'])) {
+        $nguoidang_id = $_SESSION['admin_id'];
+    } else {
+        header("Location: login.php");
+        exit();
+    }
 
+?>
 <?php 
     
 
@@ -17,21 +25,34 @@
 
 </h6>
 <form action="" method="post" enctype="multipart/form-data" class="form">
+<div class="form-group">
+        <label for="tenvung">Tên vùng:</label>
+        <input type="text" name="tenvung" class="form-control">
+    </div>
+    <input type="hidden" name="nguoidang" value="<?php echo $nguoidang_id ?>">
     <div class="form-group">
         <label for="pdt_name">Mã vùng:</label>
         <input type="text" name="mavung" class="form-control">
     </div>
     <div class="form-group">
-        <label for="pdt_img">Hình ảnh:</label>
+        <label for="img">Hình ảnh:</label>
         <input type="file" name="img" class="form-control">
     </div>
     <div class="form-group">
-        <label for="pdt_code">Số điện thoại:</label>
+        <label for="sdt">Số điện thoại:</label>
         <input type="text" name="sdt" class="form-control">
     </div>
     <div class="form-group">
         <label for="pdt_price">Địa chỉ:</label>
         <input type="text" name="diachi" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="dientich">Diện tích:</label>
+        <input type="text" name="dientich" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="thongtin">Thông tin:</label>
+        <input type="text" name="thongtin" class="form-control">
     </div>
 
     <!-- <div class="form-group">

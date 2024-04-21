@@ -1,3 +1,4 @@
+
 <?php     
     $show_nhatky = $obj->show_nhatky();
     $nguoidang_info = $obj->show_admin_user();

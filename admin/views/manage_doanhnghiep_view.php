@@ -54,7 +54,7 @@
                         foreach($catadn_array as $catadn){
                             if($dn['danhmuc_dn'] == $catadn['id_dmdn'])
                             {
-                                echo $catadn['tendanhnghiep'];
+                                echo $catadn['tendoanhnghiep'];
                             }
                         }
                         

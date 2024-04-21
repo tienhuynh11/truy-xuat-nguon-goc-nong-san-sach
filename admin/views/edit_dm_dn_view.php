@@ -1,37 +1,41 @@
-
 <?php 
-    if(isset($_GET['trangthai'])){
-        if($_GET['trangthai']=='edit'){
-            $id = $_GET['id'];
-           $catadn = $obj->display_cata_dn_ByID($id);
+    if(isset($_GET['status'])){
+        $id_dmdn = $_GET['id'];
+        if($_GET['status']=="dmdnedit"){
+           $dmdn_info= $obj->show_dmdn_by_id($id_dmdn);
+           $dmdn = mysqli_fetch_assoc($dmdn_info);
         }
     }
 
-    if(isset($_POST['update_ctg_dn'])){
-        $up_msg = $obj->updata_catagory_dn($_POST);
+    if(isset($_POST['update_dmdn'])){
+       $update_msg =  $obj->updata_catagory_dn($_POST);
+       if($update_msg == "Update successful!") {
+        header("Location: manage_dmdn.php"); 
+        exit(); 
+    }
     }
 ?>
 
+<div class="container">
+    <h4>Chỉnh sửa danh mục doanh nghiệp</h4>
 
-<h2>Chỉnh sửa Danh mục danh nghiệp</h2>
-
-<h6 class="">
-
-</h6>
-
-</h4>
-<form action="" method="post">
-
-
+    <h6>
+        <?php 
+            if(isset( $update_msg)){
+                echo  $update_msg;
+            }
+        ?>
+    </h6>
+<form action="" method="POST"  enctype="multipart/form-data" class="form" >
     <div class="form-group">
-        <label for="dn_ctg_name">Tên danh mục danh nghiệp</label>
-        <input type="text" name="dn_ctg_name" class="form-control" value="<?php echo $catadn['tendoanhnghiep'] ?>">
+        <h4>Tên danh mục danh nghiệp</h4>
+        <input type="text" name="dn_ctg_name" class="form-control" value="<?php echo $dmdn['tendoanhnghiep'] ?>" required>
     </div>
-    
-    <input type="hidden" name="dn_ctg_id" value="<?php echo $catadn['id_dmdn'] ?>" >
 
-    <input type="submit" value="Cập nhật" name="update_ctg_dn" class="btn btn-primary" >
-
+    <input type="hidden" name="dn_ctg_id" value="<?php echo $dmdn['id_dmdn'] ?>">
+ 
+    <div class="form-group">
+        <input type="submit" name="update_dmdn" class="btn btn-primary" value="Cập nhật">
+    </div>
 </form>
-
-
+</div>

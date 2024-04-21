@@ -1,6 +1,15 @@
+<?php
+    if(isset($_SESSION['admin_id'])) {
+        $nguoidang_id = $_SESSION['admin_id'];
+    } else {
+        header("Location: login.php");
+        exit();
+    }
 
+?>
 <?php 
     if(isset($_POST['bv_add'])){
+       
        $bv_msg =  $obj->add_bv($_POST);
        
     }
@@ -12,6 +21,8 @@
 
 <div>
     <form action=""method="post" enctype="multipart/form-data" class="form">
+        
+    <input type="hidden" name="nguoidang" value="<?php echo $nguoidang_id ?>">
     <div class="form-group">
         <label for="tieude">Tiêu đề</label> 
         <input type="text" name="tieude" class="form-control">

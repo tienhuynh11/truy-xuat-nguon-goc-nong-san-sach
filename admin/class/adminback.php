@@ -239,6 +239,7 @@ class  adminback
 
     function add_product($data)
     {
+        $taikhoan = $data['taikhoan'];
         $pdt_name = $data['pdt_name'];
         $pdt_price = $data['pdt_price'];
         $pdt_code = $data['pdt_code'];
@@ -257,7 +258,7 @@ class  adminback
             if ($pdt_img_size <= 2e+6) {
                 
                 if($width<2071 && $height<2071){
-                    $query = "INSERT INTO `sanpham`(  `danhmuc`,`tensanpham`,`masanpham`, `gia`, `mota`, `hinhanh`,  `trangthai`) VALUES ('$pdt_ctg', '$pdt_name','$pdt_code','$pdt_price','$pdt_des','$pdt_img_name','dangchoxetduyet')";
+                    $query = "INSERT INTO `sanpham`( `taikhoan`, `danhmuc`,`tensanpham`,`masanpham`, `gia`, `mota`, `hinhanh`,  `trangthai`) VALUES ('$taikhoan','$pdt_ctg', '$pdt_name','$pdt_code','$pdt_price','$pdt_des','$pdt_img_name','dangchoxetduyet')";
 
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($pdt_img_tmp, "uploads/".$pdt_img_name);
@@ -797,53 +798,63 @@ class  adminback
 
     function vsx_update($data){
         $id_vung = $data['id_vung'];
+        $tenvung = $data['tenvung'];
         $mavung = $data['mavung'];
-        $nguoidang = $data['nguoidang'];
         $sdt = $data['sdt'];
         $dc = $data['dc'];
-        
-        $lg_name = $_FILES['img']['name'];
-        $lg_size = $_FILES['img']['size'];
-        $lg_tmp = $_FILES['img']['tmp_name'];
-        $lg_ext = pathinfo($lg_name, PATHINFO_EXTENSION);
-
-        list($width, $height) = getimagesize("$lg_tmp");
-
-
-        if ($lg_ext == "jpg" ||   $lg_ext == 'jpeg' ||  $lg_ext == "png") {
-            if ($lg_size <= 2e+6) {
-
-                if ($width < 1920 && $height < 1000) {
-
-                    $select_query = "SELECT * FROM `vungsanxuat` WHERE `id_vung`=$id_vung";
+        $dientich = $data['dientich'];
+        $thongtin = $data['thongtin'];
+    
+        // Kiểm tra xem có tập tin hình ảnh nào được tải lên không
+        if (!empty($_FILES['img']['tmp_name'])) {
+            $lg_name = $_FILES['img']['name'];
+            $lg_size = $_FILES['img']['size'];
+            $lg_tmp = $_FILES['img']['tmp_name'];
+            $lg_ext = pathinfo($lg_name, PATHINFO_EXTENSION);
+            list($width, $height) = getimagesize($lg_tmp);
+    
+            if ($lg_ext == "jpg" || $lg_ext == 'jpeg' || $lg_ext == "png") {
+                if ($lg_size <= 2e+6 && $width < 1920 && $height < 1000) {
+                    // Xóa ảnh cũ trước khi cập nhật ảnh mới
+                    $select_query = "SELECT * FROM `vungsanxuat` WHERE `id_vung`='$id_vung'";
                     $result = mysqli_query($this->connection, $select_query);
                     $row = mysqli_fetch_assoc($result);
                     $pre_img = $row['hinhanh'];
-                    unlink("uploads/".$pre_img);
-
-
-                    $query = "UPDATE `vungsanxuat` SET `mavung`='$mavung',`hinhanh`='$lg_name',`nguoidang`='$nguoidang',`sdt`='$sdt',`diachi`='$dc ' WHERE `id_vung`=$id_vung";
-
-                    if (mysqli_query($this->connection, $query)) {
-                        move_uploaded_file($lg_tmp, "uploads/" . $lg_name);
+                    unlink("uploads/" . $pre_img);
+    
+                    $query = "UPDATE `vungsanxuat` SET `tenvung` = '$tenvung', `mavung` = '$mavung', `hinhanh` = '$lg_name', `sdt` = '$sdt', `diachi` = '$dc', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
+    
+                    if (mysqli_query($this->connection, $query) && move_uploaded_file($lg_tmp, "uploads/" . $lg_name)) {
                         echo '<script>
                                 alert("Cập nhật thành công");
                                 window.location.href = "manage_vsx.php";
-                                </script>';
+                              </script>';
+                    } else {
+                        echo "Đăng lên thất bại!";
                     }
-                }else{
-                    $msg = "HÌnh ảnh phải có chiều rộng ngắn hơn 1920px và chiều cao thấp hơn: 1000px, nhưng của bạn rộng {$width} px và cao {$height} px";
+                } else {
+                    $msg = "Hình ảnh phải có chiều rộng ngắn hơn 1920px và chiều cao thấp hơn 1000px, nhưng của bạn rộng {$width} px và cao {$height} px";
                     return $msg;
                 }
             } else {
-                $msg = "file ảnh nên nhỏ hơn 2M";
+                $msg = "Chỉ nhận ảnh dạng jpg, jpeg , png";
                 return $msg;
             }
         } else {
-            $msg = "Chỉ nhận ảnh dạng jpg, jpeg , png";
-            return $msg;
+            // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của vùng sản xuất
+            $query = "UPDATE `vungsanxuat` SET `tenvung`='$tenvung', `mavung`='$mavung', `sdt`='$sdt', `diachi`='$dc', `dientich`='$dientich', `thongtin`='$thongtin' WHERE `id_vung`=$id_vung";
+    
+            if (mysqli_query($this->connection, $query)) {
+                echo '<script>
+                        alert("Cập nhật thành công");
+                        window.location.href = "manage_vsx.php";
+                      </script>';
+            } else {
+                echo "Update failed!";
+            }
         }
     }
+    
 
     function delete_Vungsanxuat($id)
     {
@@ -1069,11 +1080,13 @@ class  adminback
 
     function add_vsx($data)
     {
-        
-        $mavung = $data['mavung'];
-        // $nguoidang = $data[''];
+        $nguoidang = $data['nguoidang'];
+        $tenvung=$data['tenvung'];
+        $mavung = $data['mavung'];   
         $sdt = $data['sdt'];
         $diachi = $data['diachi'];
+        $dientich = $data['dientich'];
+        $thongtin = $data['thongtin'];
         $img_name = $_FILES['img']['name'];
         $img_size = $_FILES['img']['size'];
         $img_tmp = $_FILES['img']['tmp_name'];
@@ -1087,7 +1100,7 @@ class  adminback
             if ($img_size <= 2e+6) {
                 
                 if($width<2071 && $height<2071){
-                    $query = "INSERT INTO `vungsanxuat`(  `mavung`,`hinhanh`, `sdt`, `diachi`) VALUES ('$mavung', '$img_name','$sdt','$diachi')";
+                    $query = "INSERT INTO `vungsanxuat`(`nguoidang`, `tenvung`,  `mavung`,`hinhanh`, `sdt`, `diachi`,`dientich`,`thongtin`) VALUES ('$nguoidang','$tenvung','$mavung', '$img_name','$sdt','$diachi','$dientich','$thongtin')";
 
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($img_tmp, "uploads/".$img_name);
@@ -1333,13 +1346,14 @@ class  adminback
             </script>';
         }
     }
-    function show_dmdn_by_id($id){
-        $query = "SELECT * FROM `danhmuc_dn` WHERE `id_dmdn`='$id'";
+    function show_dmdn_by_id($id_dmdn){
+        $query = "SELECT * FROM `danhmuc_dn` WHERE `id_dmdn`='$id_dmdn'";
         if(mysqli_query($this->connection, $query)){
             $result = mysqli_query($this->connection, $query);
             return $result;
         }
     }
+    
     function show_dn_by_id($id_dn){
         $query = "SELECT * FROM `doanhnghiep` WHERE `id_dn`='$id_dn'";
         if(mysqli_query($this->connection, $query)){
@@ -1352,9 +1366,7 @@ class  adminback
     {
         $dn_ctg_id = $data['dn_ctg_id'];
         $dn_ctg_name = $data['dn_ctg_name'];
-      
-
-        $query = "UPDATE `danhmuc_dn` SET `tendoanhnghiep`='$dn_ctg_name' WHERE id_dmdn =  $dn_ctg_id";
+        $query = "UPDATE `danhmuc_dn` SET `tendoanhnghiep` = '$dn_ctg_name' WHERE `id_dmdn` = '$dn_ctg_id';";
         if (mysqli_query($this->connection, $query)) {
             echo '<script>
             alert(" Chỉnh sửa thành công");
@@ -1603,7 +1615,7 @@ class  adminback
 
     function add_nhatky($data)
     {
-        // $nguoidang = $data['nguoidang'];
+        $nguoidang = $data['nguoidang'];
         $sanpham = $data['sanpham'];
        
         $tennhatky = $data['tennhatky'];
@@ -1622,7 +1634,7 @@ class  adminback
             if ($nk_img_size <= 2e+6) {
                 
                 if($width<2071 && $height<2071){
-                    $query = "INSERT INTO `nhatkysanpham` (`sanpham`, `tennhatky`, `chitiet`, `hinhanh`) VALUES ( '$sanpham', '$tennhatky', '$chitiet', '$nk_img_name');";
+                    $query = "INSERT INTO `nhatkysanpham` (`sanpham`,`nguoidang`, `tennhatky`, `chitiet`, `hinhanh`) VALUES ( '$sanpham','$nguoidang', '$tennhatky', '$chitiet', '$nk_img_name');";
 
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($nk_img_tmp, "uploads/".$nk_img_name);

@@ -16,37 +16,47 @@ if (isset($_POST['update_vsx_btn'])) {
 <h2>Chỉnh sửa vùng sản xuất</h2>
 
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data" class="form">
 
 
     <h4>Vùng số: <?php echo $slide['id_vung'] ?></h4>
 
     <input type="hidden" value="<?php echo $slide['id_vung'] ?>" name="id_vung">
-
+    <div class="form-group">
+        <label for="tenvung">Tên vùng</label>
+        <input type="text" name="tenvung" class="form-control" value="<?php echo $slide['tenvung'] ?>">
+    </div>
 
     <div class="form-group">
-        <label for="first_line">Mã vùng</label>
+        <label for="mavung">Mã vùng</label>
         <input type="text" name="mavung" class="form-control" value="<?php echo $slide['mavung'] ?>">
     </div>
 
     <div class="form-group">
-        <label for="slider_img">HÌnh ảnh <span class="text-warning">(Hỉnh ảnh phải rộng:1920px và cao: 550px )</span> </label>
+        <label for="img">HÌnh ảnh <span class="text-warning">(Hỉnh ảnh phải rộng:1920px và cao: 550px )</span> </label>
+        <div class="mb-3">
+        <img src="uploads/<?php echo $slide['hinhanh']?>" style="width: 80px;" >
         <input type="file" name="img" class="form-control" required>
     </div>
 
-    <div class="form-group">
-        <label for="third_line">Người đăng  </label>
-        <input type="text" name="nguoidang" class="form-control" value="<?php echo $slide['nguoidang'] ?>">
-    </div>
+   
 
     <div class="form-group">
-        <label for="btn_left">Số điện thoại</label>
+        <label for="sdt">Số điện thoại</label>
         <input type="text" name="sdt" class="form-control" value="<?php echo $slide['sdt'] ?>">
     </div>
 
     <div class="form-group">
-        <label for="btn_right">Địa chỉ</label>
+        <label for="dc">Địa chỉ</label>
         <input type="text" name="dc" class="form-control" value="<?php echo $slide['diachi'] ?>">
+    </div>
+    <div class="form-group">
+        <label for="dientich">Diện tích</label>
+        <input type="text" name="dientich" class="form-control" value="<?php echo $slide['dientich'] ?>">
+    </div>
+    <div class="form-group">
+        <label for="thongtin">Thông tin</label>
+        <input type="text" name="thongtin" class="form-control" value="<?php echo $slide['thongtin'] ?>">
     </div>
 
 

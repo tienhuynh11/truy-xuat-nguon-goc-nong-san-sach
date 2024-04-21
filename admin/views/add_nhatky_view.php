@@ -1,4 +1,12 @@
+<?php
+    if(isset($_SESSION['admin_id'])) {
+        $nguoidang_id = $_SESSION['admin_id'];
+    } else {
+        header("Location: login.php");
+        exit();
+    }
 
+?>
 <?php 
  $product_info = $obj->display_product();
     if(isset($_POST['add_nk'])){
@@ -31,6 +39,7 @@
         <?php }?>
         </select>
     </div>
+    <input type="hidden" name="nguoidang" value="<?php echo $nguoidang_id ?>">
     <div class="form-group">
         <label for="tennhatky">Tên nhật ký</label> 
         <input type="text" name="tennhatky" class="form-control">

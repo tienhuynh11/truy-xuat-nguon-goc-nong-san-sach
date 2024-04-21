@@ -5,9 +5,9 @@
 
 $catagories_dn = $obj-> display_catagory_dn();
 
-if(isset($_GET['trangthai'])){
+if(isset($_GET['status'])){
     $get_id = $_GET['id'];
-    if($_GET['trangthai']=="delete"){
+    if($_GET['status']=="delete"){
         $obj->delete_catagory_dn($get_id);
     }
 }
@@ -31,7 +31,7 @@ $dem=1;
             <td><?php echo $dem ?></td>
             <td><?php echo $ctgdn['tendoanhnghiep'] ?></td> 
             <td>
-                <a href="edit_dm_dn.php?trangthai=edit&&id=<?php echo $ctgdn['id_dmdn'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                <a href="edit_dm_dn.php?status=dmdnedit&&id=<?php echo $ctgdn['id_dmdn'] ?>" class="btn btn-sm btn-warning">Edit</a>
                 <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $ctgdn['id_dmdn'] ?>)">Delete</a>
             </td>
            
@@ -47,7 +47,7 @@ $dem=1;
 <script>
 function confirmDelete(id) {
     if (confirm("Bạn có chắc chắn muốn xóa danh mục này không?")) {
-        window.location.href = "?trangthai=delete&&id=" + id;
+        window.location.href = "?status=delete&&id=" + id;
     }
 }
 </script>

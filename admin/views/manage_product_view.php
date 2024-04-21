@@ -1,6 +1,12 @@
 <?php 
 $obj=new adminback();
 $product_info =  $obj->display_product();
+$nguoidang_info = $obj->show_admin_user();
+
+$nguoidang_array = array();
+    while($nguoidang = mysqli_fetch_assoc($nguoidang_info)){
+        $nguoidang_array[] = $nguoidang;
+    }
 
 if(isset($_GET['trangthai'])){
     $id = $_GET['id'];
@@ -124,7 +130,7 @@ if(isset($_GET['trangthai'])){
         $('#taikhoan').text(taikhoan);
         $('#vungsanxuat').text(vungsanxuat);
         $('#xuatxu').text(xuatxu);
-        $('#maqr').text(maqr);
+        $('#maqr').html('<img src="uploads/' + maqr + '" style="height: 100px;">');
         $('#danhmuc').text(danhmuc);
         $('#caygiong').text(caygiong);
         $('#trangthai').text(trangthai);
@@ -185,67 +191,87 @@ if(isset($_GET['trangthai'])){
                 </button>
             </div>
             <div class="modal-body" id="productDetails">
-            <table class="table">
-                <tr>
-                    <th>Tên nông sản:</th>
-                    <td id="tensanpham"></td>
-                </tr>
-                <tr>
-                    <th>Mã nông sản:</th>
-                    <td id="masanpham"></td>
-                </tr>
-                <tr>
-                    <th>Mã QR:</th>
-                    <td id="maqr"></td>
-                </tr>
-                <tr>
-                    <th>Giá:</th>
-                    <td id="gia"></td>
-                </tr>
-                <tr>
-                    <th>Mô tả:</th>
-                    <td id="mota"></td>
-                </tr>
-                <tr>
-                    <th>Danh mục:</th>
-                    <td id="danhmuc"></td>
-                </tr>
-                <tr>
-                    <th>Công dụng:</th>
-                    <td id="congdung" ></td>
-                </tr>
-                <tr>
-                    <th>Hình ảnh:</th>
-                    <td id="hinhanh"  > </td>
-                </tr>
-                <tr>
-                    <th>Hướng dẫn sử dụng:</th>
-                    <td id="hdsd" ></td>
-                </tr>
-                <tr>
-                    <th>Vùng sản xuất:</th>
-                    <td id="vungsanxuat" ></td>
-                </tr>
-                <tr>
-                    <th>Xuất xứ:</th>
-                    <td id="xuatxu" ></td>
-                </tr>
-                <tr>
-                    <th>Điều kiện bảo quản:</th>
-                    <td id="dieukienbaoquan" ></td>
-                </tr>
-                <tr>
-                    <th>Cây giống:</th>
-                    <td id="caygiong"></td>
-                </tr>
-                <tr>
-                    <th>Người đăng:</th>
-                    <td id="taikhoan" ></td>
-                </tr>
-            </table>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Tên nông sản</label>
+                                            <div class="col-9" id="tensanpham">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Mã sản phẩm</label>
+                                            <div class="col-9" id="masanpham">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Mã QR</label>
+                                            <div class="col-9" id="maqr">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Hình ảnh</label>
+                                            <div class="col-9" id="hinhanh">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Giá</label>
+                                            <div class="col-9" id="gia">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Mô tả</label>
+                                            <div class="col-9" id="mota">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Danh mục</label>
+                                            <div class="col-9" id="danhmuc">  
+                                             
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Công dụng</label>
+                                            <div class="col-9" id="congdung">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Hướng dẫn sử dụng</label>
+                                            <div class="col-9" id="hdsd">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Vùng sản xuất</label>
+                                            <div class="col-9" id="vungsanxuat">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Xuất xứ</label>
+                                            <div class="col-9" id="xuatxu">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Điều kiện bảo quản</label>
+                                            <div class="col-9" id="dieukienbaoquan">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Cây giống</label>
+                                            <div class="col-9" id="caygiong">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Người đăng </label>
+                                            <div class="col-9" id="taikhoan"> 
+                                            <?php 
+                                                foreach($nguoidang_array as $nguoidang){
+                                                    if($pdt['taikhoan'] == $nguoidang['id_acc']){
+                                                        echo $nguoidang['hoten'];
+                                                    }
+                                                }
+                                                ?>  
+                                            </div>
+                                        </div>
             </div>
             <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
        
       </div>
 
