@@ -9,13 +9,14 @@
 ?>
 <?php 
     $cata_info = $obj-> p_display_catagory();
-
+    $caygiong=$obj->show_caygiong();
+    $vungsanxuat=$obj->vsxShow();
     if(isset($_POST['add_pdt'])){
         $rtn_msg = $obj->add_product($_POST);
     }
 ?>
 
-<h2>Add Product</h2>
+<h2>Thêm nông sản</h2>
 <h6 class="text-success">
    <?php 
      if(isset($rtn_msg)){
@@ -56,9 +57,36 @@
         <?php }?>
         </select>
     </div>
+    
+    <div class="form-group">
+        <label for="pdt_ctg">Cây giống</label>
+        <select name="pdt_ctg" class="form-control">
+        <option value="">Chọn cây giống</option>
+
+        <?php while($cg = mysqli_fetch_assoc($caygiong)){ ?>
+        <option value="<?php echo $cg['id_cg'] ?>"><?php echo $cg['tencaygiong'] ?></option>
+
+        <?php }?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="pdt_ctg">Vùng sản xuất</label>
+        <select name="pdt_ctg" class="form-control">
+        <option value="">Chọn vùng sản xuất</option>
+
+        <?php while($vsx = mysqli_fetch_assoc($vungsanxuat)){ ?>
+        <option value="<?php echo $vsx['id_vung'] ?>"><?php echo $vsx['tenvung'] ?></option>
+
+        <?php }?>
+        </select>
+    </div>
 
     <div class="form-group">
-        <label for="pdt_img">Product Image</label>
+        <label for="hdsd">Hướng dẫn sử dụng</label>
+        <input type="text" name="hdsd" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="pdt_img">Hình ảnh</label>
         <input type="file" name="pdt_img" class="form-control">
     </div>
 
@@ -69,5 +97,5 @@
 
 
 
-    <input type="submit" value="Add Product" name="add_pdt" class="btn btn-block btn-primary">
+    <input type="submit" value="Thêm nông sản" name="add_pdt" class="btn btn-block btn-primary">
 </form>
