@@ -15,7 +15,17 @@ if(isset($_GET['status'])){
 $dem=1;
 
 ?>
-<div >
+
+<div style="padding-bottom: 5px;" class="row">
+    <div class="col-md-6 col-sm-6">
+        <h2>Quản lý danh mục DN</h2>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <a style="float: right;" class="btn btn-primary" href="add_dm_dn.php">Thêm danh mục DN</a>
+    </div>
+</div>
+
+<div style="overflow-x: auto;">
 <table class="table table-striped">
     <thead>
         <tr>
@@ -31,8 +41,8 @@ $dem=1;
             <td><?php echo $dem ?></td>
             <td><?php echo $ctgdn['tendoanhnghiep'] ?></td> 
             <td>
-                <a href="edit_dm_dn.php?status=dmdnedit&&id=<?php echo $ctgdn['id_dmdn'] ?>" class="btn btn-sm btn-warning">Edit</a>
-                <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $ctgdn['id_dmdn'] ?>)">Delete</a>
+                <a href="edit_dm_dn.php?status=dmdnedit&&id=<?php echo $ctgdn['id_dmdn'] ?>" class="btn btn-sm btn-warning">Sửa</a>
+                <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $ctgdn['id_dmdn'] ?>)">Xóa</a>
             </td>
            
         </tr>

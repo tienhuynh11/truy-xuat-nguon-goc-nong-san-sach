@@ -16,17 +16,24 @@
 
 ?>      
 
-<div class="container">
-    <h2>Quản lý doanh nghiệp</h2>
+<div style="padding-bottom: 5px;" class="row">
+    <div class="col-md-6 col-sm-6">
+        <h2>Quản lý doanh nghiệp</h2>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <a style="float: right;" class="btn btn-primary" href="add_dn.php">Thêm doanh nghiệp</a>
+    </div>
+</div>
 
-    <div style="overflow-x: auto;">
+<div style="overflow-x: auto;">
+
     <table class="table table-bordered">
         <thead>
 
        
             <tr>
                 <th>STT</th>
-                <th>Danh mục doanh nghiệp</th>
+                <th>Loại doanh nghiệp</th>
                 <th>Người đại diện </th>
                 <th>Tên doanh nghiệp</th>
                 <th>Hình ảnh</th>
@@ -87,7 +94,6 @@
         </tbody>
     </table>
 </div>
-    </div>
 
 
 <script>

@@ -2610,12 +2610,13 @@ body.open-mobile-search .header-area.layout-02{
     line-height: 24px;
 }
 @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
-{ @media {
-    /*
+ {/* @media {
+    
+    
       Define here the CSS styles applied only to Safari browsers
       (any version and any device)
-     */
-}}
+     
+}*/ } 
 .newsletter-block.layout-03{
     display: block;
     font-size: 0;
@@ -14671,4 +14672,150 @@ body.open-quickview-block .biolife-quickview-block{
     .biolife-carousel.nav-none-on-mobile.nav-center-03 .slick-arrow.next{
         display: none !important;
     }
+}
+
+/* CSS cho màn hình lớn */
+.container-x {
+    margin-top: 10px;
+    width: 800px;
+}
+.head-info {
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffff;
+    border: #ccc 1px solid;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding-bottom: 40px;
+}
+
+
+.head-left {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    
+}
+
+.head-left img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+.info {
+    width: 80%;
+    padding-bottom: 20px;
+    
+}
+
+.info h2 {
+    font-weight: bold;
+    color: black;
+}
+
+.info strong {
+    font-weight: bold;
+    color: black;
+}
+.head-right {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 10px;
+    
+}
+
+.qrcode img {
+    max-width: 100px;
+    height: auto;
+}
+
+/* CSS cho màn hình nhỏ */
+@media (max-width: 767px) {
+    .container-x{
+        width: 100%;
+    }
+    .head-info {
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 40px;
+    }
+
+    .head-left {
+        width: 100%;
+        margin-bottom: 10px; /* Thêm margin dưới để tách biệt giữa hình ảnh và nội dung */
+        border-bottom: none;
+    }
+
+    .head-left img {
+        width: 150px;
+        height: 150px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .info {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+        border-bottom: none;
+    }
+    .info h2 {
+        font-size: 2rem;
+    }
+
+    .info span {
+        font-size: 1.8rem;
+    }
+
+    .head-right {
+        width: 100%;
+        justify-content: center;
+        padding-right: 0;
+        padding-bottom: 20px;
+        border-bottom: 3px dotted #ccc; 
+    }
+
+    .head-info {
+        position: relative;
+    }
+
+    .qrcode {
+        position: absolute;
+        top: 110px;
+        right: 110px;
+        margin-top: 0; /* Bỏ margin top để đảm bảo nằm ngay bên cạnh hình ảnh phía trên */
+    }
+    .qrcode img {
+        width: 50px;
+        height: 50px;
+        border: 1px solid black;
+    }
+}
+.content-vsx{
+    display: block;
+    width: 100%;
+    padding: 0 10px;
+    width: 100%;
+}
+.content-vsx p{
+    font-weight: bold;
+    color: #111111;
+    font-size: 16px;
+}
+#vsx{
+    padding-top: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px dashed #ccc;
+    font-size: 16px;
+}
+.content-vsx img{
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
 }

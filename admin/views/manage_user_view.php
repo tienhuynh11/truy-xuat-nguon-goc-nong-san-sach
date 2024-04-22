@@ -9,10 +9,15 @@
   }
 
 ?>      
-
-<div class="container">
-    <h2>Quản lý tài khoản</h2>
-
+<div style="padding-bottom: 5px;" class="row">
+    <div class="col-md-6 col-sm-6">
+        <h2>Quản lý tài khoản</h2>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <a style="float: right;" class="btn btn-primary" href="add_user.php">Thêm tài khoản</a>
+    </div>
+</div>
+<div style="overflow-x: auto;">
     <table class="table table-bordered">
         <thead>
 
@@ -48,8 +53,8 @@
                  ?> </td>
             
                 <td>  
-                    <a href="edit_admin.php?status=userEdit&&id=<?php echo $user['id_acc'] ?>" class="btn btn-sm btn-warning">Edit </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $user['id_acc'] ?>)">Delete</a>
+                    <a href="edit_admin.php?status=userEdit&&id=<?php echo $user['id_acc'] ?>" class="btn btn-sm btn-warning">Sửa </a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $user['id_acc'] ?>)">Xóa</a>
 
                 </td>
             </tr>
@@ -60,7 +65,6 @@
         </tbody>
     </table>
 </div>
-
 
 <script>
     function confirmDelete(id) {

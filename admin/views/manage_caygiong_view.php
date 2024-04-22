@@ -9,14 +9,18 @@
 
 ?>      
 
-<div class="container">
-    <h2>Quản lý Cây giống</h2>
+<div style="padding-bottom: 5px;" class="row">
+    <div class="col-md-6 col-sm-6">
+        <h2>Quản lý cây giống</h2>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <a style="float: right;" class="btn btn-primary" href="add_caygiong.php">Thêm cây giống</a>
+    </div>
+</div>
 
-    <div style="overflow-x: auto;">
+<div style="overflow-x: auto;">
     <table class="table table-bordered">
         <thead>
-
-       
             <tr>
                 <th>Stt</th>
                 <th>Tên Cây giống</th>
@@ -68,7 +72,6 @@
             ?>
         </tbody>
     </table>
-    </div>
 </div>
 
 <script>

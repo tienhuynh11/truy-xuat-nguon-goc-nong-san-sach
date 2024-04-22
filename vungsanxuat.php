@@ -12,7 +12,7 @@ while ($data = mysqli_fetch_assoc($cata_info)) {
 
 
 
-$pdt_info = $obj->view_all_product();
+$pdt_info = $obj->vsxShow();
 
 $pdt_datas = array();   
         
@@ -45,10 +45,6 @@ include_once("includes/head.php");
         include_once("includes/header_middle.php");
         ?>
 
-        <?php
-        include_once("includes/header_bottom.php");
-        ?>
-
     </header>
 
     <!-- Page Contain -->
@@ -75,22 +71,43 @@ include_once("includes/head.php");
 
                             <?php
                             foreach ($pdt_datas as $pdt_data) {
-                                $formatted_id_sp = 'NSQN'.str_pad($pdt_data['id_sp'], 5, '0', STR_PAD_LEFT);
+
                             ?>
 
                                 <li class="product-item col-lg-3 col-md-3 col-sm-4 col-xs-6">
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
-                                            <a href="chitietsanpham.php?id=<?php echo $pdt_data['id_sp'] ?>" class="link-to-product">
+                                            <a href="chitietvsx.php?id=<?php echo $pdt_data['id_vung'] ?>" class="link-to-product">
                                                 <img style="border-radius: 10px;" src="admin/uploads/<?php echo $pdt_data['hinhanh'] ?>" alt="dd" width="270" height="270" class="product-thumnail">
                                             </a>
                                         </div>
-                                        <div class="info">                                        
+                                        <div class="info">
                                             
-                                            <h4 class="product-title"><a href="chitietsanpham.php?id=<?php echo $pdt_data['id_sp']; ?>" class="pr-name"><?php echo $pdt_data['tensanpham'] ?></a></h4>
+                                            <?php
+                                                $tenvung = $pdt_data['tenvung']; // Lấy nội dung từ biến $pdt_data
+                                                $max_length = 60; // Độ dài tối đa cho chuỗi
+
+                                                // Kiểm tra độ dài của chuỗi
+                                                if (strlen($tenvung) > $max_length) {
+                                                    // Nếu độ dài vượt quá $max_length, thực hiện cắt chuỗi
+                                                    $half_content = substr($tenvung, 0, $max_length);
+
+                                                    // Kiểm tra xem chuỗi có bị cắt giữa từ một từ không
+                                                    $last_space = strrpos($half_content, ' ');
+                                                    if ($last_space !== false) {
+                                                        $half_content = substr($half_content, 0, $last_space); // Loại bỏ phần sau từ cuối cùng nếu có
+                                                    }
+
+                                                    // Hiển thị phần đã cắt của chuỗi
+                                                    echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id='.$pdt_data['id_vung'].'" class="pr-name">'.$half_content.'...</a></h4>';
+                                                } else {
+                                                    // Nếu độ dài không vượt quá $max_length, hiển thị chuỗi nguyên gốc
+                                                    echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id='.$pdt_data['id_vung'].'" class="pr-name">'.$tenvung.'</a></h4>';
+                                                }
+                                            ?>
+
                                             <div class="price">
-                                                
-                                                <ins><span style="color: #808080;" class="price-amount"><?php echo $formatted_id_sp ?></span></ins>
+                                                <ins><span style="color: #808080;" class="price-amount"><?php echo $pdt_data['mavung'] ?></span></ins>
 
                                             </div>
                                             <!-- <div class="shipping-info">

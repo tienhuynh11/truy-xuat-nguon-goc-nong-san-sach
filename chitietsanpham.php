@@ -244,7 +244,7 @@ include_once("includes/head.php");
 
                             <?php
                             foreach ($pro_datas as $pro_data) {
-
+                                $formatted_id_sp = 'NSQN'.str_pad($pro_data['id_sp'], 5, '0', STR_PAD_LEFT);
 
                             ?>
 
@@ -275,7 +275,7 @@ include_once("includes/head.php");
                                                 <span class="sku">MÃ SẢN PHẨM</span>
                                                 <!-- <span class="stock" style="margin-left: 200px;">Stock: <?php //echo $pro_data['product_stock'] ?> </span> -->
                                                 <br>
-                                                <span style="font-weight:bold;color: black;font-size:145%;"><?php echo $pro_data['masanpham'] ?></span>
+                                                <span style="font-weight:bold;color: black;font-size:145%;"><?php echo $formatted_id_sp ?></span>
                                                 <br>
                                                 <span style="font-size:130%;" >Xuất xứ: <?php echo $pro_data['xuatxu'] ?></span>
                                                 <br>
@@ -391,7 +391,7 @@ include_once("includes/head.php");
                                                         }
                                                     ?>
                                                     </p>
-                                                    <a class="btn btn-info" href="">Xem chi tiết</a>
+                                                    <a class="btn btn-info" href="vungsanxuat.php?id=<?= $pro_data['vungsanxuat']?>">Xem chi tiết</a>
                                                 </div>
                                             </div>
                                             <?php }?>

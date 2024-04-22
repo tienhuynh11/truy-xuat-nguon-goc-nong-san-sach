@@ -19,68 +19,75 @@ if(isset($_GET['trangthai'])){
     }
 }
 ?>
-<h2>Quản lý nông sản</h2> 
-<br>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>STT</th>      
-            <th>Test ID</th>
-            <th>Tên sản phẩm</th>      
-            <th>Mã sản phẩm</th>
-            <th>QR code</th>
-            <th>Trạng thái</th> 
-            <th>Hành động</th> 
-
-        </tr>
-    </thead>
-
-    <tbody>
-        <?php 
-        if(isset($del_msg)){
-            echo "{$del_msg}";
-        }
-        $dem=1;
-        ?>
-        <?php while($pdt = mysqli_fetch_assoc($product_info)) {?>
-            
+<div style="padding-bottom: 5px;" class="row">
+    <div class="col-md-6 col-sm-6">
+        <h2>Quản lý nông sản</h2>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <a style="float: right;" class="btn btn-primary" href="add_product.php">Thêm nông sản</a>
+    </div>
+</div>
+<div style="overflow-x: auto;">
+    <table class="table table-bordered">
+        <thead>
             <tr>
-                <td><?php echo $dem ?></td>
-                <td><?php echo $pdt['id_sp'] ?></td>
-                <td><?php echo $pdt['tensanpham'] ?></td>
-                <td><?php echo $pdt['masanpham'] ?></td>
-                
-                <td><img style="height:60px" src="uploads/<?php echo $pdt['maqr'] ?>" alt=""></td>
-                <td> 
-                    <?php if($pdt['trangthai']=='dangchoxetduyet'){ ?>
-                        <a href="#"  class="btn btn-sm btn-primary" onclick="updateStatus(<?php echo $pdt['id_sp'] ?>,'daxetduyet')">Đang chờ xét duyệt</a>
-                    <?php } else { ?>
-                        <a href="#" class="btn btn-sm btn-warning" onclick="updateStatus(<?php echo $pdt['id_sp'] ?>,'dangchoxetduyet')">Đã xét duyệt</a>
-                    <?php } ?>
-                </td>
-                
-                <td>
-                    <!-- Ở đây m muốn hiển thị dữ liệu nào thì thêm data-tênbiến = "<?= $pdt['tên biến cần lấy'] ?>" bỏ vô dưới -->
+                <th>STT</th>      
+                <th>Tên sản phẩm</th>      
+                <th>Mã sản phẩm</th>
+                <th>QR code</th>
+                <th>Trạng thái</th> 
+                <th>Hành động</th> 
 
-                    <a class="btn btn-sm btn-success editbtn" href="#" data-toggle="modal" data-target="#xemchitiet"
-                     data-id="<?= $pdt['id_sp'] ?>" data-name="<?= $pdt['tensanpham'] ?>"  data-masp="<?= $pdt['masanpham'] ?>"
-                      data-gia="<?= $pdt['gia'] ?>" data-xuatxu="<?= $pdt['xuatxu'] ?>" data-hinhanh="<?= $pdt['hinhanh'] ?>" 
-                      data-congdung="<?= $pdt['congdung'] ?>" data-caygiong="<?= $pdt['caygiong'] ?>" data-dieukienbaoquan="<?= $pdt['dieukienbaoquan'] ?>"
-                       data-maqr="<?= $pdt['maqr'] ?>" data-mota="<?= $pdt['mota'] ?>" data-hdsd="<?= $pdt['hdsd'] ?>" 
-                     data-danhmuc="<?= $pdt['danhmuc'] ?>" data-taikhoan="<?= $pdt['taikhoan'] ?>" 
-                     data-vungsanxuat="<?= $pdt['vungsanxuat'] ?>">Chi tiết</a>
-
-                    <!-- <a class="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#exampleModalCenter" data-id="<?php echo $pdt['id_sp'] ?>">Chi tiết</a> -->
-                    <a href="edit_product.php?trangthai=edit&&id=<?php echo $pdt['id_sp'] ?>" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $pdt['id_sp'] ?>)">Delete</a>
-                </td>
             </tr>
+        </thead>
+
+        <tbody>
             <?php 
-                $dem++;
-            }?>
-    </tbody>
-</table>
+            if(isset($del_msg)){
+                echo "{$del_msg}";
+            }
+            $dem=1;
+            ?>
+            <?php while($pdt = mysqli_fetch_assoc($product_info)) {
+                $formatted_id_sp = 'NSQN'.str_pad($pdt['id_sp'], 5, '0', STR_PAD_LEFT);
+                ?>
+                    
+                <tr>
+                    <td><?php echo $dem ?></td>
+                    <td><?php echo $pdt['tensanpham'] ?></td>
+                    <td><?php echo $formatted_id_sp ?></td>
+                    
+                    <td><img style="height:60px" src="uploads/<?php echo $pdt['maqr'] ?>" alt=""></td>
+                    <td> 
+                        <?php if($pdt['trangthai']=='dangchoxetduyet'){ ?>
+                            <a href="#"  class="btn btn-sm btn-primary" onclick="updateStatus(<?php echo $pdt['id_sp'] ?>,'daxetduyet')">Đang chờ xét duyệt</a>
+                        <?php } else { ?>
+                            <a href="#" class="btn btn-sm btn-warning" onclick="updateStatus(<?php echo $pdt['id_sp'] ?>,'dangchoxetduyet')">Đã xét duyệt</a>
+                        <?php } ?>
+                    </td>
+                    
+                    <td>
+                        <!-- Ở đây m muốn hiển thị dữ liệu nào thì thêm data-tênbiến = "<?= $pdt['tên biến cần lấy'] ?>" bỏ vô dưới -->
+
+                        <a class="btn btn-sm btn-success editbtn" href="#" data-toggle="modal" data-target="#xemchitiet"
+                        data-id="<?= $pdt['id_sp'] ?>" data-name="<?= $pdt['tensanpham'] ?>"  data-masp="<?php echo  $formatted_id_sp?>"
+                        data-gia="<?= $pdt['gia'] ?>" data-xuatxu="<?= $pdt['xuatxu'] ?>" data-hinhanh="<?= $pdt['hinhanh'] ?>" 
+                        data-congdung="<?= $pdt['congdung'] ?>" data-caygiong="<?= $pdt['caygiong'] ?>" data-dieukienbaoquan="<?= $pdt['dieukienbaoquan'] ?>"
+                        data-maqr="<?= $pdt['maqr'] ?>" data-mota="<?= $pdt['mota'] ?>" data-hdsd="<?= $pdt['hdsd'] ?>" 
+                        data-danhmuc="<?= $pdt['danhmuc'] ?>" data-taikhoan="<?= $pdt['taikhoan'] ?>" 
+                        data-vungsanxuat="<?= $pdt['vungsanxuat'] ?>">Chi tiết</a>
+
+                        <!-- <a class="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#exampleModalCenter" data-id="<?php echo $pdt['id_sp'] ?>">Chi tiết</a> -->
+                        <a href="edit_product.php?trangthai=edit&&id=<?php echo $pdt['id_sp'] ?>" class="btn btn-sm btn-warning">Sửa</a>
+                        <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $pdt['id_sp'] ?>)">Xóa</a>
+                    </td>
+                </tr>
+                <?php 
+                    $dem++;
+                }?>
+        </tbody>
+    </table>
+</div>
   
 <script>
     function confirmDelete(id) {
@@ -186,9 +193,9 @@ if(isset($_GET['trangthai'])){
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalCenterTitle">Thông tin chi tiết</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
             </div>
             <div class="modal-body" id="productDetails">
                                         <div class="row form-group">
@@ -218,7 +225,7 @@ if(isset($_GET['trangthai'])){
                                         </div>
                                         <div class="row form-group">
                                             <label  class="col-3">Mô tả</label>
-                                            <div class="col-9" id="mota">   
+                                            <div style="white-space: pre-line;" class="col-9" id="mota">   
                                             </div>
                                         </div>
                                         <div class="row form-group">
@@ -229,7 +236,7 @@ if(isset($_GET['trangthai'])){
                                         </div>
                                         <div class="row form-group">
                                             <label  class="col-3">Công dụng</label>
-                                            <div class="col-9" id="congdung">   
+                                            <div class="col-9" style="white-space: pre-line;" id="congdung">   
                                             </div>
                                         </div>
                                         <div class="row form-group">
@@ -283,6 +290,13 @@ if(isset($_GET['trangthai'])){
   #xemchitiet .modal-dialog {
     max-width: 80%; /* Thiết lập kích thước tối đa cho modal */
     
+}
+
+@media (max-width: 576px) {
+    #xemchitiet .modal-dialog {
+        margin: 0 auto; /* Canh giữa modal */
+        max-width: calc(100% - 20px); /* Độ rộng tối đa của modal */
+    }
 }
 
 #xemchitiet .modal-body {

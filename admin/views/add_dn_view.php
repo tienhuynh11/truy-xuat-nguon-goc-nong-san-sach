@@ -17,7 +17,7 @@
         <option value="">Chọn danh mục</option>
 
         <?php while($cata = mysqli_fetch_assoc($catadn_info)){ ?>
-        <option value="<?php echo $cata['id_dmdn'] ?>"  ><?php echo $cata['tendanhnghiep'] ?></option>
+        <option value="<?php echo $cata['id_dmdn'] ?>"  ><?php echo $cata['tendoanhnghiep'] ?></option>
 
         <?php }?>
         </select>

@@ -39,10 +39,6 @@
         <input type="file" name="img" class="form-control">
     </div>
     <div class="form-group">
-        <label for="sdt">Số điện thoại:</label>
-        <input type="text" name="sdt" class="form-control">
-    </div>
-    <div class="form-group">
         <label for="pdt_price">Địa chỉ:</label>
         <input type="text" name="diachi" class="form-control">
     </div>
@@ -52,7 +48,7 @@
     </div>
     <div class="form-group">
         <label for="thongtin">Thông tin:</label>
-        <input type="text" name="thongtin" class="form-control">
+        <textarea name="thongtin" id="thongtin" class="form-control" cols="30" rows="10"></textarea>
     </div>
 
     <!-- <div class="form-group">

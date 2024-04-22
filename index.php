@@ -170,10 +170,12 @@ include_once("includes/head.php");
 
         </div>
     </div>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                                                         
             <div class="container profile border" style="border-radius: 5px;margin-top: 10px; ">
+            <style>
+                @import url('https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css');
+                @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+            </style>
                 <div class="row" style="margin-top:15px; margin-bottom:5px;">
                     <?php
                         foreach($baiviet as $bv){
@@ -344,4 +346,3 @@ include_once("includes/head.php");
 </body>
 
 </html>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">

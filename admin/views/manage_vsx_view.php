@@ -12,8 +12,16 @@
  }
 }
 ?>
+<div style="padding-bottom: 5px;" class="row">
+    <div class="col-md-6 col-sm-6">
+        <h2>Quản lý vùng sản xuất</h2>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <a style="float: right;" class="btn btn-primary" href="add_vsx.php">Thêm vùng sản xuất</a>
+    </div>
+</div>
 
-<h2>Quản lý vùng sản xuất</h2>
+
 <div style="overflow-x: auto;">
     
 <table class="table">
@@ -60,8 +68,8 @@
             <td> <?php echo $row['dientich'] ?></td>
             <td> <?php echo $row['thongtin'] ?></td>                
             <td>
-            <a href="edit_vsx.php?status=edit&&id=<?php echo $row['id_vung'] ?>" class="btn btn-sm btn-warning">Edit</a>
-            <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $row['id_vung'] ?>)">Delete</a>
+            <a href="edit_vsx.php?status=edit&&id=<?php echo $row['id_vung'] ?>" class="btn btn-sm btn-warning">Sửa</a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $row['id_vung'] ?>)">Xóa</a>
 
                
             </td>
