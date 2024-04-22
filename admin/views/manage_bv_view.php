@@ -58,7 +58,7 @@
                         </td>
                         <td><?php echo $bv['tieude'] ?></td>
                         <td><?php echo $bv['noidung'] ?></td>
-                        <td><img style="height:60px" src="uploads/<?php echo $bv['hinhanh'] ?>" alt=""></td>
+                        <td><img style="height:60px" src="uploads/baiviet/<?php echo $bv['hinhanh'] ?>" alt=""></td>
                         <td><?php echo $bv['ngaydang'] ?></td>
                         <td>  
                             <a href="edit_bv.php?status=couponEdit&&id=<?php echo $bv['id_bv'] ?>" class="btn btn-sm btn-warning">Sửa </a>

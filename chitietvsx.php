@@ -27,6 +27,7 @@ foreach($pro_datas as $pro_data){
     $diachi = $pro_data['diachi'];
     $bando = $pro_data['bando'];
     $dientich = $pro_data['dientich'];
+    $thoigiannuoitrong = $pro_data['thoigiannuoitrong'];
 }
 
     $nguoidang_info = $obj->show_admin_user_by_id($nguoidang);
@@ -153,7 +154,7 @@ include_once("includes/head.php");
             <div class="head-left">
                 <img src="admin/uploads/<?= $hinhanh?>" alt="<?= $hinhanh?>">
             </div>
-            <div class="info">
+            <div class="info-1">
                     <h2><?= $tenvung?></h2>
                     <span>Mã vùng: <strong><?= $mavung?></strong></span>
                 </div>
@@ -168,7 +169,7 @@ include_once("includes/head.php");
             <?php 
                 if(!is_null($hinhanh)){?>
                     <div class="content-vsx">
-                        <div class="row" id="vsx">
+                        <div class="row" id="vsx" style="padding: 20px 0;">
                             <div class="col-md-3">
                                 Hình ảnh:
                             </div>
@@ -222,6 +223,14 @@ include_once("includes/head.php");
                             </div>
                             <div class="col-md-9">
                                 <p class="title"><?php echo $dientich?></p>
+                            </div>
+                        </div>
+                        <div class="row" id="vsx">
+                            <div class="col-md-3">
+                                Thời gian nuôi trồng:
+                            </div>
+                            <div class="col-md-9">
+                                <p class="title"><?php echo $thoigiannuoitrong?></p>
                             </div>
                         </div>
                     </div>

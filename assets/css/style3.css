@@ -14706,18 +14706,18 @@ body.open-quickview-block .biolife-quickview-block{
     margin-right: 20px;
 }
 
-.info {
+.info-1 {
     width: 80%;
     padding-bottom: 20px;
     
 }
 
-.info h2 {
+.info-1 h2 {
     font-weight: bold;
     color: black;
 }
 
-.info strong {
+.info-1 strong {
     font-weight: bold;
     color: black;
 }
@@ -14759,17 +14759,17 @@ body.open-quickview-block .biolife-quickview-block{
         margin-left: auto;
     }
 
-    .info {
+    .info-1 {
         width: 100%;
         text-align: center;
         padding: 0;
         border-bottom: none;
     }
-    .info h2 {
+    .info-1 h2 {
         font-size: 2rem;
     }
 
-    .info span {
+    .info-1 span {
         font-size: 1.8rem;
     }
 
@@ -14809,8 +14809,8 @@ body.open-quickview-block .biolife-quickview-block{
     font-size: 16px;
 }
 #vsx{
-    padding-top: 30px;
-    padding-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 5px;
     border-bottom: 2px dashed #ccc;
     font-size: 16px;
 }

@@ -2,9 +2,16 @@
 <?php 
     $catadn_info = $obj->display_catagory_dn();
 
+    $users = $obj->show_admin_user();
+    $user_array = array();
+    while($user = mysqli_fetch_assoc($users)){
+        $user_array[] = $user;
+    }  
+    
     if(isset($_POST['add_dn'])){
         $rtn_msg = $obj->add_dn($_POST);
     }
+    
 ?>
 
 <h2>Thêm doanh nghiệp</h2>
@@ -22,9 +29,17 @@
         <?php }?>
         </select>
     </div>
-        <label for="nguoidaidien">Người đại diện</label>
-        <input type="text" name="nguoidaidien" class="form-control"  >
+
+    <?php if (!empty($user_array)): ?>
+    <div class="form-group">
+        <label for="lblnguoidaidien">Người đại diện</label>
+        <select name="nguoidaidien" id="nguoidaidien" class="form-control">
+            <?php foreach($users as $user): ?>
+                <option value="<?= $user['id_acc'] ?>"><?= $user['hoten'] ?> - <?= $user['dienthoai'] ?></option>
+            <?php endforeach; ?>
+        </select>
     </div>
+    <?php endif; ?>
 
     <div class="form-group">
         <label for="tendoanhnghiep">Tên doanh nghiệp</label>
@@ -35,7 +50,6 @@
         <div class="mb-3">
         <input type="file" name="hinhanh" class="form-control">
     </div>
-    <input type="hidden" name="id_dn" value="">
     <div class="form-group">
         <label for="sdt"> Số điện thoại</label>
         <input type="text" name="sdt" class="form-control" >
