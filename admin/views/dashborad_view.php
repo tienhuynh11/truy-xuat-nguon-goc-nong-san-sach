@@ -3,9 +3,9 @@
     $total_products = $obj->count_product(); 
     $total_products_daduyet= $obj->count_product_daduyet();
     $dembaiviet=$obj->count_bv();
-    $demdg=$obj->count_dg();
+    $demdn=$obj->count_dn();
     $demvsx=$obj->count_vsx();
-
+    $demcg=$obj->count_caygiong();
 ?>
 <style>
     .mydiv{
@@ -15,7 +15,7 @@
         overflow: hidden;
     }
 </style>
-<h2>Dashborad </h2>
+<h2>Bảng điều khiển</h2>
 
 
 <!-- <div class="mydiv">
@@ -177,8 +177,8 @@
 <div class="col-md-6 col-xl-3">
     <div class="card bg-c-pink order-card">
         <div class="card-block">
-            <h6 class="m-b-20">Đánh giá</h6>
-            <h2 class="text-right"><i class="ti-user f-left"></i><span id="processingOrder"><?php echo  $demdg ; ?></span></h2>
+            <h6 class="m-b-20">Doanh nghiệp</h6>
+            <h2 class="text-right"><i class="ti-user f-left"></i><span id="processingOrder"><?php echo  $demdn ; ?></span></h2>
             <p class="m-b-0"><span class="f-right"></span></p>
         </div>
     </div>
@@ -194,7 +194,15 @@
     </div>
 </div>
 
-
+<div class="col-md-6 col-xl-3">
+    <div class="card bg-c-blue order-card">
+        <div class="card-block">
+            <h6 class="m-b-20">Cây giống</h6>
+            <h2 class="text-right"><i class="ti-wand f-left"></i><span id="pendingOrder"><?php echo  $demcg ; ?></span></h2>
+            <p class="m-b-0"><span class="f-right"></span></p>
+        </div>
+    </div>
+</div>
 <!-- order-card end -->
 
 

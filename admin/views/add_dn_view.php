@@ -68,14 +68,14 @@
     </div>
     <div class="form-group">
         <label for="giayphepkinhdoanh">Giấy phép kinh doanh</label>
-        <input type="text" name="giayphepkinhdoanh" class="form-control" >
+        <input type="file" name="giayphepkinhdoanh" class="form-control" >
     </div>
     <div class="form-group">
         <label for="giaychungnhan">Giấy chứng nhận</label>
-        <input type="text" name="giaychungnhan" class="form-control">
+        <input type="file" name="giaychungnhan" class="form-control">
     <div class="form-group">
         <label for="giaykiemdinh">Giấy kiểm định</label>
-        <input type="text" name="giaykiemdinh" class="form-control" >
+        <input type="file" name="giaykiemdinh" class="form-control" >
     </div>
     <div class="form-group">
         <label for="thongtinchung">Thông tin chung</label>

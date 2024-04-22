@@ -20,7 +20,7 @@
                       <?php 
                        $obj=new adminback();
                        $logo_info = $obj->display_logo();
-
+                       $user_info = $obj->show_admin_user();
                        $logo = mysqli_fetch_assoc($logo_info);
 
                        ?>
@@ -98,7 +98,12 @@
                            <li class="user-profile header-notification">
                                <a href="#!">
                                    <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                   <span> <?php echo $admin_email ?> </span>
+                                   <span> <?php
+                                    while($user = mysqli_fetch_assoc($user_info)){ 
+                                        if($admin_email==$user['email'])
+                                            echo $user['hoten'];
+                                        }
+                                   ?> </span>
                                    <i class="ti-angle-down"></i>
                                </a>
                                <ul class="show-notification profile-notification">

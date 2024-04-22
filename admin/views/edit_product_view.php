@@ -3,6 +3,8 @@
 ini_set("display_erros", "Off");
     $obj=new adminback();
     $cata_info = $obj-> p_display_catagory();
+    $caygiong=$obj->show_caygiong();
+    $vungsanxuat=$obj->vsxShow();
     if(isset($_GET['trangthai'])){
         $id = $_GET['id'];
         if($_GET['trangthai']=='edit'){
@@ -30,10 +32,6 @@ ini_set("display_erros", "Off");
         <label for="pdt_name">Tên sản phẩm</label>
         <input type="text" name="u_pdt_name" class="form-control" value="<?php echo $pdt['tensanpham'] ?>" >
     </div>
-    <div class="form-group">
-        <label for="pdt_code">mã sản phẩm</label>
-        <input type="text" name="u_pdt_code" class="form-control" value="<?php echo $pdt['masanpham'] ?>" >
-    </div>
     <input type="hidden" name="pdt_id" value="<?php echo $pdt['id_sp'] ?>">
     <div class="form-group">
         <label for="pdt_price"> Giá</label>
@@ -58,9 +56,41 @@ ini_set("display_erros", "Off");
         <?php }?>
         </select>
     </div>
+    <div class="form-group">
+        <label for="pdt_ctg">Cây giống</label>
+        <select name="pdt_ctg" class="form-control">
+        <option value="">Chọn cây giống</option>
 
-   
+        <?php while($cg = mysqli_fetch_assoc($caygiong)){ ?>
+        <option value="<?php echo $cg['id_cg'] ?>"><?php echo $cg['tencaygiong'] ?></option>
 
+        <?php }?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="pdt_ctg">Vùng sản xuất</label>
+        <select name="pdt_ctg" class="form-control">
+        <option value="">Chọn vùng sản xuất</option>
+
+        <?php while($vsx = mysqli_fetch_assoc($vungsanxuat)){ ?>
+        <option value="<?php echo $vsx['id_vung'] ?>"><?php echo $vsx['tenvung'] ?></option>
+
+        <?php }?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="hdsd">Hướng dẫn sử dụng</label>
+        <input type="text" name="hdsd" class="form-control" value="<?php echo $pdt['hdsd'] ?>">
+    </div>
+    
+    <div class="form-group">
+        <label for="dkbq">Điều kiện bảo quản</label>
+        <input type="text" name="dkbq" class="form-control" value="<?php echo $pdt['dieukienbaoquan'] ?>">
+    </div>
+    <div class="form-group">
+        <label for="congdung">Công dụng</label>
+        <input type="text" name="congdung" class="form-control" value="<?php echo $pdt['congdung'] ?>" >
+    </div>
     <div class="form-group">
         <label for="pdt_img">Hình ảnh </label>
         <div class="mb-3">

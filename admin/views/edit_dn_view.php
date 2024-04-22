@@ -3,7 +3,7 @@
 ini_set("display_erros", "Off");
     $obj=new adminback();
     $catadn_info = $obj->display_catagory_dn();
-
+    $users = $obj->show_admin_user();
      $id_dn = $_GET['id'];
         if($_GET['status']=='dnEdit'){
            $dn_info= $obj->show_dn_by_id($id_dn);
@@ -29,14 +29,21 @@ ini_set("display_erros", "Off");
         <option value="">Chọn danh mục</option>
 
         <?php while($cata = mysqli_fetch_assoc($catadn_info)){ ?>
-        <option value="<?php echo $cata['id_dmdn'] ?>"  ><?php echo $cata['tendanhnghiep'] ?></option>
+        <option value="<?php echo $cata['id_dmdn'] ?>"  ><?php echo $cata['tendoanhnghiep'] ?></option>
 
         <?php }?>
         </select>
     </div>
-        <label for="nguoidaidien">Người đại diện</label>
-        <input type="text" name="nguoidaidien" class="form-control" value="<?php echo $dn['nguoidaidien']; ?>" >
+   
+    <div class="form-group">
+        <label for="lblnguoidaidien">Người đại diện</label>
+        <select name="nguoidaidien" id="nguoidaidien" class="form-control">
+            <?php foreach($users as $user): ?>
+                <option value="<?= $user['id_acc'] ?>"><?= $user['hoten'] ?> - <?= $user['dienthoai'] ?></option>
+            <?php endforeach; ?>
+        </select>
     </div>
+                
 
     <div class="form-group">
         <label for="tendoanhnghiep">Tên doanh nghiệp</label>
@@ -68,14 +75,17 @@ ini_set("display_erros", "Off");
     </div>
     <div class="form-group">
         <label for="giayphepkinhdoanh">Giấy phép kinh doanh</label>
-        <input type="text" name="giayphepkinhdoanh" class="form-control" value="<?php echo $dn['giayphepkinhdoanh']; ?>">
+        <img src="uploads/<?php echo $dn['giayphepkinhdoanh'];?>" style="width: 80px;" >
+        <input type="file" name="giayphepkinhdoanh" class="form-control">
     </div>
     <div class="form-group">
         <label for="giaychungnhan">Giấy chứng nhận</label>
-        <input type="text" name="giaychungnhan" class="form-control" value="<?php echo $dn['giaychungnhan']; ?>">
+        <img src="uploads/<?php echo $dn['giaychungnhan'];?>" style="width: 80px;" >
+        <input type="file" name="giaychungnhan" class="form-control">
     <div class="form-group">
         <label for="giaykiemdinh">Giấy kiểm định</label>
-        <input type="text" name="giaykiemdinh" class="form-control" value="<?php echo $dn['giaykiemdinh']; ?>">
+        <img src="uploads/<?php echo $dn['giaykiemdinh'];?>" style="width: 80px;" >
+        <input type="file" name="giaykiemdinh" class="form-control">
     </div>
     <div class="form-group">
         <label for="thongtinchung">Thông tin chung</label>

@@ -31,10 +31,10 @@
         <label for="pdt_name">Tên sản phẩm</label>
         <input type="text" name="pdt_name" class="form-control">
     </div>
-    <div class="form-group">
-        <label for="pdt_code">Mã sản phẩm</label>
+    <!-- <div class="form-group">
+        <label for="pdt_code">Mã vạch</label>
         <input type="text" name="pdt_code" class="form-control">
-    </div>
+    </div> -->
     <div class="form-group">
         <label for="pdt_price">Giá</label>
         <input type="text" name="pdt_price" class="form-control">
@@ -84,6 +84,18 @@
     <div class="form-group">
         <label for="hdsd">Hướng dẫn sử dụng</label>
         <input type="text" name="hdsd" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="xuatxu">Xuất xứ</label>
+        <input type="text" name="xuatxu" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="dkbq">Điều kiện bảo quản</label>
+        <input type="text" name="dkbq" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="congdung">Công dụng</label>
+        <input type="text" name="congdung" class="form-control">
     </div>
     <div class="form-group">
         <label for="pdt_img">Hình ảnh</label>

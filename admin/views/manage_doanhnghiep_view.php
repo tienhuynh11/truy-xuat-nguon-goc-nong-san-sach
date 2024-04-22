@@ -1,10 +1,15 @@
 <?php     
     $arry = $obj->display_dn();
     $catadn_info = $obj->display_catagory_dn();
+    $user_info = $obj->show_admin_user();
 
     $catadn_array = array();
     while($catadn = mysqli_fetch_assoc($catadn_info)){
         $catadn_array[] = $catadn;
+    }
+    $user_array = array();
+    while($user = mysqli_fetch_assoc($user_info)){
+        $user_array[] = $user;
     }
 
   if(isset($_GET['status'])){
@@ -66,16 +71,25 @@
                         }
                         
                             ?> </td>
-                 <td> <?php echo $dn['nguoidaidien'] ?> </td>
+                 <td> <?php 
+                  
+                  foreach($user_array as $user){
+                      if($dn['nguoidaidien'] == $user['id_acc'])
+                      {
+                          echo $user['hoten'] . '-' . $user['dienthoai'];
+                      }
+                  }
+                  
+                      ?> </td>
                  <td> <?php echo $dn['tendoanhnghiep'] ?> </td>
                  <td><img style="height:60px" src="uploads/<?php echo $dn['hinhanh'] ?>" alt=""></td>
                  <td> <?php echo $dn['sdt'] ?> </td>
                  <td> <?php echo $dn['email'] ?> </td>
                  <td> <?php echo $dn['diachi'] ?> </td>
                  <td> <?php echo $dn['masothue'] ?> </td>
-                 <td> <?php echo $dn['giayphepkinhdoanh'] ?> </td>
-                 <td> <?php echo $dn['giaychungnhan'] ?> </td>
-                 <td> <?php echo $dn['giaykiemdinh'] ?> </td>
+                 <td><img style="height:60px" src="uploads/<?php echo $dn['giayphepkinhdoanh'] ?>" alt=""></td>
+                 <td><img style="height:60px" src="uploads/<?php echo $dn['giaychungnhan'] ?>" alt=""></td>
+                 <td><img style="height:60px" src="uploads/<?php echo $dn['giaykiemdinh'] ?>" alt=""></td>
                  <td> <?php echo $dn['thongtinchung'] ?> </td>
                 
             

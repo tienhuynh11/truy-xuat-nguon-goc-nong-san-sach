@@ -242,9 +242,17 @@ class  adminback
         $taikhoan = $data['taikhoan'];
         $pdt_name = $data['pdt_name'];
         $pdt_price = $data['pdt_price'];
-        $pdt_code = $data['pdt_code'];
+        // $pdt_code = $data['pdt_code'];
         $pdt_des = $data['pdt_des'];
         $pdt_ctg = $data['pdt_ctg'];
+        $xuatxu = $data['xuatxu'];
+        $dkbq = $data['dkbq'];
+        $hdsd = $data['hdsd'];
+        $vungsanxuat = $data['vungsanxuat'];
+        $caygiong = $data['caygiong'];
+        $congdung = $data['congdung'];
+        // $maqr = $data['maqr'];
+        
         $pdt_img_name = $_FILES['pdt_img']['name'];
         $pdt_img_size = $_FILES['pdt_img']['size'];
         $pdt_img_tmp = $_FILES['pdt_img']['tmp_name'];
@@ -258,7 +266,7 @@ class  adminback
             if ($pdt_img_size <= 2e+6) {
                 
                 if($width<2071 && $height<2071){
-                    $query = "INSERT INTO `sanpham`( `taikhoan`, `danhmuc`,`tensanpham`,`masanpham`, `gia`, `mota`, `hinhanh`,  `trangthai`) VALUES ('$taikhoan','$pdt_ctg', '$pdt_name','$pdt_code','$pdt_price','$pdt_des','$pdt_img_name','dangchoxetduyet')";
+                    $query = "INSERT INTO `sanpham` ( `taikhoan`, `danhmuc`, `caygiong`, `vungsanxuat`, `tensanpham`, `mavach`, `hinhanh`, `gia`, `xuatxu`, `maqr`, `mota`, `congdung`, `hdsd`, `dieukienbaoquan`,`trangthai`) VALUES ('$taikhoan', '$pdt_ctg', '$caygiong', '$vungsanxuat', '$pdt_name', 'NSQN000', '$pdt_img_name', ' $pdt_price', '$xuatxu','1', '$pdt_des', '$congdung', '$hdsd', '$dkbq','dangchoxetduyet');";
 
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($pdt_img_tmp, "uploads/".$pdt_img_name);
@@ -354,11 +362,16 @@ class  adminback
 {
     $pdt_id = $data['pdt_id'];
     $pdt_name = $data['u_pdt_name'];
-    $pdt_code = $data['u_pdt_code'];
     $pdt_price = $data['u_pdt_price'];
     $pdt_xx = $data['u_pdt_xx'];
     $pdt_des = $data['u_pdt_des'];
     $pdt_ctg = $data['u_pdt_ctg'];
+    $caygiong = $data['caygiong'];
+    $hdsd = $data['hdsh'];
+    $congdung = $data['congdung'];
+    $dkbq = $data['dkbq'];
+    $vungsanxuat = $data['vungsanxuat'];
+
 
     // Kiểm tra xem có tập tin hình ảnh nào được tải lên không
     if (!empty($_FILES['u_pdt_img']['tmp_name'])) {
@@ -376,7 +389,7 @@ class  adminback
                 $pre_img = $row['hinhanh'];
                 unlink("uploads/" . $pre_img);
 
-                $query = "UPDATE `sanpham` SET `tensanpham`='$pdt_name',`masanpham`='$pdt_code',`hinhanh`='$pdt_img_name',`gia`='$pdt_price',`xuatxu`='$pdt_xx',`mota`='$pdt_des',`danhmuc`='$pdt_ctg' WHERE `id_sp`=$pdt_id";
+                $query = "UPDATE `sanpham` SET `danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat', `tensanpham` = '$pdt_name', `hinhanh` = '$pdt_img_name', `gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', `hdsd` = '$hdsd', `dieukienbaoquan` = '$dkbq' WHERE `id_sp` = '$pdt_id';";
 
                 if (mysqli_query($this->connection, $query) && move_uploaded_file($pdt_img_tmp, "uploads/" . $pdt_img_name)) {
                     echo '<script>
@@ -396,7 +409,7 @@ class  adminback
         }
     } else {
         // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của sản phẩm
-        $query = "UPDATE `sanpham` SET `tensanpham`='$pdt_name',`masanpham`='$pdt_code',`gia`='$pdt_price',`xuatxu`='$pdt_xx',`mota`='$pdt_des',`danhmuc`='$pdt_ctg' WHERE `id_sp`=$pdt_id";
+        $query = "UPDATE `sanpham` SET `danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat', `tensanpham` = '$pdt_name', `gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', `hdsd` = '$hdsd', `dieukienbaoquan` = '$dkbq' WHERE `id_sp` = '$pdt_id';";
 
         if (mysqli_query($this->connection, $query)) {
             echo '<script>
@@ -404,7 +417,7 @@ class  adminback
                 window.location.href = "manage_product.php";
             </script>';
         } else {
-            echo "Update failed!";
+            echo "Cập nhật thất bại!";
         }
     }
 }
@@ -1144,15 +1157,29 @@ class  adminback
             return "Error: " . mysqli_error($this->connection);
         }
     }
-    function count_dg()
+    function count_dn()
     {
-        $query = "SELECT COUNT(*) AS demdg FROM `danhgia`";
+        $query = "SELECT COUNT(*) AS demdn FROM `doanhnghiep`";
     
         $result = mysqli_query($this->connection, $query);
     
         if ($result) {
             $row = mysqli_fetch_assoc($result);
-            $demdg = $row['demdg'];
+            $demdg = $row['demdn'];
+            return $demdg;
+        } else {
+            return "Error: " . mysqli_error($this->connection);
+        }
+    }
+    function count_caygiong()
+    {
+        $query = "SELECT COUNT(*) AS demcg FROM `caygiong`";
+    
+        $result = mysqli_query($this->connection, $query);
+    
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $demdg = $row['demcg'];
             return $demdg;
         } else {
             return "Error: " . mysqli_error($this->connection);
@@ -1409,130 +1436,273 @@ class  adminback
         }
     }
     function update_dn($data)
-    {
-        $id_dn = $data['id_dn'];
-        $danhmuc_dn = $data['danhmuc_dn'];
-        $nguoidaidien = $data['nguoidaidien'];
-        $tendoanhnghiep = $data['tendoanhnghiep']; 
-        $sdt = $data['sdt'];
-        $email = $data['email'];
-        $diachi = $data['diachi'];
-        $masothue = $data['masothue'];
-        $giayphepkinhdoanh = $data['giayphepkinhdoanh'];
-        $giaychungnhan = $data['giaychungnhan'];
-        $giaykiemdinh = $data['giaykiemdinh'];
-        $thongtinchung = $data['thongtinchung'];
-    
-        // Kiểm tra xem tập tin hình ảnh có tồn tại không
-        if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] === UPLOAD_ERR_OK) {
-            $dn_img_name = $_FILES['hinhanh']['name'];
-            $dn_img_size = $_FILES['hinhanh']['size'];
-            $dn_img_tmp = $_FILES['hinhanh']['tmp_name'];
-            $img_ext = pathinfo($dn_img_name, PATHINFO_EXTENSION);
-            list($width, $height) = getimagesize($dn_img_tmp);
-    
-            if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
-                if ($dn_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
-                    // Xóa tập tin hình ảnh hiện có
-                    $select_query = "SELECT * FROM `doanhnghiep` WHERE id_dn='$id_dn'";
-                    $result = mysqli_query($this->connection, $select_query);
-                    $row = mysqli_fetch_assoc($result);
-                    $pre_img = $row['hinhanh'];
-                    unlink("uploads/" . $pre_img);
-    
-                    // Di chuyển và cập nhật tập tin hình ảnh mới
-                    $target_file = "uploads/" . $dn_img_name;
-                    if (move_uploaded_file($dn_img_tmp, $target_file)) {
-                        $query = "UPDATE `doanhnghiep` SET `danhmuc_dn` = '$danhmuc_dn', `nguoidaidien` = '$nguoidaidien', `tendoanhnghiep` = '$tendoanhnghiep', `hinhanh` = '$dn_img_name', `sdt` = '$sdt', `email` = '$email', `diachi` = '$diachi', `masothue` = '$masothue', `giayphepkinhdoanh` = '$giayphepkinhdoanh', `giaychungnhan` = '$giaychungnhan', `giaykiemdinh` = '$giaykiemdinh', `thongtinchung` = '$thongtinchung' WHERE `id_dn` = '$id_dn';";
-                        if (mysqli_query($this->connection, $query)) {
-                            echo '<script>
-                                alert("Chỉnh sửa thành công");
-                                window.location.href = "manage_doanhnghiep.php";
-                            </script>';
-                        } else {
-                            echo "Update failed!";
-                        }
-                    } else {
-                        echo "Upload failed!";
-                    }
-                } else {
-                    $msg = "Sorry !! Pdt image max height: 2701 px and width: 2701 px, but you are trying {$width} px and {$height} px";
-                    return $msg;
-                }
-            } else {
-                $msg = "File should be jpg or png format";
-                return $msg;
-            }
-        } else {
-            // Không có tập tin hình ảnh được tải lên
-            $query = "UPDATE `doanhnghiep` SET `danhmuc_dn` = '$danhmuc_dn', `nguoidaidien` = '$nguoidaidien', `tendoanhnghiep` = '$tendoanhnghiep', `sdt` = '$sdt', `email` = '$email', `diachi` = '$diachi', `masothue` = '$masothue', `giayphepkinhdoanh` = '$giayphepkinhdoanh', `giaychungnhan` = '$giaychungnhan', `giaykiemdinh` = '$giaykiemdinh', `thongtinchung` = '$thongtinchung' WHERE `doanhnghiep`.`id_dn` = '$id_dn';";
-            if (mysqli_query($this->connection, $query)) {
-                echo '<script>
-                    alert("Chỉnh sửa  thành công");
-                    window.location.href = "manage_doanhnghiep.php";
-                </script>';
-            } else {
-                echo "Update failed!";
-            }
-        }
-    }
-    function add_dn($data)
-    {
-        $danhmuc_dn = $data['danhmuc_dn'];
-        $nguoidaidien = $data['nguoidaidien'];
-        $tendoanhnghiep = $data['tendoanhnghiep']; 
-        $sdt = $data['sdt'];
-        $email = $data['email'];
-        $diachi = $data['diachi'];
-        $masothue = $data['masothue'];
-        $giayphepkinhdoanh = $data['giayphepkinhdoanh'];
-        $giaychungnhan = $data['giaychungnhan'];
-        $giaykiemdinh = $data['giaykiemdinh'];
-        $thongtinchung = $data['thongtinchung'];
-    
-            $dn_img_name = $_FILES['hinhanh']['name'];
-            $dn_img_size = $_FILES['hinhanh']['size'];
-            $dn_img_tmp = $_FILES['hinhanh']['tmp_name'];
-            $img_ext = pathinfo($dn_img_name, PATHINFO_EXTENSION);
-        
+{
+    $id_dn = $data['id_dn'];
+    $danhmuc_dn = $data['danhmuc_dn'];
+    $nguoidaidien = $data['nguoidaidien'];
+    $tendoanhnghiep = $data['tendoanhnghiep']; 
+    $sdt = $data['sdt'];
+    $email = $data['email'];
+    $diachi = $data['diachi'];
+    $masothue = $data['masothue'];
+    $thongtinchung = $data['thongtinchung'];
 
+    // Xử lý tập tin hình ảnh doanh nghiệp nếu có
+    if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] === UPLOAD_ERR_OK) {
+        $dn_img_name = $_FILES['hinhanh']['name'];
+        $dn_img_size = $_FILES['hinhanh']['size'];
+        $dn_img_tmp = $_FILES['hinhanh']['tmp_name'];
+        $img_ext = pathinfo($dn_img_name, PATHINFO_EXTENSION);
 
-        list($width, $height) = getimagesize("$dn_img_tmp");
+        list($width, $height) = getimagesize($dn_img_tmp);
 
         if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
-            if ($dn_img_size <= 2e+6) {
-                
-                if($width<2071 && $height<2071){
-                    $query = "INSERT INTO `doanhnghiep` ( `danhmuc_dn`, `nguoidaidien`, `tendoanhnghiep`, `hinhanh`, `sdt`, `email`, `diachi`, `masothue`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtinchung`) VALUES ( '$danhmuc_dn', '$nguoidaidien', '$tendoanhnghiep', '$dn_img_name', '$sdt', '$email', '$diachi', '$masothue', '$giayphepkinhdoanh', '$giaychungnhan', '$giaykiemdinh', '$thongtinchung');";
+            if ($dn_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
+                // Di chuyển và cập nhật tập tin hình ảnh mới
+                $target_file = "uploads/" . $dn_img_name;
+                if (move_uploaded_file($dn_img_tmp, $target_file)) {
+                    $dn_img = $dn_img_name;
+                } else {
+                    echo "Upload failed!";
+                    return;
+                }
+            } else {
+                echo "Sorry !! Pdt image max height: 2701 px and width: 2701 px, but you are trying {$width} px and {$height} px";
+                return;
+            }
+        } else {
+            echo "File should be jpg or png format";
+            return;
+        }
+    }
 
-                    if (mysqli_query($this->connection, $query)) {
-                        move_uploaded_file($dn_img_tmp, "uploads/".$dn_img_name);
-                        $msg = "Product uploaded successfully";
+    // Kiểm tra xem người dùng đã tải lên tập tin hình ảnh giấy phép kinh doanh mới không
+    if (isset($_FILES['giayphepkinhdoanh']) && $_FILES['giayphepkinhdoanh']['error'] === UPLOAD_ERR_OK) {
+        $giayphepkinhdoanh_img_name = $_FILES['giayphepkinhdoanh']['name'];
+        $giayphepkinhdoanh_img_size = $_FILES['giayphepkinhdoanh']['size'];
+        $giayphepkinhdoanh_img_tmp = $_FILES['giayphepkinhdoanh']['tmp_name'];
+        $giayphepkinhdoanh_img_ext = pathinfo($giayphepkinhdoanh_img_name, PATHINFO_EXTENSION);
+
+        // Xử lý tập tin hình ảnh giấy phép kinh doanh mới
+        $target_dir = "uploads/";
+        $giayphepkinhdoanh_img_new_name = uniqid() . '_' . $giayphepkinhdoanh_img_name;
+        move_uploaded_file($giayphepkinhdoanh_img_tmp, $target_dir . $giayphepkinhdoanh_img_new_name);
+    }
+
+    // Kiểm tra xem người dùng đã tải lên tập tin hình ảnh giấy chứng nhận mới không
+    if (isset($_FILES['giaychungnhan']) && $_FILES['giaychungnhan']['error'] === UPLOAD_ERR_OK) {
+        $giaychungnhan_img_name = $_FILES['giaychungnhan']['name'];
+        $giaychungnhan_img_size = $_FILES['giaychungnhan']['size'];
+        $giaychungnhan_img_tmp = $_FILES['giaychungnhan']['tmp_name'];
+        $giaychungnhan_img_ext = pathinfo($giaychungnhan_img_name, PATHINFO_EXTENSION);
+
+        // Xử lý tập tin hình ảnh giấy chứng nhận mới
+        $target_dir = "uploads/";
+        $giaychungnhan_img_new_name = uniqid() . '_' . $giaychungnhan_img_name;
+        move_uploaded_file($giaychungnhan_img_tmp, $target_dir . $giaychungnhan_img_new_name);
+    }
+
+    // Kiểm tra xem người dùng đã tải lên tập tin hình ảnh giấy kiểm định mới không
+    if (isset($_FILES['giaykiemdinh']) && $_FILES['giaykiemdinh']['error'] === UPLOAD_ERR_OK) {
+        $giaykiemdinh_img_name = $_FILES['giaykiemdinh']['name'];
+        $giaykiemdinh_img_size = $_FILES['giaykiemdinh']['size'];
+        $giaykiemdinh_img_tmp = $_FILES['giaykiemdinh']['tmp_name'];
+        $giaykiemdinh_img_ext = pathinfo($giaykiemdinh_img_name, PATHINFO_EXTENSION);
+
+        // Xử lý tập tin hình ảnh giấy kiểm định mới
+        $target_dir = "uploads/";
+        $giaykiemdinh_img_new_name = uniqid() . '_' . $giaykiemdinh_img_name;
+        move_uploaded_file($giaykiemdinh_img_tmp, $target_dir . $giaykiemdinh_img_new_name);
+    }
+
+    // Thực hiện truy vấn UPDATE vào cơ sở dữ liệu
+    $query = "UPDATE `doanhnghiep` SET `danhmuc_dn` = '$danhmuc_dn', `nguoidaidien` = '$nguoidaidien', `tendoanhnghiep` = '$tendoanhnghiep',";
+
+    if (isset($dn_img)) {
+        $query .= " `hinhanh` = '$dn_img',";
+    }
+
+    if (isset($giayphepkinhdoanh_img_new_name)) {
+        $query .= " `giayphepkinhdoanh` = '$giayphepkinhdoanh_img_new_name',";
+    }
+
+    if (isset($giaychungnhan_img_new_name)) {
+        $query .= " `giaychungnhan` = '$giaychungnhan_img_new_name',";
+    }
+
+    if (isset($giaykiemdinh_img_new_name)) {
+        $query .= " `giaykiemdinh` = '$giaykiemdinh_img_new_name',";
+    }
+
+    $query .= "`sdt` = '$sdt', `email` = '$email', `diachi` = '$diachi', `masothue` = '$masothue', `thongtinchung` = '$thongtinchung' WHERE `id_dn` = '$id_dn'";
+
+    if (mysqli_query($this->connection, $query)) {
+        echo '<script>
+            alert("Chỉnh sửa thành công");
+            window.location.href = "manage_doanhnghiep.php";
+        </script>';
+    } else {
+        echo "Update failed!";
+    }
+}
+
+    // function update_dn($data)
+    // {
+    //     $id_dn = $data['id_dn'];
+    //     $danhmuc_dn = $data['danhmuc_dn'];
+    //     $nguoidaidien = $data['nguoidaidien'];
+    //     $tendoanhnghiep = $data['tendoanhnghiep']; 
+    //     $sdt = $data['sdt'];
+    //     $email = $data['email'];
+    //     $diachi = $data['diachi'];
+    //     $masothue = $data['masothue'];
+    //     $giayphepkinhdoanh = $data['giayphepkinhdoanh'];
+    //     $giaychungnhan = $data['giaychungnhan'];
+    //     $giaykiemdinh = $data['giaykiemdinh'];
+    //     $thongtinchung = $data['thongtinchung'];
+    
+    //     // Kiểm tra xem tập tin hình ảnh có tồn tại không
+    //     if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] === UPLOAD_ERR_OK) {
+    //         $dn_img_name = $_FILES['hinhanh']['name'];
+    //         $dn_img_size = $_FILES['hinhanh']['size'];
+    //         $dn_img_tmp = $_FILES['hinhanh']['tmp_name'];
+    //         $img_ext = pathinfo($dn_img_name, PATHINFO_EXTENSION);
+    //         list($width, $height) = getimagesize($dn_img_tmp);
+    
+    //         if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
+    //             if ($dn_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
+    //                 // Xóa tập tin hình ảnh hiện có
+    //                 $select_query = "SELECT * FROM `doanhnghiep` WHERE id_dn='$id_dn'";
+    //                 $result = mysqli_query($this->connection, $select_query);
+    //                 $row = mysqli_fetch_assoc($result);
+    //                 $pre_img = $row['hinhanh'];
+    //                 unlink("uploads/" . $pre_img);
+    
+    //                 // Di chuyển và cập nhật tập tin hình ảnh mới
+    //                 $target_file = "uploads/" . $dn_img_name;
+    //                 if (move_uploaded_file($dn_img_tmp, $target_file)) {
+    //                     $query = "UPDATE `doanhnghiep` SET `danhmuc_dn` = '$danhmuc_dn', `nguoidaidien` = '$nguoidaidien', `tendoanhnghiep` = '$tendoanhnghiep', `hinhanh` = '$dn_img_name', `sdt` = '$sdt', `email` = '$email', `diachi` = '$diachi', `masothue` = '$masothue', `giayphepkinhdoanh` = '$giayphepkinhdoanh', `giaychungnhan` = '$giaychungnhan', `giaykiemdinh` = '$giaykiemdinh', `thongtinchung` = '$thongtinchung' WHERE `id_dn` = '$id_dn';";
+    //                     if (mysqli_query($this->connection, $query)) {
+    //                         echo '<script>
+    //                             alert("Chỉnh sửa thành công");
+    //                             window.location.href = "manage_doanhnghiep.php";
+    //                         </script>';
+    //                     } else {
+    //                         echo "Update failed!";
+    //                     }
+    //                 } else {
+    //                     echo "Upload failed!";
+    //                 }
+    //             } else {
+    //                 $msg = "Sorry !! Pdt image max height: 2701 px and width: 2701 px, but you are trying {$width} px and {$height} px";
+    //                 return $msg;
+    //             }
+    //         } else {
+    //             $msg = "File should be jpg or png format";
+    //             return $msg;
+    //         }
+    //     } else {
+    //         // Không có tập tin hình ảnh được tải lên
+    //         $query = "UPDATE `doanhnghiep` SET `danhmuc_dn` = '$danhmuc_dn', `nguoidaidien` = '$nguoidaidien', `tendoanhnghiep` = '$tendoanhnghiep', `sdt` = '$sdt', `email` = '$email', `diachi` = '$diachi', `masothue` = '$masothue', `giayphepkinhdoanh` = '$giayphepkinhdoanh', `giaychungnhan` = '$giaychungnhan', `giaykiemdinh` = '$giaykiemdinh', `thongtinchung` = '$thongtinchung' WHERE `doanhnghiep`.`id_dn` = '$id_dn';";
+    //         if (mysqli_query($this->connection, $query)) {
+    //             echo '<script>
+    //                 alert("Chỉnh sửa  thành công");
+    //                 window.location.href = "manage_doanhnghiep.php";
+    //             </script>';
+    //         } else {
+    //             echo "Update failed!";
+    //         }
+    //     }
+    // }
+    function add_dn($data)
+{
+    $danhmuc_dn = $data['danhmuc_dn'];
+    $nguoidaidien = $data['nguoidaidien'];
+    $tendoanhnghiep = $data['tendoanhnghiep']; 
+    $sdt = $data['sdt'];
+    $email = $data['email'];
+    $diachi = $data['diachi'];
+    $masothue = $data['masothue'];
+    $thongtinchung = $data['thongtinchung'];
+
+    // Xử lý hình ảnh doanh nghiệp
+    $dn_img_name = $_FILES['hinhanh']['name'];
+    $dn_img_size = $_FILES['hinhanh']['size'];
+    $dn_img_tmp = $_FILES['hinhanh']['tmp_name'];
+    $img_ext = pathinfo($dn_img_name, PATHINFO_EXTENSION);
+
+    list($width, $height) = getimagesize($dn_img_tmp);
+
+    if (in_array($img_ext, ['jpg', 'jpeg', 'png'])) {
+        if ($dn_img_size <= 2e+6) {
+            if ($width < 2071 && $height < 2071) {
+                move_uploaded_file($dn_img_tmp, "uploads/" . $dn_img_name);
+
+                // Xử lý hình ảnh giấy phép kinh doanh
+                $giayphepkinhdoanh_img_name = $_FILES['giayphepkinhdoanh']['name'];
+                $giayphepkinhdoanh_img_size = $_FILES['giayphepkinhdoanh']['size'];
+                $giayphepkinhdoanh_img_tmp = $_FILES['giayphepkinhdoanh']['tmp_name'];
+                $giayphepkinhdoanh_img_ext = pathinfo($giayphepkinhdoanh_img_name, PATHINFO_EXTENSION);
+
+                // Xử lý hình ảnh giấy chứng nhận
+                $giaychungnhan_img_name = $_FILES['giaychungnhan']['name'];
+                $giaychungnhan_img_size = $_FILES['giaychungnhan']['size'];
+                $giaychungnhan_img_tmp = $_FILES['giaychungnhan']['tmp_name'];
+                $giaychungnhan_img_ext = pathinfo($giaychungnhan_img_name, PATHINFO_EXTENSION);
+
+                // Xử lý hình ảnh giấy kiểm định
+                $giaykiemdinh_img_name = $_FILES['giaykiemdinh']['name'];
+                $giaykiemdinh_img_size = $_FILES['giaykiemdinh']['size'];
+                $giaykiemdinh_img_tmp = $_FILES['giaykiemdinh']['tmp_name'];
+                $giaykiemdinh_img_ext = pathinfo($giaykiemdinh_img_name, PATHINFO_EXTENSION);
+
+                // Kiểm tra và di chuyển hình ảnh giấy phép kinh doanh, giấy chứng nhận, giấy kiểm định
+                if (in_array($giayphepkinhdoanh_img_ext, ['jpg', 'jpeg', 'png']) &&
+                    in_array($giaychungnhan_img_ext, ['jpg', 'jpeg', 'png']) &&
+                    in_array($giaykiemdinh_img_ext, ['jpg', 'jpeg', 'png'])) {
+
+                    if ($giayphepkinhdoanh_img_size <= 2e+6 &&
+                        $giaychungnhan_img_size <= 2e+6 &&
+                        $giaykiemdinh_img_size <= 2e+6) {
+
+                        move_uploaded_file($giayphepkinhdoanh_img_tmp, "uploads/" . $giayphepkinhdoanh_img_name);
+                        move_uploaded_file($giaychungnhan_img_tmp, "uploads/" . $giaychungnhan_img_name);
+                        move_uploaded_file($giaykiemdinh_img_tmp, "uploads/" . $giaykiemdinh_img_name);
+
+                        // Thực hiện truy vấn INSERT vào cơ sở dữ liệu
+                        $query = "INSERT INTO `doanhnghiep` (`danhmuc_dn`, `nguoidaidien`, `tendoanhnghiep`, `hinhanh`, `sdt`, `email`, `diachi`, `masothue`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtinchung`) VALUES ('$danhmuc_dn', '$nguoidaidien', '$tendoanhnghiep', '$dn_img_name', '$sdt', '$email', '$diachi', '$masothue', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtinchung')";
+
+                        if (mysqli_query($this->connection, $query)) {
+                            $msg = "Thêm thành công";
                             echo '<script>
-                            alert(" Thêm  thành công");
-                            window.location.href = "manage_doanhnghiep.php";
-                            </script>';
-                    }
-                    else {
-                        $msg = "Failed to upload product: " . mysqli_error($this->connection);
+                                alert("' . $msg . '");
+                                window.location.href = "manage_doanhnghiep.php";
+                                </script>';
+                        } else {
+                            $msg = "Lỗi khi thêm vào cơ sở dữ liệu: " . mysqli_error($this->connection);
+                            return $msg;
+                        }
+                    } else {
+                        $msg = "Kích thước hình ảnh không được vượt quá 2MB";
                         return $msg;
-                    }   
-                    
-                }else{
-                    $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
+                    }
+                } else {
+                    $msg = "Hình ảnh phải ở định dạng JPG hoặc PNG";
                     return $msg;
                 }
-
-
             } else {
-                $msg = "File size should not be large 2MB";
+                $msg = "Xin lỗi !! Chiều cao tối đa của ảnh là 2071 px và chiều rộng tối đa là 2071 px, nhưng bạn đang cố gắng với {$width} px và {$height} px";
                 return $msg;
             }
         } else {
-            $msg = "File should be jpg or png format";
+            $msg = "Kích thước tệp không được lớn hơn 2MB";
             return $msg;
         }
+    } else {
+        $msg = "Tệp phải ở định dạng JPG hoặc PNG";
+        return $msg;
     }
+}
     function show_nhatky(){
         $query = "SELECT * FROM `nhatkysanpham`";
         if(mysqli_query($this->connection, $query)){
