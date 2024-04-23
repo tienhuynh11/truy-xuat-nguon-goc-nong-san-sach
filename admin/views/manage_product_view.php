@@ -50,6 +50,18 @@ if(isset($_GET['trangthai'])){
             ?>
             <?php while($pdt = mysqli_fetch_assoc($product_info)) {
                 $formatted_id_sp = 'NSQN'.str_pad($pdt['id_sp'], 5, '0', STR_PAD_LEFT);
+
+                $danhmuc= $obj->display_cataByID($pdt['danhmuc']);
+
+                $vung= $obj->vsx_By_id($pdt['vungsanxuat']);
+                $vsx = mysqli_fetch_assoc($vung);
+
+                $caygiong = $obj->show_caygiong_by_id($pdt['caygiong']);
+                $cg = mysqli_fetch_assoc($caygiong);
+
+                $taikhoan = $obj->show_admin_user_by_id($pdt['taikhoan']);
+                $tk = mysqli_fetch_assoc($taikhoan);
+                
                 ?>
                     
                 <tr>
@@ -72,10 +84,10 @@ if(isset($_GET['trangthai'])){
                         <a class="btn btn-sm btn-success editbtn" href="#" data-toggle="modal" data-target="#xemchitiet"
                         data-id="<?= $pdt['id_sp'] ?>" data-name="<?= $pdt['tensanpham'] ?>"  data-masp="<?php echo  $formatted_id_sp?>"
                         data-gia="<?= $pdt['gia'] ?>" data-xuatxu="<?= $pdt['xuatxu'] ?>" data-hinhanh="<?= $pdt['hinhanh'] ?>" 
-                        data-congdung="<?= $pdt['congdung'] ?>" data-caygiong="<?= $pdt['caygiong'] ?>" data-dieukienbaoquan="<?= $pdt['dieukienbaoquan'] ?>"
+                        data-congdung="<?= $pdt['congdung'] ?>" data-caygiong="<?= $cg['tencaygiong'] ?>" data-dieukienbaoquan="<?= $pdt['dieukienbaoquan'] ?>"
                         data-maqr="<?= $pdt['maqr'] ?>" data-mota="<?= $pdt['mota'] ?>" data-hdsd="<?= $pdt['hdsd'] ?>" 
-                        data-danhmuc="<?= $pdt['danhmuc'] ?>" data-taikhoan="<?= $pdt['taikhoan'] ?>" 
-                        data-vungsanxuat="<?= $pdt['vungsanxuat'] ?>">Chi tiết</a>
+                        data-danhmuc="<?= $danhmuc['tendanhmuc'] ?>" data-taikhoan="<?= $tk['hoten'] ?>" 
+                        data-vungsanxuat="<?= $vsx['tenvung'] ?>">Chi tiết</a>
 
                         <!-- <a class="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#exampleModalCenter" data-id="<?php echo $pdt['id_sp'] ?>">Chi tiết</a> -->
                         <a href="edit_product.php?trangthai=edit&&id=<?php echo $pdt['id_sp'] ?>" class="btn btn-sm btn-warning">Sửa</a>
@@ -213,7 +225,7 @@ if(isset($_GET['trangthai'])){
                                             <div class="col-9" id="maqr">   
                                             </div>
                                         </div>
-                                        <div class="row form-group">
+                                        <div class="row form-group" style="padding-bottom: 5px;">
                                             <label  class="col-3">Hình ảnh</label>
                                             <div class="col-9" id="hinhanh">   
                                             </div>
@@ -264,7 +276,7 @@ if(isset($_GET['trangthai'])){
                                             <div class="col-9" id="caygiong">   
                                             </div>
                                         </div>
-                                        <div class="row form-group">
+                                        <div class="row form-group" style="border-bottom: none">
                                             <label  class="col-3">Người đăng </label>
                                             <div class="col-9" id="taikhoan"> 
                                             <?php 
@@ -304,6 +316,10 @@ if(isset($_GET['trangthai'])){
     overflow-y: auto; /* Hiển thị thanh cuộn dọc khi cần thiết */
     word-wrap: break-word; /* Xuống hàng khi cần thiết */
     overflow-wrap: break-word; /* Xuống hàng khi cần thiết (phù hợp với các trình duyệt mới hơn) */
+}
+
+.form-group{
+    border-bottom: 1px dotted #ccc;
 }
 
 </style>
