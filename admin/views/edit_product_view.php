@@ -57,8 +57,8 @@ ini_set("display_erros", "Off");
         </select>
     </div>
     <div class="form-group">
-        <label for="pdt_ctg">Cây giống</label>
-        <select name="pdt_ctg" class="form-control">
+        <label for="caygiong">Cây giống</label>
+        <select name="caygiong" class="form-control">
         <option value="">Chọn cây giống</option>
 
         <?php while($cg = mysqli_fetch_assoc($caygiong)){ ?>
@@ -68,8 +68,8 @@ ini_set("display_erros", "Off");
         </select>
     </div>
     <div class="form-group">
-        <label for="pdt_ctg">Vùng sản xuất</label>
-        <select name="pdt_ctg" class="form-control">
+        <label for="vungsanxuat">Vùng sản xuất</label>
+        <select name="vungsanxuat" class="form-control">
         <option value="">Chọn vùng sản xuất</option>
 
         <?php while($vsx = mysqli_fetch_assoc($vungsanxuat)){ ?>

@@ -367,7 +367,7 @@ class  adminback
     $pdt_des = $data['u_pdt_des'];
     $pdt_ctg = $data['u_pdt_ctg'];
     $caygiong = $data['caygiong'];
-    $hdsd = $data['hdsh'];
+    $hdsd = $data['hdsd'];
     $congdung = $data['congdung'];
     $dkbq = $data['dkbq'];
     $vungsanxuat = $data['vungsanxuat'];
