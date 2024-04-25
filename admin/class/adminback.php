@@ -813,8 +813,12 @@ class  adminback
         $id_vung = $data['id_vung'];
         $tenvung = $data['tenvung'];
         $mavung = $data['mavung'];
+        $nhatky = $data['nhatky'];
+
         $sdt = $data['sdt'];
         $dc = $data['dc'];
+        $bando = $data['bando'];
+        $thoigiantrong = $data['thoigiantrong'];
         $dientich = $data['dientich'];
         $thongtin = $data['thongtin'];
     
@@ -835,7 +839,7 @@ class  adminback
                     $pre_img = $row['hinhanh'];
                     unlink("uploads/" . $pre_img);
     
-                    $query = "UPDATE `vungsanxuat` SET `tenvung` = '$tenvung', `mavung` = '$mavung', `hinhanh` = '$lg_name', `sdt` = '$sdt', `diachi` = '$dc', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
+                    $query = "UPDATE `vungsanxuat` SET `nhatky` = '$nhatky',`tenvung` = '$tenvung', `mavung` = '$mavung', `hinhanh` = '$lg_name', `sdt` = '$sdt', `diachi` = '$dc', `bando` = '$bando', `thoigiannuoitrong` = '$thoigiantrong', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
     
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($lg_tmp, "uploads/" . $lg_name)) {
                         echo '<script>
@@ -855,7 +859,7 @@ class  adminback
             }
         } else {
             // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của vùng sản xuất
-            $query = "UPDATE `vungsanxuat` SET `tenvung`='$tenvung', `mavung`='$mavung', `sdt`='$sdt', `diachi`='$dc', `dientich`='$dientich', `thongtin`='$thongtin' WHERE `id_vung`=$id_vung";
+            $query = "UPDATE `vungsanxuat` SET `nhatky` = '$nhatky',`tenvung` = '$tenvung', `mavung` = '$mavung', `sdt` = '$sdt', `diachi` = '$dc', `bando` = '$bando', `thoigiannuoitrong` = '$thoigiantrong', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
     
             if (mysqli_query($this->connection, $query)) {
                 echo '<script>
@@ -1098,8 +1102,11 @@ class  adminback
         $mavung = $data['mavung'];   
         $sdt = $data['sdt'];
         $diachi = $data['diachi'];
+        $nhatky = $data['nhatky'];
+        $bando = $data['bando'];
         $dientich = $data['dientich'];
         $thongtin = $data['thongtin'];
+        $thoigiantrong = $data['thoigiantrong'];
         $img_name = $_FILES['img']['name'];
         $img_size = $_FILES['img']['size'];
         $img_tmp = $_FILES['img']['tmp_name'];
@@ -1113,7 +1120,7 @@ class  adminback
             if ($img_size <= 2e+6) {
                 
                 if($width<2071 && $height<2071){
-                    $query = "INSERT INTO `vungsanxuat`(`nguoidang`, `tenvung`,  `mavung`,`hinhanh`, `sdt`, `diachi`,`dientich`,`thongtin`) VALUES ('$nguoidang','$tenvung','$mavung', '$img_name','$sdt','$diachi','$dientich','$thongtin')";
+                    $query = "INSERT INTO `vungsanxuat`(`nguoidang`,  `nhatky`, `tenvung`,  `mavung`,`hinhanh`, `sdt`, `diachi`, `bando`, `thoigiannuoitrong`,`dientich`,`thongtin`) VALUES ('$nguoidang','$nhatky','$tenvung','$mavung', '$img_name','$sdt','$diachi','$bando','$thoigiantrong','$dientich','$thongtin')";
 
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($img_tmp, "uploads/".$img_name);
@@ -1832,6 +1839,167 @@ class  adminback
         } else {
             $msg = "File should be jpg or png format";
             return $msg;
+        }
+    }
+    function display_product_pagination($bat_dau, $ket_thuc){
+        $query = "SELECT * FROM `sanpham` LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            return $result;
+        } else {
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
+        }
+    }
+    function count_sp()
+    {
+        $query = "SELECT COUNT(*) AS demsp FROM `sanpham`";
+    
+        $result = mysqli_query($this->connection, $query);
+    
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $demsp = $row['demsp'];
+            return $demsp;
+        } else {
+            return "Error: " . mysqli_error($this->connection);
+        }
+    }
+    function display_user_pagination($bat_dau, $ket_thuc){
+        $query = "SELECT * FROM `taikhoan` LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            return $result;
+        } else {
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
+        }
+    }
+    function count_user()
+    {
+        $query = "SELECT COUNT(*) AS demacc FROM `taikhoan`";
+    
+        $result = mysqli_query($this->connection, $query);
+    
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $demacc = $row['demacc'];
+            return $demacc;
+        } else {
+            return "Error: " . mysqli_error($this->connection);
+        }
+    }
+    function display_dm_pagination($bat_dau, $ket_thuc){
+        $query = "SELECT * FROM `danhmuc` LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            return $result;
+        } else {
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
+        }
+    }
+    function count_dm()
+    {
+        $query = "SELECT COUNT(*) AS demdm FROM `danhmuc`";
+    
+        $result = mysqli_query($this->connection, $query);
+    
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $demdm = $row['demdm'];
+            return $demdm;
+        } else {
+            return "Error: " . mysqli_error($this->connection);
+        }
+    }
+    function display_dmdn_pagination($bat_dau, $ket_thuc){
+        $query = "SELECT * FROM `danhmuc_dn` LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            return $result;
+        } else {
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
+        }
+    }
+    function count_dmdn()
+    {
+        $query = "SELECT COUNT(*) AS demdmdn FROM `danhmuc_dn`";
+    
+        $result = mysqli_query($this->connection, $query);
+    
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $demdmdn = $row['demdmdn'];
+            return $demdmdn;
+        } else {
+            return "Error: " . mysqli_error($this->connection);
+        }
+    }
+    function display_bv_pagination($bat_dau, $ket_thuc){
+        $query = "SELECT * FROM `baiviet` LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            return $result;
+        } else {
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
+        }
+    }
+   
+    function display_dn_pagination($bat_dau, $ket_thuc){
+        $query = "SELECT * FROM `doanhnghiep` LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            return $result;
+        } else {
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
+        }
+    }
+    function display_cg_pagination($bat_dau, $ket_thuc){
+        $query = "SELECT * FROM `caygiong` LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            return $result;
+        } else {
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
+        }
+    }
+    function display_nksp_pagination($bat_dau, $ket_thuc){
+        $query = "SELECT * FROM `nhatkysanpham` LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            return $result;
+        } else {
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
+        }
+    }
+    function display_vsx_pagination($bat_dau, $ket_thuc){
+        $query = "SELECT * FROM `vungsanxuat` LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            return $result;
+        } else {
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
+        }
+    }
+    function count_nhatky()
+    {
+        $query = "SELECT COUNT(*) AS demnk FROM `nhatkysanpham`";
+    
+        $result = mysqli_query($this->connection, $query);
+    
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $demnk = $row['demnk'];
+            return $demnk;
+        } else {
+            return "Error: " . mysqli_error($this->connection);
         }
     }
 }   

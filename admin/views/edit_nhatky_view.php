@@ -1,4 +1,5 @@
 <?php 
+    $product_info=$obj->display_product();
     if(isset($_GET['status'])){
         $id_nk = $_GET['id'];
         if($_GET['status']=="nkEdit"){
@@ -27,8 +28,16 @@
     </div> -->
 
     <div class="form-group">
-        <h4>Sản phẩm</h4>
-        <input type="text" name="sanpham" class="form-control" value="<?php echo $nk['sanpham'] ?>" required>
+    <label for="sanpham">Nông sản</label>
+        <select name="sanpham" class="form-control">
+        <?php while($pdt = mysqli_fetch_assoc($product_info)) { ?>
+            <?php if ($pdt['id_sp'] == $nk['sanpham']) { ?>
+                <option value="<?php echo $pdt['id_sp'] ?>" selected><?php echo $pdt['tensanpham'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $pdt['id_sp'] ?>"><?php echo $pdt['tensanpham'] ?></option>
+            <?php } ?>
+        <?php } ?>
+        </select>
     </div>
     <input type="hidden" name="id_nk" value="<?php echo $nk['id_nk'] ?>">
     <div class="form-group">

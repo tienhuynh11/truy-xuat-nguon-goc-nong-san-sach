@@ -48,33 +48,38 @@ ini_set("display_erros", "Off");
     <div class="form-group">
         <label for="pdt_ctg">Danh mục</label>
         <select name="u_pdt_ctg" class="form-control">
-        <option value="">Chọn danh mục</option>
+     
 
         <?php while($cata = mysqli_fetch_assoc($cata_info)){ ?>
-        <option value="<?php echo $cata['id_dm'] ?>"  ><?php echo $cata['tendanhmuc'] ?></option>
-
+            <?php if ($cata['id_dm'] == $pdt['danhmuc']) { ?>
+                <option value="<?php echo $cata['id_dm'] ?>" selected><?php echo $cata['tendanhmuc'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $cata['id_dm'] ?>"><?php echo $cata['tendanhmuc'] ?></option>
+            <?php } ?>
         <?php }?>
         </select>
     </div>
     <div class="form-group">
         <label for="caygiong">Cây giống</label>
         <select name="caygiong" class="form-control">
-        <option value="">Chọn cây giống</option>
-
         <?php while($cg = mysqli_fetch_assoc($caygiong)){ ?>
-        <option value="<?php echo $cg['id_cg'] ?>"><?php echo $cg['tencaygiong'] ?></option>
-
+            <?php if ($cg['id_cg'] == $pdt['caygiong']) { ?>
+                <option value="<?php echo $cg['id_cg'] ?>" selected><?php echo $cg['tencaygiong'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $cg['id_cg'] ?>"><?php echo $cg['tencaygiong'] ?></option>
+            <?php } ?>
         <?php }?>
         </select>
     </div>
     <div class="form-group">
         <label for="vungsanxuat">Vùng sản xuất</label>
         <select name="vungsanxuat" class="form-control">
-        <option value="">Chọn vùng sản xuất</option>
-
         <?php while($vsx = mysqli_fetch_assoc($vungsanxuat)){ ?>
-        <option value="<?php echo $vsx['id_vung'] ?>"><?php echo $vsx['tenvung'] ?></option>
-
+            <?php if ($vsx['id_vung'] == $pdt['vungsanxuat']) { ?>
+                <option value="<?php echo $vsx['id_vung'] ?>" selected><?php echo $vsx['tenvung'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $vsx['id_vung'] ?>"><?php echo $vsx['tenvung'] ?></option>
+            <?php } ?>
         <?php }?>
         </select>
     </div>

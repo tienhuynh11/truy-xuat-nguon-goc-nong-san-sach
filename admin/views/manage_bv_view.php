@@ -1,5 +1,15 @@
 <?php     
-    $show_baiviet = $obj->show_baiviet();
+   $so_ban_ghi_mot_trang = 7;
+   if(isset($_GET['trang'])){
+       $trang_hien_tai = $_GET['trang'];
+   } else {
+       $trang_hien_tai = 1;
+   }
+   $so_ban_ghi =$obj->count_bv();
+   $tong_so_trang = ceil($so_ban_ghi / $so_ban_ghi_mot_trang);
+   $bat_dau = ($trang_hien_tai - 1) * $so_ban_ghi_mot_trang;
+   $ket_thuc = $bat_dau + $so_ban_ghi_mot_trang;
+   $show_baiviet = $obj->display_bv_pagination($bat_dau, $ket_thuc);
     $nguoidang_info = $obj->show_admin_user();
 
     // Lưu trữ kết quả truy vấn vào một mảng
@@ -42,7 +52,7 @@
             </thead>
             <tbody>
                 <?php 
-                $dem=1;
+                $dem=($trang_hien_tai - 1) * $so_ban_ghi_mot_trang + 1;
                 while($bv = mysqli_fetch_assoc($show_baiviet)){
                     ?>
                     <tr>
@@ -72,7 +82,19 @@
             </tbody>
         </table>
 </div>
-
+<?php 
+echo "<div class='pagination'  style='float: right;'> ";
+if($trang_hien_tai > 1){
+    echo "<a href='?trang=".($trang_hien_tai - 1)."' class='btn btn-primary ti-angle-left'></a>";
+}
+for($i = 1; $i <= $tong_so_trang; $i++){
+    echo "<a href='?trang=".$i."' class='btn btn-primary'>$i</a>";
+}
+if($trang_hien_tai < $tong_so_trang){
+    echo "<a href='?trang=".($trang_hien_tai + 1)."' class='btn btn-primary ti-angle-right'></a>";
+}
+echo "</div>";
+?>
 <script>
     function confirmDelete(id) {
         if (confirm("Bạn có chắc chắn muốn xóa nông sản này không?")) {

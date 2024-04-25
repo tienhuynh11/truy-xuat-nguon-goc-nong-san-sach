@@ -26,11 +26,12 @@ ini_set("display_erros", "Off");
     <div class="form-group">
         <label for="danhmuc_dn">Danh mục doanh nghiệp</label>
         <select name="danhmuc_dn" class="form-control">
-        <option value="">Chọn danh mục</option>
-
         <?php while($cata = mysqli_fetch_assoc($catadn_info)){ ?>
-        <option value="<?php echo $cata['id_dmdn'] ?>"  ><?php echo $cata['tendoanhnghiep'] ?></option>
-
+            <?php if ($cata['id_dmdn'] == $dn['danhmuc_dn']) { ?>
+                <option value="<?php echo $cata['id_dmdn'] ?>" selected><?php echo $cata['tendoanhnghiep']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $cata['id_dmdn'] ?>"><?php echo $cata['tendoanhnghiep'] ?></option>
+            <?php } ?>
         <?php }?>
         </select>
     </div>
@@ -39,7 +40,11 @@ ini_set("display_erros", "Off");
         <label for="lblnguoidaidien">Người đại diện</label>
         <select name="nguoidaidien" id="nguoidaidien" class="form-control">
             <?php foreach($users as $user): ?>
-                <option value="<?= $user['id_acc'] ?>"><?= $user['hoten'] ?> - <?= $user['dienthoai'] ?></option>
+                <?php if ($user['id_acc']== $dn['nguoidaidien']) { ?>
+                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
+            <?php } ?>
             <?php endforeach; ?>
         </select>
     </div>
