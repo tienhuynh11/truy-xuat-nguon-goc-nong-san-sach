@@ -57,7 +57,7 @@
         <input type="file" name="img" class="form-control"> 
     </div>
     <?php if (!empty($user_array)): ?>
-    <!-- <div class="form-group">
+    <div class="form-group">
         <label for="lblnguoidaidien">Người đại diện</label>
         <select name="nguoidaidien" id="nguoidaidien" class="form-control">
             <?php foreach($users as $user): ?>
@@ -65,7 +65,7 @@
             <?php endforeach; ?>
         </select>
     </div>
-    <?php endif; ?> -->
+    <?php endif; ?>
 
     <?php if (!empty($user_array)): ?>
     <div class="form-group">

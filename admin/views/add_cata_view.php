@@ -32,6 +32,6 @@
         </select>
     </div>
 
-    <input type="submit" value="Add Catagory" name="add_ctg" class="btn btn-primary" >
+    <input type="submit" value="Thêm danh mục" name="add_ctg" class="btn btn-primary" >
 
 </form>

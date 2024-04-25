@@ -40,13 +40,12 @@
     <div class="form-group">
         <label for="user_role">Role</label>
         <select name="user_role" class="form-control">
-        <option value="">Chọn role</option>
         <option value="Admin">Admin</option>
         <option value="Khachhang">Khách hàng</option>
         <option value="Nongdan">Nông dân</option>
         </select>
     </div>
 
-    <input type="submit" value="Add User" name="add_user" class="btn btn-block btn-primary">
+    <input type="submit" value="Thêm tài khoản" name="add_user" class="btn btn-block btn-primary">
 </form>
 </div>

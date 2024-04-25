@@ -6,7 +6,7 @@
     }
 ?>
 
-<h2>Thêm người dùng</h2>
+<h2>Thêm tài khoản</h2>
 <h6 class="text-success">
    <?php 
      if(isset($rtn_msg)){
@@ -46,5 +46,5 @@
         </select>
     </div>
 
-    <input type="submit" value="Add User" name="add_user" class="btn btn-block btn-primary">
+    <input type="submit" value="Thêm tài khoản" name="add_user" class="btn btn-block btn-primary">
 </form>

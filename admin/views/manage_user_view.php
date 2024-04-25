@@ -33,7 +33,7 @@ $arry  = $obj->display_user_pagination($bat_dau, $ket_thuc);
 
        
             <tr>
-                <th>User Id</th>
+                <th>Stt</th>
                 <th>Họ tên</th>
                 <th>Email</th>
                 <th>Số điện thoại</th>

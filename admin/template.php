@@ -131,6 +131,18 @@
                                             include ("views/add_nhatky_view.php");
                                         }elseif($views=="edit_nhatky"){
                                             include ("views/edit_nhatky_view.php");
+                                        }elseif($views=="manage_nhaxuong"){
+                                            include ("views/manage_nhaxuong_view.php");
+                                        }elseif($views=="add_nhaxuong"){
+                                            include ("views/add_nhaxuong_view.php");
+                                        }elseif($views=="edit_nhaxuong"){
+                                            include ("views/edit_nhaxuong_view.php");
+                                        }elseif($views=="edit_danhmuc_nx"){
+                                            include ("views/edit_danhmuc_nx_view.php");
+                                        }elseif($views=="add_danhmuc_nx"){
+                                            include ("views/add_danhmuc_nx_view.php");
+                                        }elseif($views=="manage_danhmuc_nx"){
+                                            include ("views/manage_danhmuc_nx_view.php");
                                         }
 
                                     }
