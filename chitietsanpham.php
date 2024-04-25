@@ -391,7 +391,7 @@ include_once("includes/head.php");
                                                         }
                                                     ?>
                                                     </p>
-                                                    <a class="btn btn-info" href="vungsanxuat.php?id=<?= $pro_data['vungsanxuat']?>">Xem chi tiết</a>
+                                                    <a class="btn btn-info" href="chitietvsx.php?id=<?= $pro_data['vungsanxuat']?>">Xem chi tiết</a>
                                                 </div>
                                             </div>
                                             <?php }?>

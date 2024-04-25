@@ -34,12 +34,24 @@
     <div class="form-group">
         <label for="lblnguoidaidien">Người đại diện</label>
         <select name="nguoidaidien" id="nguoidaidien" class="form-control">
+            <option value="" >Chọn người đại diện</option>
             <?php foreach($users as $user): ?>
                 <option value="<?= $user['id_acc'] ?>"><?= $user['hoten'] ?> - <?= $user['dienthoai'] ?></option>
             <?php endforeach; ?>
         </select>
     </div>
     <?php endif; ?>
+    
+    <div class="form-group">
+        <label for="tendoanhnghiep">Tên doanh nghiệp</label>
+        <select class="js-example-basic-single">
+            <?php foreach($users as $user): ?>
+                <option value="<?= $user['id_acc'] ?>"><?= $user['hoten'] ?> - <?= $user['dienthoai'] ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    
 
     <div class="form-group">
         <label for="tendoanhnghiep">Tên doanh nghiệp</label>
@@ -73,6 +85,7 @@
     <div class="form-group">
         <label for="giaychungnhan">Giấy chứng nhận</label>
         <input type="file" name="giaychungnhan" class="form-control">
+    </div>
     <div class="form-group">
         <label for="giaykiemdinh">Giấy kiểm định</label>
         <input type="file" name="giaykiemdinh" class="form-control" >
@@ -84,3 +97,9 @@
 
     <input type="submit" value="Thêm doanh nghiệp" name="add_dn" class="btn btn-block btn-primary">
 </form>
+<script>
+    $(document).ready(function() {
+  $(".js-example-basic-single").select2();
+  // Thêm các tùy chọn của bạn vào đây.
+});
+</script>

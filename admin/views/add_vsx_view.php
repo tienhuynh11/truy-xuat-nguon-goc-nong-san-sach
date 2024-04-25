@@ -42,14 +42,13 @@
         <label for="tenvung">Tên vùng</label>
         <input type="text" name="tenvung" class="form-control">
     </div>
-    <input type="hidden" name="nguoidang" value="<?php echo $nguoidang_id ?>">
     <div class="form-group">
         <label for="pdt_name">Mã vùng</label>
         <input type="text" name="mavung" class="form-control">
     </div>
     <div class="form-group">
         <label for="img">Hình ảnh:</label>
-        <input type="file" name="img" class="form-control">
+        <input type="file" name="img" class="form-control"> 
     </div>
     <?php if (!empty($user_array)): ?>
     <div class="form-group">

@@ -35,8 +35,9 @@ if (isset($_POST['update_vsx_btn'])) {
     <div class="form-group">
         <label for="img">HÌnh ảnh <span class="text-warning">(Hỉnh ảnh phải rộng:1920px và cao: 550px )</span> </label>
         <div class="mb-3">
-        <img src="uploads/<?php echo $slide['hinhanh']?>" style="width: 80px;" >
-        <input type="file" name="img" class="form-control" required>
+            <img src="uploads/<?php echo $slide['hinhanh']?>" style="width: 80px;" >
+            <input type="file" name="img" class="form-control" value="<?= $slide['hinhanh']?>">
+        </div>
     </div>
 
    
@@ -49,6 +50,10 @@ if (isset($_POST['update_vsx_btn'])) {
     <div class="form-group">
         <label for="dc">Địa chỉ</label>
         <input type="text" name="dc" class="form-control" value="<?php echo $slide['diachi'] ?>">
+    </div>
+    <div class="form-group">
+        <label for="bando">Bản đồ</label>
+        <textarea name="bando" id="bando" cols="30" rows="10" class="form-control"><?= $slide['bando']?></textarea>
     </div>
     <div class="form-group">
         <label for="dientich">Diện tích</label>

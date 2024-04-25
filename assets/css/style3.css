@@ -14714,6 +14714,7 @@ body.open-quickview-block .biolife-quickview-block{
 .info-1 h2 {
     font-weight: bold;
     color: black;
+    height: 140px;
 }
 
 .info-1 strong {
@@ -14766,6 +14767,7 @@ body.open-quickview-block .biolife-quickview-block{
     }
     .info-1 h2 {
         font-size: 2rem;
+        height: auto;
     }
 
     .info-1 span {

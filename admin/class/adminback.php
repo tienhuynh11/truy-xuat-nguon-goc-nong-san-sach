@@ -815,6 +815,7 @@ class  adminback
         $mavung = $data['mavung'];
         $sdt = $data['sdt'];
         $dc = $data['dc'];
+        $bando = $data['bando'];
         $dientich = $data['dientich'];
         $thongtin = $data['thongtin'];
     
@@ -835,7 +836,7 @@ class  adminback
                     $pre_img = $row['hinhanh'];
                     unlink("uploads/" . $pre_img);
     
-                    $query = "UPDATE `vungsanxuat` SET `tenvung` = '$tenvung', `mavung` = '$mavung', `hinhanh` = '$lg_name', `sdt` = '$sdt', `diachi` = '$dc', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
+                    $query = "UPDATE `vungsanxuat` SET `tenvung` = '$tenvung', `mavung` = '$mavung', `hinhanh` = '$lg_name', `sdt` = '$sdt', `diachi` = '$dc',`bando` = '$bando', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
     
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($lg_tmp, "uploads/" . $lg_name)) {
                         echo '<script>
@@ -1093,7 +1094,7 @@ class  adminback
 
     function add_vsx($data)
     {
-        $nguoidang = $data['nguoidang'];
+        $nguoidang = $data['nguoidaidien'];
         $tenvung=$data['tenvung'];
         $mavung = $data['mavung'];   
         $sdt = $data['sdt'];

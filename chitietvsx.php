@@ -12,22 +12,23 @@ while ($data = mysqli_fetch_assoc($cata_info)) {
 
 
 if (isset($_GET['id'])) {
-    $pdtId = $_GET['id'];   
-	$pdt_info = $obj->vsx_By_id($pdtId);
-	$pdt_fetch = mysqli_fetch_assoc($pdt_info);
-	$pro_datas = array();
-	$pro_datas[] = $pdt_fetch;
+    $vsxID = $_GET['id'];   
+	$vsx_info = $obj->vsx_By_id($vsxID);
+	$vsx_fetch = mysqli_fetch_assoc($vsx_info);
+	$vsx_datas = array();
+	$vsx_datas[] = $vsx_fetch;
 }
 
-foreach($pro_datas as $pro_data){
-    $tenvung = $pro_data['tenvung'];
-    $mavung = $pro_data['mavung'];
-    $hinhanh = $pro_data['hinhanh'];
-    $nguoidang = $pro_data['nguoidang'];
-    $diachi = $pro_data['diachi'];
-    $bando = $pro_data['bando'];
-    $dientich = $pro_data['dientich'];
-    $thoigiannuoitrong = $pro_data['thoigiannuoitrong'];
+foreach($vsx_datas as $vsx){
+    $tenvung = $vsx['tenvung'];
+    $mavung = $vsx['mavung'];
+    $hinhanh = $vsx['hinhanh'];
+    $nguoidang = $vsx['nguoidang'];
+    $diachi = $vsx['diachi'];
+    $bando = $vsx['bando'];
+    $dientich = $vsx['dientich'];
+    $thoigiannuoitrong = $vsx['thoigiannuoitrong'];
+    $thongtin = $vsx['thongtin'];
 }
 
     $nguoidang_info = $obj->show_admin_user_by_id($nguoidang);
@@ -233,6 +234,14 @@ include_once("includes/head.php");
                                 <p class="title"><?php echo $thoigiannuoitrong?></p>
                             </div>
                         </div>
+                        <div class="row" id="vsx">
+                            <div class="col-md-3">
+                                Thông tin:
+                            </div>
+                            <div class="col-md-9">
+                                <p class="title"><?php echo $thongtin?></p>
+                            </div>
+                        </div>
                     </div>
                 <?php }
             ?>
@@ -273,34 +282,4 @@ include_once("includes/head.php");
 </body>
 
 </html>
-
-<script>
-    // Lấy modal
-    var modal = document.getElementById('qrcodeModal');
-
-    // Lấy hình ảnh QR code và thẻ span để đóng modal
-    var img = document.getElementById('qrcodeImg');
-    var span = document.getElementsByClassName('close')[0];
-
-    // Lấy nút tải xuống
-    var downloadLink = document.getElementById('downloadLink');
-
-    // Khi người dùng nhấn vào hình ảnh QR code, mở modal
-    document.getElementsByClassName('qrcode')[0].onclick = function(){
-        modal.style.display = 'block';
-        img.src = this.getElementsByTagName('img')[0].src; // Lấy src của hình ảnh QR code
-        downloadLink.href = this.getElementsByTagName('img')[0].src; // Cập nhật đường dẫn tải xuống
-    }
-
-    // Khi người dùng nhấn vào nút đóng hoặc nền đen, đóng modal
-    span.onclick = function() {
-    modal.style.display = 'none';
-    }
-
-    window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
-    }
-</script>
 

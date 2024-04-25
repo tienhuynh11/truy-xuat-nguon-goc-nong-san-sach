@@ -70,7 +70,8 @@ include_once("includes/head.php");
                         <ul class="products-list">
 
                             <?php
-                            foreach ($pdt_datas as $pdt_data) {
+                            if($pdt_datas){
+                                foreach ($pdt_datas as $pdt_data) {
 
                             ?>
 
@@ -123,6 +124,11 @@ include_once("includes/head.php");
                                 </li>
 
                             <?php } ?>
+                            <?php
+                                }else{
+                                    echo '<li class="product-item col-lg-3 col-md-3 col-sm-4 col-xs-6">Không có dữ liệu!!</li>';
+                                }
+                            ?>
 
 
                         </ul>
