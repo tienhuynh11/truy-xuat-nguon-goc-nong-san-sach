@@ -598,7 +598,7 @@ class  adminback
 
     function search_product($keyword)
     {
-        $query = "SELECT * FROM `product_info_ctg` WHERE `pdt_name` LIKE '%$keyword%'";
+        $query = "SELECT * FROM `sanpham` WHERE `tensanpham` LIKE '%$keyword%'";
 
         if (mysqli_query($this->connection, $query)) {
             $search_query = mysqli_query($this->connection, $query);

@@ -66,8 +66,18 @@
                             }
                             ?>
                         </td>
-                        <td><?php echo $bv['tieude'] ?></td>
-                        <td><?php echo $bv['noidung'] ?></td>
+                        <td style="white-space: normal;"><?php echo $bv['tieude'] ?></td>
+                        <td style="white-space: normal;"><?php 
+                                        if($bv['noidung'] != null){
+                                            // Chia chuỗi thành mảng các dòng
+                                            $lines = explode("\n", $bv['noidung']);
+
+                                            // Duyệt qua từng dòng và tạo thẻ <li>
+                                            foreach ($lines as $line) {
+                                                echo $line.'<br>';
+                                            }
+                                        }
+                                    ?></td>
                         <td><img style="height:60px" src="uploads/baiviet/<?php echo $bv['hinhanh'] ?>" alt=""></td>
                         <td><?php echo $bv['ngaydang'] ?></td>
                         <td>  

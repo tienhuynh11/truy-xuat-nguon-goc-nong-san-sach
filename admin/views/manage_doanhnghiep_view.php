@@ -97,12 +97,12 @@ $arry = $obj->display_dn_pagination($bat_dau, $ket_thuc);
                  <td><img style="height:60px" src="uploads/<?php echo $dn['hinhanh'] ?>" alt=""></td>
                  <td> <?php echo $dn['sdt'] ?> </td>
                  <td> <?php echo $dn['email'] ?> </td>
-                 <td> <?php echo $dn['diachi'] ?> </td>
+                 <td style="white-space: normal;"> <?php echo $dn['diachi'] ?> </td>
                  <td> <?php echo $dn['masothue'] ?> </td>
                  <td><img style="height:60px" src="uploads/<?php echo $dn['giayphepkinhdoanh'] ?>" alt=""></td>
                  <td><img style="height:60px" src="uploads/<?php echo $dn['giaychungnhan'] ?>" alt=""></td>
                  <td><img style="height:60px" src="uploads/<?php echo $dn['giaykiemdinh'] ?>" alt=""></td>
-                 <td> <?php echo $dn['thongtinchung'] ?> </td>
+                 <td style="white-space: normal;"> <?php echo $dn['thongtinchung'] ?> </td>
                 
             
                 <td>  

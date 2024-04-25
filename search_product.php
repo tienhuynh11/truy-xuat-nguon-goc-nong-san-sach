@@ -26,7 +26,7 @@ if(isset($_GET['search'])){
     }
 
     }else{
-        header('location:all_product.php');
+        header('location:sanpham.php');
     }
 }
 
@@ -95,6 +95,7 @@ include_once("includes/head.php");
                             <?php
                             foreach ($search_results as $search_pdt) {
                                 $tendm = $obj->display_cataByID($search_pdt['danhmuc']);
+                                $formatted_id_sp = 'NSQN'.str_pad($search_pdt['id_sp'], 5, '0', STR_PAD_LEFT);
                             ?>
 
                                 <li class="product-item col-lg-3 col-md-3 col-sm-4 col-xs-6">
@@ -109,7 +110,7 @@ include_once("includes/head.php");
                                             
                                             <h4 class="product-title"><a href="chitietsanpham.php?status=singleproduct&&id=<?php echo $search_pdt['id_sp'] ?>" class="pr-name"><?php echo $search_pdt['tensanpham'] ?></a></h4>
                                             <div class="price">
-                                                <ins><span class="price-amount"><span class="currencySymbol">Mã sản phẩm: </span><?php echo $search_pdt['masanpham'] ?></span></ins>
+                                                <ins><span class="price-amount"><span class="currencySymbol">Mã sản phẩm: </span><?php echo $formatted_id_sp ?></span></ins>
 
                                             </div>
                                             <!-- <div class="shipping-info">

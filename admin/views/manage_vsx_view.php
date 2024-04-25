@@ -1,3 +1,9 @@
+<style>
+    iframe {
+        width: 250px;
+        height: 150px;
+    }
+</style>
 <?php
  $so_ban_ghi_mot_trang = 2;
  if(isset($_GET['trang'])){
@@ -44,7 +50,7 @@
     <thead>
         <tr>
             <th>STT</th>
-            <th>Tên vùng</th>
+            <th >Tên vùng</th>
             <th>Mã vùng</th>
             <th>Nhật ký</th>
             <th>Mã QR</th>
@@ -52,7 +58,7 @@
             <th>Người đăng</th>
             <th>Số điện thoại </th>
             <th>Địa chỉ</th>
-            <th>Bản đồ</th>
+            <th style="width: 200px;">Bản đồ</th>
             <th>Thời gian nuôi trồng</th>
             <th>Diện tích</th>
             <th>Thông tin</th>
@@ -69,7 +75,7 @@
     
         <tr>
             <td> <?php echo $dem ?></td>
-            <td> <?php echo $row['tenvung'] ?></td>
+            <td style="white-space: normal;"> <?php echo $row['tenvung'] ?></td>
             <td> <?php echo $row['mavung'] ?></td>
             <td>  <?php foreach($nhatky_array as $nk){
                                 if($row['nhatky'] == $nk['id_nk']){
@@ -86,11 +92,11 @@
                             }?></td>
         
             <td> <?php echo $row['sdt'] ?></td>
-            <td> <?php echo $row['diachi'] ?></td>
-            <td > <?php echo $row['bando'] ?></td>
+            <td style="white-space: normal;"> <?php echo $row['diachi'] ?></td>
+            <td style="width: 200px;"><?php echo $row['bando'] ?></td>
             <td > <?php echo $row['thoigiannuoitrong'] ?></td>
             <td> <?php echo $row['dientich'] ?></td>
-            <td> <?php echo $row['thongtin'] ?></td>                
+            <td style="white-space: normal;"> <?php echo $row['thongtin'] ?></td>                
             <td>
             <a href="edit_vsx.php?status=edit&&id=<?php echo $row['id_vung'] ?>" class="btn btn-sm btn-warning">Sửa</a>
             <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $row['id_vung'] ?>)">Xóa</a>
