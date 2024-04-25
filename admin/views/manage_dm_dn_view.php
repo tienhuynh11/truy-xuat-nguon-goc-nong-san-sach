@@ -2,8 +2,17 @@
   
 
 <?php 
-
-$catagories_dn = $obj-> display_catagory_dn();
+$so_ban_ghi_mot_trang = 7;
+if(isset($_GET['trang'])){
+    $trang_hien_tai = $_GET['trang'];
+} else {
+    $trang_hien_tai = 1;
+}
+$so_ban_ghi =$obj->count_dmdn();
+$tong_so_trang = ceil($so_ban_ghi / $so_ban_ghi_mot_trang);
+$bat_dau = ($trang_hien_tai - 1) * $so_ban_ghi_mot_trang;
+$ket_thuc = $bat_dau + $so_ban_ghi_mot_trang;
+$catagories_dn = $obj->display_dmdn_pagination($bat_dau, $ket_thuc);
 
 if(isset($_GET['status'])){
     $get_id = $_GET['id'];
@@ -12,7 +21,7 @@ if(isset($_GET['status'])){
     }
 }
 
-$dem=1;
+$dem=($trang_hien_tai - 1) * $so_ban_ghi_mot_trang + 1;
 
 ?>
 
@@ -54,6 +63,19 @@ $dem=1;
     </tbody>
 </table>
 </div>
+<?php 
+echo "<div class='pagination'  style='float: right;'> ";
+if($trang_hien_tai > 1){
+    echo "<a href='?trang=".($trang_hien_tai - 1)."' class='btn btn-primary ti-angle-left'></a>";
+}
+for($i = 1; $i <= $tong_so_trang; $i++){
+    echo "<a href='?trang=".$i."' class='btn btn-primary'>$i</a>";
+}
+if($trang_hien_tai < $tong_so_trang){
+    echo "<a href='?trang=".($trang_hien_tai + 1)."' class='btn btn-primary ti-angle-right'></a>";
+}
+echo "</div>";
+?>
 <script>
 function confirmDelete(id) {
     if (confirm("Bạn có chắc chắn muốn xóa danh mục này không?")) {

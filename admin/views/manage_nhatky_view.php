@@ -1,5 +1,18 @@
 
 <?php     
+    $so_ban_ghi_mot_trang = 7;
+    if(isset($_GET['trang'])){
+        $trang_hien_tai = $_GET['trang'];
+    } else {
+        $trang_hien_tai = 1;
+    }
+    $so_ban_ghi =$obj->count_nhatky();
+    $tong_so_trang = ceil($so_ban_ghi / $so_ban_ghi_mot_trang);
+    $bat_dau = ($trang_hien_tai - 1) * $so_ban_ghi_mot_trang;
+    $ket_thuc = $bat_dau + $so_ban_ghi_mot_trang;
+    $show_nhatky = $obj->display_nksp_pagination($bat_dau, $ket_thuc);
+
+
     $show_nhatky = $obj->show_nhatky();
     $nguoidang_info = $obj->show_admin_user();
     $sanpham_info = $obj->display_product();
@@ -35,7 +48,7 @@
                 <tr>
                     <th>Stt</th>
                     <th>Sản phẩm</th>
-                    <th>người đăng</th>
+                    <th>Người đăng</th>
                     <th>Tên nhật ký</th>
                     <th>Chi tiết</th>
                     <th>Hình ảnh</th>
@@ -45,7 +58,7 @@
             </thead>
             <tbody>
                 <?php 
-                $dem=1;
+                $dem=($trang_hien_tai - 1) * $so_ban_ghi_mot_trang + 1;
                 while($nk = mysqli_fetch_assoc($show_nhatky)){
                     ?>
                     <tr>
@@ -84,7 +97,19 @@
             </tbody>
         </table>
 </div>
-
+<?php 
+echo "<div class='pagination'  style='float: right;'> ";
+if($trang_hien_tai > 1){
+    echo "<a href='?trang=".($trang_hien_tai - 1)."' class='btn btn-primary ti-angle-left'></a>";
+}
+for($i = 1; $i <= $tong_so_trang; $i++){
+    echo "<a href='?trang=".$i."' class='btn btn-primary'>$i</a>";
+}
+if($trang_hien_tai < $tong_so_trang){
+    echo "<a href='?trang=".($trang_hien_tai + 1)."' class='btn btn-primary ti-angle-right'></a>";
+}
+echo "</div>";
+?>
 <script>
     function confirmDelete(id) {
         if (confirm("Bạn có chắc chắn muốn xóa không?")) {

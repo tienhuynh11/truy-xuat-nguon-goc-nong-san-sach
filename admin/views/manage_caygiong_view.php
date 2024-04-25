@@ -1,5 +1,19 @@
 <?php     
-    $show_cg = $obj->show_caygiong();
+    
+
+    $so_ban_ghi_mot_trang = 7;
+    if(isset($_GET['trang'])){
+        $trang_hien_tai = $_GET['trang'];
+    } else {
+        $trang_hien_tai = 1;
+    }
+    $so_ban_ghi =$obj->count_caygiong();
+    $tong_so_trang = ceil($so_ban_ghi / $so_ban_ghi_mot_trang);
+    $bat_dau = ($trang_hien_tai - 1) * $so_ban_ghi_mot_trang;
+    $ket_thuc = $bat_dau + $so_ban_ghi_mot_trang;
+    $show_cg = $obj->display_cg_pagination($bat_dau, $ket_thuc);
+
+
   if(isset($_GET['status'])){
       $id_cg = $_GET['id'];
       if($_GET['status']=='delete'){
@@ -38,7 +52,7 @@
 
         <tbody>
         <?php 
-            $dem=1;
+           $dem=($trang_hien_tai - 1) * $so_ban_ghi_mot_trang + 1;
             while($cg = mysqli_fetch_assoc($show_cg)){
                 
         ?>
@@ -73,7 +87,19 @@
         </tbody>
     </table>
 </div>
-
+<?php 
+echo "<div class='pagination'  style='float: right;'> ";
+if($trang_hien_tai > 1){
+    echo "<a href='?trang=".($trang_hien_tai - 1)."' class='btn btn-primary ti-angle-left'></a>";
+}
+for($i = 1; $i <= $tong_so_trang; $i++){
+    echo "<a href='?trang=".$i."' class='btn btn-primary'>$i</a>";
+}
+if($trang_hien_tai < $tong_so_trang){
+    echo "<a href='?trang=".($trang_hien_tai + 1)."' class='btn btn-primary ti-angle-right'></a>";
+}
+echo "</div>";
+?>
 <script>
     function confirmDelete(id) {
         if (confirm("Bạn có chắc chắn muốn xóa cây giống này không?")) {
