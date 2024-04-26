@@ -38,6 +38,11 @@
         <input type="text" name="user_adress" class="form-control">
     </div>
     <div class="form-group">
+    <label for="hinhdaidien">Hình đại diện</label>
+    <input type="file" name="hinhdaidien" class="form-control" accept="image/*">
+</div>
+
+    <div class="form-group">
         <label for="user_role">Role</label>
         <select name="user_role" class="form-control">
         <option value="Admin">Admin</option>

@@ -25,7 +25,7 @@ ini_set("display_erros", "Off");
     <div class="form-group">
     <div class="form-group">
         <label for="danhmuc_dn">Danh mục doanh nghiệp</label>
-        <select name="danhmuc_dn" class="form-control">
+        <select name="danhmuc_dn" id="danhmuc_dn" class="form-control">
         <?php while($cata = mysqli_fetch_assoc($catadn_info)){ ?>
             <?php if ($cata['id_dmdn'] == $dn['danhmuc_dn']) { ?>
                 <option value="<?php echo $cata['id_dmdn'] ?>" selected><?php echo $cata['tendoanhnghiep']?></option>
@@ -98,3 +98,10 @@ ini_set("display_erros", "Off");
     </div>
     <input type="submit" value="Cập nhật" name="update_dn" class="btn btn-block btn-primary">
 </form>
+
+<script>
+    $(document).ready(function() {
+        $("#nguoidaidien").select2();
+        $("#danhmuc_dn").select2();
+    });
+</script>

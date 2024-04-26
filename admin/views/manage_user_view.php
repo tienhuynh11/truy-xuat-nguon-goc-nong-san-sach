@@ -38,6 +38,7 @@ $arry  = $obj->display_user_pagination($bat_dau, $ket_thuc);
                 <th>Email</th>
                 <th>Số điện thoại</th>
                 <th>Địa chỉ</th>
+                <th>Hình đại diện</th>
                 <th>Vai trò</th>
                 <th>Action</th>
             </tr>
@@ -54,6 +55,7 @@ $arry  = $obj->display_user_pagination($bat_dau, $ket_thuc);
                 <td> <?php echo $user['email'] ?> </td>
                 <td> <?php echo $user['dienthoai'] ?> </td>
                 <td> <?php echo $user['diachi'] ?> </td>
+                <td><img style="height:60px" src="uploads/<?php echo $user['hinhdaidien'] ?>" alt=""></td>
                 <td> <?php if($user['role']=='Admin'){
                     echo "Admin";
                 }else if($user['role']=='Khachhang'){

@@ -133,3 +133,10 @@
 
     <input type="submit" value="Thêm vùng sản xuất" name="add_vsx" class="btn btn-block btn-primary">
 </form>
+
+<script>
+    $(document).ready(function() {
+        $("#nguoidaidien").select2();
+        $("#nhatky").select2();
+    });
+</script>

@@ -47,7 +47,7 @@ ini_set("display_erros", "Off");
     </div>
     <div class="form-group">
         <label for="pdt_ctg">Danh mục</label>
-        <select name="u_pdt_ctg" class="form-control">
+        <select name="u_pdt_ctg" id="pdt_ctg" class="form-control">
      
 
         <?php while($cata = mysqli_fetch_assoc($cata_info)){ ?>
@@ -61,7 +61,7 @@ ini_set("display_erros", "Off");
     </div>
     <div class="form-group">
         <label for="caygiong">Cây giống</label>
-        <select name="caygiong" class="form-control">
+        <select name="caygiong" id="caygiong" class="form-control">
         <?php while($cg = mysqli_fetch_assoc($caygiong)){ ?>
             <?php if ($cg['id_cg'] == $pdt['caygiong']) { ?>
                 <option value="<?php echo $cg['id_cg'] ?>" selected><?php echo $cg['tencaygiong'] ?></option>
@@ -73,7 +73,7 @@ ini_set("display_erros", "Off");
     </div>
     <div class="form-group">
         <label for="vungsanxuat">Vùng sản xuất</label>
-        <select name="vungsanxuat" class="form-control">
+        <select name="vungsanxuat" id="vungsanxuat" class="form-control">
         <?php while($vsx = mysqli_fetch_assoc($vungsanxuat)){ ?>
             <?php if ($vsx['id_vung'] == $pdt['vungsanxuat']) { ?>
                 <option value="<?php echo $vsx['id_vung'] ?>" selected><?php echo $vsx['tenvung'] ?></option>
@@ -108,3 +108,11 @@ ini_set("display_erros", "Off");
 
     <input type="submit" value="Update Product" name="update_pdt" class="btn btn-block btn-primary">
 </form>
+
+<script>
+    $(document).ready(function() {
+        $("#pdt_ctg").select2();
+        $("#caygiong").select2();
+        $("#vungsanxuat").select2();
+    });
+</script>

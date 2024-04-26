@@ -4,7 +4,7 @@ if (isset($_GET['status'])) {
         $slide_id = $_GET['id'];
     }
 }
-
+$users = $obj->show_admin_user();
 $row = $obj->vsx_By_id($slide_id);
 $slide = mysqli_fetch_assoc($row);
 $nk_info=$obj->show_nhatky();
@@ -32,8 +32,20 @@ if (isset($_POST['update_vsx_btn'])) {
         <input type="text" name="mavung" class="form-control" value="<?php echo $slide['mavung'] ?>">
     </div>
     <div class="form-group">
+        <label for="lblnguoidaidien">Người đại diện</label>
+        <select name="nguoidaidien" id="nguoidaidien" class="form-control">
+            <?php foreach($users as $user): ?>
+                <?php if ($user['id_acc']== $dn['nguoidaidien']) { ?>
+                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
     <label for="nhatky">Nhật ký</label>
-        <select name="nhatky" class="form-control">
+        <select name="nhatky" id="nhatky" class="form-control">
         <?php while($nk = mysqli_fetch_assoc($nk_info)) { ?>
             <?php if ($nk['id_nk'] == $slide['nhatky']) { ?>
                 <option value="<?php echo $nk['id_nk'] ?>" selected><?php echo $nk['tennhatky'] ?></option>
@@ -87,3 +99,9 @@ if (isset($_POST['update_vsx_btn'])) {
     <input type="submit" value="Cập nhật" name="update_vsx_btn" class="btn btn-primary">
 
 </form>
+<script>
+    $(document).ready(function() {
+        $("#nguoidaidien").select2();
+        $("#nhatky").select2();
+    });
+</script>

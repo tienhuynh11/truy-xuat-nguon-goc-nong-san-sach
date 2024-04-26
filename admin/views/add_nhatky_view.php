@@ -30,9 +30,7 @@
     <form action="" method="post" enctype="multipart/form-data" class="form">
     <div class="form-group">
         <label for="sanpham">Sản phẩm</label>
-        <select name="sanpham" class="form-control">
-        <option value="">Chọn Sản phẩm</option>
-
+        <select name="sanpham" id="sp" class="form-control">
         <?php while($pro = mysqli_fetch_assoc($product_info)){ ?>
         <option value="<?php echo $pro['id_sp']; ?>"  ><?php echo $pro['tensanpham'] ?></option>
 
@@ -64,3 +62,8 @@
        
     </form>
 </div>
+<script>
+    $(document).ready(function() {
+        $("#sp").select2();
+    });
+</script>

@@ -29,7 +29,7 @@
 
     <div class="form-group">
     <label for="sanpham">Nông sản</label>
-        <select name="sanpham" class="form-control">
+        <select name="sanpham" id="sp"  class="form-control">
         <?php while($pdt = mysqli_fetch_assoc($product_info)) { ?>
             <?php if ($pdt['id_sp'] == $nk['sanpham']) { ?>
                 <option value="<?php echo $pdt['id_sp'] ?>" selected><?php echo $pdt['tensanpham'] ?></option>
@@ -60,3 +60,9 @@
     </div>
 </form>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $("#sp").select2();
+    });
+</script>

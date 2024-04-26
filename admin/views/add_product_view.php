@@ -1,3 +1,4 @@
+
 <?php
     if(isset($_SESSION['admin_id'])) {
         $nguoidang_id = $_SESSION['admin_id'];
@@ -48,35 +49,26 @@
 
     <div class="form-group">
         <label for="pdt_ctg">Danh mục</label>
-        <select name="pdt_ctg" class="form-control">
-        <option value="">Chọn danh mục</option>
-
+        <select name="pdt_ctg" id="pdt_ctg" class="form-control">
         <?php while($cata = mysqli_fetch_assoc($cata_info)){ ?>
         <option value="<?php echo $cata['id_dm'] ?>"><?php echo $cata['tendanhmuc'] ?></option>
-
         <?php }?>
         </select>
     </div>
     
     <div class="form-group">
-        <label for="pdt_ctg">Cây giống</label>
-        <select name="pdt_ctg" class="form-control">
-        <option value="">Chọn cây giống</option>
-
+        <label for="caygiong">Cây giống</label>
+        <select name="caygiong" id="caygiong" class="form-control">
         <?php while($cg = mysqli_fetch_assoc($caygiong)){ ?>
         <option value="<?php echo $cg['id_cg'] ?>"><?php echo $cg['tencaygiong'] ?></option>
-
         <?php }?>
         </select>
     </div>
     <div class="form-group">
-        <label for="pdt_ctg">Vùng sản xuất</label>
-        <select name="pdt_ctg" class="form-control">
-        <option value="">Chọn vùng sản xuất</option>
-
+        <label for="vungsanxuat">Vùng sản xuất</label>
+        <select name="vungsanxuat" id="vungsanxuat" class="form-control">
         <?php while($vsx = mysqli_fetch_assoc($vungsanxuat)){ ?>
         <option value="<?php echo $vsx['id_vung'] ?>"><?php echo $vsx['tenvung'] ?></option>
-
         <?php }?>
         </select>
     </div>
@@ -111,3 +103,11 @@
 
     <input type="submit" value="Thêm nông sản" name="add_pdt" class="btn btn-block btn-primary">
 </form>
+
+<script>
+    $(document).ready(function() {
+        $("#pdt_ctg").select2();
+        $("#caygiong").select2();
+        $("#vungsanxuat").select2();
+    });
+</script>

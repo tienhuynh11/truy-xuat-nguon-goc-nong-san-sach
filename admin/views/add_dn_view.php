@@ -20,9 +20,7 @@
 <div class="form-group">
     <div class="form-group">
         <label for="danhmuc_dn">Danh mục doanh nghiệp</label>
-        <select name="danhmuc_dn" class="form-control">
-        <option value="">Chọn danh mục</option>
-
+        <select name="danhmuc_dn" id="danhmuc_dn" class="form-control">
         <?php while($cata = mysqli_fetch_assoc($catadn_info)){ ?>
         <option value="<?php echo $cata['id_dmdn'] ?>"  ><?php echo $cata['tendoanhnghiep'] ?></option>
 
@@ -34,25 +32,12 @@
     <div class="form-group">
         <label for="lblnguoidaidien">Người đại diện</label>
         <select name="nguoidaidien" id="nguoidaidien" class="form-control">
-            <option value="" >Chọn người đại diện</option>
             <?php foreach($users as $user): ?>
                 <option value="<?= $user['id_acc'] ?>"><?= $user['hoten'] ?> - <?= $user['dienthoai'] ?></option>
             <?php endforeach; ?>
         </select>
     </div>
     <?php endif; ?>
-    
-    <div class="form-group">
-        <label for="tendoanhnghiep">Tên doanh nghiệp</label>
-        <select class="js-example-basic-single">
-            <?php foreach($users as $user): ?>
-                <option value="<?= $user['id_acc'] ?>"><?= $user['hoten'] ?> - <?= $user['dienthoai'] ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-
-    
-
     <div class="form-group">
         <label for="tendoanhnghiep">Tên doanh nghiệp</label>
         <input type="text" name="tendoanhnghiep" class="form-control"  >
@@ -99,7 +84,7 @@
 </form>
 <script>
     $(document).ready(function() {
-  $(".js-example-basic-single").select2();
-  // Thêm các tùy chọn của bạn vào đây.
-});
+        $("#nguoidaidien").select2();
+        $("#danhmuc_dn").select2();
+    });
 </script>

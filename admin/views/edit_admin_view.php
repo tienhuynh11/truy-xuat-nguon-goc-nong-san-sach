@@ -17,7 +17,7 @@
 ?>
 
 <div class="container">
-    <h4>Chỉnh sửa thông tin tài khoản</h4>
+    <h4>Chỉnh sửa thông tin tài khoản </h4>
 
     <h6>
         <?php 
@@ -26,7 +26,7 @@
             }
         ?>
     </h6>
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <h4>Email</h4>
         <input type="email" name="u-user-email" class="form-control" value="<?php echo $admin['email'] ?>" required>
@@ -49,18 +49,24 @@
         <input type="text" name="u-user-address" class="form-control" value="<?php echo $admin['diachi'] ?>" required>
     </div>
     <div class="form-group">
-        <h4>Role</h4>
+        <label for="hinhdaidien">Hình đại diện </label>
+        <div class="mb-3">
+        <img src="uploads/<?php echo $admin['hinhdaidien']?>" style="width: 80px;" >
+        <input type="file" name="hinhdaidien" class="form-control">
+    </div>
+    <div class="form-group">
+        <h4>Vai trò</h4>
        <select name="u_user_role" class="form-control">
            <!-- <option disabled selected>--Select--</option> -->
            
-           <option value="1" <?php  if($admin['role']=='Admin'){echo "Selected";  } ?> >Admin</option>
-           <option value="2" <?php  if($admin['role']=='Khachhang'){echo "Selected";  } ?> >Khách hàng</option>
-           <option value="2" <?php  if($admin['role']=='Nongdan'){echo "Selected";  } ?> >Nông dân</option>
+           <option value="Admin" <?php  if($admin['role']=='Admin'){echo "Selected";  } ?> >Admin</option>
+           <option value="Khachhang" <?php  if($admin['role']=='Khachhang'){echo "Selected";  } ?> >Khách hàng</option>
+           <option value="Nongdan" <?php  if($admin['role']=='Nongdan'){echo "Selected";  } ?> >Nông dân</option>
        </select>
     </div>
 
     <div class="form-group">
-        <input type="submit" name="update_user" class="btn btn-primary">
+        <input type="submit" name="update_user" class="btn btn-primary" value="Cập nhập tài khoản">
     </div>
 </form>
 </div>

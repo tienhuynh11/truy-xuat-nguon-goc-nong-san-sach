@@ -96,12 +96,14 @@
                            </li>
                            
                            <li class="user-profile header-notification">
-                               <a href="#!">
-                                   <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                   <span> <?php
+                               <a href="#!"><?php
                                     while($user = mysqli_fetch_assoc($user_info)){ 
-                                        if($admin_email==$user['email'])
+                                        if($admin_email==$user['email']){?>
+                                   <img src="uploads/<?php echo $user['hinhdaidien']?>" class="img-radius" alt="User-Profile-Image">
+                                   <span> 
+                                      <?php 
                                             echo $user['hoten'];
+                                        }
                                         }
                                    ?> </span>
                                    <i class="ti-angle-down"></i>

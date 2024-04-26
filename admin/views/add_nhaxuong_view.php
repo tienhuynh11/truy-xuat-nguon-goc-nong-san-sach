@@ -20,7 +20,7 @@
 <div class="form-group">
     <div class="form-group">
         <label for="danhmuc_nx">Danh mục nhà xưởng</label>
-        <select name="danhmuc_nx" class="js-example-basic-single">
+        <select name="danhmuc_nx" id="danhmuc_nx" class="form-control" >
         <?php while($cata = mysqli_fetch_assoc($catanx_info)){ ?>
         <option value="<?php echo $cata['id_dmnx'] ?>"  ><?php echo $cata['loainhaxuong'] ?></option>
 
@@ -31,7 +31,7 @@
     <?php if (!empty($user_array)): ?>
     <div class="form-group">
         <label for="lblnguoidaidien">Người đại diện</label>
-        <select name="nguoidaidien" id="nguoidaidien" class="js-example-basic-single">
+        <select name="nguoidaidien" id="nguoidaidien" class="form-control" >
             <?php foreach($users as $user): ?>
                 <option value="<?= $user['id_acc'] ?>"><?= $user['hoten'] ?> - <?= $user['dienthoai'] ?></option>
             <?php endforeach; ?>
@@ -41,7 +41,7 @@
     
     <div class="form-group">
         <label for="doanhnghiep">Doanh nghiệp</label>
-        <select name="doanhnghiep" class="js-example-basic-single">
+        <select name="doanhnghiep" id="doanhnghiep" class="form-control" >
         <?php while($dn = mysqli_fetch_assoc($dn_info)){ ?>
         <option value="<?php echo $dn['id_dn'] ?>"  ><?php echo $dn['tendoanhnghiep'] ?></option>
 
@@ -50,7 +50,7 @@
     </div>
     <div class="form-group">
         <label for="vsx">Vùng sản xuất</label>
-        <select name="vsx" class="js-example-basic-single">
+        <select name="vsx"  id="vsx" class="form-control" >
         <?php while($vsx = mysqli_fetch_assoc($vsx_info)){ ?>
         <option value="<?php echo $vsx['id_vung'] ?>"  ><?php echo $vsx['tenvung'] ?></option>
 
@@ -58,13 +58,17 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="tendoanhnghiep">Tên doanh nghiệp</label>
-        <input type="text" name="tendoanhnghiep" class="form-control"  >
+        <label for="tennhaxuong">Tên nhà xưởng</label>
+        <input type="text" name="tennhaxuong" class="form-control"  >
+    </div>
+    <div class="form-group">
+        <label for="manhaxuong">Mã nhà xưởng</label>
+        <input type="text" name="manhaxuong" class="form-control"  >
     </div>
     <div class="form-group">
         <label for="hinhanh">Hình ảnh </label>
         <div class="mb-3">
-        <input type="file" name="hinhanh" class="form-control">
+        <input type="file" name="hinhanh" class="form-control" required >
     </div>
     <div class="form-group">
         <label for="sdt"> Số điện thoại</label>
@@ -79,31 +83,34 @@
         <input type="text" name="diachi" class="form-control" >
     </div>
     <div class="form-group">
-        <label for="masothue">Mã số thuế</label>
-        <input type="text" name="masothue" class="form-control" >
+        <label for="dientichtongthe">Diện tích tổng thể</label>
+        <input type="text" name="dientichtongthe" class="form-control" >
     </div>
     <div class="form-group">
         <label for="giayphepkinhdoanh">Giấy phép kinh doanh</label>
-        <input type="file" name="giayphepkinhdoanh" class="form-control" >
+        <input type="file" name="giayphepkinhdoanh" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="giaychungnhan">Giấy chứng nhận</label>
-        <input type="file" name="giaychungnhan" class="form-control">
+        <input type="file" name="giaychungnhan" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="giaykiemdinh">Giấy kiểm định</label>
-        <input type="file" name="giaykiemdinh" class="form-control" >
+        <input type="file" name="giaykiemdinh" class="form-control" required>
     </div>
     <div class="form-group">
-        <label for="thongtinchung">Thông tin chung</label>
-        <input type="text" name="thongtinchung" class="form-control">
+        <label for="thongtin">Thông tin chung</label>
+        <input type="text" name="thongtin" class="form-control" >
     </div>
 
-    <input type="submit" value="Thêm doanh nghiệp" name="add_nx" class="btn btn-block btn-primary">
+    <input type="submit" value="Thêm nhà xưởng" name="add_nx" class="btn btn-block btn-primary">
 </form>
 <script>
     $(document).ready(function() {
-  $(".js-example-basic-single").select2();
-  // Thêm các tùy chọn của bạn vào đây.
-});
+        $("#danhmuc_nx").select2();
+        $("#nguoidaidien").select2();
+        $("#doanhnghiep").select2();
+        $("#vsx").select2();
+    });
+</script>
 </script>
