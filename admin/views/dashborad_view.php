@@ -6,6 +6,8 @@
     $demdn=$obj->count_dn();
     $demvsx=$obj->count_vsx();
     $demcg=$obj->count_caygiong();
+    $demnx=$obj->count_nx();
+
 ?>
 <style>
     .mydiv{
@@ -199,6 +201,15 @@
         <div class="card-block">
             <h6 class="m-b-20">Cây giống</h6>
             <h2 class="text-right"><i class="ti-wand f-left"></i><span id="pendingOrder"><?php echo  $demcg ; ?></span></h2>
+            <p class="m-b-0"><span class="f-right"></span></p>
+        </div>
+    </div>
+</div>
+<div class="col-md-6 col-xl-3">
+    <div class="card bg-c-blue order-card">
+        <div class="card-block">
+            <h6 class="m-b-20">Nhà xưởng</h6>
+            <h2 class="text-right"><i class="ti-control-shuffle f-left"></i><span id="pendingOrder"><?php echo  $demnx ; ?></span></h2>
             <p class="m-b-0"><span class="f-right"></span></p>
         </div>
     </div>
