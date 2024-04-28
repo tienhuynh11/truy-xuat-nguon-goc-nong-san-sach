@@ -66,16 +66,16 @@ $dem=($trang_hien_tai - 1) * $so_ban_ghi_mot_trang + 1;
 <?php 
 echo "<div class='pagination'  style='float: right;'> ";
 if($trang_hien_tai > 1){
-    echo "<a href='?trang=".($trang_hien_tai - 1)."' class='btn btn-white text-dark ti-angle-left'></a>";
+    echo "<a href='?trang=".($trang_hien_tai - 1)."' class='btn btn-white text-dark ti-angle-left' ></a>";
 }
 for($i = max(1, $trang_hien_tai - 2); $i <= min($tong_so_trang, $trang_hien_tai + 2); $i++){
     if ($i > 1) {
         echo "&nbsp;";
     }
     if ($i == $trang_hien_tai) {
-        echo "<a href='?trang=".$i."' class='btn btn-white text-dark' >$i</a>";
+        echo "<a href='?trang=".$i."' class='btn btn-white text-dark' style='font-weight: bold; background-color: gray;'>$i</a>";
     } else {
-        echo "<a href='?trang=".$i."' class='btn btn-white text-dark' >$i</a>";
+        echo "<a href='?trang=".$i."' class='btn btn-white text-dark'>$i</a>";
     }
 }
 if($trang_hien_tai < $tong_so_trang){

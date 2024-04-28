@@ -1,5 +1,5 @@
 <?php     
-   $so_ban_ghi_mot_trang = 7;
+   $so_ban_ghi_mot_trang = 1;
    if(isset($_GET['trang'])){
        $trang_hien_tai = $_GET['trang'];
    } else {
@@ -112,6 +112,7 @@ if($trang_hien_tai < $tong_so_trang){
 }
 echo "</div>";
 ?>
+<script>
     function confirmDelete(id) {
         if (confirm("Bạn có chắc chắn muốn xóa nông sản này không?")) {
             window.location.href = "?status=delete&&id=" + id;

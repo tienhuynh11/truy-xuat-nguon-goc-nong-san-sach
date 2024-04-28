@@ -1,5 +1,5 @@
 <?php     
-    $so_ban_ghi_mot_trang = 7;
+    $so_ban_ghi_mot_trang = 5;
 if(isset($_GET['trang'])){
     $trang_hien_tai = $_GET['trang'];
 } else {
