@@ -584,30 +584,28 @@ class  adminback
 
     function user_register($data)
     {
-        $username = $data['username'];
-        $user_firstname = $data['user_firstname'];
-        $user_lastname = $data['user_lastname'];
-        $user_email = $data['user_email'];
+        $username = $data['hoten'];
+        $user_email = $data['email'];
         $user_password = md5($data['user_password']);
-        $user_mobile = $data['user_mobile'];
-        $user_address = $data['user_address'];
+        $user_mobile = $data['sdt'];
+        $user_address = $data['diachi'];
         $user_roles = $data['user_roles'];
 
 
-        $user_check = "SELECT * FROM `users` WHERE user_name='$username' or user_email='$user_email'";
+        $user_check = "SELECT * FROM `taikhoan` WHERE email='$user_email'";
 
         $mysqli_result = mysqli_query($this->connection, $user_check);
 
         $row = mysqli_num_rows($mysqli_result);
 
         if ($row == 1) {
-            $msg = "Username or email already exist";
+            $msg = "Email đã được sử dụng!!";
             return $msg;
         } else {
-            $query = "INSERT INTO `users`( `user_name`, `user_firstname`, `user_lastname`, `user_email`, `user_password`, `user_mobile`,`user_address`, `user_roles`) VALUES ('$username',' $user_firstname',' $user_lastname','$user_email','$user_password',$user_mobile,'$user_address',$user_roles)";
+            $query = "INSERT INTO `taikhoan`( `hoten`, `email`, `matkhau`, `dienthoai`, `diachi`, `hinhdaidien`,`role`) VALUES ('$username',' $user_email',' $user_password','$user_mobile','$user_address',$user_roles)";
 
             if (mysqli_query($this->connection, $query)) {
-                $msg = "Your registration done";
+                $msg = "Đăng ký thành công!!";
                 return $msg;
             }
         }
@@ -619,7 +617,7 @@ class  adminback
         $user_email = $_POST['user_email'];
         $user_password = md5($_POST['user_password']);
 
-        $query = "SELECT * FROM `users` WHERE `user_email`='$user_email' AND `user_password`='$user_password'";
+        $query = "SELECT * FROM `taikhoan` WHERE `email`='$user_email' AND `matkhau`='$user_password'";
 
         if (mysqli_query($this->connection, $query)) {
             $result = mysqli_query($this->connection, $query);
@@ -627,14 +625,14 @@ class  adminback
             if ($user_info) {
                 header("location:userprofile.php");
                 session_start();
-                $_SESSION['user_id'] = $user_info['user_id'];
-                $_SESSION['email'] = $user_info['user_email'];
-                $_SESSION['mobile'] = $user_info['user_mobile'];
-                $_SESSION['address'] = $user_info['user_address'];
+                $_SESSION['user_id'] = $user_info['id_acc'];
+                $_SESSION['email'] = $user_info['email'];
+                $_SESSION['mobile'] = $user_info['dienthoai'];
+                $_SESSION['address'] = $user_info['diachi'];
 
-                $_SESSION['username'] = $user_info['user_name'];
+                $_SESSION['username'] = $user_info['hoten'];
             } else {
-                $logmsg = "Your username or password is incorrect";
+                $logmsg = "Tên đăng nhập hoặc mật khẩu không chính xác!!";
                 return $logmsg;
             }
         }
@@ -646,7 +644,7 @@ class  adminback
         unset($_SESSION['email']);
         unset($_SESSION['password']);
 
-        header("location:user_login.php");
+        header("location:dangnhap.php");
         session_destroy();
     }
 
@@ -2252,7 +2250,7 @@ function update_nx($data)
         list($width, $height) = getimagesize($nx_img_tmp);
 
         if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
-            if ($dn_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
+            if ($nx_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
                 // Di chuyển và cập nhật tập tin hình ảnh mới
                 $target_file = "uploads/" . $nx_img_name;
                 if (move_uploaded_file($nx_img_tmp, $target_file)) {

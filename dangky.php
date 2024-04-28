@@ -16,7 +16,7 @@ if (isset($_POST['user_register_btn'])) {
 if(isset($_SESSION['user_id'])){
     $userId = $_SESSION['user_id'];
     if($userId){
-        header('location:userprofile.php');
+        header('location:hoso.php');
     }
 }
 
@@ -76,19 +76,20 @@ include_once("includes/head.php");
                                 <p class="form-row" >
                                     <label for="user_roles">Loại thành viên</label>
                                     <select name="user_roles" class="form-control" id="role">
-                                        <option value="1">Nông dân</option>
-                                        <option value="2">Người đánh giá</option>
-                                        <option value="3">Chuyên gia</option>
-                                        <option value="4">Chuyên viên</option>
-                                        <option value="5">Kỹ thuật viên</option>
-                                        <option value="6">Người kiểm định</option>
+                                        <option value="Nongdan">Nông dân</option>
+                                        <option value="Nguoidanhgia">Người đánh giá</option>
+                                        <option value="Chuyengia">Chuyên gia</option>
+                                        <option value="Chuyenvien">Chuyên viên</option>
+                                        <option value="Kythuatvien">Kỹ thuật viên</option>
+                                        <option value="Nguoikiemdinh">Người kiểm định</option>
                                         <!-- Thêm các option khác nếu cần -->
                                     </select>
                                 </p>
 						   
                               <p class="form-row">
                                     <label for="user_lastname">Họ tên<span class="requite">*</span></label>
-                                    <input type="text" name="user_lastname" class="txt-input form-control">
+                                    <input type="text" id="hoten" name="hoten" oninput="checkDangKy(this)" class="txt-input form-control">
+                                    <div id="errorText" style="color: red; display: none;"></div>
                                 </p>
                                 
                               <p class="form-row">
@@ -98,33 +99,35 @@ include_once("includes/head.php");
 
                                 <p class="form-row">
                                     <label for="user_email">Email <span class="requite">*</span> </label>
-                                    <input type="email" name="user_email" class="form-control" required>
+                                    <input type="email" id="email" name="email" class="form-control" oninput="checkDangKy(this)">
+                                    <div id="errorTextEmail" style="color: red; display: none;"></div>
                                 </p>
 
                                 <p class="form-row">
                                     <label for="user_password">Mật khẩu <span class="requite">*</span> </label>
-                                    <input type="password" id="fid-pass" name="user_password" class="form-control" required>
+                                    <input type="password" id="pass" name="user_password" class="form-control" oninput="checkDangKy(this)">
+                                    <div id="errorTextPass" style="color: red; display: none;"></div>
                                 </p>
                                 
                                 <p class="form-row">
                                     <label for="user_password">Nhập lại mật khẩu <span class="requite">*</span> </label>
-                                    <input type="password" id="fid-pass" name="user_password_again" class="form-control" required>
+                                    <input type="password" id="pass2" name="user_password2" class="form-control" oninput="checkPasswordsMatch()">
+                                    <div id="passwordMatchMessage" style="display: none; color: red;"></div>
                                 </p>
 
                                 <p class="form-row">
                                     <label for="user_mobile">Số điện thoại <span class="requite">*</span> </label>
-                                    <input type="tel" id="fid-pass" name="user_mobile"class="form-control" required>
+                                    <input type="tel" id="fid-pass" name="sdt"class="form-control" required>
                                 </p>
                                 <p class="form-row">
                                     <label for="user_address">Địa chỉ <span class="requite">*</span> </label>
-                                    <textarea name="user_address" id="" cols="10" class="form-control"></textarea>
+                                    <textarea name="diachi" id="diachi" cols="10" class="form-control"></textarea>
                                 </p>
 
                               
                                 <p class=" wrap-btn ">
 
-                                    <input type="submit" value="Đăng ký" name="user_register_btn" class="btn btn-block btn-success">
-
+                                    <input onclick="checkDangKy()" type="submit" value="Đăng ký" name="user_register_btn" class="btn btn-block btn-success">
                                 </p>
 
                             </form>
@@ -187,3 +190,64 @@ include_once("includes/head.php");
 </body>
 
 </html>
+<script>
+    function checkDangKy(input){
+        var hoten = document.getElementById("hoten");
+        var errorText = document.getElementById("errorText");
+        var errorTextEmail = document.getElementById("errorTextEmail");
+        var errorTextPass = document.getElementById("errorTextPass");
+        var email = document.getElementById("email");
+        var pass = document.getElementById("pass");
+        var pass2 = document.getElementById("pass2");
+        
+
+        if(hoten.value != ""){
+            var kytu = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+            if(kytu.test(hoten.value)){
+                errorText.innerHTML = "Họ tên không được chứa ký tự đặc biệt!";
+                errorText.style.display = "block";
+            }else{
+                errorText.style.display = "none";
+            }
+        }else{
+            errorText.innerHTML = "Vui lòng điền đầy đủ họ tên!!";
+            errorText.style.display = "block";
+        }
+        if(email.value != ""){
+            errorTextEmail.style.display = "none";
+        }else{
+            errorTextEmail.innerHTML = "Vui lòng điền địa chỉ email!";
+            errorTextEmail.style.display = "block";
+        }
+        if(pass.value != ""){
+            var checkPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if(!checkPass.test(pass.value)){
+                errorTextPass.innerHTML = "Mật khẩu chứa ít nhất 8 ký tự bao gồm: Chữ, số và 1 ký tự đặc biệt!!";
+                errorTextPass.style.display = "block";
+            }else{
+                errorTextPass.style.display = "none";
+            }
+        }else{
+            errorTextPass.innerHTML = "Vui lòng nhập mật khẩu!!";
+            errorTextPass.style.display = "block";
+        }
+        
+
+    }
+
+    function checkPasswordsMatch() {
+        var password = document.getElementById("pass").value;
+        var confirmPassword = document.getElementById("pass2").value;
+        var passwordMatchMessage = document.getElementById("passwordMatchMessage");
+
+        if (password !== confirmPassword) {
+            passwordMatchMessage.innerHTML = "Mật khẩu không trùng khớp!";
+            passwordMatchMessage.style.color = 'red';
+            passwordMatchMessage.style.display = "block"; // Hiển thị thông báo
+        } else {
+            passwordMatchMessage.innerHTML = "Mật khẩu trùng khớp!";
+            passwordMatchMessage.style.color = '#66FF00';
+            passwordMatchMessage.style.display = "block"; // Ẩn thông báo
+        }
+}
+</script>

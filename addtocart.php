@@ -167,7 +167,7 @@ include_once("includes/head.php");
                                     <p class="desc">Based on 56789</p>
                                 </div> -->
                                 <div class="btn-checkout">
-                                    <a href="userprofile.php" class="btn checkout">Check out</a>
+                                    <a href="hoso.php" class="btn checkout">Check out</a>
                                 </div>
                               
                                 <p class="pickup-info"><b>Free Pickup</b> is available as soon as today More about shipping and pickup</p>
