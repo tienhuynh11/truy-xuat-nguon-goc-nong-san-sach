@@ -88,7 +88,7 @@ include_once("includes/head.php");
 						   
                               <p class="form-row">
                                     <label for="user_lastname">Họ tên<span class="requite">*</span></label>
-                                    <input type="text" id="hoten" name="hoten" oninput="checkDangKy(this)" class="txt-input form-control">
+                                    <input type="text" id="hoten" name="hoten" oninput="checkTenEmail(this)" class="txt-input form-control">
                                     <div id="errorText" style="color: red; display: none;"></div>
                                 </p>
                                 
@@ -99,14 +99,19 @@ include_once("includes/head.php");
 
                                 <p class="form-row">
                                     <label for="user_email">Email <span class="requite">*</span> </label>
-                                    <input type="email" id="email" name="email" class="form-control" oninput="checkDangKy(this)">
+                                    <input type="email" id="email" name="email" class="form-control" oninput="checkTenEmail(this)">
                                     <div id="errorTextEmail" style="color: red; display: none;"></div>
                                 </p>
 
                                 <p class="form-row">
                                     <label for="user_password">Mật khẩu <span class="requite">*</span> </label>
                                     <input type="password" id="pass" name="user_password" class="form-control" oninput="checkDangKy(this)">
-                                    <div id="errorTextPass" style="color: red; display: none;"></div>
+                                    <div id="passwordRequirements">
+                                        <span id="passwordLengthText" style="margin-right: 3px;">Mật khẩu cần ít nhất 8 ký tự</span><i id="passwordLengthIcon" class="fa fa-times"></i><br>
+                                        <span id="passwordLetterText" style="margin-right: 3px;">Mật khẩu cần chứa ít nhất một chữ cái in hoa</span><i id="passwordLetterIcon" class="fa fa-times"></i><br>
+                                        <span id="passwordNumberText" style="margin-right: 3px;">Mật khẩu cần chứa ít nhất một số</span><i id="passwordNumberIcon" class="fa fa-times"></i><br>
+                                        <span id="passwordSpecialCharText" style="margin-right: 3px;">Mật khẩu cần chứa ít nhất một ký tự đặc biệt</span><i id="passwordSpecialCharIcon" class="fa fa-times"></i>
+                                    </div>
                                 </p>
                                 
                                 <p class="form-row">
@@ -191,14 +196,11 @@ include_once("includes/head.php");
 
 </html>
 <script>
-    function checkDangKy(input){
+    function checkTenEmail(input){
         var hoten = document.getElementById("hoten");
         var errorText = document.getElementById("errorText");
         var errorTextEmail = document.getElementById("errorTextEmail");
-        var errorTextPass = document.getElementById("errorTextPass");
         var email = document.getElementById("email");
-        var pass = document.getElementById("pass");
-        var pass2 = document.getElementById("pass2");
         
 
         if(hoten.value != ""){
@@ -219,35 +221,61 @@ include_once("includes/head.php");
             errorTextEmail.innerHTML = "Vui lòng điền địa chỉ email!";
             errorTextEmail.style.display = "block";
         }
-        if(pass.value != ""){
-            var checkPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-            if(!checkPass.test(pass.value)){
-                errorTextPass.innerHTML = "Mật khẩu chứa ít nhất 8 ký tự bao gồm: Chữ, số và 1 ký tự đặc biệt!!";
-                errorTextPass.style.display = "block";
-            }else{
-                errorTextPass.style.display = "none";
-            }
-        }else{
-            errorTextPass.innerHTML = "Vui lòng nhập mật khẩu!!";
-            errorTextPass.style.display = "block";
-        }
-        
+    }
+    function checkDangKy(input) {
+    var password = input.value;
 
+    var passwordLengthText = document.getElementById("passwordLengthText");
+    var passwordLetterText = document.getElementById("passwordLetterText");
+    var passwordNumberText = document.getElementById("passwordNumberText");
+    var passwordSpecialCharText = document.getElementById("passwordSpecialCharText");
+    var passwordLengthIcon = document.getElementById("passwordLengthIcon");
+    var passwordLetterIcon = document.getElementById("passwordLetterIcon");
+    var passwordNumberIcon = document.getElementById("passwordNumberIcon");
+    var passwordSpecialCharIcon = document.getElementById("passwordSpecialCharIcon");
+
+
+
+    if (password.length < 8) {
+        
+        passwordLengthIcon.className = "fa fa-times";
+    } else {
+        
+        passwordLengthIcon.className = "fa fa-check";
     }
 
-    function checkPasswordsMatch() {
-        var password = document.getElementById("pass").value;
-        var confirmPassword = document.getElementById("pass2").value;
-        var passwordMatchMessage = document.getElementById("passwordMatchMessage");
+    if (!/[A-Z]/.test(password)) {
+        
+        passwordLetterIcon.className = "fa fa-times";
+    } else {
+        
+        passwordLetterIcon.className = "fa fa-check";
+    }
 
-        if (password !== confirmPassword) {
-            passwordMatchMessage.innerHTML = "Mật khẩu không trùng khớp!";
-            passwordMatchMessage.style.color = 'red';
-            passwordMatchMessage.style.display = "block"; // Hiển thị thông báo
-        } else {
-            passwordMatchMessage.innerHTML = "Mật khẩu trùng khớp!";
-            passwordMatchMessage.style.color = '#66FF00';
-            passwordMatchMessage.style.display = "block"; // Ẩn thông báo
-        }
+    if (!/\d/.test(password)) {
+        
+        passwordNumberIcon.className = "fa fa-times";
+    } else {
+        
+        passwordNumberIcon.className = "fa fa-check";
+    }
+
+    if (!/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password)) {
+        
+        passwordSpecialCharIcon.className = "fa fa-times";
+    } else {
+        
+        passwordSpecialCharIcon.className = "fa fa-check";
+    }
 }
+
 </script>
+<style>
+    .fa-times {
+    color: red;
+    }
+
+    .fa-check {
+        color: green;
+    }
+</style>
