@@ -4,6 +4,7 @@
         if($_GET['status']=="couponEdit"){
            $bv_info= $obj->show_baiviet_by_id($id_bv);
            $bv = mysqli_fetch_assoc($bv_info);
+           $users = $obj->show_admin_user();
         }
     }
 
@@ -27,9 +28,17 @@
         ?>
     </h6>
 <form action="" method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-        <h4>Người đăng</h4>
-        <input type="text" name="nguoidang" class="form-control" value="<?php echo $bv['nguoidang'] ?>" required>
+<div class="form-group">
+        <label for="nguoidang">Người đại diện</label>
+        <select name="nguoidang" id="nguoidang" class="form-control">
+            <?php foreach($users as $user): ?>
+                <?php if ($user['id_acc']== $bv['nguoidang']) { ?>
+                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
     </div>
 
     <div class="form-group">
@@ -44,7 +53,7 @@
     <div class="form-group">
         <label for="bv_img">Hình ảnh </label>
         <div class="mb-3">
-        <img src="uploads/<?php echo $bv['hinhanh']?>" style="width: 80px;" >
+        <img src="uploads/baiviet/<?php echo $bv['hinhanh']?>" style="width: 80px;" >
     </div>
         <input type="file" name="bv_img" class="form-control">
     </div>
@@ -53,3 +62,8 @@
     </div>
 </form>
 </div>
+<script>
+    $(document).ready(function() {
+        $("#nguoidang").select2();
+    });
+</script>

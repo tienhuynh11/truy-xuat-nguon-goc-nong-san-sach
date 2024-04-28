@@ -56,17 +56,18 @@
         <label for="img">Hình ảnh:</label>
         <input type="file" name="img" class="form-control"> 
     </div>
-    <?php if (!empty($user_array)): ?>
     <div class="form-group">
-        <label for="lblnguoidaidien">Người đại diện</label>
+        <label for="nguoidaidien">Người đại diện</label>
         <select name="nguoidaidien" id="nguoidaidien" class="form-control">
             <?php foreach($users as $user): ?>
-                <option value="<?= $user['id_acc'] ?>"><?= $user['hoten'] ?> - <?= $user['dienthoai'] ?></option>
+                <?php if ($user['id_acc']== $nguoidang_id) { ?>
+                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
+            <?php } ?>
             <?php endforeach; ?>
         </select>
     </div>
-    <?php endif; ?>
-
     <?php if (!empty($user_array)): ?>
     <div class="form-group">
         <label for="lblnhatky">Nhật ký</label>

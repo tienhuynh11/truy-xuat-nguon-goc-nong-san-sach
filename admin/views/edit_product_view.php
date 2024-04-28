@@ -4,6 +4,7 @@ ini_set("display_erros", "Off");
     $obj=new adminback();
     $cata_info = $obj-> p_display_catagory();
     $caygiong=$obj->show_caygiong();
+    $users = $obj->show_admin_user();
     $vungsanxuat=$obj->vsxShow();
     if(isset($_GET['trangthai'])){
         $id = $_GET['id'];
@@ -44,6 +45,18 @@ ini_set("display_erros", "Off");
     <div class="form-group">
         <label for="pdt_des">Mô tả</label>
         <textarea name="u_pdt_des" cols="30" rows="10" class="form-control" ><?php echo $pdt['mota']?> </textarea>
+    </div>
+    <div class="form-group">
+    <label for="taikhoan">Người đại diện</label>
+        <select name="taikhoan" id="taikhoan" class="form-control">
+        <?php while($user = mysqli_fetch_assoc($users)) { ?>
+            <?php if ($user['id_acc'] == $pdt['taikhoan']) { ?>
+                <option value="<?php echo $user['id_acc'] ?>" selected><?php echo $user['hoten'].'-'.$user['dienthoai']  ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten'].'-'.$user['dienthoai']  ?></option>
+            <?php } ?>
+        <?php } ?>
+        </select>
     </div>
     <div class="form-group">
         <label for="pdt_ctg">Danh mục</label>
@@ -114,5 +127,6 @@ ini_set("display_erros", "Off");
         $("#pdt_ctg").select2();
         $("#caygiong").select2();
         $("#vungsanxuat").select2();
+        $("#taikhoan").select2();
     });
 </script>

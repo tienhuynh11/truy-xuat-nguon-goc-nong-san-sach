@@ -9,6 +9,7 @@
 
 ?>
 <?php 
+    $users = $obj->show_admin_user();
     $cata_info = $obj-> p_display_catagory();
     $caygiong=$obj->show_caygiong();
     $vungsanxuat=$obj->vsxShow();
@@ -27,7 +28,18 @@
 
 </h6>
 <form action="" method="post" enctype="multipart/form-data" class="form">
-    <input type="hidden" name="taikhoan" value="<?php echo $nguoidang_id ?>">
+<div class="form-group">
+        <label for="taikhoan">Người đại diện</label>
+        <select name="taikhoan" id="taikhoan" class="form-control">
+            <?php foreach($users as $user): ?>
+                <?php if ($user['id_acc']== $nguoidang_id) { ?>
+                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
     <div class="form-group">
         <label for="pdt_name">Tên sản phẩm</label>
         <input type="text" name="pdt_name" class="form-control">
@@ -109,5 +121,6 @@
         $("#pdt_ctg").select2();
         $("#caygiong").select2();
         $("#vungsanxuat").select2();
+        $("#taikhoan").select2();
     });
 </script>

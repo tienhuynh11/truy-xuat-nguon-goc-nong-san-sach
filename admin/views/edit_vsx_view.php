@@ -32,15 +32,15 @@ if (isset($_POST['update_vsx_btn'])) {
         <input type="text" name="mavung" class="form-control" value="<?php echo $slide['mavung'] ?>">
     </div>
     <div class="form-group">
-        <label for="lblnguoidaidien">Người đại diện</label>
-        <select name="nguoidaidien" id="nguoidaidien" class="form-control">
-            <?php foreach($users as $user): ?>
-                <?php if ($user['id_acc']== $dn['nguoidaidien']) { ?>
-                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
+    <label for="nguoidang">Người đại diện</label>
+        <select name="nguoidang" id="nguoidang" class="form-control">
+        <?php while($user = mysqli_fetch_assoc($users)) { ?>
+            <?php if ($user['id_acc'] == $slide['nguoidang']) { ?>
+                <option value="<?php echo $user['id_acc'] ?>" selected><?php echo $user['hoten'].'-'.$user['dienthoai']  ?></option>
             <?php } else { ?>
-                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten'].'-'.$user['dienthoai']  ?></option>
             <?php } ?>
-            <?php endforeach; ?>
+        <?php } ?>
         </select>
     </div>
     <div class="form-group">
@@ -85,10 +85,6 @@ if (isset($_POST['update_vsx_btn'])) {
         <input type="text" name="dc" class="form-control" value="<?php echo $slide['diachi'] ?>">
     </div>
     <div class="form-group">
-        <label for="bando">Bản đồ</label>
-        <textarea name="bando" id="bando" cols="30" rows="10" class="form-control"><?= $slide['bando']?></textarea>
-    </div>
-    <div class="form-group">
         <label for="dientich">Diện tích</label>
         <input type="text" name="dientich" class="form-control" value="<?php echo $slide['dientich'] ?>">
     </div>
@@ -101,7 +97,7 @@ if (isset($_POST['update_vsx_btn'])) {
 </form>
 <script>
     $(document).ready(function() {
-        $("#nguoidaidien").select2();
+        $("#nguoidang").select2();
         $("#nhatky").select2();
     });
 </script>

@@ -454,6 +454,7 @@ class  adminback
     function update_product($data)
 {
     $pdt_id = $data['pdt_id'];
+    $taikhoan = $data['taikhoan'];
     $pdt_name = $data['u_pdt_name'];
     $pdt_price = $data['u_pdt_price'];
     $pdt_xx = $data['u_pdt_xx'];
@@ -482,7 +483,7 @@ class  adminback
                 $pre_img = $row['hinhanh'];
                 unlink("uploads/" . $pre_img);
 
-                $query = "UPDATE `sanpham` SET `danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat', `tensanpham` = '$pdt_name', `hinhanh` = '$pdt_img_name', `gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', `hdsd` = '$hdsd', `dieukienbaoquan` = '$dkbq' WHERE `id_sp` = '$pdt_id';";
+                $query = "UPDATE `sanpham` SET `taikhoan` = '$taikhoan',`danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat', `tensanpham` = '$pdt_name', `hinhanh` = '$pdt_img_name', `gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', `hdsd` = '$hdsd', `dieukienbaoquan` = '$dkbq' WHERE `id_sp` = '$pdt_id';";
 
                 if (mysqli_query($this->connection, $query) && move_uploaded_file($pdt_img_tmp, "uploads/" . $pdt_img_name)) {
                     echo '<script>
@@ -502,7 +503,7 @@ class  adminback
         }
     } else {
         // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của sản phẩm
-        $query = "UPDATE `sanpham` SET `danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat', `tensanpham` = '$pdt_name', `gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', `hdsd` = '$hdsd', `dieukienbaoquan` = '$dkbq' WHERE `id_sp` = '$pdt_id';";
+        $query = "UPDATE `sanpham` SET `taikhoan` = '$taikhoan', `danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat', `tensanpham` = '$pdt_name', `gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', `hdsd` = '$hdsd', `dieukienbaoquan` = '$dkbq' WHERE `id_sp` = '$pdt_id';";
 
         if (mysqli_query($this->connection, $query)) {
             echo '<script>
@@ -902,6 +903,7 @@ class  adminback
 
     function vsx_update($data){
         $id_vung = $data['id_vung'];
+        $nguoidang = $data['nguoidang'];
         $tenvung = $data['tenvung'];
         $mavung = $data['mavung'];
         $nhatky = $data['nhatky'];
@@ -930,13 +932,13 @@ class  adminback
                     $pre_img = $row['hinhanh'];
                     unlink("uploads/" . $pre_img);
     
-                    $query = "UPDATE `vungsanxuat` SET `nhatky` = '$nhatky',`tenvung` = '$tenvung', `mavung` = '$mavung', `hinhanh` = '$lg_name', `sdt` = '$sdt', `diachi` = '$dc', `bando` = '$bando', `thoigiannuoitrong` = '$thoigiantrong', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
+                    $query = "UPDATE `vungsanxuat` SET `nguoidang` = '$nguoidang',`nhatky` = '$nhatky',`tenvung` = '$tenvung', `mavung` = '$mavung', `hinhanh` = '$lg_name', `sdt` = '$sdt', `diachi` = '$dc', `bando` = '$bando', `thoigiannuoitrong` = '$thoigiantrong', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
     
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($lg_tmp, "uploads/" . $lg_name)) {
-                        echo '<script>
-                                alert("Cập nhật thành công");
-                                window.location.href = "manage_vsx.php";
-                              </script>';
+                        echo ' ;<script>
+                        alert("Cập nhật thành công");
+                        window.location.href = "manage_vsx.php";
+                      </script>';
                     } else {
                         echo "Đăng lên thất bại!";
                     }
@@ -950,7 +952,7 @@ class  adminback
             }
         } else {
             // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của vùng sản xuất
-            $query = "UPDATE `vungsanxuat` SET `nhatky` = '$nhatky',`tenvung` = '$tenvung', `mavung` = '$mavung', `sdt` = '$sdt', `diachi` = '$dc', `bando` = '$bando', `thoigiannuoitrong` = '$thoigiantrong', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
+            $query = "UPDATE `vungsanxuat` SET `nguoidang` = '$nguoidang', `nhatky` = '$nhatky',`tenvung` = '$tenvung', `mavung` = '$mavung', `sdt` = '$sdt', `diachi` = '$dc', `bando` = '$bando', `thoigiannuoitrong` = '$thoigiantrong', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
     
             if (mysqli_query($this->connection, $query)) {
                 echo '<script>
@@ -1103,7 +1105,7 @@ class  adminback
                     $query = "INSERT INTO `baiviet` (`nguoidang`, `tieude`, `noidung`, `hinhanh`) VALUES (' $nguoidang', '$tieude', '$noidung', '$bv_img_name');";
 
                     if (mysqli_query($this->connection, $query)) {
-                        move_uploaded_file($bv_img_tmp, "uploads/".$bv_img_name);
+                        move_uploaded_file($bv_img_tmp, "uploads/baiviet/".$bv_img_name);
                         $msg = "Product uploaded successfully";
                             echo '<script>
                             alert(" Thêm  thành công");
@@ -1152,10 +1154,10 @@ class  adminback
                 $result = mysqli_query($this->connection, $select_query);
                 $row = mysqli_fetch_assoc($result);
                 $pre_img = $row['hinhanh'];
-                unlink("uploads/" . $pre_img);
+                unlink("uploads/baiviet/" . $pre_img);
 
                 $query = "UPDATE `baiviet` SET `nguoidang`='$nguoidang',`hinhanh`= '$bv_img_name',`tieude`= '$tieude', `noidung`= '$noidung'  WHERE `id_bv`= '$id_bv'";
-                if (mysqli_query($this->connection, $query) && move_uploaded_file($bv_img_tmp, "uploads/" . $bv_img_name)) {
+                if (mysqli_query($this->connection, $query) && move_uploaded_file($bv_img_tmp, "uploads/baiviet/" . $bv_img_name)) {
                     echo '<script>
                         alert("Chỉnh sửa bài viết thành công");
                         window.location.href = "manage_bv.php";

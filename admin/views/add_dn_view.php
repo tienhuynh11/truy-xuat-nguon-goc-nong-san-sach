@@ -3,6 +3,12 @@
     $catadn_info = $obj->display_catagory_dn();
 
     $users = $obj->show_admin_user();
+    if(isset($_SESSION['admin_id'])) {
+        $nguoidang_id = $_SESSION['admin_id'];
+    } else {
+        header("Location: login.php");
+        exit();
+    }
     $user_array = array();
     while($user = mysqli_fetch_assoc($users)){
         $user_array[] = $user;
@@ -28,16 +34,18 @@
         </select>
     </div>
 
-    <?php if (!empty($user_array)): ?>
     <div class="form-group">
-        <label for="lblnguoidaidien">Người đại diện</label>
+        <label for="nguoidaidien">Người đại diện</label>
         <select name="nguoidaidien" id="nguoidaidien" class="form-control">
             <?php foreach($users as $user): ?>
-                <option value="<?= $user['id_acc'] ?>"><?= $user['hoten'] ?> - <?= $user['dienthoai'] ?></option>
+                <?php if ($user['id_acc']== $nguoidang_id) { ?>
+                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
+            <?php } ?>
             <?php endforeach; ?>
         </select>
     </div>
-    <?php endif; ?>
     <div class="form-group">
         <label for="tendoanhnghiep">Tên doanh nghiệp</label>
         <input type="text" name="tendoanhnghiep" class="form-control"  >

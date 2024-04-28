@@ -1,4 +1,5 @@
 <?php
+$users = $obj->show_admin_user();
     if(isset($_SESSION['admin_id'])) {
         $nguoidang_id = $_SESSION['admin_id'];
     } else {
@@ -37,7 +38,18 @@
         <?php }?>
         </select>
     </div>
-    <input type="hidden" name="nguoidang" value="<?php echo $nguoidang_id ?>">
+    <div class="form-group">
+        <label for="nguoidang">Người đại diện</label>
+        <select name="nguoidang" id="nguoidang" class="form-control">
+            <?php foreach($users as $user): ?>
+                <?php if ($user['id_acc']== $nguoidang_id) { ?>
+                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
     <div class="form-group">
         <label for="tennhatky">Tên nhật ký</label> 
         <input type="text" name="tennhatky" class="form-control">
@@ -65,5 +77,6 @@
 <script>
     $(document).ready(function() {
         $("#sp").select2();
+        $("#nguoidang").select2();
     });
 </script>
