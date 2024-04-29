@@ -41,8 +41,8 @@
                        
                         
                         <li class="menu-item"><a href="vungsanxuat.php">Vùng sản xuất</a></li>
-                        <li class="menu-item"><a href="vungsanxuat.php">Cây giống</a></li>
-                        <li class="menu-item"><a href="vungsanxuat.php">Nhật ký</a></li>
+                        <li class="menu-item"><a href="caygiong.php">Cây giống</a></li>
+                        <li class="menu-item"><a href="nhatky.php">Nhật ký</a></li>
                     </ul>
                 </div>
             </div>
