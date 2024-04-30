@@ -55,7 +55,7 @@ $arry  = $obj->display_user_pagination($bat_dau, $ket_thuc);
                 <td> <?php echo $user['email'] ?> </td>
                 <td> <?php echo $user['dienthoai'] ?> </td>
                 <td> <?php echo $user['diachi'] ?> </td>
-                <td><img style="height:60px" src="uploads/<?php echo $user['hinhdaidien'] ?>" alt=""></td>
+                <td><img style="height:60px" src="uploads/avatar/<?php echo $user['hinhdaidien'] ?>" alt=""></td>
                 <td> <?php if($user['role']=='Admin'){
                     echo "Admin";
                 }else if($user['role']=='Khachhang'){

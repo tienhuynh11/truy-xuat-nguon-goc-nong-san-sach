@@ -83,27 +83,22 @@ body{
 session_start();
     include_once ("admin/class/adminback.php");
     $obj = new adminback();
-
-    $pdt_info = $obj-> display_product();
-    $pdtDatas = array();
-    while($data = mysqli_fetch_assoc($pdt_info)){
-        $pdtDatas[]=$data;
-    }
-
-    $nk = $obj->show_nhatky();
-
-    $nhatky = array();   
+    if(isset($_GET['search'])){
+        $keyword = $_GET['keyword'];
+        if(!empty($keyword)){
+            $search_query = $obj->search_product($keyword);
+    
+       
         
-while($nk_ftecth = mysqli_fetch_assoc($nk)){
-            $nhatky[] = $nk_ftecth;
-}
-
-
-
-
-
-
-
+        $search_results = array();
+        while($search = mysqli_fetch_assoc($search_query)){
+            $search_results[]=$search;
+        }
+    
+        }else{
+            header('location:nhatky.php');
+        }
+    }
 ?>
 
 
@@ -141,29 +136,21 @@ include_once("includes/head.php");
 
         <!-- Main content -->
         <div id="main-content" class="main-content">
-        
+
             
     </div>
-    <div class="row justify-content-center mt-3 mb-4">
-                            <form action="search_nhatky.php" class="form-search" name="desktop-seacrh" method="get">
-                                <input type="text" name="keyword" class="input-text"  placeholder="Nhập nhật ký cần tìm...">
-
-                                <input type="submit" class="btn-submit" value="Tìm kiếm" name="search" style="margin-top: 8px;font-size:16px;">
-                               
-                                <!-- <input type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button> -->
-                            </form>
-                        </div>
-                            
+                          
             <div class="container profile border" style="border-radius: 5px;margin-top: 10px; ">
+            <?php $search_item =count($search_results);
+                echo "{$search_item} nhật ký được tìm thấy"; ?>  
             <style>
                 @import url('https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css');
                 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
             </style>
-            
                 <div class="row" style="margin-top:15px; margin-bottom:5px;">
                     <?php
-                        foreach($nhatky as $nk){
-                            $tk = $obj->show_taikhoan($nk["nguoidang"]);
+                        foreach($search_results as $search_nk){
+                            $tk = $obj->show_taikhoan($search_nk["nguoidang"]);
                     ?>
                     <div class="col-md-6">
                         <div class="card mb-3">
@@ -182,25 +169,25 @@ include_once("includes/head.php");
                                             }
                                             ?>
                                         </i></div>
-                                        <div class="small text-body text-opacity-50"><?= date('d-m-Y H:i', strtotime($nk["thoigiantao"])) ?></div>
+                                        <div class="small text-body text-opacity-50"><?= date('d-m-Y H:i', strtotime($search_nk["thoigiantao"])) ?></div>
                                     </div>
                                 </div>
             
                                 <a href="chitietnhatky.php?id=<?php
-                                echo $nk['id_nk']
-                                // $nk_old = $nk['tieude'] ;
-                                // $nk_change = str_replace(array(' ',' - '), '-', $nk_old);
-                                //  echo $nk_change;
+                                echo $search_nk['id_nk']
+                                // $search_nk_old = $search_nk['tieude'] ;
+                                // $search_nk_change = str_replace(array(' ',' - '), '-', $search_nk_old);
+                                //  echo $search_nk_change;
                                  
                                  ?>">
-                                    <p style="margin-bottom: 5px;text-transform: uppercase;font-weight: bold;color: #000;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Công việc: <?= $nk['tennhatky'] ?></p>
+                                    <p style="margin-bottom: 5px;text-transform: uppercase;font-weight: bold;color: #000;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Công việc: <?= $search_nk['tennhatky'] ?></p>
                                 </a>
-                                <p style="margin-bottom: -2px;color: #000;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><?= $nk['chitiet'] ?></p>
+                                <p style="margin-bottom: -2px;color: #000;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><?= $search_nk['chitiet'] ?></p>
                                 <a href="chitietnhatky.php?id=<?php
-                                echo $nk['id_nk']
-                                // $nk_old = $nk['tieude'] ;
-                                // $nk_change = str_replace(array(' ',' - '), '-', $nk_old);
-                                //  echo $nk_change;
+                                echo $search_nk['id_nk']
+                                // $search_nk_old = $search_nk['tieude'] ;
+                                // $search_nk_change = str_replace(array(' ',' - '), '-', $search_nk_old);
+                                //  echo $search_nk_change;
                                  
                                  ?>">
                                     <p style="color: #FFA500;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Xem thêm..</p>
@@ -208,13 +195,13 @@ include_once("includes/head.php");
                                 <div class="profile-img-list">
                                 <div class="profile-img-list-item main">
                                     <a href="nhatky.php?id=<?php
-                                echo $nk['id_nk']
-                                // $nk_old = $nk['tieude'] ;
-                                // $nk_change = str_replace(array(' ',' - '), '-', $nk_old);
-                                //  echo $nk_change;
+                                echo $search_nk['id_nk']
+                                // $search_nk_old = $search_nk['tieude'] ;
+                                // $search_nk_change = str_replace(array(' ',' - '), '-', $search_nk_old);
+                                //  echo $search_nk_change;
                                  
                                  ?>" data-lity="" class="profile-img-list-link">
-                                        <span class="profile-img-content" style="background-image: url(admin/uploads/<?php echo $nk['hinhanh'] ?>);"></span>
+                                        <span class="profile-img-content" style="background-image: url(admin/uploads/<?php echo $search_nk['hinhanh'] ?>);"></span>
                                     </a>
                                 </div>
                                    

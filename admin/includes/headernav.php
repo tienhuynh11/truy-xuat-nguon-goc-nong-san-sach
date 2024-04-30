@@ -99,7 +99,7 @@
                                <a href="#!"><?php
                                     while($user = mysqli_fetch_assoc($user_info)){ 
                                         if($admin_email==$user['email']){?>
-                                   <img src="uploads/<?php echo $user['hinhdaidien']?>" class="img-radius" alt="User-Profile-Image">
+                                   <img src="uploads/avatar/<?php echo $user['hinhdaidien']?>" class="img-radius" alt="User-Profile-Image">
                                    <span> 
                                       <?php 
                                             echo $user['hoten'];
