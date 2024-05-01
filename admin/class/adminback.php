@@ -587,23 +587,23 @@ class  adminback
     {
         $username = $data['hoten'];
         $user_email = $data['email'];
-        $user_password = md5($data['user_password']);
+        $user_password = md5($data['pass']);
         $user_mobile = $data['sdt'];
         $user_address = $data['diachi'];
-        $user_roles = $data['user_roles'];
+        $user_roles = $data['user_role'];
 
 
-        $user_check = "SELECT * FROM `taikhoan` WHERE email='$user_email'";
+        $user_check = "SELECT * FROM `taikhoan` WHERE email ='$user_email'";
 
         $mysqli_result = mysqli_query($this->connection, $user_check);
 
         $row = mysqli_num_rows($mysqli_result);
 
         if ($row == 1) {
-            $msg = "Email đã được sử dụng!!";
+            $msg = "Email đã tồn tại!!";
             return $msg;
         } else {
-            $query = "INSERT INTO `taikhoan`( `hoten`, `email`, `matkhau`, `dienthoai`, `diachi`, `hinhdaidien`,`role`) VALUES ('$username',' $user_email',' $user_password','$user_mobile','$user_address',$user_roles)";
+            $query = "INSERT INTO `taikhoan`( `hoten`, `email`, `matkhau`, `dienthoai`, `diachi`, `role`) VALUES ('$username','$user_email','$user_password','$user_mobile','$user_address','$user_roles')";
 
             if (mysqli_query($this->connection, $query)) {
                 $msg = "Đăng ký thành công!!";

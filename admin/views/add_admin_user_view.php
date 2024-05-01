@@ -45,9 +45,13 @@
     <div class="form-group">
         <label for="user_role">Role</label>
         <select name="user_role" class="form-control">
-        <option value="Admin">Admin</option>
-        <option value="Khachhang">Khách hàng</option>
-        <option value="Nongdan">Nông dân</option>
+            <option value="Admin">Admin</option>
+            <option value="Nongdan">Nông dân</option>
+            <option value="Nguoidanhgia">Người đánh giá</option>
+            <option value="Chuyengia">Chuyên gia</option>
+            <option value="Chuyenvien">Chuyên viên</option>
+            <option value="Kythuatvien">Kỹ thuật viên</option>
+            <option value="Nguoikiemdinh">Người kiểm định</option>
         </select>
     </div>
 

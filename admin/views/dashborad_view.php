@@ -209,7 +209,7 @@
     <div class="card bg-c-blue order-card">
         <div class="card-block">
             <h6 class="m-b-20">Nhà xưởng</h6>
-            <h2 class="text-right"><i class="ti-control-shuffle f-left"></i><span id="pendingOrder"><?php echo  $demnx ; ?></span></h2>
+            <h2 class="text-right"><i class="fa fa-industry f-left"></i><span id="pendingOrder"><?php echo  $demnx ; ?></span></h2>
             <p class="m-b-0"><span class="f-right"></span></p>
         </div>
     </div>

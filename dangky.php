@@ -3,12 +3,6 @@ session_start();
 include_once("admin/class/adminback.php");
 $obj = new adminback();
 
-$cata_info = $obj->p_display_catagory();
-$cataDatas = array();
-while ($data = mysqli_fetch_assoc($cata_info)) {
-    $cataDatas[] = $data;
-}
-
 if (isset($_POST['user_register_btn'])) {
     $reg_msg =  $obj->user_register($_POST);
 }
@@ -71,18 +65,18 @@ include_once("includes/head.php");
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="signin-container">
 
-                            <form action="" name="frm-register" method="POST">
+                            <form action="" method="post" enctype="multipart/form-data">
 
                                 <p class="form-row" >
-                                    <label for="user_roles">Loại thành viên</label>
-                                    <select name="user_roles" class="form-control" id="role">
+                                    <label for="user_role">Role</label>
+                                    <select name="user_role" class="form-control">
+                                        <option value="Admin">Admin</option>
                                         <option value="Nongdan">Nông dân</option>
                                         <option value="Nguoidanhgia">Người đánh giá</option>
                                         <option value="Chuyengia">Chuyên gia</option>
                                         <option value="Chuyenvien">Chuyên viên</option>
                                         <option value="Kythuatvien">Kỹ thuật viên</option>
                                         <option value="Nguoikiemdinh">Người kiểm định</option>
-                                        <!-- Thêm các option khác nếu cần -->
                                     </select>
                                 </p>
 						   
@@ -105,7 +99,7 @@ include_once("includes/head.php");
 
                                 <p class="form-row">
                                     <label for="user_password">Mật khẩu <span class="requite">*</span> </label>
-                                    <input type="password" id="pass" name="user_password" class="form-control" oninput="checkDangKy(this)">
+                                    <input type="password" id="pass" name="pass" class="form-control" oninput="checkDangKy(this)">
                                     <div id="passwordRequirements">
                                         <span id="passwordLengthText" style="margin-right: 3px;">Mật khẩu cần ít nhất 8 ký tự</span><i id="passwordLengthIcon" class="fa fa-times"></i><br>
                                         <span id="passwordLetterText" style="margin-right: 3px;">Mật khẩu cần chứa ít nhất một chữ cái in hoa</span><i id="passwordLetterIcon" class="fa fa-times"></i><br>
@@ -116,13 +110,13 @@ include_once("includes/head.php");
                                 
                                 <p class="form-row">
                                     <label for="user_password">Nhập lại mật khẩu <span class="requite">*</span> </label>
-                                    <input type="password" id="pass2" name="user_password2" class="form-control" oninput="checkPasswordsMatch()">
+                                    <input type="password" id="pass2" name="pass2" class="form-control" oninput="checkPasswordsMatch()">
                                     <div id="passwordMatchMessage" style="display: none; color: red;"></div>
                                 </p>
 
                                 <p class="form-row">
                                     <label for="user_mobile">Số điện thoại <span class="requite">*</span> </label>
-                                    <input type="tel" id="fid-pass" name="sdt"class="form-control" required>
+                                    <input type="type" id="sdt" name="sdt"class="form-control" required>
                                 </p>
                                 <p class="form-row">
                                     <label for="user_address">Địa chỉ <span class="requite">*</span> </label>
@@ -132,7 +126,7 @@ include_once("includes/head.php");
                               
                                 <p class=" wrap-btn ">
 
-                                    <input onclick="checkDangKy()" type="submit" value="Đăng ký" name="user_register_btn" class="btn btn-block btn-success">
+                                    <input type="submit" value="Đăng ký" name="user_register_btn" class="btn btn-block btn-success">
                                 </p>
 
                             </form>
@@ -196,35 +190,35 @@ include_once("includes/head.php");
 
 </html>
 <script>
-    function checkTenEmail(input){
-        var hoten = document.getElementById("hoten");
-        var errorText = document.getElementById("errorText");
-        var errorTextEmail = document.getElementById("errorTextEmail");
-        var email = document.getElementById("email");
-        
+function checkTenEmail(input){
+    var hoten = document.getElementById("hoten");
+    var errorText = document.getElementById("errorText");
+    var errorTextEmail = document.getElementById("errorTextEmail");
+    var email = document.getElementById("email");
+    
 
-        if(hoten.value != ""){
-            var kytu = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-            if(kytu.test(hoten.value)){
-                errorText.innerHTML = "Họ tên không được chứa ký tự đặc biệt!";
-                errorText.style.display = "block";
-            }else{
-                errorText.style.display = "none";
-            }
-        }else{
-            errorText.innerHTML = "Vui lòng điền đầy đủ họ tên!!";
+    if(hoten.value != ""){
+        var kytu = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+        if(kytu.test(hoten.value)){
+            errorText.innerHTML = "Họ tên không được chứa ký tự đặc biệt!";
             errorText.style.display = "block";
-        }
-        if(email.value != ""){
-            errorTextEmail.style.display = "none";
         }else{
-            errorTextEmail.innerHTML = "Vui lòng điền địa chỉ email!";
-            errorTextEmail.style.display = "block";
+            errorText.style.display = "none";
         }
+    }else{
+        errorText.innerHTML = "Vui lòng điền đầy đủ họ tên!!";
+        errorText.style.display = "block";
     }
-    function checkDangKy(input) {
-    var password = input.value;
+    if(email.value != ""){
+        errorTextEmail.style.display = "none";
+    }else{
+        errorTextEmail.innerHTML = "Vui lòng điền địa chỉ email!";
+        errorTextEmail.style.display = "block";
+    }
+}
 
+function checkDangKy(input) {
+    var password = input.value;
     var passwordLengthText = document.getElementById("passwordLengthText");
     var passwordLetterText = document.getElementById("passwordLetterText");
     var passwordNumberText = document.getElementById("passwordNumberText");
@@ -233,8 +227,6 @@ include_once("includes/head.php");
     var passwordLetterIcon = document.getElementById("passwordLetterIcon");
     var passwordNumberIcon = document.getElementById("passwordNumberIcon");
     var passwordSpecialCharIcon = document.getElementById("passwordSpecialCharIcon");
-
-
 
     if (password.length < 8) {
         
@@ -269,6 +261,28 @@ include_once("includes/head.php");
     }
 }
 
+function checkPasswordsMatch() {
+    var password = document.getElementById("pass").value;
+    var confirmPassword = document.getElementById("pass2").value;
+    var passwordMatchMessage = document.getElementById("passwordMatchMessage");
+
+    if(confirmPassword != ""){
+        if (password !== confirmPassword) {
+        passwordMatchMessage.innerHTML = "Mật khẩu không trùng khớp!";
+        passwordMatchMessage.style.color = 'red';
+        passwordMatchMessage.style.display = "block"; // Hiển thị thông báo
+        } else {
+            passwordMatchMessage.innerHTML = "Mật khẩu trùng khớp!";
+            passwordMatchMessage.style.color = '#66FF00';
+            passwordMatchMessage.style.display = "block"; // Ẩn thông báo
+        }
+    }else{
+        passwordMatchMessage.innerHTML = "Vui lòng nhập lại mật khẩu!!";
+        passwordMatchMessage.style.color = 'red';
+        passwordMatchMessage.style.display = "block"; // Hiển thị thông báo
+    }
+    
+}
 </script>
 <style>
     .fa-times {
