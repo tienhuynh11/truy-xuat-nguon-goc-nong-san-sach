@@ -89,7 +89,7 @@ class  adminback
         // Upload hình đại diện
         $hinhdaidien_name = $_FILES['hinhdaidien']['name'];
         $hinhdaidien_tmp = $_FILES['hinhdaidien']['tmp_name'];
-        $hinhdaidien_path = "uploads/" . $hinhdaidien_name;
+        $hinhdaidien_path = "uploads/avatar/" . $hinhdaidien_name;
     
         move_uploaded_file($hinhdaidien_tmp, $hinhdaidien_path);
     
@@ -143,11 +143,11 @@ class  adminback
                     $result = mysqli_query($this->connection, $select_query);
                     $row = mysqli_fetch_assoc($result);
                     $pre_img = $row['hinhdaidien'];
-                    unlink("uploads/" . $pre_img);
+                    unlink("uploads/avatar/" . $pre_img);
     
                     $query = "UPDATE `taikhoan` SET `hoten` = '$u_name', `email` = '$u_email', `dienthoai` = '$u_phone', `diachi` = '$u_address',`hinhdaidien`= '$hinhdaidien_name',`role` = '$u_role' WHERE `id_acc` = $u_id;";
     
-                    if (mysqli_query($this->connection, $query) && move_uploaded_file($hinhdaidien_tmp, "uploads/" . $hinhdaidien_name)) {
+                    if (mysqli_query($this->connection, $query) && move_uploaded_file($hinhdaidien_tmp, "uploads/avatar/" . $hinhdaidien_name)) {
                         echo '<script>
                             alert("Chỉnh sửa tài khoản thành công");
                             window.location.href = "manage_user.php";
@@ -691,6 +691,15 @@ class  adminback
     function search_product($keyword)
     {
         $query = "SELECT * FROM `sanpham` WHERE `tensanpham` LIKE '%$keyword%'";
+
+        if (mysqli_query($this->connection, $query)) {
+            $search_query = mysqli_query($this->connection, $query);
+            return $search_query;
+        }
+    }
+    function search_nhatky($keyword)
+    {
+        $query = "SELECT * FROM `nhatkysanpham` WHERE `tennhatky` LIKE '%$keyword%'";
 
         if (mysqli_query($this->connection, $query)) {
             $search_query = mysqli_query($this->connection, $query);
