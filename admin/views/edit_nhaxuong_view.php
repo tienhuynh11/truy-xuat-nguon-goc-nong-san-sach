@@ -137,5 +137,5 @@ ini_set("display_erros", "Off");
         $("#doanhnghiep").select2();
         $("#vsx").select2();
     });
-</script>
+
 </script>

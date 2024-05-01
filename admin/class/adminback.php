@@ -1343,6 +1343,15 @@ class  adminback
             return mysqli_fetch_assoc($vsx_info);
         }
     }
+    function display_dnbyID($id)
+    {
+        $query = "SELECT * FROM `doanhnghiep` WHERE id_dn = $id";
+
+        if (mysqli_query($this->connection, $query)) {
+            $vsx_info = mysqli_query($this->connection, $query);
+            return mysqli_fetch_assoc($vsx_info);
+        }
+    }
 
 
     function show_caygiong(){
@@ -1373,6 +1382,11 @@ class  adminback
         $hansudung = $data['hansudung'];
         $phuongphaptrong = $data['phuongphaptrong'];
         $lienhe = $data['lienhe'];
+        $nhaphanphoi = $data['nhaphanphoi'];
+        $gia = $data['gia'];
+        $hdsd = $data['hdsd'];
+        $xuatxu = $data['xuatxu'];
+
         $img_name = $_FILES['hinhanh']['name'];
         $img_size = $_FILES['hinhanh']['size'];
         $img_tmp = $_FILES['hinhanh']['tmp_name'];
@@ -1384,7 +1398,7 @@ class  adminback
             if ($img_size <= 2e+6) {
                 
                 if($width<2071 && $height<2071){
-                    $query = "INSERT INTO `caygiong` (`tencaygiong`, `macaygiong`, `mota`, `nhasanxuat`, `ngaysanxuat`, `hansudung`, `phuongphaptrong`, `hinhanh`, `lienhe`) VALUES ( '$tencaygiong', '$macaygiong', '$mota', '$nhasanxuat', '$ngaysanxuat', '$hansudung', '$phuongphaptrong', '$img_name', '$lienhe');";
+                    $query = "INSERT INTO `caygiong` ( `nhasanxuat`, `nhaphanphoi`,`tencaygiong`, `macaygiong`, `mota`, `xuatxu`, `gia`, `ngaysanxuat`,  `hansudung`,`hdsd`, `phuongphaptrong`, `hinhanh`, `lienhe`) VALUES ('$nhasanxuat','$nhaphanphoi', '$tencaygiong', '$macaygiong', '$mota',  '$xuatxu',  '$gia',  '$ngaysanxuat', '$hansudung','$hdsd', '$phuongphaptrong', '$img_name', '$lienhe');";
 
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($img_tmp, "uploads/".$img_name);
@@ -1433,6 +1447,11 @@ class  adminback
         $hansudung = $data['hansudung'];
         $phuongphaptrong = $data['phuongphaptrong'];
         $lienhe = $data['lienhe'];
+        $nhaphanphoi = $data['nhaphanphoi'];
+        $gia = $data['gia'];
+        $hdsd = $data['hdsd'];
+        $xuatxu = $data['xuatxu'];
+
         $img_name = $_FILES['hinhanh']['name'];
         $img_size = $_FILES['hinhanh']['size'];
         $img_tmp = $_FILES['hinhanh']['tmp_name'];
@@ -1454,7 +1473,7 @@ class  adminback
                     unlink("uploads/" . $pre_img);
     
                     // Cập nhật thông tin cây giống với tên ảnh mới và di chuyển ảnh mới vào thư mục
-                    $query = "UPDATE `caygiong` SET `tencaygiong` = '$tencaygiong', `macaygiong` = '$macaygiong', `mota` = '$mota', `nhasanxuat` = '$nhasanxuat', `ngaysanxuat` = '$ngaysanxuat', `hansudung` = '$hansudung', `phuongphaptrong` = '$phuongphaptrong', `hinhanh` = '$img_name', `lienhe` = '$lienhe' WHERE `caygiong`.`id_cg` = '$id_cg';";
+                    $query = "UPDATE `caygiong` SET  `nhasanxuat` = '$nhasanxuat', `nhaphanphoi` = '$nhaphanphoi', `tencaygiong` = '$tencaygiong', `macaygiong` = '$macaygiong', `mota` = '$mota',`xuatxu` = '$xuatxu',`gia` = '$gia', `ngaysanxuat` = '$ngaysanxuat', `hansudung` = '$hansudung',`hdsd` = '$hdsd', `phuongphaptrong` = '$phuongphaptrong', `hinhanh` = '$img_name', `lienhe` = '$lienhe' WHERE `caygiong`.`id_cg` = '$id_cg';";
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($img_tmp, "uploads/" . $img_name)) {
                         echo '<script>
                             alert("Chỉnh sửa sản phẩm thành công");
@@ -1473,7 +1492,7 @@ class  adminback
             }
         } else {
             // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của cây giống
-            $query = "UPDATE `caygiong` SET `tencaygiong` = '$tencaygiong', `macaygiong` = '$macaygiong', `mota` = '$mota', `nhasanxuat` = '$nhasanxuat', `ngaysanxuat` = '$ngaysanxuat', `hansudung` = '$hansudung', `phuongphaptrong` = '$phuongphaptrong', `lienhe` = '$lienhe' WHERE `caygiong`.`id_cg` = '$id_cg';";
+            $query = "UPDATE `caygiong` SET  `nhasanxuat` = '$nhasanxuat', `nhaphanphoi` = '$nhaphanphoi', `tencaygiong` = '$tencaygiong', `macaygiong` = '$macaygiong', `mota` = '$mota',`xuatxu` = '$xuatxu',`gia` = '$gia', `ngaysanxuat` = '$ngaysanxuat', `hansudung` = '$hansudung',`hdsd` = '$hdsd', `phuongphaptrong` = '$phuongphaptrong',  `lienhe` = '$lienhe' WHERE `caygiong`.`id_cg` = '$id_cg';";
             if (mysqli_query($this->connection, $query)) {
                 echo '<script>
                     alert("Chỉnh sửa sản phẩm thành công");

@@ -113,4 +113,3 @@
         $("#vsx").select2();
     });
 </script>
-</script>

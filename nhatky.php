@@ -149,7 +149,7 @@ include_once("includes/head.php");
                         <div class="c-product-detail__title-sm" style="font-size: 18px;font-weight: bold;line-height: 33.6px;">Nhật ký hoạt động</div>
                     </div>
                     <div class="col-md-6 col-xs-6">
-                        <a href="#" class="">
+                        <a href="add_nhatky.php" class="">
                             <button class="btn ht-btn btn-info">Thêm nhật ký</button>
                         </a>
                     </div>
@@ -166,7 +166,7 @@ include_once("includes/head.php");
                         <div class="single-product-log">
                     <div class="row">
                         <div class="col-xs-12 col-sm-2 log__user-avatar" style="display: flex;justify-content: center;align-items: center;margin-top:10px">
-                            <img style="display: block;width: 60px;height: 60px;object-fit: cover;border-radius: 50%;" src="admin/uploads/<?= $tk['hinhdaidien']?>" alt="">
+                            <img style="display: block;width: 60px;height: 60px;object-fit: cover;border-radius: 50%;" src="admin/uploads/avatar/<?= $tk['hinhdaidien']?>" alt="">
                         </div>
                         <div class="col-xs-12 col-sm-10 log__main-content">
                             <div class="row">

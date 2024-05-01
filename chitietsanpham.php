@@ -692,5 +692,5 @@ include_once("includes/head.php");
     ?>
 </body>
 
-</html>
+
 

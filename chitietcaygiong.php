@@ -5,8 +5,8 @@ include_once("admin/class/adminback.php");
 $obj = new adminback();
 
 if (isset($_GET['id'])) {
-    $cgId = $_GET['id'];   
-	$cg_info = $obj->show_caygiong_by_id($cgId);
+    $id_cg = $_GET['id'];   
+	$cg_info = $obj->show_caygiong_by_id($id_cg);
 	$cg_fetch = mysqli_fetch_assoc($cg_info);
 	$cg_datas = array();
 	$cg_datas[] = $cg_fetch;
@@ -262,7 +262,12 @@ include_once("includes/head.php");
                                                 <br>
                                                 <span style="font-weight:bold;color: black;font-size:145%;"><?php echo $formatted_id_cg ?></span>
                                                 <br>
-                                                <span style="font-size:130%;" >Nhà sản xuất: <?php echo $cg_data['nhasanxuat'] ?></span>
+                                                <span style="font-size:130%;" >Nhà sản xuất: <?php  
+                                                        foreach ($cg_datas as $cg_data) {
+                                                            $tenvsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
+                                                            echo $tenvsx['tendoanhnghiep'];
+                                                        }
+                                                    ?></span>
                                                 <br>
                                                 
 
@@ -347,6 +352,39 @@ include_once("includes/head.php");
                                                     <hr>';
                                         }
                                     ?>
+                                    <?php 
+                                        if($cg_data['xuatxu'] != null){
+                                            echo '<div class="desc-expand">
+                                                        <span class="title">Xuất xứ</span>
+                                                        
+                                                            
+                                                            <br><span>' . $cg_data['xuatxu'] . '</span> 
+                                                    </div>
+                                                    <hr>';
+                                        }
+                                    ?>
+                                    <?php 
+                                        if($cg_data['gia'] != null){
+                                            echo '<div class="desc-expand">
+                                                        <span class="title">Giá</span>
+                                                        
+                                                            
+                                                            <br><span>' . $cg_data['gia'] . '</span> 
+                                                    </div>
+                                                    <hr>';
+                                        }
+                                    ?>
+                                    <?php 
+                                        if($cg_data['hdsd'] != null){   
+                                            echo '<div class="desc-expand">
+                                                        <span class="title">Hướng dẫn sử dụng</span>
+                                                        
+                                                            
+                                                            <br><span>' . $cg_data['hdsd'] . '</span> 
+                                                    </div>
+                                                    <hr>';
+                                        }
+                                    ?>
                                     
                                     <?php 
                                         if($cg_data['phuongphaptrong'] != null){
@@ -363,37 +401,37 @@ include_once("includes/head.php");
                                 <div id="tab_3rd" class="tab-contain">
                                     <div class="accodition-tab biolife-accodition">
                                         <div class="row" style="margin: 0 -10px;">
-                                        <?php if($pro_data['vungsanxuat'] != 0 || is_null($pro_data['vungsanxuat']) ){ ?>
+                                            <?php if($cg_data['nhasanxuat'] != 0 || is_null($cg_data['nhasanxuat']) ){ ?>
                                             <div class="col-md-12 col-sm-12">
                                                 <div class="serviceBox">
                                                     <div class="service-icon">
                                                         <span><i class="fa fa-globe"></i></span>
                                                     </div>
-                                                    <h3 class="title">Vùng sản xuất</h3>
-                                                    <h5 class="title-sub">Tên vùng sản xuất:</h5>
+                                                    <h3 class="title">Nhà sản xuất</h3>
+                                                    <h5 class="title-sub">Tên nhà sản xuất:</h5>
                                                     <p class="description">
                                                     <?php
-                                                        foreach ($pro_datas as $pro_data) {
-                                                            $tenvsx = $obj->display_vsxbyID($pro_data['vungsanxuat']);
-                                                            echo $tenvsx['tenvung'];
+                                                        foreach ($cg_datas as $cg_data) {
+                                                            $tenvsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
+                                                            echo $tenvsx['tendoanhnghiep'];
                                                         }
                                                     ?>
                                                     </p>
                                                     <h5 class="title-sub">Địa chỉ:</h5>
                                                     <p class="description">
                                                     <?php
-                                                        foreach ($pro_datas as $pro_data) {
-                                                            $tenvsx = $obj->display_vsxbyID($pro_data['vungsanxuat']);
+                                                        foreach ($cg_datas as $cg_data) {
+                                                            $tenvsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
                                                             echo $tenvsx['diachi'];
                                                         }
                                                     ?>
                                                     </p>
-                                                    <a class="btn btn-info" href="chitietvsx.php?id=<?= $pro_data['vungsanxuat']?>">Xem chi tiết</a>
+                                                    <a class="btn btn-info" href="chitietdn.php?id=<?= $cg_data['nhasanxuat']?>">Xem chi tiết</a>
                                                 </div>
                                             </div>
                                             <?php }?>
                                             <?php
-                                                if($pro_data['caygiong'] != 0 || is_null($pro_data['caygiong']) ){ ?>
+                                                if($cg_data['nhaphanphoi'] != 0 || is_null($cg_data['nhaphanphoi']) ){ ?>
                                                     <div class="col-md-12 col-sm-12">
                                                         <div class="serviceBox blue">
                                                             <div class="service-icon">
@@ -403,29 +441,25 @@ include_once("includes/head.php");
                                                             <h5 class="title-sub">Tên:</h5>
                                                             <p class="description">
                                                             <?php
-                                                                foreach ($pro_datas as $pro_data) {
-                                                                    $tenvsx = $obj->display_vsxbyID($pro_data['vungsanxuat']);
-                                                                    echo $tenvsx['tenvung'];
-                                                                }
-                                                            ?>
+                                                        foreach ($cg_datas as $cg_data) {
+                                                            $tenvsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
+                                                            echo $tenvsx['tendoanhnghiep'];
+                                                        }
+                                                    ?>  
+                                                    </p>
+                                                    <h5 class="title-sub">Địa chỉ:</h5>
+                                                    <p class="description">
+                                                    <?php
+                                                        foreach ($cg_datas as $cg_data) {
+                                                            $tenvsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
+                                                            echo $tenvsx['diachi'];
+                                                        }
+                                                    ?>
                                                             </p>
-                                                            <h5 class="title-sub">Địa chỉ:</h5>
-                                                            <p class="description">
-                                                            <?php
-                                                                foreach ($pro_datas as $pro_data) {
-                                                                    $tenvsx = $obj->display_vsxbyID($pro_data['vungsanxuat']);
-                                                                    echo $tenvsx['diachi'];
-                                                                }
-                                                            ?>
-                                                            </p>
-                                                            <a class="btn btn-info" href="">Xem chi tiết</a>
+                                                            <a class="btn btn-info" href="chitietdn.php?id=<?= $cg_data['nhaphanphoi']?>">Xem chi tiết</a>
                                                         </div>
                                                     </div>
                                             <?php }?>
-                                           
-                                           
-                                           
-                                           
                                             <!-- <div class="col-md-12 col-sm-12">
                                                 <div class="serviceBox pink">
                                                     <div class="service-icon">
@@ -693,5 +727,5 @@ include_once("includes/head.php");
     ?>
 </body>
 
-</html>
+
 

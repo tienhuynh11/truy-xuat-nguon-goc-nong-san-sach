@@ -1,7 +1,7 @@
 <?php     
     
 
-    $so_ban_ghi_mot_trang = 7;
+    $so_ban_ghi_mot_trang = 5;
     if(isset($_GET['trang'])){
         $trang_hien_tai = $_GET['trang'];
     } else {
@@ -13,7 +13,12 @@
     $ket_thuc = $bat_dau + $so_ban_ghi_mot_trang;
     $show_cg = $obj->display_cg_pagination($bat_dau, $ket_thuc);
 
+    $dn_info=$obj->display_dn();
 
+    $dn_array = array();
+    while($dn = mysqli_fetch_assoc($dn_info)){
+        $dn_array[] = $dn;
+    }
   if(isset($_GET['status'])){
       $id_cg = $_GET['id'];
       if($_GET['status']=='delete'){
@@ -41,9 +46,13 @@
                 <th>Mã Cây giống</th>
                 <th>Mô tả</th>
                 <th>Nhà sản xuất</th>
+                <th>Nhà phân phối</th>
                 <th>Ngày sản xuất</th>
                 <th>Hạn sử dụng</th>
                 <th>Phương pháp trồng</th>
+                <th>Xuất xứ</th>
+                <th>Giá</th>
+                <th>Hướng dẫn sử dụng</th>
                 <th>Hình ảnh</th>
                 <th>Liên hệ</th>
                 <th>Action</th>
@@ -61,10 +70,32 @@
                 <td> <?php echo $cg['tencaygiong']  ?> </td>
                 <td> <?php echo  $cg['macaygiong'] ?> </td>
                 <td> <?php echo $cg['mota'] ?> </td>
-                <td> <?php echo  $cg['nhasanxuat'] ?> </td>
+               <td> <?php 
+                  
+                  foreach($dn_array as $dn){
+                      if($dn['id_dn'] == $cg['nhasanxuat'])
+                      {
+                          echo $dn['tendoanhnghiep'] ;
+                      }
+                  }
+                  
+                      ?> </td>
+              <td> <?php 
+                  
+                  foreach($dn_array as $dn){
+                      if($dn['id_dn'] == $cg['nhaphanphoi'])
+                      {
+                          echo $dn['tendoanhnghiep'] ;
+                      }
+                  }
+                  
+                      ?> </td>
                 <td> <?php echo  $cg['ngaysanxuat'] ?> </td>
                 <td> <?php echo  $cg['hansudung'] ?> </td>
                 <td> <?php echo  $cg['phuongphaptrong'] ?> </td>
+                <td> <?php echo  $cg['xuatxu'] ?> </td>
+                <td> <?php echo  $cg['gia'] ?> </td>
+                <td> <?php echo  $cg['hdsd'] ?> </td>
                 <td><img style="height:60px" src="uploads/<?php echo $cg['hinhanh'] ?>" alt=""></td>
                 <td> <?php echo  $cg['lienhe'] ?> </td>
                 

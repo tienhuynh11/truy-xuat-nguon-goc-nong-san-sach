@@ -4,9 +4,10 @@
         if($_GET['status']=="cgEdit"){
            $cg_info= $obj->show_caygiong_by_id($id_cg);
            $cg = mysqli_fetch_assoc($cg_info);
+           
         }
     }
-
+    $dn_info=$obj->display_dn(); 
     if(isset($_POST['update_cg'])){
        $update_msg =  $obj->update_caygiong($_POST);
        if($update_msg == "Update successful!") {
@@ -34,12 +35,44 @@
     </div>
     <input type="hidden" name="id_cg" value="<?php echo $cg['id_cg'] ?>">
     <div class="form-group">
-        <h4>Nhà sản xuất</h4>
-        <input type="text" name="nhasanxuat" class="form-control" value="<?php echo $cg['nhasanxuat'] ?>" required>
+        <label for="nhasanxuat">Nhà sản xuất</label>
+        <select name="nhasanxuat" id="nhasanxuat" class="form-control">
+            <?php foreach($dn_info as $dn): ?>
+                <?php if ($dn['id_dn']== $cg['nhasanxuat']) { ?>
+                <option value="<?php echo $dn['id_dn']?>" selected><?php echo $dn['tendoanhnghiep'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $dn['id_dn'] ?>"><?php echo $dn['tendoanhnghiep']   ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="nhaphanphoi">Nhà phân phối</label>
+        <select name="nhaphanphoi" id="nhaphanphoi" class="form-control">
+            <?php foreach($dn_info as $dn): ?>
+                <?php if ($dn['id_dn']== $cg['nhaphanphoi']) { ?>
+                <option value="<?php echo $dn['id_dn']?>" selected><?php echo $dn['tendoanhnghiep'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $dn['id_dn'] ?>"><?php echo $dn['tendoanhnghiep']   ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
     </div>
     <div class="form-group">
         <h4>Ngày sản xuất</h4>
         <input type="text" name="ngaysanxuat" class="form-control" value="<?php echo $cg['ngaysanxuat'] ?>" required>
+    </div>
+    <div class="form-group">
+        <h4>Giá</h4>
+        <input type="text" name="gia" class="form-control" value="<?php echo $cg['gia'] ?>" required>
+    </div>
+    <div class="form-group">
+        <h4>Xuất xứ</h4>
+        <input type="text" name="xuatxu" class="form-control" value="<?php echo $cg['xuatxu'] ?>" required>
+    </div>
+    <div class="form-group">
+        <h4>Hướng dẫn sử dụng</h4>
+        <input type="text" name="hdsd" class="form-control" value="<?php echo $cg['hdsd'] ?>" required>
     </div>
     <div class="form-group">
         <h4>Hạn sử dụng</h4>
@@ -66,3 +99,11 @@
     </div>
 </form>
 </div>
+<script>
+    $(document).ready(function() {
+        $("#nhasanxuat").select2();
+        $("#nhaphanphoi").select2();
+       
+    });
+
+</script>
