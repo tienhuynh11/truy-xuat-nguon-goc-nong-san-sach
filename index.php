@@ -77,6 +77,7 @@ body{
     text-align: center;
     text-shadow: 2px 2px #fff;
 }
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 </style>
 <?php 
 
@@ -172,122 +173,55 @@ include_once("includes/head.php");
     </div>
                                                         
             <div class="container profile border" style="border-radius: 5px;margin-top: 10px; ">
-            <style>
-                @import url('https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css');
-                @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-            </style>
                 <div class="row" style="margin-top:15px; margin-bottom:5px;">
                     <?php
-                        foreach($baiviet as $bv){
-                            $tk = $obj->show_taikhoan($bv["nguoidang"]);
+                    foreach($baiviet as $bv){
+                        $tk = $obj->show_taikhoanbyid($bv["nguoidang"]);
                     ?>
                     <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3" style="font-size: 16px;">
-                                    <a href="#"><img src="admin/uploads/avatar/<?php echo $tk['hinhdaidien'] ?>" alt="" width="50" style="width: 50px;height: 50px;" class="rounded-circle" /></a>
-                                    <div class="flex-fill ps-2" style="font-weight: bold;margin-left:10px;">
-                                        <div class="fw-bold"><a href="#" class="text-decoration-none"><?= $tk['hoten'];?></a> - <i class="text-decoration-none">
-                                            <?php 
-                                            if($tk['role'] == 'Nongdan'){
-                                                echo 'Nông dân';
-                                            }elseif($tk['role'] == 'Admin'){
-                                                echo 'Quản trị';
-                                            }elseif($tk['role'] == 'Khachhang'){
-                                                echo 'Người đánh giá';
-                                            }
-                                            ?>
-                                        </i></div>
-                                        <div class="small text-body text-opacity-50"><?= date('d-m-Y H:i', strtotime($bv["ngaydang"])) ?></div>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="d-flex align-items-center mb-3 row" style="font-size: 16px;margin-bottom: 10px;">
+                                    <a href="" class="d-block mr-2 col-md-2 col-xs-3">
+                                        <img src="admin/uploads/avatar/<?php echo $tk['hinhdaidien'] ?>" alt="" width="50" style="width: 50px;height: 50px;" class="img-circle" />
+                                    </a>
+                                    <div class="flex-fill ps-2 col-md-10 col-xs-9" style="font-weight: bold;">
+                                        <div class="fw-bold mb-1">
+                                            <a href="#" class="text-decoration-none"><?= $tk['hoten'];?></a> - <span class="text-muted">
+                                                <?php 
+                                                if($tk['role'] == 'Nongdan'){
+                                                    echo 'Nông dân';
+                                                } elseif($tk['role'] == 'Admin'){
+                                                    echo 'Quản trị';
+                                                } elseif($tk['role'] == 'Khachhang'){
+                                                    echo 'Người đánh giá';
+                                                }
+                                                ?>
+                                            </span>
+                                        </div>
+                                        <div class="small text-body text-muted"><?= date('d-m-Y H:i', strtotime($bv["ngaydang"])) ?></div>
                                     </div>
                                 </div>
-            
-                                <a href="baiviet.php?id=<?php
-                                echo $bv['id_bv']
-                                // $bv_old = $bv['tieude'] ;
-                                // $bv_change = str_replace(array(' ',' - '), '-', $bv_old);
-                                //  echo $bv_change;
-                                 
-                                 ?>">
+
+                                <a href="baiviet.php?id=<?php echo $bv['id_bv'] ?>">
                                     <p style="margin-bottom: 5px;text-transform: uppercase;font-weight: bold;color: #000;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><?= $bv['tieude'] ?></p>
                                 </a>
                                 <p style="margin-bottom: -2px;color: #000;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><?= $bv['noidung'] ?></p>
-                                <a href="baiviet.php?id=<?php
-                                echo $bv['id_bv']
-                                // $bv_old = $bv['tieude'] ;
-                                // $bv_change = str_replace(array(' ',' - '), '-', $bv_old);
-                                //  echo $bv_change;
-                                 
-                                 ?>">
+                                <a href="baiviet.php?id=<?php echo $bv['id_bv'] ?>">
                                     <p style="color: #FFA500;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Xem thêm..</p>
                                 </a>
                                 <div class="profile-img-list">
-                                <div class="profile-img-list-item main">
-                                    <a href="baiviet.php?id=<?php
-                                echo $bv['id_bv']
-                                // $bv_old = $bv['tieude'] ;
-                                // $bv_change = str_replace(array(' ',' - '), '-', $bv_old);
-                                //  echo $bv_change;
-                                 
-                                 ?>" data-lity="" class="profile-img-list-link">
-                                        <span class="profile-img-content" style="background-image: url(admin/uploads/baiviet/<?php echo $bv['hinhanh'] ?>);"></span>
-                                    </a>
-                                </div>
-                                    <!-- <div class="profile-img-list-item">
-                                        <a href="#" data-lity="" class="profile-img-list-link">
-                                            <span class="profile-img-content" style="background-image: url(https://bootdey.com/img/Content/avatar/avatar2.png);"></span>
+                                    <div class="profile-img-list-item main">
+                                        <a href="baiviet.php?id=<?php echo $bv['id_bv'] ?>" data-lity="" class="profile-img-list-link">
+                                            <span class="profile-img-content" style="background-image: url(admin/uploads/baiviet/<?php echo $bv['hinhanh'] ?>);"></span>
                                         </a>
-                                    </div>
-                                    <div class="profile-img-list-item">
-                                        <a href="#" data-lity="" class="profile-img-list-link">
-                                            <span class="profile-img-content" style="background-image: url(https://bootdey.com/img/Content/avatar/avatar3.png);"></span>
-                                        </a>
-                                    </div>
-                                    <div class="profile-img-list-item">
-                                        <a href="#" data-lity="" class="profile-img-list-link">
-                                            <span class="profile-img-content" style="background-image: url(https://bootdey.com/img/Content/avatar/avatar5.png);"></span>
-                                        </a>
-                                    </div>
-                                    <div class="profile-img-list-item with-number">
-                                        <a href="#" data-lity="" class="profile-img-list-link">
-                                            <span class="profile-img-content" style="background-image: url(https://bootdey.com/img/Content/avatar/avatar4.png);"></span>
-                                            <div class="profile-img-number">+12</div>
-                                        </a>
-                                    </div> -->
-                                </div>
-                                        <!-- <hr class="mb-1 opacity-1" /> -->
-                    <!-- 
-                                <div class="row text-center fw-bold">
-                                    <div class="col">
-                                        <a href="#" class="text-body text-opacity-50 text-decoration-none d-block p-2"> <i class="far fa-thumbs-up me-1 d-block d-sm-inline"></i> Likes </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#" class="text-body text-opacity-50 text-decoration-none d-block p-2"> <i class="far fa-comment me-1 d-block d-sm-inline"></i> Comment </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#" class="text-body text-opacity-50 text-decoration-none d-block p-2"> <i class="fa fa-share me-1 d-block d-sm-inline"></i> Share </a>
                                     </div>
                                 </div>
-                                        <hr class="mb-3 mt-1 opacity-1" /> -->
-                                <!-- <div class="d-flex align-items-center">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" width="35" class="rounded-circle" />
-                                    <div class="flex-fill ps-2">
-                                        <div class="position-relative d-flex align-items-center">
-                                            <input type="text" class="form-control rounded-pill bg-white bg-opacity-15" style="padding-right: 120px;" placeholder="Write a comment..." />
-                                            <div class="position-absolute end-0 text-center">
-                                                <a href="#" class="text-body text-opacity-50 me-2"><i class="fa fa-smile"></i></a>
-                                                <a href="#" class="text-body text-opacity-50 me-2"><i class="fa fa-camera"></i></a>
-                                                <a href="#" class="text-body text-opacity-50 me-2"><i class="fa fa-video"></i></a>
-                                                <a href="#" class="text-body text-opacity-50 me-3"><i class="fa fa-paw"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
                     <?php
-                        }
+                    }
                     ?>
                 </div>
             </div>

@@ -4,21 +4,32 @@ session_start();
 include_once("admin/class/adminback.php");
 $obj = new adminback();
 
-$cata_info = $obj->p_display_catagory();
-$cataDatas = array();
-while ($data = mysqli_fetch_assoc($cata_info)) {
-    $cataDatas[] = $data;
+if(isset($_GET['search'])){
+    $keyword = $_GET['keyword'];
+    if(!empty($keyword)){
+        $pdt_info = $obj->search_nongsan($keyword);   
+        $pdt_datas = array();   
+            
+        while($pdt_ftecth = mysqli_fetch_assoc($pdt_info)){
+                    $pdt_datas[] = $pdt_ftecth;
+        } 
+        $search_item =count($pdt_datas);
+            
+
+    }else{
+        header('location:sanpham.php');
+    }
+}else{
+    $pdt_info = $obj->view_all_product();
+
+    $pdt_datas = array();   
+            
+    while($pdt_ftecth = mysqli_fetch_assoc($pdt_info)){
+                $pdt_datas[] = $pdt_ftecth;
+    } 
 }
 
 
-
-$pdt_info = $obj->view_all_product();
-
-$pdt_datas = array();   
-        
-while($pdt_ftecth = mysqli_fetch_assoc($pdt_info)){
-            $pdt_datas[] = $pdt_ftecth;
-}
 
 ?>
 
@@ -67,6 +78,7 @@ include_once("includes/head.php");
 
             <!-- Product -->
             <div class="container">
+                <?php  if(isset($search_item)){ echo "{$search_item} nông sản được tìm thấy!";}?>
 
                 <div class="product-category grid-style">
 
@@ -82,12 +94,33 @@ include_once("includes/head.php");
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
                                             <a href="chitietsanpham.php?id=<?php echo $pdt_data['id_sp'] ?>" class="link-to-product">
-                                                <img style="border-radius: 10px;" src="admin/uploads/<?php echo $pdt_data['hinhanh'] ?>" alt="dd" width="270" height="270" class="product-thumnail">
+                                                <img style="border-radius: 10px; width: 270px; height: 270px; object-fit: contain;" src="admin/uploads/<?php echo $pdt_data['hinhanh'] ?>" alt="dd" width="270" height="270" class="product-thumnail">
                                             </a>
                                         </div>
                                         <div class="info">                                        
                                             
-                                            <h4 class="product-title"><a href="chitietsanpham.php?id=<?php echo $pdt_data['id_sp']; ?>" class="pr-name"><?php echo $pdt_data['tensanpham'] ?></a></h4>
+                                            <?php
+                                                $tennongsan = $pdt_data['tensanpham']; // Lấy nội dung từ biến $pdt_data
+                                                $max_length = 35; // Độ dài tối đa cho chuỗi
+
+                                                // Kiểm tra độ dài của chuỗi
+                                                if (strlen($tennongsan) > $max_length) {
+                                                    // Nếu độ dài vượt quá $max_length, thực hiện cắt chuỗi
+                                                    $tenrutgon = substr($tennongsan, 0, $max_length);
+
+                                                    // Kiểm tra xem chuỗi có bị cắt giữa từ một từ không
+                                                    $last_space = strrpos($tenrutgon, ' ');
+                                                    if ($last_space !== false) {
+                                                        $tenrutgon = substr($tenrutgon, 0, $last_space); // Loại bỏ phần sau từ cuối cùng nếu có
+                                                    }
+
+                                                    // Hiển thị phần đã cắt của chuỗi
+                                                    echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietsanpham.php?id='.$pdt_data['id_sp'].'" class="pr-name">'.$tenrutgon.'...</a></h4>';
+                                                } else {
+                                                    // Nếu độ dài không vượt quá $max_length, hiển thị chuỗi nguyên gốc
+                                                    echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietsanpham.php?id='.$pdt_data['id_sp'].'" class="pr-name">'.$tennongsan.'</a></h4>';
+                                                }
+                                            ?>
                                             <div class="price">
                                                 
                                                 <ins><span style="color: #808080;" class="price-amount"><?php echo $formatted_id_sp ?></span></ins>

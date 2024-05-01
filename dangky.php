@@ -70,7 +70,6 @@ include_once("includes/head.php");
                                 <p class="form-row" >
                                     <label for="user_role">Role</label>
                                     <select name="user_role" class="form-control">
-                                        <option value="Admin">Admin</option>
                                         <option value="Nongdan">Nông dân</option>
                                         <option value="Nguoidanhgia">Người đánh giá</option>
                                         <option value="Chuyengia">Chuyên gia</option>

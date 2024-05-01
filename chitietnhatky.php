@@ -149,7 +149,7 @@ include_once("includes/head.php");
 
                             <?php
                             foreach ($nhatky as $nk) {
-                                $tk = $obj->show_taikhoan($nk["nguoidang"]);
+                                $tk = $obj->show_taikhoanbyid($nk["nguoidang"]);
                                 
                             ?>
 

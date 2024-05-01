@@ -1073,7 +1073,7 @@ body{
     display: inline-block;
 }
 .header-area .header-bottom{
-    padding-bottom: 10px;
+    padding-top: 10px;
 }
 body.open-mobile-search .header-area.layout-02{
     z-index: 150;

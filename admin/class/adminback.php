@@ -304,7 +304,7 @@ class  adminback
         }
     }
 
-    function show_taikhoan($id)
+    function show_taikhoanbyid($id)
     {
         $query = "SELECT * FROM `taikhoan` WHERE id_acc = $id";
 
@@ -688,18 +688,39 @@ class  adminback
         }
     }
 
-    function search_product($keyword)
+    function search_nongsan($keyword)
     {
-        $query = "SELECT * FROM `sanpham` WHERE `tensanpham` LIKE '%$keyword%'";
+        $query = "SELECT * FROM `sanpham` WHERE `tensanpham` LIKE '%$keyword%' or `id_sp` LIKE '%$keyword%'";
 
         if (mysqli_query($this->connection, $query)) {
             $search_query = mysqli_query($this->connection, $query);
             return $search_query;
         }
     }
+
+    function search_vsx($keyword)
+    {
+        $query = "SELECT * FROM `vungsanxuat` WHERE `tenvung` LIKE '%$keyword%' or `mavung` LIKE '%$keyword%'";
+
+        if (mysqli_query($this->connection, $query)) {
+            $search_query = mysqli_query($this->connection, $query);
+            return $search_query;
+        }
+    }
+
+    function search_caygiong($keyword)
+    {
+        $query = "SELECT * FROM `caygiong` WHERE `tencaygiong` LIKE '%$keyword%' or `id_cg` LIKE '%$keyword%'";
+
+        if (mysqli_query($this->connection, $query)) {
+            $search_query = mysqli_query($this->connection, $query);
+            return $search_query;
+        }
+    }
+
     function search_nhatky($keyword)
     {
-        $query = "SELECT * FROM `nhatkysanpham` WHERE `tennhatky` LIKE '%$keyword%'";
+        $query = "SELECT * FROM `nhatkysanpham` WHERE `tennhatky` LIKE '%$keyword%' or `id_nk` LIKE '%$keyword%'";
 
         if (mysqli_query($this->connection, $query)) {
             $search_query = mysqli_query($this->connection, $query);

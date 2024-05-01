@@ -1,6 +1,5 @@
 <style>
 body{
-    margin-top:20px;
     background:#eee;
 }
 .profile .profile-img-list {
@@ -77,34 +76,37 @@ body{
     text-align: center;
     text-shadow: 2px 2px #fff;
 }
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 </style>
 <?php 
-
 session_start();
-    include_once ("admin/class/adminback.php");
-    $obj = new adminback();
+include_once("admin/class/adminback.php");
+$obj = new adminback();
 
-    $pdt_info = $obj-> display_product();
-    $pdtDatas = array();
-    while($data = mysqli_fetch_assoc($pdt_info)){
-        $pdtDatas[]=$data;
+if(isset($_GET['search'])){
+    $keyword = $_GET['keyword'];
+    if(!empty($keyword)){
+        $nk = $obj->search_nhatky($keyword);
+        $nhatky = array();
+        while($nk_ftecth = mysqli_fetch_assoc($nk)){
+            $nhatky[]=$nk_ftecth;
+        }
+        $search_item =count($nhatky);
+    }else{
+        header('location:caygiong.php');
     }
-
+}else{
     $nk = $obj->show_nhatky();
 
     $nhatky = array();   
         
-while($nk_ftecth = mysqli_fetch_assoc($nk)){
-            $nhatky[] = $nk_ftecth;
+    while($nk_ftecth = mysqli_fetch_assoc($nk)){
+        $nhatky[] = $nk_ftecth;
+    }
 }
-
-
-
-
-
-
-
 ?>
+    
+
 
 
 
@@ -132,7 +134,7 @@ include_once("includes/head.php");
         ?>
 
         <?php
-        // include_once("includes/header_bottom.php");
+        include_once("includes/header_bottom.php");
         ?>
 
     </header>
@@ -140,93 +142,78 @@ include_once("includes/head.php");
     <div class="page-contain">
 
         <!-- Main content -->
-        <div id="main-content" class="main-content">
-        
-            
-    </div>
-    <div class="row justify-content-center mt-3 mb-4">
-                            <form action="search_nhatky.php" class="form-search" name="desktop-seacrh" method="get">
-                                <input type="text" name="keyword" class="input-text"  placeholder="Nhập nhật ký cần tìm...">
-
-                                <input type="submit" class="btn-submit" value="Tìm kiếm" name="search" style="margin-top: 8px;font-size:16px;">
-                               
-                                <!-- <input type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button> -->
-                            </form>
-                        </div>
-                            
-            <div class="container profile border" style="border-radius: 5px;margin-top: 10px; ">
-            <style>
-                @import url('https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css');
-                @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-            </style>
-            
-                <div class="row" style="margin-top:15px; margin-bottom:5px;">
-                    <?php
-                        foreach($nhatky as $nk){
-                            $tk = $obj->show_taikhoan($nk["nguoidang"]);
+        <div class="container profile container-x" style="border-radius: 5px;margin-top: 0;">
+            <div class="head-info text-center" style="padding-bottom: 0px;padding: 20px 0;">
+                <div class="row" style="width: 100%;">
+                    <div class="col-md-6 col-xs-6">
+                        <div class="c-product-detail__title-sm" style="font-size: 18px;font-weight: bold;line-height: 33.6px;">Nhật ký hoạt động</div>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <a href="#" class="">
+                            <button class="btn ht-btn btn-info">Thêm nhật ký</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <?php
+                    foreach($nhatky as $nk){
+                        $tk = $obj->show_taikhoanbyid($nk["nguoidang"]);
                     ?>
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3" style="font-size: 16px;">
-                                    <a href="#"><img src="admin/uploads/avatar/<?php echo $tk['hinhdaidien'] ?>" alt="" width="50" style="width: 50px;height: 50px;" class="rounded-circle" /></a>
-                                    <div class="flex-fill ps-2" style="font-weight: bold;margin-left:10px;">
-                                        <div class="fw-bold"><a href="#" class="text-decoration-none"><?= $tk['hoten'];?></a> - <i class="text-decoration-none">
-                                            <?php 
-                                            if($tk['role'] == 'Nongdan'){
-                                                echo 'Nông dân';
-                                            }elseif($tk['role'] == 'Admin'){
-                                                echo 'Quản trị';
-                                            }elseif($tk['role'] == 'Khachhang'){
-                                                echo 'Người đánh giá';
-                                            }
+                <div class="row" style=" margin-bottom:5px;">
+                    
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                        <div class="single-product-log">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-2 log__user-avatar" style="display: flex;justify-content: center;align-items: center;margin-top:10px">
+                            <img style="display: block;width: 60px;height: 60px;object-fit: cover;border-radius: 50%;" src="admin/uploads/<?= $tk['hinhdaidien']?>" alt="">
+                        </div>
+                        <div class="col-xs-12 col-sm-10 log__main-content">
+                            <div class="row">
+                                <div class="col-xs-12 log__main-top">
+                                    <div class="log__user-info">
+                                        <h4 class="log__user-info__title">
+                                            <a style="color: #009900;font-weight: bold;" href="#"><?= $tk['hoten']?></a>
+                                            - <?php
+                                                
+                                                    echo '<span class="title-role">'.$tk['role'].'</span>';
+                                                
                                             ?>
-                                        </i></div>
-                                        <div class="small text-body text-opacity-50"><?= date('d-m-Y H:i', strtotime($nk["thoigiantao"])) ?></div>
+                                        </h4>
+                                    </div>
+                                    <div class="log__meta-info">
+                                        <span class="log__user-info__meta"><?= $nk['thoigiantao'] ?></span>
                                     </div>
                                 </div>
-            
-                                <a href="chitietnhatky.php?id=<?php
-                                echo $nk['id_nk']
-                                // $nk_old = $nk['tieude'] ;
-                                // $nk_change = str_replace(array(' ',' - '), '-', $nk_old);
-                                //  echo $nk_change;
-                                 
-                                 ?>">
-                                    <p style="margin-bottom: 5px;text-transform: uppercase;font-weight: bold;color: #000;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Công việc: <?= $nk['tennhatky'] ?></p>
-                                </a>
-                                <p style="margin-bottom: -2px;color: #000;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><?= $nk['chitiet'] ?></p>
-                                <a href="chitietnhatky.php?id=<?php
-                                echo $nk['id_nk']
-                                // $nk_old = $nk['tieude'] ;
-                                // $nk_change = str_replace(array(' ',' - '), '-', $nk_old);
-                                //  echo $nk_change;
-                                 
-                                 ?>">
-                                    <p style="color: #FFA500;font-size: 16px;max-height: 100px ;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Xem thêm..</p>
-                                </a>
-                                <div class="profile-img-list">
-                                <div class="profile-img-list-item main">
-                                    <a href="nhatky.php?id=<?php
-                                echo $nk['id_nk']
-                                // $nk_old = $nk['tieude'] ;
-                                // $nk_change = str_replace(array(' ',' - '), '-', $nk_old);
-                                //  echo $nk_change;
-                                 
-                                 ?>" data-lity="" class="profile-img-list-link">
-                                        <span class="profile-img-content" style="background-image: url(admin/uploads/<?php echo $nk['hinhanh'] ?>);"></span>
-                                    </a>
+                                <div class="col-xs-12 log__data">
+                                    <div class="single-data">
+                                        <div class="single-data__label">Công việc: <?= $nk['tennhatky']?></div>
+                                        <div class="single-data__data">
+                                            <a href="chitietnhatky.php?id=<?= $nk['id_nk']?>">
+                                                <span style="color: #FF9933;display: inline-block;max-width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" class="data-view-title"><?= $nk['chitiet']?></span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                   
+                                <div class="col-xs-12 log__data" style="padding-bottom: 10px;">
+                                    <div class="profile-img-list">
+                                        <div class="profile-img-list-item main">
+                                            <a href="baiviet.php?id=<?php echo $bv['id_bv'] ?>" data-lity="" class="profile-img-list-link">
+                                                <span class="profile-img-content" style="background-image: url(admin/uploads/<?php echo $nk['hinhanh'] ?>);"></span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                       
                             </div>
                         </div>
                     </div>
-                    <?php
-                        }
-                    ?>
                 </div>
+                        </div>
+                    </div>
+                    
+                </div><?php
+                    }
+                    ?>
             </div>
             <div id="main-content" class="main-content">
 

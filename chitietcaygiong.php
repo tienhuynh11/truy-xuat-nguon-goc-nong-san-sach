@@ -260,7 +260,7 @@ include_once("includes/head.php");
                                                 <span class="sku">MÃ CÂY GIỐNG</span>
                                                 <!-- <span class="stock" style="margin-left: 200px;">Stock: <?php //echo $pro_data['product_stock'] ?> </span> -->
                                                 <br>
-                                                <span style="font-weight:bold;color: black;font-size:145%;"><?php echo $cg_data['macaygiong'] ?></span>
+                                                <span style="font-weight:bold;color: black;font-size:145%;"><?php echo $formatted_id_cg ?></span>
                                                 <br>
                                                 <span style="font-size:130%;" >Nhà sản xuất: <?php echo $cg_data['nhasanxuat'] ?></span>
                                                 <br>

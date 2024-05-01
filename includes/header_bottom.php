@@ -11,13 +11,8 @@ $link = mysqli_fetch_assoc($links);
 <div class="header-bottom hidden-sm hidden-xs">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-4">
-
-                <?php
-                include_once("vertical_menu.php")
-                ?>
-            </div>
-            <div class="col-lg-9 col-md-8 padding-top-2px">
+            
+            <div class="col-lg-12 col-md-12 padding-top-2px" style="display: flex;justify-content: center;align-items: center;">
 
                 <?php
                 include_once("search_bar.php")

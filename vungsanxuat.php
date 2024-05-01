@@ -3,23 +3,31 @@
 session_start();
 include_once("admin/class/adminback.php");
 $obj = new adminback();
+if(isset($_GET['search'])){
+    $keyword = $_GET['keyword'];
+    if(!empty($keyword)){
+        $pdt_info = $obj->search_vsx($keyword);
 
-$cata_info = $obj->p_display_catagory();
-$cataDatas = array();
-while ($data = mysqli_fetch_assoc($cata_info)) {
-    $cataDatas[] = $data;
+   
+    
+    $pdt_datas = array();
+    while($pdt_ftecth = mysqli_fetch_assoc($pdt_info)){
+        $pdt_datas[]=$pdt_ftecth;
+    }
+    $search_item =count($pdt_datas);
+
+    }else{
+        header('location:vungsanxuat.php');
+    }
+}else{
+    $pdt_info = $obj->vsxShow();
+
+    $pdt_datas = array();   
+            
+    while($pdt_ftecth = mysqli_fetch_assoc($pdt_info)){
+                $pdt_datas[] = $pdt_ftecth;
 }
-
-
-
-$pdt_info = $obj->vsxShow();
-
-$pdt_datas = array();   
-        
-while($pdt_ftecth = mysqli_fetch_assoc($pdt_info)){
-            $pdt_datas[] = $pdt_ftecth;
 }
-
 ?>
 
 
@@ -44,6 +52,10 @@ include_once("includes/head.php");
         <?php
         include_once("includes/header_middle.php");
         ?>
+        
+        <?php
+        include_once("includes/header_bottom.php");
+        ?>
 
     </header>
 
@@ -65,7 +77,7 @@ include_once("includes/head.php");
             <div class="container">
 
                 <div class="product-category grid-style">
-
+                    <?php  if(isset($search_item)){ echo "{$search_item} vùng được tìm thấy!";}?>
                     <div class="row">
                         <ul class="products-list">
 
@@ -79,28 +91,28 @@ include_once("includes/head.php");
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
                                             <a href="chitietvsx.php?id=<?php echo $pdt_data['id_vung'] ?>" class="link-to-product">
-                                                <img style="border-radius: 10px;" src="admin/uploads/<?php echo $pdt_data['hinhanh'] ?>" alt="dd" width="270" height="270" class="product-thumnail">
+                                                <img style="border-radius: 10px; width: 270px; height: 270px; object-fit: contain;" src="admin/uploads/<?php echo $pdt_data['hinhanh'] ?>" alt="dd" class="product-thumnail">
                                             </a>
                                         </div>
                                         <div class="info">
                                             
                                             <?php
                                                 $tenvung = $pdt_data['tenvung']; // Lấy nội dung từ biến $pdt_data
-                                                $max_length = 60; // Độ dài tối đa cho chuỗi
+                                                $max_length = 35; // Độ dài tối đa cho chuỗi
 
                                                 // Kiểm tra độ dài của chuỗi
                                                 if (strlen($tenvung) > $max_length) {
                                                     // Nếu độ dài vượt quá $max_length, thực hiện cắt chuỗi
-                                                    $half_content = substr($tenvung, 0, $max_length);
+                                                    $tenrutgon = substr($tenvung, 0, $max_length);
 
                                                     // Kiểm tra xem chuỗi có bị cắt giữa từ một từ không
-                                                    $last_space = strrpos($half_content, ' ');
+                                                    $last_space = strrpos($tenrutgon, ' ');
                                                     if ($last_space !== false) {
-                                                        $half_content = substr($half_content, 0, $last_space); // Loại bỏ phần sau từ cuối cùng nếu có
+                                                        $tenrutgon = substr($tenrutgon, 0, $last_space); // Loại bỏ phần sau từ cuối cùng nếu có
                                                     }
 
                                                     // Hiển thị phần đã cắt của chuỗi
-                                                    echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id='.$pdt_data['id_vung'].'" class="pr-name">'.$half_content.'...</a></h4>';
+                                                    echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id='.$pdt_data['id_vung'].'" class="pr-name">'.$tenrutgon.'...</a></h4>';
                                                 } else {
                                                     // Nếu độ dài không vượt quá $max_length, hiển thị chuỗi nguyên gốc
                                                     echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id='.$pdt_data['id_vung'].'" class="pr-name">'.$tenvung.'</a></h4>';
