@@ -720,7 +720,7 @@ class  adminback
 
     function search_nhatky($keyword)
     {
-        $query = "SELECT * FROM `nhatkysanpham` WHERE `tennhatky` LIKE '%$keyword%' or `id_nk` LIKE '%$keyword%'";
+        $query = "SELECT * FROM `nhatky` WHERE `tennhatky` LIKE '%$keyword%' or `id_nk` LIKE '%$keyword%'";
 
         if (mysqli_query($this->connection, $query)) {
             $search_query = mysqli_query($this->connection, $query);
@@ -1784,14 +1784,14 @@ class  adminback
     }
 }
     function show_nhatky(){
-        $query = "SELECT * FROM `nhatkysanpham`";
+        $query = "SELECT * FROM `nhatky`";
         if(mysqli_query($this->connection, $query)){
             $result = mysqli_query($this->connection, $query);
             return $result;
         }
     }
     function delete_nhatky($id_nk){
-        $query = "DELETE FROM `nhatkysanpham` WHERE `id_nk`=$id_nk";
+        $query = "DELETE FROM `nhatky` WHERE `id_nk`=$id_nk";
         if(mysqli_query($this->connection, $query)){
             echo '<script>
             alert("Xóa nhật ký sản phẩm thành công");
@@ -1800,7 +1800,7 @@ class  adminback
         }
     }
     function show_nhatky_by_id($id_nk){
-        $query = "SELECT * FROM `nhatkysanpham` WHERE `id_nk`=$id_nk";
+        $query = "SELECT * FROM `nhatky` WHERE `id_nk`=$id_nk";
         if(mysqli_query($this->connection, $query)){
             $result = mysqli_query($this->connection, $query);
             return $result;
@@ -1826,13 +1826,13 @@ class  adminback
     
             if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
                 if ($nk_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
-                    $select_query = "SELECT * FROM `nhatkysanpham` WHERE id_nk=$id_nk";
+                    $select_query = "SELECT * FROM `nhatky` WHERE id_nk=$id_nk";
                     $result = mysqli_query($this->connection, $select_query);
                     $row = mysqli_fetch_assoc($result);
                     $pre_img = $row['hinhanh'];
                     unlink("uploads/" . $pre_img);
     
-                    $query = "UPDATE `nhatkysanpham` SET `sanpham` = '$sanpham', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `hinhanh` = '$nk_img_name' WHERE `id_nk` ='$id_nk';";
+                    $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `hinhanh` = '$nk_img_name' WHERE `id_nk` ='$id_nk';";
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($nk_img_tmp, "uploads/" . $nk_img_name)) {
                         echo '<script>
                             alert("Chỉnh sửa thành công");
@@ -1851,7 +1851,7 @@ class  adminback
             }
         } else {
             // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của bài viết
-            $query = "UPDATE `nhatkysanpham` SET `sanpham` = '$sanpham',`tennhatky` = '$tennhatky', `chitiet` = '$chitiet' WHERE `id_nk` ='$id_nk';";
+            $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham',`tennhatky` = '$tennhatky', `chitiet` = '$chitiet' WHERE `id_nk` ='$id_nk';";
             if (mysqli_query($this->connection, $query)) {
                 echo '<script>
                     alert("Chỉnh sửa thành công");
@@ -1884,7 +1884,7 @@ class  adminback
             if ($nk_img_size <= 2e+6) {
                 
                 if($width<2071 && $height<2071){
-                    $query = "INSERT INTO `nhatkysanpham` (`sanpham`,`nguoidang`, `tennhatky`, `chitiet`, `hinhanh`) VALUES ( '$sanpham','$nguoidang', '$tennhatky', '$chitiet', '$nk_img_name');";
+                    $query = "INSERT INTO `nhatky` (`sanpham`,`nguoidang`, `tennhatky`, `chitiet`, `hinhanh`) VALUES ( '$sanpham','$nguoidang', '$tennhatky', '$chitiet', '$nk_img_name');";
 
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($nk_img_tmp, "uploads/".$nk_img_name);
@@ -2042,7 +2042,7 @@ class  adminback
         }
     }
     function display_nksp_pagination($bat_dau, $ket_thuc){
-        $query = "SELECT * FROM `nhatkysanpham` LIMIT $bat_dau, $ket_thuc";
+        $query = "SELECT * FROM `nhatky` LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
             return $result;
@@ -2063,7 +2063,7 @@ class  adminback
     }
     function count_nhatky()
     {
-        $query = "SELECT COUNT(*) AS demnk FROM `nhatkysanpham`";
+        $query = "SELECT COUNT(*) AS demnk FROM `nhatky`";
     
         $result = mysqli_query($this->connection, $query);
     

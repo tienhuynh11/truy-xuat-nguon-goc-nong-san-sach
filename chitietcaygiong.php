@@ -442,7 +442,7 @@ include_once("includes/head.php");
                                                             <p class="description">
                                                             <?php
                                                         foreach ($cg_datas as $cg_data) {
-                                                            $tenvsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
+                                                            $tenvsx = $obj->display_dnbyID($cg_data['nhaphanphoi']);
                                                             echo $tenvsx['tendoanhnghiep'];
                                                         }
                                                     ?>  
@@ -451,7 +451,7 @@ include_once("includes/head.php");
                                                     <p class="description">
                                                     <?php
                                                         foreach ($cg_datas as $cg_data) {
-                                                            $tenvsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
+                                                            $tenvsx = $obj->display_dnbyID($cg_data['nhaphanphoi']);
                                                             echo $tenvsx['diachi'];
                                                         }
                                                     ?>

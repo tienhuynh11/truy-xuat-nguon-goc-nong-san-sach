@@ -130,3 +130,16 @@ ini_set("display_erros", "Off");
         $("#taikhoan").select2();
     });
 </script>
+<style>
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+        padding: 0 0 0 0;
+        padding: .5rem .75rem;
+        line-height: normal;
+        border-radius: 2px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+    }
+    .select2-container--default .select2-selection--single{
+        border: none;
+    }
+</style>
