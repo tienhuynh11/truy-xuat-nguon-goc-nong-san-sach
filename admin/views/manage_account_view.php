@@ -24,7 +24,7 @@ $arry  = $obj->display_user_pagination($bat_dau, $ket_thuc);
         <h2>Quản lý tài khoản</h2>
     </div>
     <div class="col-md-6 col-sm-6">
-        <a style="float: right;" class="btn btn-primary" href="add_user.php">Thêm tài khoản</a>
+        <a style="float: right;" class="btn btn-primary" href="add_account.php">Thêm tài khoản</a>
     </div>
 </div>
 <div style="overflow-x: auto;">

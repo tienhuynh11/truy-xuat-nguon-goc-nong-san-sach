@@ -14,7 +14,7 @@
 
 
                                 <li class="pcoded-hasmenu">
-                                    <a href="manage_user.php">
+                                    <a href="manage_account.php">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
                                         <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Quản lý tài khoản</span>
                                         <span class="pcoded-mcaret"></span>

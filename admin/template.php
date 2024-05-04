@@ -65,10 +65,10 @@
                                             include ("views/add_product_view.php");
                                         }elseif($views=="manage-product"){
                                             include ("views/manage_product_view.php");
-                                        }elseif($views=="add-user"){
-                                            include ("views/add_user_view.php");
-                                        }elseif($views=="manage-user"){
-                                            include ("views/manage_user_view.php");
+                                        }elseif($views=="add-account"){
+                                            include ("views/add_account_view.php");
+                                        }elseif($views=="manage-account"){
+                                            include ("views/manage_account_view.php");
                                         }elseif($views=="edit_cata"){
                                             include ("views/edit_cata_view.php");
                                         }elseif($views=="edit_product"){

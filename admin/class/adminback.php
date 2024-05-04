@@ -98,7 +98,7 @@ class  adminback
         if(mysqli_query($this->connection, $query)){
             echo '<script>
             alert("Thêm tài khoản thành công");
-            window.location.href = "manage_user.php";
+            window.location.href = "manage_account.php";
             </script>';
         }
     }
@@ -229,7 +229,7 @@ class  adminback
         if(mysqli_query($this->connection, $query)){
             echo '<script>
             alert("Xóa tài khoản thành công");
-            window.location.href = "manage_user.php";
+            window.location.href = "manage_account.php";
             </script>';
         }
     }
@@ -330,26 +330,75 @@ class  adminback
         }
     }
 
+    function thayDoiChu($str) {
+        // Mảng ánh xạ các ký tự có dấu thành không dấu
+    $accentsMap = array(
+        'á' => 'a', 'à' => 'a', 'ả' => 'a', 'ã' => 'a', 'ạ' => 'a',
+        'ă' => 'a', 'ắ' => 'a', 'ằ' => 'a', 'ẳ' => 'a', 'ẵ' => 'a', 'ặ' => 'a',
+        'â' => 'a', 'ấ' => 'a', 'ầ' => 'a', 'ẩ' => 'a', 'ẫ' => 'a', 'ậ' => 'a',
+        'é' => 'e', 'è' => 'e', 'ẻ' => 'e', 'ẽ' => 'e', 'ẹ' => 'e',
+        'ê' => 'e', 'ế' => 'e', 'ề' => 'e', 'ể' => 'e', 'ễ' => 'e', 'ệ' => 'e',
+        'í' => 'i', 'ì' => 'i', 'ỉ' => 'i', 'ĩ' => 'i', 'ị' => 'i',
+        'ó' => 'o', 'ò' => 'o', 'ỏ' => 'o', 'õ' => 'o', 'ọ' => 'o',
+        'ô' => 'o', 'ố' => 'o', 'ồ' => 'o', 'ổ' => 'o', 'ỗ' => 'o', 'ộ' => 'o',
+        'ơ' => 'o', 'ớ' => 'o', 'ờ' => 'o', 'ở' => 'o', 'ỡ' => 'o', 'ợ' => 'o',
+        'ú' => 'u', 'ù' => 'u', 'ủ' => 'u', 'ũ' => 'u', 'ụ' => 'u',
+        'ư' => 'u', 'ứ' => 'u', 'ừ' => 'u', 'ử' => 'u', 'ữ' => 'u', 'ự' => 'u',
+        'ý' => 'y', 'ỳ' => 'y', 'ỷ' => 'y', 'ỹ' => 'y', 'ỵ' => 'y',
+        'đ' => 'd',
+        'Á' => 'A', 'À' => 'A', 'Ả' => 'A', 'Ã' => 'A', 'Ạ' => 'A',
+        'Ă' => 'A', 'Ắ' => 'A', 'Ằ' => 'A', 'Ẳ' => 'A', 'Ẵ' => 'A', 'Ặ' => 'A',
+        'Â' => 'A', 'Ấ' => 'A', 'Ầ' => 'A', 'Ẩ' => 'A', 'Ẫ' => 'A', 'Ậ' => 'A',
+        'É' => 'E', 'È' => 'E', 'Ẻ' => 'E', 'Ẽ' => 'E', 'Ẹ' => 'E',
+        'Ê' => 'E', 'Ế' => 'E', 'Ề' => 'E', 'Ể' => 'E', 'Ễ' => 'E', 'Ệ' => 'E',
+        'Í' => 'I', 'Ì' => 'I', 'Ỉ' => 'I', 'Ĩ' => 'I', 'Ị' => 'I',
+        'Ó' => 'O', 'Ò' => 'O', 'Ỏ' => 'O', 'Õ' => 'O', 'Ọ' => 'O',
+        'Ô' => 'O', 'Ố' => 'O', 'Ồ' => 'O', 'Ổ' => 'O', 'Ỗ' => 'O', 'Ộ' => 'O',
+        'Ơ' => 'O', 'Ớ' => 'O', 'Ờ' => 'O', 'Ở' => 'O', 'Ỡ' => 'O', 'Ợ' => 'O',
+        'Ú' => 'U', 'Ù' => 'U', 'Ủ' => 'U', 'Ũ' => 'U', 'Ụ' => 'U',
+        'Ư' => 'U', 'Ứ' => 'U', 'Ừ' => 'U', 'Ử' => 'U', 'Ữ' => 'U', 'Ự' => 'U',
+        'Ý' => 'Y', 'Ỳ' => 'Y', 'Ỷ' => 'Y', 'Ỹ' => 'Y', 'Ỵ' => 'Y',
+        'Đ' => 'D'
+    );
+
+    // Thay thế các ký tự có dấu thành không dấu
+    $str = strtr($str, $accentsMap);
+    // Loại bỏ các khoảng trắng
+    $str = preg_replace('/\s+/', '', $str);
+    // Loại bỏ các ký tự không phải chữ cái hoặc số
+    $str = preg_replace('/[^a-zA-Z0-9]/', '', $str);
+    // Trả về chuỗi đã được xử lý
+    return $str;
+    }
+
     function add_product($data)
     {
-        $taikhoan = $data['taikhoan'];
-        $pdt_name = $data['pdt_name'];
-        $pdt_price = $data['pdt_price'];
-        // $pdt_code = $data['pdt_code'];
-        $pdt_des = $data['pdt_des'];
+        $tensanpham = $data['tensanpham'];
         $pdt_ctg = $data['pdt_ctg'];
-        $xuatxu = $data['xuatxu'];
-        $dkbq = $data['dkbq'];
-        $hdsd = $data['hdsd'];
-        $vungsanxuat = $data['vungsanxuat'];
-        $caygiong = $data['caygiong'];
-        $congdung = $data['congdung'];
-        // $maqr = $data['maqr'];
-        
+        $mavach = $this->thayDoiChu($data['mavach']);
+        $pdt_price = $data['pdt_price'];
         $pdt_img_name = $_FILES['pdt_img']['name'];
         $pdt_img_size = $_FILES['pdt_img']['size'];
         $pdt_img_tmp = $_FILES['pdt_img']['tmp_name'];
         $img_ext = pathinfo($pdt_img_name, PATHINFO_EXTENSION);
+        $xuatxu = $data['xuatxu'];
+        $caygiong = $data['caygiong'];
+        $vungsanxuat = $data['vungsanxuat'];
+        $nhaxuongsanxuat = $data['nhaxuongsanxuat'];
+        $nhasanxuat = $data['nhasanxuat'];
+        $nhaxuatkhau = $data['nhaxuatkhau'];
+        $nhanhapkhau = $data['nhanhapkhau'];
+        $nhaphanphoi = $data['nhaphanphoi'];
+        $nhavanchuyen = $data['nhavanchuyen'];
+        $taikhoan = $data['taikhoan'];
+        $dkbq = $data['dkbq'];
+        $congdung = $data['congdung'];
+        $hdsd = $data['hdsd'];
+        $thanhphan = $data['thanhphan'];
+        $pdt_des = $data['pdt_des'];
+        // $maqr = $data['maqr'];
+        
+        
 
 
 
@@ -359,18 +408,22 @@ class  adminback
             if ($pdt_img_size <= 2e+6) {
                 
                 if($width<2071 && $height<2071){
-                    $query = "INSERT INTO `sanpham` ( `taikhoan`, `danhmuc`, `caygiong`, `vungsanxuat`, `tensanpham`, `mavach`, `hinhanh`, `gia`, `xuatxu`, `maqr`, `mota`, `congdung`, `hdsd`, `dieukienbaoquan`,`trangthai`) VALUES ('$taikhoan', '$pdt_ctg', '$caygiong', '$vungsanxuat', '$pdt_name', 'NSQN000', '$pdt_img_name', ' $pdt_price', '$xuatxu','1', '$pdt_des', '$congdung', '$hdsd', '$dkbq','dangchoxetduyet');";
+                    $query = "INSERT INTO `sanpham` (`taikhoan`, `danhmuc`, `caygiong`, `vungsanxuat`, `nhaxuong`, `nhasanxuat`, `nhaxuatkhau`,
+                     `nhanhapkhau`, `nhaphanphoi`, `nhavanchuyen`, `tensanpham`, `mavach`, `hinhanh`, `gia`, `xuatxu`, `mota`, `congdung`,
+                      `hdsd`, `thanhphan`, `dieukienbaoquan`) VALUES ('$taikhoan', '$pdt_ctg', '$caygiong', '$vungsanxuat', '$nhaxuongsanxuat', '$nhasanxuat', 
+                      '$nhaxuatkhau','$nhanhapkhau', '$nhaphanphoi', '$nhavanchuyen', '$tensanpham', '$mavach', '$pdt_img_name', '$pdt_price', 
+                      '$xuatxu', '$pdt_des', '$congdung', '$hdsd', '$thanhphan', '$dkbq');";
 
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($pdt_img_tmp, "uploads/".$pdt_img_name);
-                        $msg = "Product uploaded successfully";
-                            echo '<script>
-                            alert(" Thêm nông sản thành công");
-                            window.location.href = "manage_product.php";
-                            </script>';
+                        $msg = "Thêm nông sản thành công!!";
+                        echo '<script>
+                        alert(" Thêm nông sản thành công");
+                        window.location.href = "manage_product.php";
+                        </script>';
                     }
                     else {
-                        $msg = "Failed to upload product: " . mysqli_error($this->connection);
+                        $msg = "Lỗi: " . mysqli_error($this->connection);
                         return $msg;
                     }   
                     
@@ -1915,7 +1968,7 @@ class  adminback
         }
     }
     function display_product_pagination($bat_dau, $ket_thuc){
-        $query = "SELECT * FROM `sanpham` LIMIT $bat_dau, $ket_thuc";
+        $query = "SELECT * FROM `sanpham` order by id_sp desc LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
             return $result;
@@ -2403,4 +2456,4 @@ function shownx(){
         return $result;
     }
 }
-}   
+}

@@ -1,6 +1,6 @@
 
 <?php 
-    $views = "manage-user";
+    $views = "manage-account";
     include ("template.php");
 
 ?>
