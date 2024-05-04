@@ -26,6 +26,7 @@
     $cata_info = $obj-> p_display_catagory();
     $caygiong=$obj->show_caygiong();
     $vungsanxuat=$obj->vsxShow();
+    $nhaxuong=$obj->shownx();
     if(isset($_POST['add_pdt'])){
         $rtn_msg = $obj->add_product($_POST);
     }
@@ -41,21 +42,17 @@
 
 </h6>
 <form action="" method="post" enctype="multipart/form-data" class="form">
-<div class="form-group">
-        <label for="taikhoan">Người đại diện</label>
-        <select name="taikhoan" id="taikhoan" class="form-control">
-            <?php foreach($users as $user): ?>
-                <?php if ($user['id_acc']== $nguoidang_id) { ?>
-                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
-            <?php } else { ?>
-                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
-            <?php } ?>
-            <?php endforeach; ?>
-        </select>
-    </div>
     <div class="form-group">
         <label for="pdt_name">Tên sản phẩm</label>
         <input type="text" name="pdt_name" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="pdt_ctg">Danh mục</label>
+        <select name="pdt_ctg" id="pdt_ctg" class="form-control">
+        <?php while($cata = mysqli_fetch_assoc($cata_info)){ ?>
+        <option value="<?php echo $cata['id_dm'] ?>"><?php echo $cata['tendanhmuc'] ?></option>
+        <?php }?>
+        </select>
     </div>
     <!-- <div class="form-group">
         <label for="pdt_code">Mã vạch</label>
@@ -65,22 +62,10 @@
         <label for="pdt_price">Giá</label>
         <input type="text" name="pdt_price" class="form-control">
     </div>
-
     <div class="form-group">
-        <label for="pdt_des">Mô tả</label>
-        <textarea name="pdt_des" cols="30" rows="10" class="form-control"></textarea>
+        <label for="xuatxu">Xuất xứ</label>
+        <input type="text" name="xuatxu" class="form-control">
     </div>
-
-
-    <div class="form-group">
-        <label for="pdt_ctg">Danh mục</label>
-        <select name="pdt_ctg" id="pdt_ctg" class="form-control">
-        <?php while($cata = mysqli_fetch_assoc($cata_info)){ ?>
-        <option value="<?php echo $cata['id_dm'] ?>"><?php echo $cata['tendanhmuc'] ?></option>
-        <?php }?>
-        </select>
-    </div>
-    
     <div class="form-group">
         <label for="caygiong">Cây giống</label>
         <select name="caygiong" id="caygiong" class="form-control">
@@ -97,15 +82,31 @@
         <?php }?>
         </select>
     </div>
-
+    <div class="form-group">
+        <label for="vungsanxuat">Nhà xưởng sản xuất</label>
+        <select name="nhaxuongsanxuat" id="nhaxuongsanxuat" class="form-control">
+        <?php while($nx = mysqli_fetch_assoc($nhaxuong)){ ?>
+            <option value="<?php echo $nx['id_nx'] ?>"><?php echo $nx['tennhaxuong'] ?></option>
+        <?php }?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="taikhoan">Người đại diện</label>
+        <select name="taikhoan" id="taikhoan" class="form-control">
+            <?php foreach($users as $user): ?>
+                <?php if ($user['id_acc']== $nguoidang_id) { ?>
+                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .' - '. $user['dienthoai']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .' - '.  $user['dienthoai'] ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
     <div class="form-group">
         <label for="hdsd">Hướng dẫn sử dụng</label>
         <input type="text" name="hdsd" class="form-control">
     </div>
-    <div class="form-group">
-        <label for="xuatxu">Xuất xứ</label>
-        <input type="text" name="xuatxu" class="form-control">
-    </div>
+    
     <div class="form-group">
         <label for="dkbq">Điều kiện bảo quản</label>
         <input type="text" name="dkbq" class="form-control">
@@ -113,6 +114,10 @@
     <div class="form-group">
         <label for="congdung">Công dụng</label>
         <input type="text" name="congdung" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="pdt_des">Mô tả</label>
+        <textarea name="pdt_des" cols="30" rows="10" class="form-control"></textarea>
     </div>
     <div class="form-group">
         <label for="pdt_img">Hình ảnh</label>
@@ -135,5 +140,6 @@
         $("#caygiong").select2();
         $("#vungsanxuat").select2();
         $("#taikhoan").select2();
+        $("#nhaxuongsanxuat").select2();
     });
 </script>

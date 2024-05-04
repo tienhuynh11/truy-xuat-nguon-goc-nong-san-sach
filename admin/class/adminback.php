@@ -2396,5 +2396,11 @@ function show_nx_by_id($id_nx){
         return $result;
     }
 }
-
+function shownx(){
+    $query = "SELECT * FROM `nhaxuong` ";
+    if(mysqli_query($this->connection, $query)){
+        $result = mysqli_query($this->connection, $query);
+        return $result;
+    }
+}
 }   
