@@ -146,7 +146,7 @@ include_once("includes/head.php");
     <!-- Preloader -->
 
     <?php
-    include_once("includes/preloader.php");
+    // include_once("includes/preloader.php");
     ?>
 
     <!-- HEADER -->
@@ -171,23 +171,6 @@ include_once("includes/head.php");
 
         <!-- Main content -->
         <div id="main-content" class="main-content">
-
-            <!--Hero Section-->
-            <!-- <div class="hero-section hero-background">
-                <h1 class="page-title"> -->
-                    <?php
-                    foreach ($cg_datas as $cg_data) {
-                        // $tendm = $obj->display_cataByID($pro_data['danhmuc']);
-                        // echo $pro_data['tensanpham'];
-                    }
-                    ?>
-                <!-- </h1>
-
-               
-            </div>
- -->
-
-
 
             <!--Navigation section-->
             <div class="container">

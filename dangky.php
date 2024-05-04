@@ -68,7 +68,7 @@ include_once("includes/head.php");
                             <form action="" method="post" enctype="multipart/form-data">
 
                                 <p class="form-row" >
-                                    <label for="user_role">Role</label>
+                                    <label for="user_role">Loại người dùng</label>
                                     <select name="user_role" class="form-control">
                                         <option value="Nongdan">Nông dân</option>
                                         <option value="Nguoidanhgia">Người đánh giá</option>
