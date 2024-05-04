@@ -1,3 +1,16 @@
+<style>
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+        padding: 0 0 0 0;
+        padding: .5rem .75rem;
+        line-height: normal;
+        border-radius: 2px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+    }
+    .select2-container--default .select2-selection--single{
+        border: none;
+    }
+</style>
 <?php
 $users = $obj->show_admin_user();
     if(isset($_SESSION['admin_id'])) {
