@@ -58,10 +58,18 @@ $arry  = $obj->display_user_pagination($bat_dau, $ket_thuc);
                 <td><img style="height:60px" src="uploads/avatar/<?php echo $user['hinhdaidien'] ?>" alt=""></td>
                 <td> <?php if($user['role']=='Admin'){
                     echo "Admin";
-                }else if($user['role']=='Khachhang'){
-                    echo "Khách hàng";
-                }else{
-                    echo"Nông dân";
+                }else if($user['role']=='Nongdan'){
+                    echo "Nông dân";
+                }else if($user['role']=='Nguoidanhgia'){
+                    echo "Người đánh giá";
+                }else if($user['role']=='Chuyengia'){
+                    echo "Chuyên gia";
+                }else if($user['role']=='Chuyenvien'){
+                    echo "Chuyên viên";
+                }else if($user['role']=='Kythuatvien'){
+                    echo "Kỹ thuật viên";
+                }else if($user['role']=='Nguoikiemdinh'){
+                    echo "Người kiểm định";
                 }
                  ?> </td>
             

@@ -150,7 +150,7 @@ class  adminback
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($hinhdaidien_tmp, "uploads/avatar/" . $hinhdaidien_name)) {
                         echo '<script>
                             alert("Chỉnh sửa tài khoản thành công");
-                            window.location.href = "manage_user.php";
+                            window.location.href = "manage_account.php";
                         </script>';
                     } else {
                         echo "Upload failed!";
@@ -170,7 +170,7 @@ class  adminback
             if (mysqli_query($this->connection, $query)) {
                 echo '<script>
                     alert("Chỉnh sửa tài khoản thành công");
-                    window.location.href = "manage_user.php";
+                    window.location.href = "manage_account.php";
                 </script>';
             } else {
                 echo "Cập nhật thất bại!";
@@ -518,7 +518,12 @@ class  adminback
     $congdung = $data['congdung'];
     $dkbq = $data['dkbq'];
     $vungsanxuat = $data['vungsanxuat'];
-
+    $nhaxuong = $data['nhaxuong'];
+    $nhasanxuat = $data['nhasanxuat'];
+    $nhaxuatkhau = $data['nhaxuatkhau'];
+    $nhanhapkhau = $data['nhanhapkhau'];
+    $nhaphanphoi = $data['nhaphanphoi'];
+    $nhavanchuyen = $data['nhavanchuyen'];
 
     // Kiểm tra xem có tập tin hình ảnh nào được tải lên không
     if (!empty($_FILES['u_pdt_img']['tmp_name'])) {
@@ -536,7 +541,7 @@ class  adminback
                 $pre_img = $row['hinhanh'];
                 unlink("uploads/" . $pre_img);
 
-                $query = "UPDATE `sanpham` SET `taikhoan` = '$taikhoan',`danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat', `tensanpham` = '$pdt_name', `hinhanh` = '$pdt_img_name', `gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', `hdsd` = '$hdsd', `dieukienbaoquan` = '$dkbq' WHERE `id_sp` = '$pdt_id';";
+                $query = "UPDATE `sanpham` SET `taikhoan` = '$taikhoan',`danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat',`nhaxuong` = '$nhaxuong',  `nhasanxuat` = '$nhasanxuat',  `nhaxuatkhau` = '$nhaxuatkhau' , `nhanhapkhau` = '$nhanhapkhau', `nhaphanphoi` = '$nhaphanphoi',    `nhavanchuyen` = '$nhavanchuyen',  `tensanpham` = '$pdt_name', `hinhanh` = '$pdt_img_name', `gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', `hdsd` = '$hdsd', `dieukienbaoquan` = '$dkbq' WHERE `id_sp` = '$pdt_id';";
 
                 if (mysqli_query($this->connection, $query) && move_uploaded_file($pdt_img_tmp, "uploads/" . $pdt_img_name)) {
                     echo '<script>
@@ -556,7 +561,7 @@ class  adminback
         }
     } else {
         // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của sản phẩm
-        $query = "UPDATE `sanpham` SET `taikhoan` = '$taikhoan', `danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat', `tensanpham` = '$pdt_name', `gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', `hdsd` = '$hdsd', `dieukienbaoquan` = '$dkbq' WHERE `id_sp` = '$pdt_id';";
+        $query = "UPDATE `sanpham` SET `taikhoan` = '$taikhoan',`danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat',`nhaxuong` = '$nhaxuong',  `nhasanxuat` = '$nhasanxuat',  `nhaxuatkhau` = '$nhaxuatkhau' , `nhanhapkhau` = '$nhanhapkhau', `nhaphanphoi` = '$nhaphanphoi',    `nhavanchuyen` = '$nhavanchuyen',  `tensanpham` = '$pdt_name',`gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', `hdsd` = '$hdsd', `dieukienbaoquan` = '$dkbq' WHERE `id_sp` = '$pdt_id';";
 
         if (mysqli_query($this->connection, $query)) {
             echo '<script>
@@ -1834,6 +1839,13 @@ class  adminback
     } else {
         $msg = "Tệp phải ở định dạng JPG hoặc PNG";
         return $msg;
+    }
+}
+function show_nhaxuong(){
+    $query = "SELECT * FROM `nhaxuong`";
+    if(mysqli_query($this->connection, $query)){
+        $result = mysqli_query($this->connection, $query);
+        return $result;
     }
 }
     function show_nhatky(){

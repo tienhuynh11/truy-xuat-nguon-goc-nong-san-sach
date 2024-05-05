@@ -71,6 +71,15 @@ if(isset($_GET['trangthai'])){
 
                 $taikhoan = $obj->show_admin_user_by_id($pdt['taikhoan']);
                 $tk = mysqli_fetch_assoc($taikhoan);
+
+                $nhaxuong = $obj->show_nx_by_id($pdt['nhaxuong']);
+                $nx = mysqli_fetch_assoc($nhaxuong);
+                
+                $nsx=$obj->display_dnbyID($pdt['nhasanxuat']);
+                $npp=$obj->display_dnbyID($pdt['nhaphanphoi']);
+                $nxk=$obj->display_dnbyID($pdt['nhaxuatkhau']);
+                $nnk=$obj->display_dnbyID($pdt['nhanhapkhau']);
+                $nvc=$obj->display_dnbyID($pdt['nhavanchuyen']);
                 
                 ?>
                     
@@ -96,7 +105,9 @@ if(isset($_GET['trangthai'])){
                         data-gia="<?= $pdt['gia'] ?>" data-xuatxu="<?= $pdt['xuatxu'] ?>" data-hinhanh="<?= $pdt['hinhanh'] ?>" 
                         data-congdung="<?= $pdt['congdung'] ?>" data-caygiong="<?= $cg['tencaygiong'] ?>" data-dieukienbaoquan="<?= $pdt['dieukienbaoquan'] ?>"
                         data-maqr="<?= $pdt['maqr'] ?>" data-mota="<?= $pdt['mota'] ?>" data-hdsd="<?= $pdt['hdsd'] ?>" 
-                        data-danhmuc="<?= $danhmuc['tendanhmuc'] ?>" data-taikhoan="<?= $tk['hoten'] ?>" 
+                        data-danhmuc="<?= $danhmuc['tendanhmuc'] ?>" data-taikhoan="<?= $tk['hoten'] ?>" data-nhasanxuat="<?= $nsx['tendoanhnghiep'] ?>"
+                        data-nhaxuatkhau="<?= $nxk['tendoanhnghiep'] ?>"  data-nhanhapkhau="<?= $nnk['tendoanhnghiep'] ?>"  data-nhaphanphoi="<?= $npp['tendoanhnghiep'] ?>" 
+                        data-nhavanchuyen="<?= $nvc['tendoanhnghiep'] ?>"  data-nhaxuong="<?= $nx['tennhaxuong'] ?>"
                         data-vungsanxuat="<?= $vsx['tenvung'] ?>">Chi tiết</a>
 
                         <!-- <a class="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#exampleModalCenter" data-id="<?php echo $pdt['id_sp'] ?>">Chi tiết</a> -->
@@ -172,6 +183,15 @@ echo "</div>";
         var trangthai = $('#xemchitiet').data('trangthai');
         var dieukienbaoquan = $('#xemchitiet').data('dieukienbaoquan');
         var gia = $('#xemchitiet').data('gia');
+
+        var nhaxuong = $('#xemchitiet').data('nhaxuong');
+        var nhasanxuat = $('#xemchitiet').data('nhasanxuat');
+        var nhanhapkhau = $('#xemchitiet').data('nhanhapkhau');
+        var nhaphanphoi = $('#xemchitiet').data('nhaphanphoi');
+        var nhavanchuyen = $('#xemchitiet').data('nhavanchuyen');
+        var nhaxuatkhau = $('#xemchitiet').data('nhaxuatkhau');
+
+
         $('#id_sp').text(id);
         $('#tensanpham').text(name);
         $('#congdung').text(congdung);
@@ -189,6 +209,12 @@ echo "</div>";
         $('#trangthai').text(trangthai);
         $('#dieukienbaoquan').text(dieukienbaoquan);
         $('#gia').text(gia);
+        $('#nhasanxuat').text(nhasanxuat);
+        $('#nhaxuong').text(nhaxuong);
+        $('#nhanhapkhau').text(nhanhapkhau);
+        $('#nhaphanphoi').text(nhaphanphoi);
+        $('#nhavanchuyen').text(nhavanchuyen);
+        $('#nhaxuatkhau').text(nhaxuatkhau);
 
     });
 
@@ -210,6 +236,12 @@ echo "</div>";
         var trangthai = $(this).data('trangthai');
         var dieukienbaoquan = $(this).data('dieukienbaoquan');
         var gia = $(this).data('gia');
+        var nhaxuatkhau = $(this).data('nhaxuatkhau');
+        var nhavanchuyen = $(this).data('nhavanchuyen');
+        var nhanhapkhau = $(this).data('nhanhapkhau');
+        var nhasanxuat = $(this).data('nhasanxuat');
+        var nhaphanphoi = $(this).data('nhaphanphoi');
+        var nhaxuong = $(this).data('nhaxuong');
 
         $('#xemchitiet').data('id', id);
         $('#xemchitiet').data('name', name);
@@ -227,6 +259,12 @@ echo "</div>";
         $('#xemchitiet').data('trangthai', trangthai);
         $('#xemchitiet').data('dieukienbaoquan', dieukienbaoquan);
         $('#xemchitiet').data('gia', gia);
+        $('#xemchitiet').data('nhaxuatkhau', nhaxuatkhau);
+        $('#xemchitiet').data('nhavanchuyen', nhavanchuyen);
+        $('#xemchitiet').data('nhanhapkhau', nhanhapkhau);
+        $('#xemchitiet').data('nhasanxuat', nhasanxuat);
+        $('#xemchitiet').data('nhaphanphoi', nhaphanphoi);
+        $('#xemchitiet').data('nhaxuong', nhaxuong);
         // Lưu id vào data-id của modal
     });
 });
@@ -308,6 +346,36 @@ echo "</div>";
                                         <div class="row form-group">
                                             <label  class="col-3">Cây giống</label>
                                             <div class="col-9" id="caygiong">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Nhà sản xuất</label>
+                                            <div class="col-9" id="nhasanxuat">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Nhà phân phối</label>
+                                            <div class="col-9" id="nhaphanphoi">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Nhà nhập khẩu</label>
+                                            <div class="col-9" id="nhanhapkhau">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Nhà xuất khẩu</label>
+                                            <div class="col-9" id="nhaxuatkhau">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Nhà vận chuyển</label>
+                                            <div class="col-9" id="nhavanchuyen">   
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label  class="col-3">Nhà xưởng</label>
+                                            <div class="col-9" id="nhaxuong">   
                                             </div>
                                         </div>
                                         <div class="row form-group" style="border-bottom: none">

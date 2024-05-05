@@ -6,6 +6,8 @@ ini_set("display_erros", "Off");
     $caygiong=$obj->show_caygiong();
     $users = $obj->show_admin_user();
     $vungsanxuat=$obj->vsxShow();
+    $dn_info=$obj->display_dn(); 
+    $nx_info=$obj->show_nhaxuong();
     if(isset($_GET['trangthai'])){
         $id = $_GET['id'];
         if($_GET['trangthai']=='edit'){
@@ -45,6 +47,78 @@ ini_set("display_erros", "Off");
     <div class="form-group">
         <label for="pdt_des">Mô tả</label>
         <textarea name="u_pdt_des" cols="30" rows="10" class="form-control" ><?php echo $pdt['mota']?> </textarea>
+    </div>
+    <div class="form-group">
+        <label for="nhasanxuat">Nhà sản xuất</label>
+        <select name="nhasanxuat" id="nhasanxuat" class="form-control">
+            <?php foreach($dn_info as $dn): ?>
+                <?php if ($dn['id_dn']== $pdt['nhasanxuat']) { ?>
+                <option value="<?php echo $dn['id_dn']?>" selected><?php echo $dn['tendoanhnghiep'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $dn['id_dn'] ?>"><?php echo $dn['tendoanhnghiep']   ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="nhaxuatkhau">Nhà xuất khẩu</label>
+        <select name="nhaxuatkhau" id="nhaxuatkhau" class="form-control">
+            <?php foreach($dn_info as $dn): ?>
+                <?php if ($dn['id_dn']== $pdt['nhaxuatkhau']) { ?>
+                <option value="<?php echo $dn['id_dn']?>" selected><?php echo $dn['tendoanhnghiep'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $dn['id_dn'] ?>"><?php echo $dn['tendoanhnghiep']   ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="nhanhapkhau">Nhà nhập khẩu</label>
+        <select name="nhanhapkhau" id="nhanhapkhau" class="form-control">
+            <?php foreach($dn_info as $dn): ?>
+                <?php if ($dn['id_dn']== $pdt['nhanhapkhau']) { ?>
+                <option value="<?php echo $dn['id_dn']?>" selected><?php echo $dn['tendoanhnghiep'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $dn['id_dn'] ?>"><?php echo $dn['tendoanhnghiep']   ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="nhaphanphoi">Nhà phân phối</label>
+        <select name="nhaphanphoi" id="nhaphanphoi" class="form-control">
+            <?php foreach($dn_info as $dn): ?>
+                <?php if ($dn['id_dn']== $pdt['nhaphanphoi']) { ?>
+                <option value="<?php echo $dn['id_dn']?>" selected><?php echo $dn['tendoanhnghiep'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $dn['id_dn'] ?>"><?php echo $dn['tendoanhnghiep']   ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="nhavanchuyen">Nhà vận chuyển</label>
+        <select name="nhavanchuyen" id="nhavanchuyen" class="form-control">
+            <?php foreach($dn_info as $dn): ?>
+                <?php if ($dn['id_dn']== $pdt['nhavanchuyen']) { ?>
+                <option value="<?php echo $dn['id_dn']?>" selected><?php echo $dn['tendoanhnghiep'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $dn['id_dn'] ?>"><?php echo $dn['tendoanhnghiep']   ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
+    <label for="nhaxuong">Nhà xưởng</label>
+        <select name="nhaxuong" id="nhaxuong" class="form-control">
+        <?php while($nx = mysqli_fetch_assoc($nx_info)) { ?>
+            <?php if ($nx['id_nx'] == $pdt['nhaxuong']) { ?>
+                <option value="<?php echo $nx['id_nx'] ?>" selected><?php echo $nx['tennhaxuong'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $nx['id_nx'] ?>"><?php echo $nx['tennhaxuong'] ?></option>
+            <?php } ?>
+        <?php } ?>
+        </select>
     </div>
     <div class="form-group">
     <label for="taikhoan">Người đại diện</label>
@@ -119,7 +193,7 @@ ini_set("display_erros", "Off");
 
     
 
-    <input type="submit" value="Update Product" name="update_pdt" class="btn btn-block btn-primary">
+    <input type="submit" value="Cập nhật nông sản" name="update_pdt" class="btn btn-block btn-primary">
 </form>
 
 <script>
@@ -128,6 +202,12 @@ ini_set("display_erros", "Off");
         $("#caygiong").select2();
         $("#vungsanxuat").select2();
         $("#taikhoan").select2();
+        $("#nhasanxuat").select2();
+        $("#nhaxuong").select2();
+        $("#nhaxuatkhau").select2();
+        $("#nhanhapkhau").select2();
+        $("#nhaphanphoi").select2();
+        $("#nhavanchuyen").select2();
     });
 </script>
 <style>

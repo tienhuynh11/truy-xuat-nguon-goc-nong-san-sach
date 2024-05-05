@@ -6,14 +6,6 @@ $obj = new adminback();
 
 
 $users = $obj->show_admin_user();
-    if(isset($_SESSION['admin_id'])) {
-        $nguoidang_id = $_SESSION['admin_id'];
-    } else {
-        header("Location: login.php");
-        exit();
-    }
-
-
  $product_info = $obj->display_product();
     if(isset($_POST['add_nk'])){
        $nk_msg =  $obj->add_nhatky($_POST);
@@ -174,13 +166,7 @@ include_once("includes/head.php");
 
             <!--Navigation section-->
             <div class="container">
-                <nav class="biolife-nav">
-                    <ul>
-                        <li class="nav-item"><a href="index.php" class="permal-link">Trang chủ</a></li>
-                        <li class="nav-item"><a href="caygiong.php" class="permal-link">Cây giống</a></li>
-                        <li class="nav-item"><a href="adđ_nhatky.php" class="permal-link">Thêm nhật ký</a></li>
-                    </ul>
-                </nav>
+               
             
                 <h2>Thêm Nhật ký</h2>
 <div>
@@ -223,11 +209,6 @@ include_once("includes/head.php");
     <div class="form-group">
         <input type="submit" name="add_nk" class="btn btn-primary">
     </div>
-
-
-
-
-       
     </form>
 </div>
 <script>
