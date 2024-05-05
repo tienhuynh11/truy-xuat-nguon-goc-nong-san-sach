@@ -12702,6 +12702,10 @@ body.open-quickview-block .biolife-quickview-block{
 }
 
 @media ( max-width: 600px){
+    .main-slide li{
+        list-style: none;
+        height: 50%;
+    }
     .content-404{
         margin: 0 auto;
         padding: 50px 15px 80px;
@@ -14677,7 +14681,7 @@ body.open-quickview-block .biolife-quickview-block{
 /* CSS cho màn hình lớn */
 .container-x {
     margin-top: 10px;
-    width: 800px;
+    width: 900px;
 }
 .head-info {
     height: auto;
@@ -14819,4 +14823,23 @@ body.open-quickview-block .biolife-quickview-block{
     width: 200px;
     height: auto;
     border-radius: 5px;
+}
+.underlined{
+    position: absolute; 
+    bottom: 0; 
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 80px; height: 2px; 
+    background-color: #e73918;
+}
+.home-section__header{
+    padding-bottom: 5px;
+}
+.home-section__title{
+    color: #000000;
+}
+@media (max-width: 767px) {
+    h2{
+        font-size: 22px;
+    }
 }

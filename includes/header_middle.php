@@ -30,19 +30,21 @@
 
                 </a>
             </div>
-            <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
+            <div class="col-lg-9 col-md-10 hidden-sm hidden-xs">
                 <div class="primary-menu">
                     <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
 
-                        <li class="menu-item"><a href="index.php">Bảng tin</a></li>
+                        <li class="menu-item"><a href="index.php">Giới thiệu</a></li>
                         <!-- <li class="menu-item"><a href="index.php">Trang chủ</a></li> -->
                         <li class="menu-item"><a href="sanpham.php">Nông sản</a></li>
                         
                        
                         
                         <li class="menu-item"><a href="vungsanxuat.php">Vùng sản xuất</a></li>
+                        <li class="menu-item"><a href="nhaxuong.php">Nhà xưởng</a></li>
                         <li class="menu-item"><a href="caygiong.php">Cây giống</a></li>
                         <li class="menu-item"><a href="nhatky.php">Nhật ký</a></li>
+                        <li class="menu-item"><a href="bangtin.php">Bảng tin</a></li>
                     </ul>
                 </div>
             </div>

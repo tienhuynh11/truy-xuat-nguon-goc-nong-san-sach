@@ -717,6 +717,16 @@ class  adminback
         }
     }
 
+    function view_all_product_limit()
+    {
+        $query = "SELECT * FROM `sanpham` where trangthai = 'daxetduyet' limit 8";
+
+        if (mysqli_query($this->connection, $query)) {
+            $pdt_info = mysqli_query($this->connection, $query);
+            return $pdt_info;
+        }
+    }
+
     function display_five_catagory()
     {
         $query = "SELECT * FROM `catagory` LIMIT 5";
@@ -981,6 +991,15 @@ class  adminback
             return $row;
         }
     }
+
+    function vsxShowlimit(){
+        $query = "SELECT * FROM `vungsanxuat` limit 8";
+        if(mysqli_query($this->connection, $query)){
+            $row = mysqli_query($this->connection, $query);
+            return $row;
+        }
+    }
+
     function vsx_By_id($id){
         $query = "SELECT * FROM `vungsanxuat` WHERE `id_vung`=$id";
         if(mysqli_query($this->connection, $query)){
@@ -1419,6 +1438,15 @@ class  adminback
             return $result;
         }
     }
+
+    function show_caygiong_limit(){
+        $query = "SELECT * FROM caygiong LIMIT 8;";
+        if(mysqli_query($this->connection, $query)){
+            $result = mysqli_query($this->connection, $query);
+            return $result;
+        }
+    }
+
     function delete_caygiong($id_cg){
         $query = "DELETE FROM `caygiong` WHERE `id_cg`=$id_cg";
         if(mysqli_query($this->connection, $query)){
@@ -1592,7 +1620,7 @@ class  adminback
         $query = "SELECT * FROM `doanhnghiep` WHERE `id_dn`='$id_dn'";
         if(mysqli_query($this->connection, $query)){
             $result = mysqli_query($this->connection, $query);
-            return $result;
+            return mysqli_fetch_assoc($result);
         }
     }
 
@@ -2458,7 +2486,7 @@ function show_nx_by_id($id_nx){
     $query = "SELECT * FROM `nhaxuong` WHERE `id_nx`='$id_nx'";
     if(mysqli_query($this->connection, $query)){
         $result = mysqli_query($this->connection, $query);
-        return $result;
+        return mysqli_fetch_assoc($result);
     }
 }
 function shownx(){

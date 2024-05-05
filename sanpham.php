@@ -46,7 +46,7 @@ include_once("includes/head.php");
     ?>
 
     <!-- HEADER -->
-    <header id="header" class="header-area style-01 layout-03">
+    <header id="" class="header-area style-01 layout-03">
 
         <?php
         include_once("includes/header_top.php");
@@ -119,7 +119,7 @@ include_once("includes/head.php");
                                                 } else {
                                                     // Nếu độ dài không vượt quá $max_length, hiển thị chuỗi nguyên gốc
                                                     echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietsanpham.php?id='.$pdt_data['id_sp'].'" class="pr-name">'.$tennongsan.'</a></h4>';
-                                                }
+                                            }
                                             ?>
                                             <div class="price">
                                                 

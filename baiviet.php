@@ -126,7 +126,7 @@ include_once("includes/head.php");
     ?>
 
     <!-- HEADER -->
-    <header id="header" class="header-area style-01 layout-03">
+    <header id="" class="header-area style-01 layout-03">
 
         <?php
         include_once("includes/header_top.php");
