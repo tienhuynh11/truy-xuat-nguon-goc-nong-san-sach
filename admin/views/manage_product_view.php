@@ -412,6 +412,13 @@ echo "</div>";
     }
 }
 
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 500px;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+}
 #xemchitiet .modal-body {
     max-height: 550px; /* Thiết lập chiều cao tối đa cho modal body */
     overflow-y: auto; /* Hiển thị thanh cuộn dọc khi cần thiết */
