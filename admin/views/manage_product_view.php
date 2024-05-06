@@ -72,8 +72,7 @@ if(isset($_GET['trangthai'])){
                 $taikhoan = $obj->show_admin_user_by_id($pdt['taikhoan']);
                 $tk = mysqli_fetch_assoc($taikhoan);
 
-                $nhaxuong = $obj->show_nx_by_id($pdt['nhaxuong']);
-                $nx = mysqli_fetch_assoc($nhaxuong);
+                $nx = $obj->show_nx_by_id($pdt['nhaxuong']);
                 
                 $nsx=$obj->display_dnbyID($pdt['nhasanxuat']);
                 $npp=$obj->display_dnbyID($pdt['nhaphanphoi']);

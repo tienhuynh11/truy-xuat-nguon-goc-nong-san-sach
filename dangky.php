@@ -1,10 +1,10 @@
 <?php
 session_start();
-include_once("admin/class/adminback.php");
-$obj = new adminback();
+include ("admin/class/verify_email.php");
+$ve = new Verify_email();
 
 if (isset($_POST['user_register_btn'])) {
-    $reg_msg =  $obj->user_register($_POST);
+    $reg_msg =  $ve->user_register($_POST);
 }
 
 if(isset($_SESSION['user_id'])){
