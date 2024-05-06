@@ -775,6 +775,15 @@ class  adminback
             return $search_query;
         }
     }
+    function search_nhaxuong($keyword)
+    {
+        $query = "SELECT * FROM `nhaxuong` WHERE `tennhaxuong` LIKE '%$keyword%' or `manhaxuong` LIKE '%$keyword%'";
+
+        if (mysqli_query($this->connection, $query)) {
+            $search_query = mysqli_query($this->connection, $query);
+            return $search_query;
+        }
+    }
 
     function search_caygiong($keyword)
     {
@@ -2489,6 +2498,7 @@ function show_nx_by_id($id_nx){
         return mysqli_fetch_assoc($result);
     }
 }
+
 function shownx(){
     $query = "SELECT * FROM `nhaxuong` ";
     if(mysqli_query($this->connection, $query)){

@@ -8,8 +8,7 @@ ini_set("display_erros", "Off");
     $users = $obj->show_admin_user();
      $id_nx = $_GET['id'];
         if($_GET['status']=='nxEdit'){
-           $nx_info= $obj->show_nx_by_id($id_nx);
-           $nx = mysqli_fetch_assoc($nx_info);
+           $nx = $obj->show_nx_by_id($id_nx);
 
         }
     

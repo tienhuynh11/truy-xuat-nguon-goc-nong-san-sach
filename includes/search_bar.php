@@ -10,6 +10,8 @@
             echo '<form action="caygiong.php" class="form-search" name="desktop-seacrh" method="get">';
         } elseif ($tranghientai === 'nhatky.php') {
             echo '<form action="nhatky.php" class="form-search" name="desktop-seacrh" method="get">';
+        } elseif ($tranghientai === 'nhaxuong.php') {
+            echo '<form action="nhaxuong.php" class="form-search" name="desktop-seacrh" method="get">';
         }
     ?>
         <input type="text" name="keyword" class="input-text"  placeholder="Nhập nội dung cần tìm...">
