@@ -99,7 +99,7 @@ include_once("includes/head.php");
                                         <div class="info">
                                             <?php
                                             $tencaygiong = $cg_data['tencaygiong']; // Lấy nội dung từ biến $pdt_data
-                                            $max_length = 35; // Độ dài tối đa cho chuỗi
+                                            $max_length = 25; // Độ dài tối đa cho chuỗi
 
                                             // Kiểm tra độ dài của chuỗi
                                             if (strlen($tencaygiong) > $max_length) {
@@ -113,7 +113,7 @@ include_once("includes/head.php");
                                                 }
 
                                                 // Hiển thị phần đã cắt của chuỗi
-                                                echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietcaygiong.php?id=' . $cg_data['id_cg'] . '" class="pr-name">' . $tenrutgon . '...</a></h4>';
+                                                echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietcaygiong.php?id=' . $cg_data['id_cg'] . '" class="pr-name">' . $tenrutgon . '</a></h4>';
                                             } else {
                                                 // Nếu độ dài không vượt quá $max_length, hiển thị chuỗi nguyên gốc
                                                 echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietcaygiong.php?id=' . $cg_data['id_cg'] . '" class="pr-name">' . $tencaygiong . '</a></h4>';

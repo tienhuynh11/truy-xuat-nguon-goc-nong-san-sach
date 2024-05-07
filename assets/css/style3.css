@@ -14843,3 +14843,47 @@ body.open-quickview-block .biolife-quickview-block{
         font-size: 22px;
     }
 }
+
+:root {
+    --main-color: red;
+}
+
+.alert.success {
+    --main-color: green;
+}
+
+.alert {
+    width: 300px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    /* Điều chỉnh vị trí đỉnh */
+    right: 10px;
+    /* Điều chỉnh vị trí bên phải */
+    border-radius: 10px;
+    /* Bo góc */
+    padding: 10px 20px;
+    /* Khoảng cách bên trong */
+    background-color: #fff;
+    box-shadow: 0px 0px 10px var(--main-color);
+    /* Hiệu ứng bóng */
+    overflow: hidden;
+    transition: all 0.4s;
+}
+
+.process {
+    height: 70px;
+    border-left: 10px solid var(--main-color);
+    top: 0;
+    left: 0;
+    position: absolute;
+    transition: all 0.25s;
+}
+
+.alert ion-icon {
+    padding: 0px 10px;
+    font-size: 20px;
+    color: var(--main-color);
+}

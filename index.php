@@ -229,7 +229,7 @@ include_once("includes/head.php");
 
                                     <?php
                                     $tennongsan = $pdt_data['tensanpham']; // Lấy nội dung từ biến $pdt_data
-                                    $max_length = 35; // Độ dài tối đa cho chuỗi
+                                    $max_length = 25; // Độ dài tối đa cho chuỗi
 
                                     // Kiểm tra độ dài của chuỗi
                                     if (strlen($tennongsan) > $max_length) {
@@ -243,7 +243,7 @@ include_once("includes/head.php");
                                         }
 
                                         // Hiển thị phần đã cắt của chuỗi
-                                        echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietsanpham.php?id=' . $pdt_data['id_sp'] . '" class="pr-name">' . $tenrutgon . '...</a></h4>';
+                                        echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietsanpham.php?id=' . $pdt_data['id_sp'] . '" class="pr-name">' . $tenrutgon . '</a></h4>';
                                     } else {
                                         // Nếu độ dài không vượt quá $max_length, hiển thị chuỗi nguyên gốc
                                         echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietsanpham.php?id=' . $pdt_data['id_sp'] . '" class="pr-name">' . $tennongsan . '</a></h4>';
@@ -322,7 +322,7 @@ include_once("includes/head.php");
                                         }
 
                                         // Hiển thị phần đã cắt của chuỗi
-                                        echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id=' . $vsx['id_vung'] . '" class="pr-name">' . $tenrutgon . '...</a></h4>';
+                                        echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id=' . $vsx['id_vung'] . '" class="pr-name">' . $tenrutgon . '</a></h4>';
                                     } else {
                                         // Nếu độ dài không vượt quá $max_length, hiển thị chuỗi nguyên gốc
                                         echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id=' . $vsx['id_vung'] . '" class="pr-name">' . $tenvung . '</a></h4>';
@@ -404,7 +404,7 @@ include_once("includes/head.php");
                                         }
 
                                         // Hiển thị phần đã cắt của chuỗi
-                                        echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietcaygiong.php?id=' . $cg_data['id_cg'] . '" class="pr-name">' . $tenrutgon . '...</a></h4>';
+                                        echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietcaygiong.php?id=' . $cg_data['id_cg'] . '" class="pr-name">' . $tenrutgon . '</a></h4>';
                                     } else {
                                         // Nếu độ dài không vượt quá $max_length, hiển thị chuỗi nguyên gốc
                                         echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietcaygiong.php?id=' . $cg_data['id_cg'] . '" class="pr-name">' . $tencaygiong . '</a></h4>';

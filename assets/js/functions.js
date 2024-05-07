@@ -34,9 +34,9 @@
     }
 
     /*Register Select Element*/
-    if( $biolife_select.length ){
-        $biolife_select.niceSelect()
-    }
+    // if( $biolife_select.length ){
+    //     $biolife_select.niceSelect()
+    // }
 
     /*Minicart Scroll handle*/
     if( $scroll_items.length){

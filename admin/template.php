@@ -6,7 +6,7 @@
     $admin_id = $_SESSION['admin_id'];
     $admin_email = $_SESSION['admin_email'];
     if($admin_id==null){
-        header("location:index.php");
+        header("location:../dangnhap.php");
     }
 
     if(isset($_GET['adminLogout'])){

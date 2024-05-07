@@ -4,14 +4,14 @@ session_start();
 include_once("admin/class/adminback.php");
 $obj = new adminback();
 
-if (isset($_POST['user_login_btn'])){
+if (isset($_POST['user_login_btn'])) {
     $logmsg = $obj->admin_login($_POST);
 }
 
 
-if(isset($_SESSION['admin_id'])){
+if (isset($_SESSION['admin_id'])) {
     $userId = $_SESSION['admin_id'];
-    if($userId){
+    if ($userId) {
         header('location:admin/');
     }
 }
@@ -31,6 +31,29 @@ include_once("includes/head.php");
     <?php
     include_once("includes/preloader.php");
     ?>
+
+    <?php if (!empty($logmsg)) {
+        if ($logmsg == 1) {
+    ?>
+            <div class="alert">
+                <div class="process"></div>
+                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                <span>Vui lòng xác nhận email trước khi tiến hành đăng nhập!!</span>
+            </div>
+        <?php } elseif ($logmsg == 2) { ?>
+            <div class="alert">
+                <div class="process"></div>
+                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                <span>Nhập sai email hoặc mật khẩu!</span>
+            </div>
+        <?php } elseif ($logmsg == 3) { ?>
+            <div class="alert">
+                <div class="process"></div>
+                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                <span>Tài khoản không tồn tại!</span>
+            </div>
+        <?php } ?>
+    <?php } ?>
 
     <!-- HEADER -->
     <header id="" class="header-area style-01 layout-03">
@@ -54,15 +77,7 @@ include_once("includes/head.php");
 
             <div class="container container-x">
                 <h2 style="font-weight: bold;" class="text-center">Đăng nhập</h2>
-
-                <h4 class="text-danger"> <?php 
-                    if(isset($logmsg)){
-                        echo $logmsg;
-                    }
-                ?></h4>
                 <div class="row">
-
-               
 
                     <!--Form Sign In-->
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -89,7 +104,7 @@ include_once("includes/head.php");
                         <div class="register-in-container">
                             <div class="intro">
                                 <h4 class="box-title">Tạo một tài khoản</h4>
-                                 <p style="line-height: normal;" class="sub-title">Chào mừng bạn đến với trang web truy xuất nguồn gốc nông sản sạch! Nếu chưa có tài khoản, hãy nhấn nút Đăng ký bên dưới!!</p>
+                                <p style="line-height: normal;" class="sub-title">Chào mừng bạn đến với trang web truy xuất nguồn gốc nông sản sạch! Nếu chưa có tài khoản, hãy nhấn nút Đăng ký bên dưới!!</p>
                                 <!-- <ul class="lis"> 
                                     <li>Check out faster</li>
                                     <li>Save multiple shipping anddesses</li>
@@ -105,11 +120,6 @@ include_once("includes/head.php");
                 </div>
 
             </div>
-
-
-
-
-
 
         </div>
     </div>
@@ -139,3 +149,12 @@ include_once("includes/head.php");
 </body>
 
 </html>
+<script>
+    var alertElement = document.querySelector('.alert');
+
+    if (alertElement) {
+        setTimeout(function() {
+            alertElement.style.display = 'none';
+        }, 5000);
+    }
+</script>

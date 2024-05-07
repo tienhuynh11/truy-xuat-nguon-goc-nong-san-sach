@@ -55,7 +55,7 @@
                         <div class="mobile-search-content">
                             <form action="#" class="form-search" name="mobile-seacrh" method="get">
                                 <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
-                                <input type="text" name="s" class="input-text" value="" placeholder="Tìm kiếm sản phẩm nào...">
+                                <input type="text" name="s" class="input-text" value="" placeholder="Nhập nội dung cần tìm...">
                                 <!-- <select name="category">
                                     <option value="-1" selected>All Categories</option>
                                     <option value="vegetables">Vegetables</option>

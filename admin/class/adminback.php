@@ -12,7 +12,7 @@ class  adminback
         $this->connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
         mysqli_set_charset($this->connection, 'UTF8');
         if (!$this->connection) {
-            die("Databse connection error!!!");
+            die("Kết nối đến cơ sở dữ liệu bị lỗi!!!");
         }
     }
 
@@ -20,28 +20,33 @@ class  adminback
     {
         $admin_email = $data["email"];
         $admin_pass = md5($data['pass']);
-
+        $query_check = "SELECT * FROM `taikhoan` WHERE email = '$admin_email'";
         $query = "SELECT * FROM `taikhoan` WHERE email = '$admin_email' AND matkhau = '$admin_pass'";
-
+        $result_check = mysqli_query($this->connection, $query_check);
         $result = mysqli_query($this->connection, $query);
-
-        if (mysqli_num_rows($result) > 0) {
-            $admin_info = mysqli_fetch_assoc($result);
-            if ($admin_info['token'] == '' and $admin_info['xacthuc'] == 1) {
-                header("location:../index.php");
-                session_start();
-                $_SESSION['admin_id'] = $admin_info['id_acc'];
-                $_SESSION['admin_email'] = $admin_info['email'];
-                $_SESSION['role'] = $admin_info['role'];
-                $_SESSION['username'] = $admin_info['hoten'];
+        if (mysqli_num_rows($result_check) > 0) {
+            if (mysqli_num_rows($result) > 0) {
+                $admin_info = mysqli_fetch_assoc($result);
+                if ($admin_info['token'] == '' and $admin_info['xacthuc'] == 1) {
+                    header("location:../index.php");
+                    session_start();
+                    $_SESSION['admin_id'] = $admin_info['id_acc'];
+                    $_SESSION['admin_email'] = $admin_info['email'];
+                    $_SESSION['role'] = $admin_info['role'];
+                    $_SESSION['username'] = $admin_info['hoten'];
+                } else {
+                    $log_msg = 1;
+                    return $log_msg;
+                }
             } else {
-                $log_msg = "Vui lòng xác nhận email trước khi tiến hành đăng nhập!!";
+                $log_msg = 2;
                 return $log_msg;
             }
-        } else {
-            $log_msg = "Nhập sai email hoặc mật khẩu";
+        }else{
+            $log_msg = 3;
             return $log_msg;
         }
+        
     }
 
 

@@ -1,4 +1,5 @@
 <?php 
+header("location:../dangnhap.php");
     include("class/adminback.php");
     $obj= new adminback();
 

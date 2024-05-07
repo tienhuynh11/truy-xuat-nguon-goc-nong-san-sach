@@ -1,4 +1,4 @@
-<!-- <div class="vertical-menu vertical-category-block">
+<div class="vertical-menu vertical-category-block">
     <div class="block-title">
         <span class="menu-icon">
             <span class="line-1"></span>
@@ -22,4 +22,4 @@
             <?php } ?>
         </ul>
     </div>
-</div> -->
+</div>

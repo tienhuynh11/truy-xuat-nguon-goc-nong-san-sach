@@ -98,7 +98,7 @@ include_once("includes/head.php");
                                             
                                             <?php
                                                 $tenvung = $pdt_data['tenvung']; // Lấy nội dung từ biến $pdt_data
-                                                $max_length = 35; // Độ dài tối đa cho chuỗi
+                                                $max_length = 25; // Độ dài tối đa cho chuỗi
 
                                                 // Kiểm tra độ dài của chuỗi
                                                 if (strlen($tenvung) > $max_length) {
@@ -112,7 +112,7 @@ include_once("includes/head.php");
                                                     }
 
                                                     // Hiển thị phần đã cắt của chuỗi
-                                                    echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id='.$pdt_data['id_vung'].'" class="pr-name">'.$tenrutgon.'...</a></h4>';
+                                                    echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id='.$pdt_data['id_vung'].'" class="pr-name">'.$tenrutgon.'</a></h4>';
                                                 } else {
                                                     // Nếu độ dài không vượt quá $max_length, hiển thị chuỗi nguyên gốc
                                                     echo '<h4 style="padding-bottom: 2px;" class="product-title"><a href="chitietvsx.php?id='.$pdt_data['id_vung'].'" class="pr-name">'.$tenvung.'</a></h4>';
