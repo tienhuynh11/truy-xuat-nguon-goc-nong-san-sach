@@ -60,7 +60,7 @@
            <!-- <option disabled selected>--Select--</option> -->
            
            <option value="Admin" <?php  if($admin['role']=='Admin'){echo "Selected";  } ?> >Admin</option>
-           <option value="Nguoidanhgia" <?php  if($admin['role']=='Nguoidanhgia'){echo "Selected";  } ?> >Người kiểm định</option>
+           <option value="Nguoidanhgia" <?php  if($admin['role']=='Nguoidanhgia'){echo "Selected";  } ?> >Người đánh giá</option>
            <option value="Nongdan" <?php  if($admin['role']=='Nongdan'){echo "Selected";  } ?> >Nông dân</option>
            <option value="Chuyengia" <?php  if($admin['role']=='Chuyengia'){echo "Selected";  } ?> >Chuyên gia</option>
            <option value="Chuyenvien" <?php  if($admin['role']=='Chuyenvien'){echo "Selected";  } ?> >Chuyên viên</option>

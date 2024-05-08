@@ -127,6 +127,44 @@ class  adminback
         }
     }
 
+    function update_hoso($data){
+        $u_id = $data['id_acc'];
+
+        if (!empty($_FILES['hinhdaidien']['tmp_name'])) {
+            $hinhdaidien_name = $_FILES['hinhdaidien']['name'];
+            $hinhdaidien_size = $_FILES['hinhdaidien']['size'];
+            $hinhdaidien_tmp = $_FILES['hinhdaidien']['tmp_name'];
+            $img_ext = pathinfo($hinhdaidien_name, PATHINFO_EXTENSION);
+            list($width, $height) = getimagesize($hinhdaidien_tmp);
+
+            if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
+                if ($hinhdaidien_size <= 2e+6 && $width < 2701 && $height < 2701) {
+                    $select_query = "SELECT * FROM `taikhoan` WHERE id_acc=$u_id";
+                    $result = mysqli_query($this->connection, $select_query);
+                    $row = mysqli_fetch_assoc($result);
+                    $pre_img = $row['hinhdaidien'];
+                    unlink("uploads/avatar/" . $pre_img);
+
+                    $query = "UPDATE `taikhoan` SET `hinhdaidien`= '$hinhdaidien_name' WHERE `id_acc` = $u_id;";
+
+                    if (mysqli_query($this->connection, $query) && move_uploaded_file($hinhdaidien_tmp, "uploads/avatar/" . $hinhdaidien_name)) {
+                        $msg = 1;//thành công
+                        return $msg;
+                    } else {
+                        $msg = 2;//thất bại
+                        return $msg;
+                    }
+                } else {
+                    $msg = 3;
+                    return $msg;
+                }
+            } else {
+                $msg = 4;
+                return $msg;
+            }
+        }
+    }
+    
     function update_admin($data)
     {
         $u_id = $data['user_id'];

@@ -5,6 +5,7 @@
     session_start();
     $admin_id = $_SESSION['admin_id'];
     $admin_email = $_SESSION['admin_email'];
+    $admin_role = $_SESSION['role'];
     if($admin_id==null){
         header("location:../dangnhap.php");
     }
@@ -57,19 +58,19 @@
                                     if($views){
                                         if($views=="dashboard"){
                                             include ('views/dashborad_view.php');
-                                        }elseif($views=="add-cata"){
+                                        }elseif($views=="add-cata" && $admin_role== "Admin"){
                                             include ("views/add_cata_view.php");
-                                        }elseif($views=="manage-cata"){
+                                        }elseif($views=="manage-cata" && $admin_role== "Admin"){
                                             include ("views/manage_cata_view.php");
                                         }elseif($views=="add-product"){
                                             include ("views/add_product_view.php");
                                         }elseif($views=="manage-product"){
                                             include ("views/manage_product_view.php");
-                                        }elseif($views=="add-account"){
+                                        }elseif($views=="add-account" && $admin_role== "Admin"){
                                             include ("views/add_account_view.php");
-                                        }elseif($views=="manage-account"){
+                                        }elseif($views=="manage-account" && $admin_role== "Admin"){
                                             include ("views/manage_account_view.php");
-                                        }elseif($views=="edit_cata"){
+                                        }elseif($views=="edit_cata" && $admin_role== "Admin"){
                                             include ("views/edit_cata_view.php");
                                         }elseif($views=="edit_product"){
                                             include ("views/edit_product_view.php");
@@ -77,9 +78,9 @@
                                             include ("views/manage_order_view.php");
                                         }elseif($views=="add_link"){
                                             include ("views/add_links_view.php");
-                                        }elseif($views=="edit_logo"){
+                                        }elseif($views=="edit_logo" && $admin_role== "Admin"){
                                             include ("views/edit_logo_view.php");
-                                        }elseif($views=="add_logo"){
+                                        }elseif($views=="add_logo" && $admin_role== "Admin"){
                                             include ("views/add_logo_view.php");
                                         }elseif($views=="edit_links"){
                                             include ("views/edit_links_view.php");
@@ -99,9 +100,9 @@
                                             include ("views/customer_feedback_view.php");
                                         }elseif($views=="edit_comment"){
                                             include ("views/edit_comment_view.php");
-                                        }elseif($views=="add-admin-user"){
+                                        }elseif($views=="add-admin-user" && $admin_role== "Admin"){
                                             include ("views/add_admin_user_view.php");
-                                        }elseif($views=="edit_admin"){
+                                        }elseif($views=="edit_admin" && $admin_role== "Admin"){
                                             include ("views/edit_admin_view.php");
                                         }elseif($views=="make_report"){
                                             include ("views/make_report_view.php");
@@ -113,11 +114,11 @@
                                             include ("views/edit_caygiong_view.php");
                                         }elseif($views=="add_caygiong"){
                                             include ("views/add_caygiong_view.php");
-                                        }elseif($views=="add_dm_dn"){
+                                        }elseif($views=="add_dm_dn" && $admin_role== "Admin"){
                                             include ("views/add_dm_dn_view.php");
-                                        }elseif($views=="manage_dm_dn"){
+                                        }elseif($views=="manage_dm_dn" && $admin_role== "Admin"){
                                             include ("views/manage_dm_dn_view.php");
-                                        }elseif($views=="edit_dm_dn"){
+                                        }elseif($views=="edit_dm_dn" && $admin_role== "Admin"){
                                             include ("views/edit_dm_dn_view.php");
                                         }elseif($views=="edit_dn"){
                                             include ("views/edit_dn_view.php");
@@ -137,12 +138,18 @@
                                             include ("views/add_nhaxuong_view.php");
                                         }elseif($views=="edit_nhaxuong"){
                                             include ("views/edit_nhaxuong_view.php");
-                                        }elseif($views=="edit_danhmuc_nx"){
+                                        }elseif($views=="edit_danhmuc_nx" && $admin_role== "Admin"){
                                             include ("views/edit_danhmuc_nx_view.php");
-                                        }elseif($views=="add_danhmuc_nx"){
+                                        }elseif($views=="add_danhmuc_nx" && $admin_role== "Admin"){
                                             include ("views/add_danhmuc_nx_view.php");
-                                        }elseif($views=="manage_danhmuc_nx"){
+                                        }elseif($views=="manage_danhmuc_nx" && $admin_role== "Admin"){
                                             include ("views/manage_danhmuc_nx_view.php");
+                                        }elseif($views=="thong-tin"){
+                                            include ("views/thongtinhoso.php");
+                                        }else{
+                                            echo '<script>
+                                            window.location.href = "http://localhost/nongsan/admin/dashboard.php";
+                                            </script>';
                                         }
 
                                     }

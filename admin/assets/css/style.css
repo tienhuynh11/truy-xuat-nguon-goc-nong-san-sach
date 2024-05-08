@@ -5746,6 +5746,7 @@ table tbody .border-bottom-info td {
   .header-navbar .navbar-wrapper .navbar-container .nav-right {
     float: right; }
     .header-navbar .navbar-wrapper .navbar-container .nav-right .user-profile img {
+      object-fit: cover;
       margin-right: 10px;
       width: 40px; }
     .header-navbar .navbar-wrapper .navbar-container .nav-right .user-profile i {

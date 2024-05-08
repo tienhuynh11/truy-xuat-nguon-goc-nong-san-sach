@@ -14,7 +14,7 @@ $arry  = $obj->display_user_pagination($bat_dau, $ket_thuc);
   if(isset($_GET['status'])){
       $admin_id = $_GET['id'];
       if($_GET['status']=='delete'){
-            $del_msg = $obj->delete_admin($admin_id);
+            $obj->delete_admin($admin_id);
       }
   }
 
