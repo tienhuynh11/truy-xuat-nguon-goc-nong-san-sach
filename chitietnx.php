@@ -81,9 +81,10 @@ include_once("includes/head.php");
 ?>
 <style>
     .map-container {
-    position: relative;
-    overflow: hidden;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio (56.25%) */
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%;
+        /* 16:9 Aspect Ratio (56.25%) */
     }
 
     .map-container iframe {
@@ -94,53 +95,66 @@ include_once("includes/head.php");
         height: 100%;
         border: 0;
     }
+
     /* CSS cho modal */
     .modal {
-    display: none; /* Mặc định ẩn modal */
-    position: fixed; /* Vị trí cố định */
-    z-index: 1; /* Hiển thị trên các phần tử khác */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* Cho phép cuộn nếu nội dung dài hơn kích thước màn hình */
-    background-color: rgba(0,0,0,0.9); /* Màu nền đen với độ trong suốt */
+        display: none;
+        /* Mặc định ẩn modal */
+        position: fixed;
+        /* Vị trí cố định */
+        z-index: 1;
+        /* Hiển thị trên các phần tử khác */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* Cho phép cuộn nếu nội dung dài hơn kích thước màn hình */
+        background-color: rgba(0, 0, 0, 0.9);
+        /* Màu nền đen với độ trong suốt */
     }
 
     .modal-content {
-    margin: auto;
-    display: block;
-    width: 300px; /* Thay đổi từ max-width thành width để căn giữa theo chiều ngang */
-    max-height: 80%;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Di chuyển modal về giữa màn hình */
+        margin: auto;
+
+        width: 300px;
+        /* Thay đổi từ max-width thành width để căn giữa theo chiều ngang */
+        max-height: 80%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* Di chuyển modal về giữa màn hình */
     }
 
     .modal-content img {
-    width: auto; /* Thay đổi từ max-width thành width để căn giữa theo chiều ngang */
-    max-height: 80%;
-    margin-bottom: 20px; /* Khoảng cách giữa hình ảnh và nút tải xuống */
+        width: auto;
+        /* Thay đổi từ max-width thành width để căn giữa theo chiều ngang */
+        max-height: 80%;
+        margin-bottom: 20px;
+        /* Khoảng cách giữa hình ảnh và nút tải xuống */
     }
 
     .download-btn {
-    position: absolute;
-    bottom: 0px; /* Đặt vị trí nút dưới cùng */
-    left: 50%; /* Canh giữa nút */
-    transform: translateX(-50%); /* Canh giữa nút theo chiều ngang */
-    padding-bottom: 5px;
+        position: absolute;
+        bottom: 0px;
+        /* Đặt vị trí nút dưới cùng */
+        left: 50%;
+        /* Canh giữa nút */
+        transform: translateX(-50%);
+        /* Canh giữa nút theo chiều ngang */
+        padding-bottom: 5px;
     }
 
     /* Đóng modal khi nhấn vào nút đóng hoặc nền đen */
     .modal .close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #fff;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #fff;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
     }
 </style>
 
@@ -207,27 +221,59 @@ include_once("includes/head.php");
                             <p class="title"><?php echo $loainhaxuong ?></p>
                         </div>
                     </div>
-                    <div class="row" id="vsx">
+                    <div class="row" id="vsx" style="padding: 20px 0;">
                         <div class="col-md-3">
                             Người đại diện:
                         </div>
-                        <div class="col-md-9">
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                                <div class="thumbnail">
-                                    <a href="#" class="single-card__link">
-                                        <div class="single-product__image">
-                                            <div class="image-wrap h-bg-cover" style="border-radius: 2500px; overflow: hidden;">
-                                                <img src="admin/uploads/avatar/<?= $avatar ?>" class="img-radius">
-                                            </div>
-                                        </div>
-                                        <div class="caption">
-                                            <h3 class="single-product__title"><?php echo $hoten ?></h3>
-                                        </div>
-                                    </a>
+                        <div class="col-md-9 slider-nguoidaidien">
+                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
+                                <div style="padding: 10px;height: 150px;width: 100%;">
+                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
+                                    <span style="height: 70px;width: 100%;">Nội dung 1</span>
                                 </div>
                             </div>
-
-
+                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
+                                <div style="padding: 10px;height: 150px;width: 100%;">
+                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
+                                    <span style="height: 70px;width: 100%;">Nội dung 2</span>
+                                </div>
+                            </div>
+                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
+                                <div style="padding: 10px;height: 150px;width: 100%;">
+                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
+                                    <span style="height: 70px;width: 100%;">Nội dung 3</span>
+                                </div>
+                            </div>
+                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
+                                <div style="padding: 10px;height: 150px;width: 100%;">
+                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
+                                    <span style="height: 70px;width: 100%;">Nội dung 4</span>
+                                </div>
+                            </div>
+                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
+                                <div style="padding: 10px;height: 150px;width: 100%;">
+                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
+                                    <span style="height: 70px;width: 100%;">Nội dung 5</span>
+                                </div>
+                            </div>
+                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
+                                <div style="padding: 10px;height: 150px;width: 100%;">
+                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
+                                    <span style="height: 70px;width: 100%;">Nội dung 6</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row" id="vsx">
@@ -375,3 +421,24 @@ include_once("includes/head.php");
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function() {
+        $('.slider-nguoidaidien').slick({
+            arrows: true,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            focusOnSelect: true,
+            infinite: false,
+
+            responsive: [{
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    
+                }
+            }]
+        });
+
+    });
+</script>
