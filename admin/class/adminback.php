@@ -126,7 +126,14 @@ class  adminback
             return $result;
         }
     }
-
+    function show_admin_user_by_nhaxuong($nhaxuong)
+    {
+        $query = "SELECT * FROM `taikhoan` WHERE `nhaxuong`='$nhaxuong'";
+        if (mysqli_query($this->connection, $query)) {
+            $result = mysqli_query($this->connection, $query);
+            return $result;
+        }
+    }
     function update_hoso($data){
         $u_id = $data['id_acc'];
         $name = $data['name'];

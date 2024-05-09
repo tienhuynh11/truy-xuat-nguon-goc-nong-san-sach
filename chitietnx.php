@@ -19,6 +19,7 @@ if (isset($_GET['id'])) {
 }
 
 foreach ($nx_datas as $nx) {
+    $id_nx= $nx['id_nx'];
     $danhmuc_nx = $nx['danhmuc_nx'];
     $nguoidaidien = $nx['nguoidaidien'];
     $doanhnghiep = $nx['doanhnghiep'];
@@ -44,6 +45,7 @@ $taikhoan[] = $nguoidang_fetch;
 foreach ($taikhoan as $tk) {
     $hoten = $tk['hoten'];
     $avatar = $tk['hinhdaidien'];
+    $nhaxuong = $tk['nhaxuong'];
 }
 $vsx_info = $obj->vsx_By_id($vungsanxuat);
 $vsx_fetch = mysqli_fetch_assoc($vsx_info);
@@ -80,6 +82,9 @@ foreach ($doanhnghiep as $dn) {
 include_once("includes/head.php");
 ?>
 <style>
+    .slick-track{
+        width: auto;
+    }
     .map-container {
         position: relative;
         overflow: hidden;
@@ -225,98 +230,49 @@ include_once("includes/head.php");
                         <div class="col-md-3">
                             Người đại diện:
                         </div>
-                        <div class="col-md-9 slider-nguoidaidien">
+                        <div class="col-md-9 ">
                             <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
                                 <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <img src="admin/uploads/avatar/<?= $avatar ?>" alt="<?= $avatar ?>" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
                                 <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 1</span>
-                                </div>
-                            </div>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 2</span>
-                                </div>
-                            </div>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 3</span>
-                                </div>
-                            </div>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 4</span>
-                                </div>
-                            </div>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 5</span>
-                                </div>
-                            </div>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 6</span>
+                                    <span style="height: 70px;width: 100%;"><?php echo $hoten ?></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="vsx">
+                    <div class="row" id="vsx" style="padding: 20px 0;">
                         <div class="col-md-3">
                             Thuộc doanh nghiệp:
                         </div>
-                        <div class="col-md-9">
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                                <div class="thumbnail">
-                                    <a href="doanhnghiep.php?id=<?php echo $doanhnghiep ?>" class="single-card__link">
-                                        <div class="single-product__image">
-
-                                            <div class="image-wrap h-bg-cover" style="border-radius: 2500px; overflow: hidden;"><img src="admin/uploads/<?= $anhdoanhnghiep ?>" class="img-radius"></div>
-                                        </div>
-                                        <div class="caption">
-                                            <h3 class="single-product__title"><?php echo $tendoanhnghiep ?></h3>
-                                        </div>
-                                    </a>
+                        <div class="col-md-9" >
+                        <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
+                                <div style="padding: 10px;height: 150px;width: 100%;">
+                                    <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
+                                    <span style="height: 70px;width: 100%;"><?php echo $tendoanhnghiep;?></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="vsx">
+                    <div class="row" id="vsx" style="padding: 20px 0;">
                         <div class="col-md-3">
                             Vùng sản xuất:
                         </div>
                         <div class="col-md-9">
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                                <div class="thumbnail">
-                                    <a href="chitietvsx.php?id=<?php echo $vungsanxuat ?>" class="single-card__link">
-                                        <div class="single-product__image">
-
-                                            <div class="image-wrap h-bg-cover" style="border-radius: 2500px; overflow: hidden;"><img src="admin/uploads/<?= $anhvsx ?>" class="img-radius"></div>
-                                        </div>
-                                        <div class="caption">
-                                            <h3 class="single-product__title"><?php echo $tenvung ?></h3>
-                                        </div>
-                                    </a>
+                        <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
+                                <div style="padding: 10px;height: 150px;width: 100%;">
+                                    <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
+                                    <span style="height: 70px;width: 100%;"><?php echo $tenvung;?></span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row" id="vsx">
+                        </div>
+                  
+                    <div class="row" id="vsx" >
                         <div class="col-md-3">
                             Email:
                         </div>
@@ -381,6 +337,27 @@ include_once("includes/head.php");
                             <p class="title"><?php echo $thongtin ?></p>
                         </div>
                     </div>
+                    <div class="row" id="vsx" style="padding: 20px 0;">
+                        <div class="col-md-3">
+                            Danh sách thành viên:
+                        </div>
+                        <div class="col-md-9 slider-nguoidaidien" >
+                            <?php 
+                            $arry  = $obj->show_admin_user_by_nhaxuong($id_nx);
+                             while($user = mysqli_fetch_assoc($arry)){ ?>
+                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
+                                <div style="padding: 10px;height: 150px;width: 100%;">
+                                    <img src="admin/uploads/avatar/<?= $user['hinhdaidien'] ?>" alt="<?= $avatar ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
+                                    <span style="height: 70px;width: 100%;"><?php echo  $user['hoten'] ?></span>
+                                </div>
+                            </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    
+
                 </div>
             <?php }
             ?>
@@ -429,7 +406,7 @@ include_once("includes/head.php");
             slidesToShow: 4,
             slidesToScroll: 1,
             focusOnSelect: true,
-            infinite: false,
+            infinite: true,
 
             responsive: [{
                 breakpoint: 480,
