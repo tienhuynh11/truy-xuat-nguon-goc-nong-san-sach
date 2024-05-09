@@ -171,7 +171,7 @@ include_once("includes/head.php");
     <!-- Page Contain -->
 
 
-    <div class="container container-vsx">
+    <div class="container container-x">
         <div class="head-info">
             <div class="head-left">
                 <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>">

@@ -93,12 +93,12 @@ foreach ($pro_datas as $pro_data) {
     }
 
     :root {
-        --main-color: #A0C438;
+        --main--color: #A0C438;
     }
 
     .serviceBox {
-        color: var(--main-color);
-        background: var(--main-color);
+        color: var(--main--color);
+        background: var(--main--color);
         font-family: 'Raleway', sans-serif;
         text-align: center;
         border-radius: 0 0 20px 20px;
@@ -127,7 +127,7 @@ foreach ($pro_datas as $pro_data) {
     }
 
     .serviceBox:after {
-        border: 12px solid var(--main-color);
+        border: 12px solid var(--main--color);
         height: 100px;
         border-radius: 0 0 100px 100px;
         top: 0;
@@ -180,19 +180,23 @@ foreach ($pro_datas as $pro_data) {
     }
 
     .serviceBox.pink {
-        --main-color: #FA68A0;
+        --main--color: #FA68A0;
     }
 
     .serviceBox.blue {
-        --main-color: #01748E;
+        --main--color: #01748E;
     }
 
     .serviceBox.nhaxuong {
-        --main-color: #795548;
+        --main--color: #795548;
+    }
+
+    .serviceBox.nhaphanphoi {
+        --main--color: #FF9900;
     }
 
     .serviceBox.green {
-        --main-color: #06BD7F;
+        --main--color: #06BD7F;
     }
 
     @media only screen and (max-width: 1199px) {
@@ -491,7 +495,7 @@ include_once("includes/head.php");
                                                     <?php endif; ?>
                                                     <?php if (!empty($nhaphanphoi)) : ?>
                                                         <div class="col-md-12 col-sm-12">
-                                                            <div class="serviceBox green">
+                                                            <div class="serviceBox nhaphanphoi">
                                                                 <div class="service-icon">
                                                                     <span><i class="fa fa-industry"></i></span>
                                                                 </div>
