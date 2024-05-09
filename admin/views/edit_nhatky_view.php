@@ -1,8 +1,10 @@
 <?php 
+ $users = $obj->show_admin_user();
     $product_info=$obj->display_product();
     if(isset($_GET['status'])){
         $id_nk = $_GET['id'];
         if($_GET['status']=="nkEdit"){
+           
            $nk_info= $obj->show_nhatky_by_id($id_nk);
            $nk = mysqli_fetch_assoc($nk_info);
         }
@@ -39,6 +41,18 @@
         <?php } ?>
         </select>
     </div>
+    <div class="form-group">
+        <label for="nguoidang">Người đại diện</label>
+        <select name="nguoidang" id="nguoidaidien" class="form-control">
+            <?php foreach($users as $user): ?>
+                <?php if ($user['id_acc']== $nk['nguoidang']) { ?>
+                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
     <input type="hidden" name="id_nk" value="<?php echo $nk['id_nk'] ?>">
     <div class="form-group">
         <h4>Tên nhật ký</h4>
@@ -56,7 +70,7 @@
         <input type="file" name="nk_img" class="form-control">
     </div>
     <div class="form-group">
-        <input type="submit" name="update_nhatky" class="btn btn-primary">
+        <input type="submit" name="update_nhatky" class="btn btn-primary" value="Cập nhật nhật ký">
     </div>
 </form>
 </div>
@@ -64,6 +78,7 @@
 <script>
     $(document).ready(function() {
         $("#sp").select2();
+        $("#nguoidaidien").select2();
     });
 </script>
 <style>

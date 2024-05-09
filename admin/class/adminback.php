@@ -129,14 +129,22 @@ class  adminback
 
     function update_hoso($data){
         $u_id = $data['id_acc'];
-
+        $name = $data['name'];
+        $sdt = $data['sdt'];
+        $diachi = $data['diachi'];
+        $doanhnghiep = $data['doanhnghiep'];
+        $vungsanxuat = $data['vungsanxuat'];
+        $nhaxuong = $data['nhaxuong'];
+        $thongtin = $data['thongtin'];
+        $trangthai = $data['trangthai']; 
+        
         if (!empty($_FILES['hinhdaidien']['tmp_name'])) {
             $hinhdaidien_name = $_FILES['hinhdaidien']['name'];
             $hinhdaidien_size = $_FILES['hinhdaidien']['size'];
             $hinhdaidien_tmp = $_FILES['hinhdaidien']['tmp_name'];
             $img_ext = pathinfo($hinhdaidien_name, PATHINFO_EXTENSION);
             list($width, $height) = getimagesize($hinhdaidien_tmp);
-
+    
             if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
                 if ($hinhdaidien_size <= 2e+6 && $width < 2701 && $height < 2701) {
                     $select_query = "SELECT * FROM `taikhoan` WHERE id_acc=$u_id";
@@ -144,26 +152,38 @@ class  adminback
                     $row = mysqli_fetch_assoc($result);
                     $pre_img = $row['hinhdaidien'];
                     unlink("uploads/avatar/" . $pre_img);
-
-                    $query = "UPDATE `taikhoan` SET `hinhdaidien`= '$hinhdaidien_name' WHERE `id_acc` = $u_id;";
-
+    
+                    $query = "UPDATE `taikhoan` SET `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vungsanxuat', `nhaxuong` = '$nhaxuong', `hoten` = '$name', `dienthoai` = '$sdt', `diachi` = '$diachi', `thongtin` = '$thongtin', `hinhdaidien`,`trangthai` = '$trangthai' = '$hinhdaidien_name' WHERE `id_acc` = '$u_id';";
+    
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($hinhdaidien_tmp, "uploads/avatar/" . $hinhdaidien_name)) {
-                        $msg = 1;//thành công
+                        $msg = 1; // Thành công
                         return $msg;
                     } else {
-                        $msg = 2;//thất bại
+                        $msg = 2; // Thất bại
                         return $msg;
                     }
                 } else {
-                    $msg = 3;
+                    $msg = 3; // Kích thước hoặc định dạng không hợp lệ
                     return $msg;
                 }
             } else {
-                $msg = 4;
+                $msg = 4; // Định dạng file không hợp lệ
+                return $msg;
+            }
+        } else {
+            // Nếu không có tệp ảnh mới được chọn, chỉ cập nhật thông tin người dùng mà không cần di chuyển tệp ảnh cũ
+            $query = "UPDATE `taikhoan` SET `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vungsanxuat', `nhaxuong` = '$nhaxuong', `hoten` = '$name', `dienthoai` = '$sdt', `diachi` = '$diachi', `thongtin` = '$thongtin',`trangthai` = '$trangthai' WHERE `id_acc` = '$u_id';";
+    
+            if (mysqli_query($this->connection, $query)) {
+                $msg = 5; // Thành công
+                return $msg;
+            } else {
+                $msg = 6; // Thất bại
                 return $msg;
             }
         }
     }
+    
     
     function update_admin($data)
     {
@@ -223,52 +243,6 @@ class  adminback
             }
         }
     }
-
-    // function update_admin($data){
-    //     $u_id = $data['user_id'];
-    //     $u_email = $data['u-user-email'];
-    //     $u_name = $data['u-user-name'];
-    //     $u_phone = $data['u-user-phone'];
-    //     $u_address = $data['u-user-address'];
-    //     $u_role = $data['u_user_role'];
-
-    //     // Kiểm tra xem có tập tin hình ảnh nào được tải lên không
-    //     if (!empty($_FILES['hinhdaidien']['tmp_name'])) {
-    //         $hinhdaidien_name = $_FILES['hinhdaidien']['name'];
-    //         $hinhdaidien_size = $_FILES['hinhdaidien']['size'];
-    //         $hinhdaidien_tmp = $_FILES['hinhdaidien']['tmp_name'];
-    //         $img_ext = pathinfo($hinhdaidien_name, PATHINFO_EXTENSION);
-    //         list($width, $height) = getimagesize($hinhdaidien_tmp);
-
-    //         if (($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") && $hinhdaidien_size <= 2e+6 && $width < 2701 && $height < 2701) {
-    //             $hinhdaidien_path = "uploads/" . $hinhdaidien_name;
-    //             move_uploaded_file($hinhdaidien_tmp, $hinhdaidien_path);
-    //         } else {
-    //             $msg = "Hình ảnh không hợp lệ!";
-    //             echo "<script>alert('$msg');</script>";
-    //             return;
-    //         }
-    //     }
-
-    //     // Cập nhật hình ảnh mới trong truy vấn SQL
-    //     $query = "UPDATE `taikhoan` SET `hoten` = '$u_name', `email` = '$u_email', `dienthoai` = '$u_phone', `diachi` = '$u_address',";
-
-    //     // Thêm điều kiện chỉnh sửa hình ảnh nếu có
-    //     if (!empty($hinhdaidien_name)) {
-    //         $query .= "`hinhdaidien`= '$hinhdaidien_name',";
-    //     }
-
-    //     $query .= "`role` = '$u_role' WHERE `id_acc` = $u_id;";
-
-    //     if(mysqli_query($this->connection, $query)){
-    //         echo '<script>
-    //         alert("Chỉnh sửa tài khoản thành công");
-    //         window.location.href = "manage_user.php";
-    //         </script>';
-    //     }
-    // }
-
-
 
     function delete_admin($admin_id)
     {
@@ -770,6 +744,15 @@ class  adminback
     function search_nongsan($keyword)
     {
         $query = "SELECT * FROM `sanpham` WHERE `tensanpham` LIKE '%$keyword%' or `id_sp` LIKE '%$keyword%'";
+
+        if (mysqli_query($this->connection, $query)) {
+            $search_query = mysqli_query($this->connection, $query);
+            return $search_query;
+        }
+    }
+    function search_baiviet($keyword)
+    {
+        $query = "SELECT * FROM `baiviet` WHERE `tieude` LIKE '%$keyword%' or `id_bv` LIKE '%$keyword%'";
 
         if (mysqli_query($this->connection, $query)) {
             $search_query = mysqli_query($this->connection, $query);
@@ -1940,7 +1923,7 @@ class  adminback
     {
         $id_nk = $data['id_nk'];
         $sanpham = $data['sanpham'];
-
+        $nguoidang=$data['nguoidang'];
         $tennhatky = $data['tennhatky'];
         $chitiet = $data['chitiet'];
 
@@ -1954,20 +1937,20 @@ class  adminback
 
             if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
                 if ($nk_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
-                    $select_query = "SELECT * FROM `nhatky` WHERE id_nk=$id_nk";
+                    $select_query = "SELECT * FROM `nhatky` WHERE `id_nk`='$id_nk'";
                     $result = mysqli_query($this->connection, $select_query);
                     $row = mysqli_fetch_assoc($result);
                     $pre_img = $row['hinhanh'];
                     unlink("uploads/" . $pre_img);
 
-                    $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `hinhanh` = '$nk_img_name' WHERE `id_nk` ='$id_nk';";
+                    $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham',`nguoidang` = '$nguoidang', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `hinhanh` = '$nk_img_name' WHERE `id_nk` ='$id_nk';";
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($nk_img_tmp, "uploads/" . $nk_img_name)) {
                         echo '<script>
                             alert("Chỉnh sửa thành công");
                             window.location.href = "manage_nhatky.php";
                         </script>';
                     } else {
-                        echo "Upload failed!";
+                        echo "Thất bại khi đăng";
                     }
                 } else {
                     $msg = "Sorry !! Pdt image max height: 2701 px and width: 2701 px, but you are trying {$width} px and {$height} px";
@@ -1979,7 +1962,7 @@ class  adminback
             }
         } else {
             // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của bài viết
-            $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham',`tennhatky` = '$tennhatky', `chitiet` = '$chitiet' WHERE `id_nk` ='$id_nk';";
+            $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham',`nguoidang` = '$nguoidang',`tennhatky` = '$tennhatky', `chitiet` = '$chitiet' WHERE `id_nk` ='$id_nk';";
             if (mysqli_query($this->connection, $query)) {
                 echo '<script>
                     alert("Chỉnh sửa thành công");

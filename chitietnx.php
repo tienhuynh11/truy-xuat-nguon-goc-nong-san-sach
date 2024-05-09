@@ -81,10 +81,9 @@ include_once("includes/head.php");
 ?>
 <style>
     .map-container {
-        position: relative;
-        overflow: hidden;
-        padding-top: 56.25%;
-        /* 16:9 Aspect Ratio (56.25%) */
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (56.25%) */
     }
 
     .map-container iframe {
@@ -95,90 +94,53 @@ include_once("includes/head.php");
         height: 100%;
         border: 0;
     }
-
     /* CSS cho modal */
     .modal {
-        display: none;
-        /* Mặc định ẩn modal */
-        position: fixed;
-        /* Vị trí cố định */
-        z-index: 1;
-        /* Hiển thị trên các phần tử khác */
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        /* Cho phép cuộn nếu nội dung dài hơn kích thước màn hình */
-        background-color: rgba(0, 0, 0, 0.9);
-        /* Màu nền đen với độ trong suốt */
+    display: none; /* Mặc định ẩn modal */
+    position: fixed; /* Vị trí cố định */
+    z-index: 1; /* Hiển thị trên các phần tử khác */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Cho phép cuộn nếu nội dung dài hơn kích thước màn hình */
+    background-color: rgba(0,0,0,0.9); /* Màu nền đen với độ trong suốt */
     }
 
     .modal-content {
-        margin: auto;
-        display: block;
-        width: 300px;
-        /* Thay đổi từ max-width thành width để căn giữa theo chiều ngang */
-        max-height: 80%;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        /* Di chuyển modal về giữa màn hình */
+    margin: auto;
+    display: block;
+    width: 300px; /* Thay đổi từ max-width thành width để căn giữa theo chiều ngang */
+    max-height: 80%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Di chuyển modal về giữa màn hình */
     }
 
     .modal-content img {
-        width: auto;
-        /* Thay đổi từ max-width thành width để căn giữa theo chiều ngang */
-        max-height: 80%;
-        margin-bottom: 20px;
-        /* Khoảng cách giữa hình ảnh và nút tải xuống */
+    width: auto; /* Thay đổi từ max-width thành width để căn giữa theo chiều ngang */
+    max-height: 80%;
+    margin-bottom: 20px; /* Khoảng cách giữa hình ảnh và nút tải xuống */
     }
 
     .download-btn {
-        position: absolute;
-        bottom: 0px;
-        /* Đặt vị trí nút dưới cùng */
-        left: 50%;
-        /* Canh giữa nút */
-        transform: translateX(-50%);
-        /* Canh giữa nút theo chiều ngang */
-        padding-bottom: 5px;
+    position: absolute;
+    bottom: 0px; /* Đặt vị trí nút dưới cùng */
+    left: 50%; /* Canh giữa nút */
+    transform: translateX(-50%); /* Canh giữa nút theo chiều ngang */
+    padding-bottom: 5px;
     }
 
     /* Đóng modal khi nhấn vào nút đóng hoặc nền đen */
     .modal .close {
-        position: absolute;
-        top: 15px;
-        right: 35px;
-        color: #fff;
-        font-size: 30px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .single-product__image {
-        margin: 0 0 6px;
-    }
-
-    .h-rectangle,
-    .ht-rectangle {
-        position: relative;
-        display: block;
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    div {
-
-        unicode-bidi: isolate;
-    }
-
-    a {
-        color: #337ab7;
-        text-decoration: none;
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
     }
 </style>
 
@@ -209,7 +171,7 @@ include_once("includes/head.php");
     <!-- Page Contain -->
 
 
-    <div class="container container-x">
+    <div class="container container-vsx">
         <div class="head-info">
             <div class="head-left">
                 <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>">
@@ -228,8 +190,8 @@ include_once("includes/head.php");
         <div class="head-info">
             <?php
             if (!is_null($hinhanh)) { ?>
-                <div class="content-nx">
-                    <div class="row" id="nx" style="padding: 20px 0;">
+                <div class="content-vsx">
+                    <div class="row" id="vsx" style="padding: 20px 0;">
                         <div class="col-md-3">
                             Hình ảnh:
                         </div>
@@ -237,7 +199,7 @@ include_once("includes/head.php");
                             <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>">
                         </div>
                     </div>
-                    <div class="row" id="nx">
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Loại nhà xưởng:
                         </div>
@@ -245,7 +207,7 @@ include_once("includes/head.php");
                             <p class="title"><?php echo $loainhaxuong ?></p>
                         </div>
                     </div>
-                    <div class="row" id="nx">
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Người đại diện:
                         </div>
@@ -268,7 +230,7 @@ include_once("includes/head.php");
 
                         </div>
                     </div>
-                    <div class="row" id="nx">
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Thuộc doanh nghiệp:
                         </div>
@@ -288,7 +250,7 @@ include_once("includes/head.php");
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="nx">
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Vùng sản xuất:
                         </div>
@@ -308,7 +270,7 @@ include_once("includes/head.php");
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="nx">
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Email:
                         </div>
@@ -316,7 +278,7 @@ include_once("includes/head.php");
                             <p class="title"><?php echo $email ?></p>
                         </div>
                     </div>
-                    <div class="row" id="nx">
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Số điện thoại:
                         </div>
@@ -324,7 +286,7 @@ include_once("includes/head.php");
                             <p class="title"><?php echo $dienthoai ?></p>
                         </div>
                     </div>
-                    <div class="row" id="nx">
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Địa chỉ:
                         </div>
@@ -332,7 +294,7 @@ include_once("includes/head.php");
                             <p class="title"><?php echo $diachi ?></p>
                         </div>
                     </div>
-                    <div class="row" id="nx">
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Diện tích tổng thể:
                         </div>
@@ -341,7 +303,7 @@ include_once("includes/head.php");
                         </div>
                     </div>
 
-                    <div class="row" id="nx" style="padding: 20px 0;">
+                    <div class="row" id="vsx" style="padding: 20px 0;">
                         <div class="col-md-3">
                             Giấy phép kinh doanh:
                         </div>
@@ -349,7 +311,7 @@ include_once("includes/head.php");
                             <img src="admin/uploads/<?= $giayphepkinhdoanh ?>" alt="<?= $hinhanh ?>">
                         </div>
                     </div>
-                    <div class="row" id="nx" style="padding: 20px 0;">
+                    <div class="row" id="vsx" style="padding: 20px 0;">
                         <div class="col-md-3">
                             Giấy chứng nhận:
                         </div>
@@ -357,7 +319,7 @@ include_once("includes/head.php");
                             <img src="admin/uploads/<?= $giaychungnhan ?>" alt="<?= $hinhanh ?>">
                         </div>
                     </div>
-                    <div class="row" id="nx" style="padding: 20px 0;">
+                    <div class="row" id="vsx" style="padding: 20px 0;">
                         <div class="col-md-3">
                             Giấy kiểm định:
                         </div>
@@ -365,7 +327,7 @@ include_once("includes/head.php");
                             <img src="admin/uploads/<?= $giaykiemdinh ?>" alt="<?= $hinhanh ?>">
                         </div>
                     </div>
-                    <div class="row" id="nx">
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Thông tin:
                         </div>

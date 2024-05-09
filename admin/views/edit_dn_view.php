@@ -19,8 +19,7 @@ ini_set("display_erros", "Off");
     $users = $obj->show_admin_user();
      $id_dn = $_GET['id'];
         if($_GET['status']=='dnEdit'){
-           $dn_info= $obj->show_dn_by_id($id_dn);
-           $dn = mysqli_fetch_assoc($dn_info);
+           $dn =$obj->show_dn_by_id($id_dn);
 
         }
     

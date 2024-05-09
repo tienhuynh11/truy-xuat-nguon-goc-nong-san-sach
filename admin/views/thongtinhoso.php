@@ -50,7 +50,7 @@ $nx_info = $obj->show_nhaxuong();
             <label class="col-md-3 control-label">Họ tên</label>
             <div class="col-md-6">
                 <input type="text" name="name" class="form-control" placeholder="Điền tên" value="<?= $user['hoten'] ?>">
-                <input type="hidden" value="<?= $admin_id ?>" name="id_acc" id="id_acc">
+                <input type="hidden" value="<?= $user['id_acc'] ?>" name="id_acc" id="id_acc">
             </div>
         </div>
         <?php if (!($admin_role == 'Admin')) { ?>
@@ -124,14 +124,14 @@ $nx_info = $obj->show_nhaxuong();
         <div class="form-group">
             <label class="col-md-3 control-label">Email</label>
             <div class="col-md-6">
-                <input type="email" name="sdt" class="form-control" placeholder="Điền số điện thoại" value="<?= $user['email'] ?>" disabled>
+                <input type="email" name="email" class="form-control" placeholder="Điền số điện thoại" value="<?= $user['email'] ?>" disabled>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-3 control-label">Địa chỉ</label>
             <div class="col-md-6">
-                <input type="text" name="sdt" class="form-control" placeholder="Điền số điện thoại" value="<?= $user['diachi'] ?>">
+                <input type="text" name="diachi" class="form-control" placeholder="Điền số điện thoại" value="<?= $user['diachi'] ?>">
             </div>
         </div>
 
@@ -192,12 +192,13 @@ $nx_info = $obj->show_nhaxuong();
         </div>
 
         <div class="form-group">
-            <label class="col-md-1" style="float: left;">Trạng thái</label>
-            <div class="col-md-3">
-                <input type="radio" name="trangthai" value="hoatdong"> Hoạt động<br>
-                <input type="radio" name="trangthai" value="khonghoatdong"> Không hoạt động<br>
-            </div>
-        </div>
+    <label class="col-md-1" style="float: left;">Trạng thái</label>
+    <div class="col-md-3">
+        <input type="radio" name="trangthai" value="hoatdong" <?php if($user['trangthai'] == "hoatdong") echo "checked"; ?>> Hoạt động<br>
+        <input type="radio" name="trangthai" value="khonghoatdong" <?php if($user['trangthai'] == "khonghoatdong") echo "checked"; ?>> Không hoạt động<br>
+    </div>
+</div>
+
 
         <div class="form-group">
             <div class="col-md-offset-3 col-md-9">

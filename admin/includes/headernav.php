@@ -98,7 +98,7 @@
                            <li class="user-profile header-notification">
                                <a href="#!"><?php
                                     while($user = mysqli_fetch_assoc($user_info)){ 
-                                        if($admin_email==$user['email']){?>
+                                        if($admin_id==$user['id_acc']){?>
                                    <img src="uploads/avatar/<?php echo $user['hinhdaidien']?>" class="img-radius" alt="User-Profile-Image">
                                    <span> 
                                       <?php 

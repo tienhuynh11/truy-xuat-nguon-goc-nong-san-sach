@@ -170,7 +170,7 @@ include_once("includes/head.php");
             
                 <h2>Thêm Nhật ký</h2>
 <div>
-    <form action="" method="post" enctype="multipart/form-data" class="form">
+    <form action="nhatky.php" method="post" enctype="multipart/form-data" class="form">
     <div class="form-group">
         <label for="sanpham">Sản phẩm</label>
         <select name="sanpham" id="sp" class="form-control">

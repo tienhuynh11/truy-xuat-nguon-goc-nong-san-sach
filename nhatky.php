@@ -172,25 +172,39 @@ include_once("includes/head.php");
                             <div class="row">
                                 <div class="col-xs-12 log__main-top">
                                     <div class="log__user-info">
-                                        <h4 class="log__user-info__title">
+                                        <h4 class="log__user-info__title" style="margin-left: 20px;">
                                             <a style="color: #009900;font-weight: bold;" href="#"><?= $tk['hoten']?></a>
                                             - <?php
-                                                
-                                                    echo '<span class="title-role">'.$tk['role'].'</span>';
+                                                if($tk['role']=='Admin'){
+                                                    echo '<span class="title-role">Admin</span>';
+                                                }elseif($tk['role']=='Nongdan'){
+                                                    echo '<span class="title-role">Nông dân</span>';
+                                                }elseif($tk['role']=='Chuyengia'){
+                                                    echo '<span class="title-role">Chuyên gia</span>';
+                                                }elseif($tk['role']=='Nguoikiemdinh'){
+                                                    echo '<span class="title-role">Người kiểm định</span>';
+                                                }elseif($tk['role']=='Chuyenvien'){
+                                                    echo '<span class="title-role">Chuyên viên</span>';
+                                                }elseif($tk['role']=='Kythuatvien'){
+                                                    echo '<span class="title-role">Kỹ thuật viên</span>';
+                                                }elseif($tk['role']=='Nguoidanhgia'){
+                                                    echo '<span class="title-role">Người đánh giá</span>';
+                                                }
+                                                   
                                                 
                                             ?>
                                         </h4>
                                     </div>
                                     <div class="log__meta-info">
-                                        <span class="log__user-info__meta"><?= $nk['thoigiantao'] ?></span>
+                                        <span class="log__user-info__meta" style="margin-left: 20px;"><?= $nk['thoigiantao'] ?></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 log__data">
                                     <div class="single-data">
-                                        <div class="single-data__label">Công việc: <?= $nk['tennhatky']?></div>
+                                        <div class="single-data__label" style="margin-left: 20px;">Công việc: <?= $nk['tennhatky']?></div>
                                         <div class="single-data__data">
                                             <a href="chitietnhatky.php?id=<?= $nk['id_nk']?>">
-                                                <span style="color: #FF9933;display: inline-block;max-width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" class="data-view-title"><?= $nk['chitiet']?></span>
+                                                <span style="color: #FF9933;display: inline-block;max-width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; margin-left: 20px;padding-right: 30px;" class="data-view-title"><?= $nk['chitiet']?></span>
                                             </a>
                                         </div>
                                     </div>
@@ -199,7 +213,7 @@ include_once("includes/head.php");
                                     <div class="profile-img-list">
                                         <div class="profile-img-list-item main">
                                             <a href="baiviet.php?id=<?php echo $bv['id_bv'] ?>" data-lity="" class="profile-img-list-link">
-                                                <span class="profile-img-content" style="background-image: url(admin/uploads/<?php echo $nk['hinhanh'] ?>);"></span>
+                                                <span class="profile-img-content" style="background-image: url(admin/uploads/<?php echo $nk['hinhanh'] ?>); margin-left: 20px;"></span>
                                             </a>
                                         </div>
                                     </div>
