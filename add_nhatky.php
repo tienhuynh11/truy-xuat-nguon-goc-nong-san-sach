@@ -3,9 +3,15 @@
 session_start();
 include_once("admin/class/adminback.php");
 $obj = new adminback();
+    $users = $obj->show_admin_user();
+    if(isset($_SESSION['admin_id'])) {
+        $nguoidang_id = $_SESSION['admin_id'];
+    } else {
+        header("Location: login.php");
+        exit();
+    }
 
 
-$users = $obj->show_admin_user();
  $product_info = $obj->display_product();
     if(isset($_POST['add_nk'])){
        $nk_msg =  $obj->add_nhatky($_POST);
@@ -245,4 +251,4 @@ include_once("includes/head.php");
 </body>
 
 
-
+</html>

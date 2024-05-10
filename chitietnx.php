@@ -231,12 +231,12 @@ include_once("includes/head.php");
                             Người đại diện:
                         </div>
                         <div class="col-md-9 ">
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/avatar/<?= $avatar ?>" alt="<?= $avatar ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                            <div class="slick">
+                                <div class="slick-item">
+                                    <img src="admin/uploads/avatar/<?= $avatar ?>" alt="<?= $avatar ?>" >
                                 </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;"><?php echo $hoten ?></span>
+                                <div class="slick-tilte">
+                                    <span class="sli-tilte"><?php echo $hoten ?></span>
                                 </div>
                             </div>
                         </div>
@@ -246,12 +246,12 @@ include_once("includes/head.php");
                             Thuộc doanh nghiệp:
                         </div>
                         <div class="col-md-9" >
-                        <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="slick" >
+                                <div class="slick-item">
+                                    <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>" >
                                 </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;"><?php echo $tendoanhnghiep;?></span>
+                                <div class="slick-tilte">
+                                    <span class="sli-tilte"><?php echo $tendoanhnghiep;?></span>
                                 </div>
                             </div>
                         </div>
@@ -261,16 +261,16 @@ include_once("includes/head.php");
                             Vùng sản xuất:
                         </div>
                         <div class="col-md-9">
-                        <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="slick" >
+                                <div class="slick-item">
+                                    <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>" >
                                 </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;"><?php echo $tenvung;?></span>
+                                <div class="slick-tilte">
+                                    <span class="sli-tilte"><?php echo $tenvung;?></span>
                                 </div>
                             </div>
                         </div>
-                        </div>
+                    </div>
                   
                     <div class="row" id="vsx" >
                         <div class="col-md-3">
@@ -345,12 +345,12 @@ include_once("includes/head.php");
                             <?php 
                             $arry  = $obj->show_admin_user_by_nhaxuong($id_nx);
                              while($user = mysqli_fetch_assoc($arry)){ ?>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/avatar/<?= $user['hinhdaidien'] ?>" alt="<?= $avatar ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                            <div class="slick">
+                                <div class="slick-item">
+                                    <img src="admin/uploads/avatar/<?= $user['hinhdaidien'] ?>" alt="<?= $avatar ?>" >
                                 </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;"><?php echo  $user['hoten'] ?></span>
+                                <div class="slick-tilte">
+                                    <span class="sli-tilte"><?php echo  $user['hoten'] ?></span>
                                 </div>
                             </div>
                             <?php } ?>

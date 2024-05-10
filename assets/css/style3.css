@@ -14887,3 +14887,30 @@ body.open-quickview-block .biolife-quickview-block{
     font-size: 20px;
     color: var(--main-color);
 }
+.slick {
+    border: #ccc 1px solid;
+    width: 170px;
+    height: 220px;
+    border-radius: 3%;
+}
+.slick-item{
+    padding: 10px;
+    height: 150px;
+    width: 100%;
+}
+.slick-item img{
+    width: 100%; 
+    height: 100%;
+    object-fit: cover;
+}
+.slick-tilte{
+   padding: 0px 10px;
+   text-align: center;
+   font-weight: bold;
+   color: black;
+   height: 70px;
+}
+.sli-tilte{
+   height: 70px;
+   width: 100%;
+}

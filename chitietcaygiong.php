@@ -198,7 +198,7 @@ include_once("includes/head.php");
 
 
             <!--Navigation section-->
-            <div class="container">
+            <div class="container container-x">
                 <nav class="biolife-nav">
                     <ul>
                         <li class="nav-item"><a href="index.php" class="permal-link">Trang chủ</a></li>
@@ -222,7 +222,7 @@ include_once("includes/head.php");
 
             <div class="container">
                 <div class="page-contain single-product">
-                    <div class="container">
+                    <div class="container container-x">
 
                         <!-- Main content -->
                         <div id="main-content" class="main-content">

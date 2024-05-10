@@ -254,6 +254,25 @@ include_once("includes/head.php");
                             <p class="title"><?php echo $thoigiannuoitrong ?></p>
                         </div>
                     </div>
+                    <div class="row" id="vsx" style="padding: 20px 0;">
+                        <div class="col-md-3">
+                            Danh sách thành viên:
+                        </div>
+                        <div class="col-md-9 slider-nguoidaidien" >
+                            <?php 
+                            $arry  = $obj->show_admin_user_by_nhaxuong($vsxID);
+                             while($user = mysqli_fetch_assoc($arry)){ ?>
+                            <div class="slick">
+                                <div class="slick-item">
+                                    <img src="admin/uploads/avatar/<?= $user['hinhdaidien'] ?>" alt="<?= $avatar ?>" >
+                                </div>
+                                <div class="slick-tilte">
+                                    <span class="sli-tilte"><?php echo  $user['hoten'] ?></span>
+                                </div>
+                            </div>
+                            <?php } ?>
+                        </div>
+                    </div>
                     <div class="row" id="vsx">
                         <div class="col-md-3">
                             Thông tin:
@@ -302,3 +321,23 @@ include_once("includes/head.php");
 </body>
 
 </html>
+<script>
+    $(document).ready(function() {
+        $('.slider-nguoidaidien').slick({
+            arrows: true,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            focusOnSelect: true,
+            infinite: false,
+
+            responsive: [{
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    
+                }
+            }]
+        });
+
+    });
+</script>
