@@ -258,8 +258,14 @@ class  adminback
 
     function delete_admin($admin_id)
     {
-        $query = "DELETE FROM `taikhoan` WHERE `id_acc`=$admin_id";
+        $sel_query = "DELETE FROM `taikhoan` WHERE `id_acc`=$admin_id";
+        $query = mysqli_query($this->connection, $sel_query);
+        $fetch = mysqli_fetch_assoc($query);
+        $img_name = $fetch['hinhdaidien'];
+        
+        
         if (mysqli_query($this->connection, $query)) {
+            unlink('uploads/avatar/' . $img_name);
             echo '<script>
             alert("Xóa tài khoản thành công");
             window.location.href = "manage_account.php";
@@ -404,6 +410,15 @@ class  adminback
         // Trả về chuỗi đã được xử lý
         return $str;
     }
+    function display_product()
+    {
+        $query = "SELECT * FROM `sanpham`";
+
+        if (mysqli_query($this->connection, $query)) {
+            $pdt_info = mysqli_query($this->connection, $query);
+            return $pdt_info;
+        }
+    }
 
     function add_product($data)
     {
@@ -479,11 +494,11 @@ class  adminback
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
         $pdt_name = $fetch['tensanpham'];
-        // $img_name = $fetch['hinhann'];
+        $img_name = $fetch['hinhanh'];
 
         $del_query = "DELETE FROM `sanpham` WHERE id_sp=$id";
         if (mysqli_query($this->connection, $del_query)) {
-            // unlink('uploads/' . $img_name);
+            unlink('uploads/' . $img_name);
             echo '<script>
                         alert("Xóa thành công");
                         window.location.href = "manage_product.php";
@@ -1087,11 +1102,11 @@ class  adminback
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
         $mavung = $fetch['mavung'];
-        // $img_name = $fetch['hinhann'];
+        $img_name = $fetch['hinhanh'];
 
         $del_query = "DELETE FROM `vungsanxuat` WHERE id_vung=$id";
         if (mysqli_query($this->connection, $del_query)) {
-            // unlink('uploads/' . $img_name);
+            unlink('uploads/' . $img_name);
             echo '<script>
                                 alert("Xóa thành công");
                                 window.location.href = "manage_vsx.php";
@@ -1197,8 +1212,12 @@ class  adminback
     }
     function delete_baiviet($id_bv)
     {
-        $query = "DELETE FROM `baiviet` WHERE `id_bv`=$id_bv";
+        $sel_query = "DELETE FROM `baiviet` WHERE `id_bv`=$id_bv";
+        $query = mysqli_query($this->connection, $sel_query);
+        $fetch = mysqli_fetch_assoc($query);
+        $img_name = $fetch['hinhanh'];
         if (mysqli_query($this->connection, $query)) {
+            unlink('uploads/baiviet/'. $img_name);
             echo '<script>
             alert("Xóa bài viết thành công");
             window.location.href = "manage_bv.php";
@@ -1459,8 +1478,12 @@ class  adminback
 
     function delete_caygiong($id_cg)
     {
-        $query = "DELETE FROM `caygiong` WHERE `id_cg`=$id_cg";
+        $sel_query = "DELETE FROM `caygiong` WHERE `id_cg`=$id_cg";
+        $query = mysqli_query($this->connection, $sel_query);
+        $fetch = mysqli_fetch_assoc($query);
+        $img_name = $fetch["hinhanh"];
         if (mysqli_query($this->connection, $query)) {
+            unlink('uploads/'. $img_name);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_caygiong.php";
@@ -1672,8 +1695,12 @@ class  adminback
     }
     function delete_dn($id_dn)
     {
-        $query = "DELETE FROM `doanhnghiep` WHERE  id_dn = $id_dn";
+        $sel_query = "DELETE FROM `doanhnghiep` WHERE  id_dn = $id_dn";
+        $query = mysqli_query($this->connection, $sel_query);
+        $fetch = mysqli_fetch_assoc($query);
+        $img_name = $fetch['hinhanh'];
         if (mysqli_query($this->connection, $query)) {
+            unlink('uploads/'. $img_name);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_doanhnghiep.php";
@@ -1901,8 +1928,12 @@ class  adminback
     }
     function delete_nhatky($id_nk)
     {
-        $query = "DELETE FROM `nhatky` WHERE `id_nk`=$id_nk";
+        $sel_query = "DELETE FROM `nhatky` WHERE `id_nk`=$id_nk";
+        $query = mysqli_query($this->connection, $sel_query);
+        $fetch = mysqli_fetch_assoc($query);
+        $img_name = $fetch['hinhanh'];
         if (mysqli_query($this->connection, $query)) {
+            unlink('uploads/'.$img_name);
             echo '<script>
             alert("Xóa nhật ký sản phẩm thành công");
             window.location.href = "manage_nhatky.php";
@@ -2315,8 +2346,12 @@ class  adminback
     }
     function delete_nx($id_nx)
     {
-        $query = "DELETE FROM `nhaxuong` WHERE  id_dn = $id_nx";
+        $sel_query = "DELETE FROM `nhaxuong` WHERE  id_dn = $id_nx";
+        $query = mysqli_query($this->connection, $sel_query);
+        $fetch = mysqli_fetch_assoc($query);
+        $img_name = $fetch['hinhanh'];
         if (mysqli_query($this->connection, $query)) {
+            unlink('uploads/'.$img_name);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_nhaxuong.php";
