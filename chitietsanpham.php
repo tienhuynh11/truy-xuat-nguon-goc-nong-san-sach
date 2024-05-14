@@ -528,10 +528,16 @@ include_once("includes/head.php");
                                         </div>
                                         <div id="tab_3rd" class="tab-contain review-tab">
                                             <div class="container">
-                                                <div class="row">
-                                                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                                                <?php if (!empty($hinhanh)) : ?>
+                                                    <div class="row" id="vsx" style="padding: 20px 0;">
+                                                        <div class="col-md-3">
+                                                            Giấy kiểm định:
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>">
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
