@@ -3,20 +3,19 @@
 session_start();
 include_once("admin/class/adminback.php");
 $obj = new adminback();
-    $users = $obj->show_admin_user();
-    if(isset($_SESSION['admin_id'])) {
-        $nguoidang_id = $_SESSION['admin_id'];
-    } else {
-        header("Location: login.php");
-        exit();
-    }
+$users = $obj->show_admin_user();
+if (isset($_SESSION['admin_id'])) {
+    $nguoidang_id = $_SESSION['admin_id'];
+} else {
+    header("Location: dangnhap.php");
+    exit();
+}
 
 
- $product_info = $obj->display_product();
-    if(isset($_POST['add_nk'])){
-       $nk_msg =  $obj->add_nhatky($_POST);
-       
-    }
+$product_info = $obj->display_product();
+if (isset($_POST['add_nk'])) {
+    $nk_msg =  $obj->add_nhatky($_POST);
+}
 ?>
 
 
@@ -26,6 +25,7 @@ $obj = new adminback();
         max-width: 100%;
         height: auto;
     }
+
     .tab-link {
         font-size: 16px;
     }
@@ -36,79 +36,94 @@ $obj = new adminback();
             font-size: 25px;
         }
     }
-    .desc-expand{
+
+    .desc-expand {
         font-size: 18px;
     }
+
     .sumary-product {
         border: #e3e3e3 solid 1px;
         border-radius: 5px;
         background-color: #ffff;
         padding: 10px 10px;
     }
-    .accodition-tab .row .col-md-12{
+
+    .accodition-tab .row .col-md-12 {
         padding: 0;
     }
+
     .production-area-box {
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin-bottom: 20px;
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-bottom: 20px;
     }
 
-    :root{ --main-color: #A0C438; }
-    .serviceBox{
+    :root {
+        --main-color: #A0C438;
+    }
+
+    .serviceBox {
         color: var(--main-color);
         background: var(--main-color);
         font-family: 'Raleway', sans-serif;
         text-align: center;
         border-radius: 0 0 20px 20px;
         padding: 20px 20px 25px;
-        box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
         overflow: hidden;
         position: relative;
         z-index: 1;
         margin-bottom: 10px;
     }
+
     .serviceBox:before,
-    .serviceBox:after{
+    .serviceBox:after {
         content: "";
-        width: calc( 100% - 25px);
+        width: calc(100% - 25px);
         transform: translateX(-50%);
         position: absolute;
         left: 50%;
     }
-    .serviceBox:before{
+
+    .serviceBox:before {
         background: #fff;
-        height: calc( 100% - 15px);
+        height: calc(100% - 15px);
         top: 15px;
         z-index: -1;
     }
-    .serviceBox:after{
+
+    .serviceBox:after {
         border: 12px solid var(--main-color);
         height: 100px;
         border-radius: 0 0 100px 100px;
         top: 0;
     }
-    .serviceBox .service-icon{
+
+    .serviceBox .service-icon {
         font-size: 40px;
         margin: 0 0 35px;
         display: inline-block;
     }
-    .serviceBox .title{
+
+    .serviceBox .title {
         font-size: 26px;
         font-weight: 700;
         margin: 0 0 5px;
         padding-top: 10px;
     }
-    .serviceBox h5{
+
+    .serviceBox h5 {
         font-size: 20px;
         margin: 0;
         margin-bottom: 2px;
     }
-    .serviceBox .title-sub{
+
+    .serviceBox .title-sub {
         text-align: left;
         font-weight: bold;
     }
-    .serviceBox .description{
+
+    .serviceBox .description {
         text-align: left;
         color: #888;
         font-size: 13.2px;
@@ -117,22 +132,35 @@ $obj = new adminback();
         text-align: justify;
         line-height: -0.9px;
     }
-    .serviceBox a{
+
+    .serviceBox a {
         margin-top: 2px;
     }
+
     .product-tabs .tab-content .serviceBox p {
         line-height: normal;
     }
-    .product-tabs.single-layout .tab-content{
+
+    .product-tabs.single-layout .tab-content {
         padding: 0;
     }
-    .serviceBox.pink{ --main-color: #FA68A0; }
-    .serviceBox.blue{ --main-color: #01748E; }
-    .serviceBox.green{ --main-color: #06BD7F; }
-    @media only screen and (max-width: 1199px){
-    .serviceBox{
-        margin: 0 0 20px;
+
+    .serviceBox.pink {
+        --main-color: #FA68A0;
     }
+
+    .serviceBox.blue {
+        --main-color: #01748E;
+    }
+
+    .serviceBox.green {
+        --main-color: #06BD7F;
+    }
+
+    @media only screen and (max-width: 1199px) {
+        .serviceBox {
+            margin: 0 0 20px;
+        }
     }
 </style>
 
@@ -171,83 +199,82 @@ include_once("includes/head.php");
         <div id="main-content" class="main-content">
 
             <!--Navigation section-->
-            <div class="container">
-               
-            
-                <h2>Thêm Nhật ký</h2>
-<div>
-    <form action="nhatky.php" method="post" enctype="multipart/form-data" class="form">
-    <div class="form-group">
-        <label for="sanpham">Sản phẩm</label>
-        <select name="sanpham" id="sp" class="form-control">
-        <?php while($pro = mysqli_fetch_assoc($product_info)){ ?>
-        <option value="<?php echo $pro['id_sp']; ?>"  ><?php echo $pro['tensanpham'] ?></option>
+            <div class="container container-x">
+                <div>
+                    <form action="nhatky.php" method="post" enctype="multipart/form-data" class="form">
+                        <h2>Thêm Nhật ký</h2>
+                        <div class="form-group col-md-6">
+                            <label for="sanpham">Sản phẩm liên quan</label>
+                            <select name="sanpham" id="sp" class="form-control">
+                                <?php while ($pro = mysqli_fetch_assoc($product_info)) { ?>
+                                    <option value="<?php echo $pro['id_sp']; ?>"><?php echo $pro['tensanpham'] ?></option>
 
-        <?php }?>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="nguoidang">Người đại diện</label>
-        <select name="nguoidang" id="nguoidang" class="form-control">
-            <?php foreach($users as $user): ?>
-                <?php if ($user['id_acc']== $nguoidang_id) { ?>
-                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
-            <?php } else { ?>
-                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
-            <?php } ?>
-            <?php endforeach; ?>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="tennhatky">Tên nhật ký</label> 
-        <input type="text" name="tennhatky" class="form-control">
-    </div>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="nguoidang">Người đại diện</label>
+                            <select name="nguoidang" id="nguoidang" class="form-control">
+                                <?php foreach ($users as $user) : ?>
+                                    <?php if ($user['id_acc'] == $nguoidang_id) { ?>
+                                        <option value="<?php echo $user['id_acc'] ?>" selected><?php echo $user['hoten']  . '-' . $user['dienthoai'] ?></option>
+                                    <?php } else { ?>
+                                        <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  . '-' .  $user['dienthoai'] ?></option>
+                                    <?php } ?>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="tennhatky">Tên nhật ký</label>
+                            <input type="text" name="tennhatky" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="nk_img">Hình ảnh</label>
+                            <input type="file" name="nk_img" class="form-control">
+                        </div>
 
-    <div class="form-group">
-        <label for="chitiet">Chi tiết</label>
-       <textarea name="chitiet" id="" cols="30" rows="10" class="form-control" ></textarea>
-    </div>
+                        <div class="form-group col-md-12">
+                            <label for="chitiet">Chi tiết</label>
+                            <textarea name="chitiet" id="" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
 
-    <div class="form-group">
-        <label for="nk_img">Hình ảnh</label>
-        <input type="file" name="nk_img" class="form-control">
-    </div>
-    <div class="form-group">
-        <input type="submit" name="add_nk" class="btn btn-primary">
-    </div>
-    </form>
-</div>
-<script>
-    $(document).ready(function() {
-        $("#sp").select2();
-        $("#nguoidang").select2();
-    });
-</script>  
+
+                        <div class="form-group col-md-12">
+                            <input type="submit" name="add_nk" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+                <script>
+                    $(document).ready(function() {
+                        $("#sp").select2();
+                        $("#nguoidang").select2();
+                    });
+                </script>
             </div>
 
-           
-    <!-- FOOTER -->
 
-    <?php
-    include_once("includes/footer.php");
-    ?>
+            <!-- FOOTER -->
 
-    <!--Footer For Mobile-->
-    <?php
-    include_once("includes/mobile_footer.php");
-    ?>
+            <?php
+            include_once("includes/footer.php");
+            ?>
 
-    <?php
-    include_once("includes/mobile_global.php")
-    ?>
+            <!--Footer For Mobile-->
+            <?php
+            include_once("includes/mobile_footer.php");
+            ?>
+
+            <?php
+            include_once("includes/mobile_global.php")
+            ?>
 
 
-    <!-- Scroll Top Button -->
-    <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
+            <!-- Scroll Top Button -->
+            <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
-    <?php
-    include_once("includes/script.php")
-    ?>
+            <?php
+            include_once("includes/script.php")
+            ?>
 </body>
 
 

@@ -93,7 +93,7 @@ if(isset($_GET['search'])){
         }
         $search_item =count($nhatky);
     }else{
-        header('location:caygiong.php');
+        header('location:nhatky.php');
     }
 }else{
     $nk = $obj->show_nhatky();
