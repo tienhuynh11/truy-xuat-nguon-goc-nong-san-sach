@@ -50,6 +50,7 @@ $arry = $obj->display_dn_pagination($bat_dau, $ket_thuc);
        
             <tr>
                 <th>STT</th>
+                <th>Người đăng</th>
                 <th>Loại doanh nghiệp</th>
                 <th>Người đại diện </th>
                 <th>Tên doanh nghiệp</th>
@@ -73,6 +74,16 @@ $arry = $obj->display_dn_pagination($bat_dau, $ket_thuc);
         ?>
             <tr>
                 <td> <?php echo $dem ?> </td>
+                <td> <?php 
+                  
+                  foreach($user_array as $user){
+                      if($dn['nguoidang'] == $user['id_acc'])
+                      {
+                          echo $user['hoten'] ;
+                      }
+                  }
+                  
+                      ?> </td>
                 <td> <?php 
                   
                         foreach($catadn_array as $catadn){

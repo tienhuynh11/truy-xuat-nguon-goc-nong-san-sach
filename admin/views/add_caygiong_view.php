@@ -6,7 +6,12 @@
         $rtn_msg = $obj->add_caygiong($_POST);
     }
 
-
+    if(isset($_SESSION['admin_id'])) {
+        $nguoidang_id = $_SESSION['admin_id'];
+    } else {
+        header("Location:../dangnhap.php");
+        exit();
+    }
     $dn_array = array();
     while($dn = mysqli_fetch_assoc($dn_info)){
         $dn_array[] = $dn;
@@ -21,6 +26,10 @@
         <label for="tencaygiong">Tên cây giống</label>
         <input type="text" name="tencaygiong" class="form-control" required>
     </div>
+    <div class="form-group">
+        <input type="hidden" name="nguoidang" class="form-control" value="<?php echo $nguoidang_id?>">
+    </div>
+
     <div class="form-group">
         <label for="macaygiong">Mã cây giống</label>
         <input type="text" name="macaygiong" class="form-control">

@@ -1,5 +1,11 @@
 
 <?php 
+  if(isset($_SESSION['admin_id'])) {
+    $nguoidang_id = $_SESSION['admin_id'];
+} else {
+    header("Location:../dangnhap.php");
+    exit();
+}
     $catanx_info = $obj->display_catagory_nx();
     $dn_info=$obj->display_dn();
     $users = $obj->show_admin_user();
@@ -18,6 +24,9 @@
 
 <form action="" method="post" enctype="multipart/form-data" class="form">
 <div class="form-group">
+    <div class="form-group">
+        <input type="hidden" name="nguoidang" class="form-control" value="<?php echo $nguoidang_id?>">
+    </div>
     <div class="form-group">
         <label for="danhmuc_nx">Danh mục nhà xưởng</label>
         <select name="danhmuc_nx" id="danhmuc_nx" class="form-control" >

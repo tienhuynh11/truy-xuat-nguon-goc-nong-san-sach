@@ -18,7 +18,7 @@
     if(isset($_SESSION['admin_id'])) {
         $nguoidang_id = $_SESSION['admin_id'];
     } else {
-        header("Location: login.php");
+        header("Location:../dangnhap.php");
         exit();
     }
     $user_array = array();
@@ -45,7 +45,9 @@
         <?php }?>
         </select>
     </div>
-
+    <div class="form-group">
+        <input type="hidden" name="nguoidang" class="form-control" value="<?php echo $nguoidang_id?>">
+    </div>
     <div class="form-group">
         <label for="nguoidaidien">Người đại diện</label>
         <select name="nguoidaidien" id="nguoidaidien" class="form-control">

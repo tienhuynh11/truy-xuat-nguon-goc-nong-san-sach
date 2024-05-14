@@ -14,6 +14,11 @@
     $show_cg = $obj->display_cg_pagination($bat_dau, $ket_thuc);
 
     $dn_info=$obj->display_dn();
+    $user_info = $obj->show_admin_user();
+    $user_array = array();
+    while($user = mysqli_fetch_assoc($user_info)){
+        $user_array[] = $user;
+    }
 
     $dn_array = array();
     while($dn = mysqli_fetch_assoc($dn_info)){
@@ -42,6 +47,7 @@
         <thead>
             <tr>
                 <th>Stt</th>
+                <th>Người đăng</th>
                 <th>Tên Cây giống</th>
                 <th>Mã Cây giống</th>
                 <th>Mô tả</th>
@@ -66,7 +72,18 @@
                 
         ?>
             <tr>
+               
                 <td><?php echo $dem ?></td>
+                <td> <?php 
+                  
+                  foreach($user_array as $user){
+                      if($cg['nguoidang'] == $user['id_acc'])
+                      {
+                          echo $user['hoten'];
+                      }
+                  }
+                  
+                      ?> </td>
                 <td> <?php echo $cg['tencaygiong']  ?> </td>
                 <td> <?php echo  $cg['macaygiong'] ?> </td>
                 <td> <?php echo $cg['mota'] ?> </td>

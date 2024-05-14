@@ -1494,6 +1494,7 @@ class  adminback
     function add_caygiong($data)
     {
 
+        $nguoidang = $data['nguoidang'];
         $tencaygiong = $data['tencaygiong'];
         $macaygiong = $data['macaygiong'];
         $mota = $data['mota'];
@@ -1518,7 +1519,7 @@ class  adminback
             if ($img_size <= 2e+6) {
 
                 if ($width < 2071 && $height < 2071) {
-                    $query = "INSERT INTO `caygiong` ( `nhasanxuat`, `nhaphanphoi`,`tencaygiong`, `macaygiong`, `mota`, `xuatxu`, `gia`, `ngaysanxuat`,  `hansudung`,`hdsd`, `phuongphaptrong`, `hinhanh`, `lienhe`) VALUES ('$nhasanxuat','$nhaphanphoi', '$tencaygiong', '$macaygiong', '$mota',  '$xuatxu',  '$gia',  '$ngaysanxuat', '$hansudung','$hdsd', '$phuongphaptrong', '$img_name', '$lienhe');";
+                    $query = "INSERT INTO `caygiong` (  `nguoidang`,`nhasanxuat`, `nhaphanphoi`,`tencaygiong`, `macaygiong`, `mota`, `xuatxu`, `gia`, `ngaysanxuat`,  `hansudung`,`hdsd`, `phuongphaptrong`, `hinhanh`, `lienhe`) VALUES ('$nguoidang','$nhasanxuat','$nhaphanphoi', '$tencaygiong', '$macaygiong', '$mota',  '$xuatxu',  '$gia',  '$ngaysanxuat', '$hansudung','$hdsd', '$phuongphaptrong', '$img_name', '$lienhe');";
 
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($img_tmp, "uploads/" . $img_name);
@@ -1827,6 +1828,7 @@ class  adminback
         $diachi = $data['diachi'];
         $masothue = $data['masothue'];
         $thongtinchung = $data['thongtinchung'];
+        $nguoidang = $data['nguoidang'];
 
         // Xử lý hình ảnh doanh nghiệp
         $dn_img_name = $_FILES['hinhanh']['name'];
@@ -1877,7 +1879,7 @@ class  adminback
                             move_uploaded_file($giaykiemdinh_img_tmp, "uploads/" . $giaykiemdinh_img_name);
 
                             // Thực hiện truy vấn INSERT vào cơ sở dữ liệu
-                            $query = "INSERT INTO `doanhnghiep` (`danhmuc_dn`, `nguoidaidien`, `tendoanhnghiep`, `hinhanh`, `sdt`, `email`, `diachi`, `masothue`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtinchung`) VALUES ('$danhmuc_dn', '$nguoidaidien', '$tendoanhnghiep', '$dn_img_name', '$sdt', '$email', '$diachi', '$masothue', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtinchung')";
+                            $query = "INSERT INTO `doanhnghiep` (`nguoidang`,`danhmuc_dn`, `nguoidaidien`, `tendoanhnghiep`, `hinhanh`, `sdt`, `email`, `diachi`, `masothue`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtinchung`) VALUES ('$nguoidang','$danhmuc_dn', '$nguoidaidien', '$tendoanhnghiep', '$dn_img_name', '$sdt', '$email', '$diachi', '$masothue', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtinchung')";
 
                             if (mysqli_query($this->connection, $query)) {
                                 $msg = "Thêm thành công";
@@ -2371,6 +2373,7 @@ class  adminback
         $diachi = $data['diachi'];
         $dientichtongthe = $data['dientichtongthe'];
         $thongtin = $data['thongtin'];
+        $nguoidang = $data['nguoidang'];
 
 
         $nx_img_name = $_FILES['hinhanh']['name'];
@@ -2421,7 +2424,7 @@ class  adminback
                             move_uploaded_file($giaykiemdinh_img_tmp, "uploads/" . $giaykiemdinh_img_name);
 
                             // Thực hiện truy vấn INSERT vào cơ sở dữ liệu
-                            $query = "INSERT INTO `nhaxuong` ( `danhmuc_nx`, `nguoidaidien`, `doanhnghiep`, `vungsanxuat`, `tennhaxuong`, `manhaxuong`, `hinhanh`, `dienthoai`, `email`, `diachi`, `dientichtongthe`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtin`) VALUES ('$danhmuc_nx', '$nguoidaidien', '$doanhnghiep', '$vsx', '$tennhaxuong', '$manhaxuong', '$nx_img_name', '$sdt', '$email', '$diachi', '$dientichtongthe', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtin');";
+                            $query = "INSERT INTO `nhaxuong` (  `nguoidang`,`danhmuc_nx`, `nguoidaidien`, `doanhnghiep`, `vungsanxuat`, `tennhaxuong`, `manhaxuong`, `hinhanh`, `dienthoai`, `email`, `diachi`, `dientichtongthe`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtin`) VALUES ('$nguoidang','$danhmuc_nx', '$nguoidaidien', '$doanhnghiep', '$vsx', '$tennhaxuong', '$manhaxuong', '$nx_img_name', '$sdt', '$email', '$diachi', '$dientichtongthe', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtin');";
 
                             if (mysqli_query($this->connection, $query)) {
                                 $msg = "Thêm thành công";

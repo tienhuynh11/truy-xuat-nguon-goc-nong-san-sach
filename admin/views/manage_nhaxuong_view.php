@@ -60,12 +60,15 @@ $arry = $obj->display_nx_pagination($bat_dau, $ket_thuc);
        
             <tr>
                 <th>STT</th>
+                <th>Tên nhà xưởng</th>
+                <th>Mã nhà xưởng</th>
+                <th>Người đăng</th>
                 <th>Danh mục nhà xưởng</th>
+                
                 <th>Người đại diện </th>
                 <th>Doanh nghiệp</th>
                 <th>Vùng sản xuất</th>
-                <th>Tên nhà xưởng</th>
-                <th>Mã nhà xưởng</th>
+                
                 <th>Hình ảnh</th>
                 <th>Số điện thoại</th>
                 <th>Email</th>
@@ -86,6 +89,18 @@ $arry = $obj->display_nx_pagination($bat_dau, $ket_thuc);
         ?>
             <tr>
                 <td> <?php echo $dem ?> </td>
+                <td> <?php echo $nx['tennhaxuong'] ?> </td>   
+                      <td> <?php echo $nx['manhaxuong'] ?> </td>
+                <td> <?php 
+                  
+                  foreach($user_array as $user){
+                      if($nx['nguoidang'] == $user['id_acc'])
+                      {
+                          echo $user['hoten'] ;
+                      }
+                  }
+                  
+                      ?> </td>
                 <td> <?php 
                   
                         foreach($catanx_array as $catanx){
@@ -126,8 +141,7 @@ $arry = $obj->display_nx_pagination($bat_dau, $ket_thuc);
                   }
                   
                       ?> </td>
-                      <td> <?php echo $nx['tennhaxuong'] ?> </td>   
-                      <td> <?php echo $nx['manhaxuong'] ?> </td>
+                      
                  <td><img style="height:60px" src="uploads/<?php echo $nx['hinhanh'] ?>" alt=""></td>
                  <td> <?php echo $nx['dienthoai'] ?> </td>
                  <td> <?php echo $nx['email'] ?> </td>
