@@ -52,6 +52,12 @@ include_once("includes/head.php");
                 <ion-icon name="shield-checkmark-outline"></ion-icon>
                 <span>Tài khoản không tồn tại!</span>
             </div>
+        <?php } elseif ($logmsg == 4) { ?>
+            <div class="alert">
+                <div class="process"></div>
+                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                <span>Tài khoản đã bị khóa! Vui lòng liên hệ nhà quản trị để mở khóa!</span>
+            </div>
         <?php } ?>
     <?php } ?>
 

@@ -28,12 +28,17 @@ class  adminback
             if (mysqli_num_rows($result) > 0) {
                 $admin_info = mysqli_fetch_assoc($result);
                 if ($admin_info['token'] == '' and $admin_info['xacthuc'] == 1) {
-                    header("location:../index.php");
-                    session_start();
-                    $_SESSION['admin_id'] = $admin_info['id_acc'];
-                    $_SESSION['admin_email'] = $admin_info['email'];
-                    $_SESSION['role'] = $admin_info['role'];
-                    $_SESSION['username'] = $admin_info['hoten'];
+                    if ($admin_info['trangthai'] == 'hoatdong') {
+                        header("location:../index.php");
+                        session_start();
+                        $_SESSION['admin_id'] = $admin_info['id_acc'];
+                        $_SESSION['admin_email'] = $admin_info['email'];
+                        $_SESSION['role'] = $admin_info['role'];
+                        $_SESSION['username'] = $admin_info['hoten'];
+                    }else{
+                        $log_msg = 4;
+                        return $log_msg;
+                    }
                 } else {
                     $log_msg = 1;
                     return $log_msg;
@@ -467,18 +472,6 @@ class  adminback
             return $msg;
         }
     }
-
-    function display_product()
-    {
-        $query = "SELECT * FROM `sanpham`";
-
-        if (mysqli_query($this->connection, $query)) {
-            $pdt_info = mysqli_query($this->connection, $query);
-            return $pdt_info;
-        }
-    }
-
-
 
     function delete_product($id)
     {
@@ -2028,27 +2021,46 @@ class  adminback
             return $msg;
         }
     }
-    function display_product_pagination($bat_dau, $ket_thuc)
+    function display_product_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
     {
         $query = "SELECT * FROM `sanpham` order by id_sp desc LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
-            return $result;
+            //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+            if($role == "Admin") {
+                return $result;
+            } else {
+                //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+                $query = "SELECT * FROM `sanpham` where taikhoan = '$nguoidang' order by id_sp desc LIMIT $bat_dau, $ket_thuc";
+                $result = mysqli_query($this->connection, $query);
+                return $result;
+            }
         } else {
             echo "Error: " . mysqli_error($this->connection);
             return false;
         }
     }
-    function count_sp()
+    function count_sp($nguoidang,$role)
     {
         $query = "SELECT COUNT(*) AS demsp FROM `sanpham`";
 
         $result = mysqli_query($this->connection, $query);
 
         if ($result) {
-            $row = mysqli_fetch_assoc($result);
-            $demsp = $row['demsp'];
-            return $demsp;
+            if($role == "Admin") {
+                //Đếm trang theo role Admin
+                $row = mysqli_fetch_assoc($result);
+                $demsp = $row['demsp'];
+                return $demsp;
+            } else {
+                //Đếm trang theo các role khác
+                $query = "SELECT COUNT(*) AS demsp FROM `sanpham` where taikhoan = $nguoidang";
+                $result = mysqli_query($this->connection, $query);
+                $row = mysqli_fetch_assoc($result);
+                $demsp = $row['demsp'];
+                return $demsp;   
+            }
+            
         } else {
             return "Error: " . mysqli_error($this->connection);
         }

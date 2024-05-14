@@ -12,14 +12,14 @@ $nx_info = $obj->show_nhaxuong();
 ?>
 
 <?php if (!empty($reg_msg)) {
-    if ($reg_msg == 1) {
+    if ($reg_msg == 1 || $reg_msg == 5) {
 ?>
         <div class="alert success">
             <div class="process"></div>
             <ion-icon name="shield-checkmark-outline"></ion-icon>
             <span>Cập nhật thành công!</span>
         </div>
-    <?php } elseif ($reg_msg == 2) { ?>
+    <?php } elseif ($reg_msg == 2 || $reg_msg == 6) { ?>
         <div class="alert">
             <div class="process"></div>
             <ion-icon name="shield-checkmark-outline"></ion-icon>
@@ -191,14 +191,15 @@ $nx_info = $obj->show_nhaxuong();
             </div>
         </div>
 
-        <div class="form-group">
-    <label class="col-md-1" style="float: left;">Trạng thái</label>
-    <div class="col-md-3">
-        <input type="radio" name="trangthai" value="hoatdong" <?php if($user['trangthai'] == "hoatdong") echo "checked"; ?>> Hoạt động<br>
-        <input type="radio" name="trangthai" value="khonghoatdong" <?php if($user['trangthai'] == "khonghoatdong") echo "checked"; ?>> Không hoạt động<br>
-    </div>
-</div>
-
+        <?php if (($admin_role == 'Admin')) { ?>
+            <div class="form-group">
+                <label class="col-md-1" style="float: left;">Trạng thái</label>
+                <div class="col-md-3">
+                    <input type="radio" name="trangthai" value="hoatdong" <?php if ($user['trangthai'] == "hoatdong") echo "checked"; ?>> Hoạt động<br>
+                    <input type="radio" name="trangthai" value="khonghoatdong" <?php if ($user['trangthai'] == "khonghoatdong") echo "checked"; ?>> Không hoạt động<br>
+                </div>
+            </div>
+        <?php } ?>
 
         <div class="form-group">
             <div class="col-md-offset-3 col-md-9">
