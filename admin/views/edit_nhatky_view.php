@@ -1,6 +1,8 @@
 <?php 
  $users = $obj->show_admin_user();
     $product_info=$obj->display_product();
+    $vungsanxuat=$obj->vsxShow();
+ $doanhnghiep = $obj->display_dn();
     if(isset($_GET['status'])){
         $id_nk = $_GET['id'];
         if($_GET['status']=="nkEdit"){
@@ -42,13 +44,25 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="nguoidang">Người đại diện</label>
-        <select name="nguoidang" id="nguoidaidien" class="form-control">
-            <?php foreach($users as $user): ?>
-                <?php if ($user['id_acc']== $nk['nguoidang']) { ?>
-                <option value="<?php echo $user['id_acc']?>" selected><?php echo $user['hoten']  .'-'. $user['dienthoai']?></option>
+        <label for="vungsanxuat">Vùng sản xuất</label>
+        <select name="vungsanxuat" id="vungsanxuat" class="form-control">
+            <?php foreach($vungsanxuat as $vsx): ?>
+                <?php if ($vsx['id_vung']== $nk['vungsanxuat']) { ?>
+                <option value="<?php echo $vsx['id_vung']?>" selected><?php echo $vsx['tenvung']?></option>
             <?php } else { ?>
-                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  .'-'.  $user['dienthoai'] ?></option>
+                <option value="<?php echo $vsx['id_vung'] ?>"><?php echo $vsx['tenvung'] ?></option>
+            <?php } ?>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="doanhnghiep">Doanh nghiệp</label>
+        <select name="doanhnghiep" id="doanhnghiep" class="form-control">
+            <?php foreach($doanhnghiep as $dn): ?>
+                <?php if ($dn['id_dn']== $nk['doanhnghiep']) { ?>
+                <option value="<?php echo $dn['id_dn']?>" selected><?php echo $dn['tendoanhnghiep']?></option>
+            <?php } else { ?>
+                <option value="<?php echo $dn['id_dn']  ?>"><?php echo $dn['tendoanhnghiep'] ?></option>
             <?php } ?>
             <?php endforeach; ?>
         </select>
@@ -79,6 +93,8 @@
     $(document).ready(function() {
         $("#sp").select2();
         $("#nguoidaidien").select2();
+        $("#vungsanxuat").select2();
+        $("#doanhnghiep").select2();
     });
 </script>
 <style>

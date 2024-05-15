@@ -7,11 +7,11 @@
     } else {
         $trang_hien_tai = 1;
     }
-    $so_ban_ghi =$obj->count_caygiong();
+    $so_ban_ghi =$obj->count_cg_manage($admin_id, $admin_role);
     $tong_so_trang = ceil($so_ban_ghi / $so_ban_ghi_mot_trang);
     $bat_dau = ($trang_hien_tai - 1) * $so_ban_ghi_mot_trang;
     $ket_thuc = $bat_dau + $so_ban_ghi_mot_trang;
-    $show_cg = $obj->display_cg_pagination($bat_dau, $ket_thuc);
+    $show_cg = $obj->display_cg_pagination($bat_dau, $ket_thuc,$admin_id,$admin_role);
 
     $dn_info=$obj->display_dn();
     $user_info = $obj->show_admin_user();
@@ -134,6 +134,13 @@
             ?>
         </tbody>
     </table>
+    <?php
+    //dem ==1 đồng nghĩa với việc không có dữ liệu!
+    if ($dem == 1) {
+        echo '<p class="text-center">Không có dữ liệu!!</p>';
+    }
+    ?>
+</div>
 </div>
 <?php 
 echo "<div class='pagination'  style='float: right;'> ";

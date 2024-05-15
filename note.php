@@ -1,66 +1,46 @@
-<div class="col-md-9 slider-nguoidaidien">
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $user[''] ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 1</span>
-                                </div>
-                            </div>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 2</span>
-                                </div>
-                            </div>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 3</span>
-                                </div>
-                            </div>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 4</span>
-                                </div>
-                            </div>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 5</span>
-                                </div>
-                            </div>
-                            <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;">Nội dung 6</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<?php 
+function display_product_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
+{
+    $query = "SELECT * FROM `sanpham` order by id_nx desc LIMIT $bat_dau, $ket_thuc";
+    $result = mysqli_query($this->connection, $query);
+    if ($result) {
+        //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+        if($role == "Admin") {
+            return $result;
+        } else {
+            //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+            $query = "SELECT * FROM `sanpham` where taikhoan = '$nguoidang' order by id_nx desc LIMIT $bat_dau, $ket_thuc";
+            $result = mysqli_query($this->connection, $query);
+            return $result;
+        }
+    } else {
+        echo "Error: " . mysqli_error($this->connection);
+        return false;
+    }
+}
+function count_nx_manage($nguoidang,$role)
+{
+    $query = "SELECT COUNT(*) AS demnx FROM `sanpham`";
 
+    $result = mysqli_query($this->connection, $query);
 
-
-
-
-
-                    <div class="" style="border: #ccc 1px solid;width: 170px;height: 220px;border-radius: 3%;">
-                                <div style="padding: 10px;height: 150px;width: 100%;">
-                                    <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div style="padding: 0px 10px;text-align: center;font-weight: bold;color: black;">
-                                    <span style="height: 70px;width: 100%;"><?php echo $tenvung;?></span>
-                                </div>
-                            </div>
-                        </div>
+    if ($result) {
+        if($role == "Admin") {
+            //Đếm trang theo role Admin
+            $row = mysqli_fetch_assoc($result);
+            $demnx = $row['demnx'];
+            return $demnx;
+        } else {
+            //Đếm trang theo các role khác
+            $query = "SELECT COUNT(*) AS demnx FROM `sanpham` where taikhoan = $nguoidang";
+            $result = mysqli_query($this->connection, $query);
+            $row = mysqli_fetch_assoc($result);
+            $demnx = $row['demnx'];
+            return $demnx;   
+        }
+        
+    } else {
+        return "Error: " . mysqli_error($this->connection);
+    }
+}
+?>

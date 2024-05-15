@@ -35,7 +35,7 @@ $users = $obj->show_admin_user();
 
 <div>
     <form action=""method="post" enctype="multipart/form-data" class="form">
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="nguoidang">Người đại diện</label>
         <select name="nguoidang" id="nguoidang" class="form-control">
             <?php foreach($users as $user): ?>
@@ -46,7 +46,8 @@ $users = $obj->show_admin_user();
             <?php } ?>
             <?php endforeach; ?>
         </select>
-    </div>
+    </div> -->
+    <input type="hidden" name="nguoidang" value="<?php echo $nguoidang_id ?>">
     <div class="form-group">
         <label for="tieude">Tiêu đề</label> 
         <input type="text" name="tieude" class="form-control">

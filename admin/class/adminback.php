@@ -1376,16 +1376,27 @@ class  adminback
             return $msg;
         }
     }
-    function count_bv()
+    function count_bv_manage($nguoidang,$role)
     {
-        $query = "SELECT COUNT(*) AS dembaiviet FROM `baiviet`";
+        $query = "SELECT COUNT(*) AS dembv FROM `baiviet`";
 
         $result = mysqli_query($this->connection, $query);
 
         if ($result) {
-            $row = mysqli_fetch_assoc($result);
-            $dembaiviet = $row['dembaiviet'];
-            return $dembaiviet;
+            if($role == "Admin") {
+                //Đếm trang theo role Admin
+                $row = mysqli_fetch_assoc($result);
+                $dembv = $row['dembv'];
+                return $dembv;
+            } else {
+                //Đếm trang theo các role khác
+                $query = "SELECT COUNT(*) AS dembv FROM `baiviet` where nguoidang = $nguoidang";
+                $result = mysqli_query($this->connection, $query);
+                $row = mysqli_fetch_assoc($result);
+                $dembv = $row['dembv'];
+                return $dembv;   
+            }
+            
         } else {
             return "Error: " . mysqli_error($this->connection);
         }
@@ -1414,6 +1425,20 @@ class  adminback
             $row = mysqli_fetch_assoc($result);
             $demdg = $row['demcg'];
             return $demdg;
+        } else {
+            return "Error: " . mysqli_error($this->connection);
+        }
+    }
+    function count_bv()
+    {
+        $query = "SELECT COUNT(*) AS dembv FROM `baiviet`";
+
+        $result = mysqli_query($this->connection, $query);
+
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $dembv = $row['dembv'];
+            return $dembv;
         } else {
             return "Error: " . mysqli_error($this->connection);
         }
@@ -1956,9 +1981,10 @@ class  adminback
     {
         $id_nk = $data['id_nk'];
         $sanpham = $data['sanpham'];
-        $nguoidang=$data['nguoidang'];
         $tennhatky = $data['tennhatky'];
         $chitiet = $data['chitiet'];
+        $vungsanxuat = $data['vungsanxuat'];
+        $doanhnghiep = $data['doanhnghiep'];
 
         // Kiểm tra xem có tập tin hình ảnh nào được tải lên không
         if (!empty($_FILES['nk_img']['tmp_name'])) {
@@ -1976,7 +2002,7 @@ class  adminback
                     $pre_img = $row['hinhanh'];
                     unlink("uploads/" . $pre_img);
 
-                    $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham',`nguoidang` = '$nguoidang', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `hinhanh` = '$nk_img_name' WHERE `id_nk` ='$id_nk';";
+                    $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham',`vungsanxuat` = '$vungsanxuat',`doanhnghiep` = '$doanhnghiep', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `hinhanh` = '$nk_img_name' WHERE `id_nk` ='$id_nk';";
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($nk_img_tmp, "uploads/" . $nk_img_name)) {
                         echo '<script>
                             alert("Chỉnh sửa thành công");
@@ -1995,7 +2021,7 @@ class  adminback
             }
         } else {
             // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của bài viết
-            $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham',`nguoidang` = '$nguoidang',`tennhatky` = '$tennhatky', `chitiet` = '$chitiet' WHERE `id_nk` ='$id_nk';";
+            $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham',`vungsanxuat` = '$vungsanxuat',`doanhnghiep` = '$doanhnghiep',`tennhatky` = '$tennhatky', `chitiet` = '$chitiet' WHERE `id_nk` ='$id_nk';";
             if (mysqli_query($this->connection, $query)) {
                 echo '<script>
                     alert("Chỉnh sửa thành công");
@@ -2011,32 +2037,32 @@ class  adminback
     {
         $nguoidang = $data['nguoidang'];
         $sanpham = $data['sanpham'];
-
+        $vungsanxuat = $data['vungsanxuat'];
+        $doanhnghiep = $data['doanhnghiep'];
         $tennhatky = $data['tennhatky'];
         $chitiet = $data['chitiet'];
-
+    
         $nk_img_name = $_FILES['nk_img']['name'];
         $nk_img_size = $_FILES['nk_img']['size'];
         $nk_img_tmp = $_FILES['nk_img']['tmp_name'];
         $img_ext = pathinfo($nk_img_name, PATHINFO_EXTENSION);
-
-
-
+    
         list($width, $height) = getimagesize("$nk_img_tmp");
-
+    
         if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
             if ($nk_img_size <= 2e+6) {
-
                 if ($width < 2071 && $height < 2071) {
-                    $query = "INSERT INTO `nhatky` (`sanpham`,`nguoidang`, `tennhatky`, `chitiet`, `hinhanh`) VALUES ( '$sanpham','$nguoidang', '$tennhatky', '$chitiet', '$nk_img_name');";
-
+                    // Chuyển đổi danh sách các thành viên liên quan thành chuỗi JSON
+                    $thanhvien = json_encode($data['thanhvien']);
+    
+                    $query = "INSERT INTO `nhatky` (`sanpham`, `vungsanxuat`, `doanhnghiep`, `nguoidang`, `tennhatky`, `chitiet`, `hinhanh`, `thanhvien`) VALUES ('$sanpham', '$vungsanxuat', '$doanhnghiep', '$nguoidang', '$tennhatky', '$chitiet', '$nk_img_name', '$thanhvien');";
+    
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($nk_img_tmp, "uploads/" . $nk_img_name);
-                        $msg = "Product uploaded successfully";
                         echo '<script>
-                            alert(" Thêm  thành công");
-                            window.location.href = "manage_nhatky.php";
-                            </script>';
+                                alert("Thêm thành công");
+                                window.location.href = "manage_nhatky.php";
+                              </script>';
                     } else {
                         $msg = "Failed to upload product: " . mysqli_error($this->connection);
                         return $msg;
@@ -2046,7 +2072,7 @@ class  adminback
                     return $msg;
                 }
             } else {
-                $msg = "File size should not be large 2MB";
+                $msg = "File size should not be larger than 2MB";
                 return $msg;
             }
         } else {
@@ -2054,6 +2080,8 @@ class  adminback
             return $msg;
         }
     }
+    
+    
     function display_product_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
     {
         $query = "SELECT * FROM `sanpham` order by id_sp desc LIMIT $bat_dau, $ket_thuc";
@@ -2092,6 +2120,31 @@ class  adminback
                 $row = mysqli_fetch_assoc($result);
                 $demsp = $row['demsp'];
                 return $demsp;   
+            }
+            
+        } else {
+            return "Error: " . mysqli_error($this->connection);
+        }
+    }
+    function count_dn_manage($nguoidang,$role)
+    {
+        $query = "SELECT COUNT(*) AS demdn FROM `doanhnghiep`";
+
+        $result = mysqli_query($this->connection, $query);
+
+        if ($result) {
+            if($role == "Admin") {
+                //Đếm trang theo role Admin
+                $row = mysqli_fetch_assoc($result);
+                $demdn = $row['demdn'];
+                return $demdn;
+            } else {
+                //Đếm trang theo các role khác
+                $query = "SELECT COUNT(*) AS demdn FROM `doanhnghiep` where nguoidang = $nguoidang";
+                $result = mysqli_query($this->connection, $query);
+                $row = mysqli_fetch_assoc($result);
+                $demdn = $row['demdn'];
+                return $demdn;   
             }
             
         } else {
@@ -2173,60 +2226,175 @@ class  adminback
             return "Error: " . mysqli_error($this->connection);
         }
     }
-    function display_bv_pagination($bat_dau, $ket_thuc)
+    function display_bv_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
     {
-        $query = "SELECT * FROM `baiviet` LIMIT $bat_dau, $ket_thuc";
+        $query = "SELECT * FROM `baiviet` order by id_bv desc LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
-            return $result;
+            //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+            if($role == "Admin") {
+                return $result;
+            } else {
+                //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+                $query = "SELECT * FROM `baiviet` where nguoidang = '$nguoidang' order by id_bv desc LIMIT $bat_dau, $ket_thuc";
+                $result = mysqli_query($this->connection, $query);
+                return $result;
+            }
         } else {
             echo "Error: " . mysqli_error($this->connection);
             return false;
         }
     }
 
-    function display_dn_pagination($bat_dau, $ket_thuc)
+    function display_dn_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
     {
-        $query = "SELECT * FROM `doanhnghiep` LIMIT $bat_dau, $ket_thuc";
+        $query = "SELECT * FROM `doanhnghiep` order by id_dn desc LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
-            return $result;
+            //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+            if($role == "Admin") {
+                return $result;
+            } else {
+                //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+                $query = "SELECT * FROM `doanhnghiep` where nguoidang = '$nguoidang' order by id_dn desc LIMIT $bat_dau, $ket_thuc";
+                $result = mysqli_query($this->connection, $query);
+                return $result;
+            }
         } else {
             echo "Error: " . mysqli_error($this->connection);
             return false;
         }
     }
-    function display_cg_pagination($bat_dau, $ket_thuc)
+    function display_cg_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
+{
+    $query = "SELECT * FROM `caygiong` order by id_cg desc LIMIT $bat_dau, $ket_thuc";
+    $result = mysqli_query($this->connection, $query);
+    if ($result) {
+        //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+        if($role == "Admin") {
+            return $result;
+        } else {
+            //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+            $query = "SELECT * FROM `caygiong` where nguoidang = '$nguoidang' order by id_cg desc LIMIT $bat_dau, $ket_thuc";
+            $result = mysqli_query($this->connection, $query);
+            return $result;
+        }
+    } else {
+        echo "Error: " . mysqli_error($this->connection);
+        return false;
+    }
+}
+function count_cg_manage($nguoidang,$role)
+{
+    $query = "SELECT COUNT(*) AS demcg FROM `caygiong`";
+
+    $result = mysqli_query($this->connection, $query);
+
+    if ($result) {
+        if($role == "Admin") {
+            //Đếm trang theo role Admin
+            $row = mysqli_fetch_assoc($result);
+            $demcg = $row['demcg'];
+            return $demcg;
+        } else {
+            //Đếm trang theo các role khác
+            $query = "SELECT COUNT(*) AS demcg FROM `caygiong` where nguoidang = $nguoidang";
+            $result = mysqli_query($this->connection, $query);
+            $row = mysqli_fetch_assoc($result);
+            $demcg = $row['demcg'];
+            return $demcg;   
+        }
+        
+    } else {
+        return "Error: " . mysqli_error($this->connection);
+    }
+}
+function display_nksp_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
+{
+    $query = "SELECT * FROM `nhatky` order by id_nk desc LIMIT $bat_dau, $ket_thuc";
+    $result = mysqli_query($this->connection, $query);
+    if ($result) {
+        //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+        if($role == "Admin") {
+            return $result;
+        } else {
+            //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+            $query = "SELECT * FROM `nhatky` where nguoidang = '$nguoidang' order by id_nk desc LIMIT $bat_dau, $ket_thuc";
+            $result = mysqli_query($this->connection, $query);
+            return $result;
+        }
+    } else {
+        echo "Error: " . mysqli_error($this->connection);
+        return false;
+    }
+}
+function count_nksp_manage($nguoidang,$role)
+{
+    $query = "SELECT COUNT(*) AS demnksp FROM `nhatky`";
+
+    $result = mysqli_query($this->connection, $query);
+
+    if ($result) {
+        if($role == "Admin") {
+            //Đếm trang theo role Admin
+            $row = mysqli_fetch_assoc($result);
+            $demnksp = $row['demnksp'];
+            return $demnksp;
+        } else {
+            //Đếm trang theo các role khác
+            $query = "SELECT COUNT(*) AS demnksp FROM `nhatky` where nguoidang = $nguoidang";
+            $result = mysqli_query($this->connection, $query);
+            $row = mysqli_fetch_assoc($result);
+            $demnksp = $row['demnksp'];
+            return $demnksp;   
+        }
+        
+    } else {
+        return "Error: " . mysqli_error($this->connection);
+    }
+}
+    function display_vsx_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
     {
-        $query = "SELECT * FROM `caygiong` LIMIT $bat_dau, $ket_thuc";
+        $query = "SELECT * FROM `vungsanxuat` order by id_vung desc LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
-            return $result;
+            //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+            if($role == "Admin") {
+                return $result;
+            } else {
+                //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+                $query = "SELECT * FROM `vungsanxuat` where nguoidang = '$nguoidang' order by id_vung desc LIMIT $bat_dau, $ket_thuc";
+                $result = mysqli_query($this->connection, $query);
+                return $result;
+            }
         } else {
             echo "Error: " . mysqli_error($this->connection);
             return false;
         }
     }
-    function display_nksp_pagination($bat_dau, $ket_thuc)
+    function count_vsx_manage($nguoidang,$role)
     {
-        $query = "SELECT * FROM `nhatky` LIMIT $bat_dau, $ket_thuc";
+        $query = "SELECT COUNT(*) AS demvsx FROM `vungsanxuat`";
+    
         $result = mysqli_query($this->connection, $query);
+    
         if ($result) {
-            return $result;
+            if($role == "Admin") {
+                //Đếm trang theo role Admin
+                $row = mysqli_fetch_assoc($result);
+                $demvsx = $row['demvsx'];
+                return $demvsx;
+            } else {
+                //Đếm trang theo các role khác
+                $query = "SELECT COUNT(*) AS demvsx FROM `vungsanxuat` where nguoidang = $nguoidang";
+                $result = mysqli_query($this->connection, $query);
+                $row = mysqli_fetch_assoc($result);
+                $demvsx = $row['demvsx'];
+                return $demvsx;   
+            }
+            
         } else {
-            echo "Error: " . mysqli_error($this->connection);
-            return false;
-        }
-    }
-    function display_vsx_pagination($bat_dau, $ket_thuc)
-    {
-        $query = "SELECT * FROM `vungsanxuat` LIMIT $bat_dau, $ket_thuc";
-        $result = mysqli_query($this->connection, $query);
-        if ($result) {
-            return $result;
-        } else {
-            echo "Error: " . mysqli_error($this->connection);
-            return false;
+            return "Error: " . mysqli_error($this->connection);
         }
     }
     function count_nhatky()
@@ -2321,17 +2489,51 @@ class  adminback
             </script>';
         }
     }
-    function display_nx_pagination($bat_dau, $ket_thuc)
-    {
-        $query = "SELECT * FROM `nhaxuong` LIMIT $bat_dau, $ket_thuc";
-        $result = mysqli_query($this->connection, $query);
-        if ($result) {
+    function display_nx_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
+{
+    $query = "SELECT * FROM `nhaxuong` order by id_nx desc LIMIT $bat_dau, $ket_thuc";
+    $result = mysqli_query($this->connection, $query);
+    if ($result) {
+        //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+        if($role == "Admin") {
             return $result;
         } else {
-            echo "Error: " . mysqli_error($this->connection);
-            return false;
+            //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+            $query = "SELECT * FROM `nhaxuong` where nguoidang = '$nguoidang' order by id_nx desc LIMIT $bat_dau, $ket_thuc";
+            $result = mysqli_query($this->connection, $query);
+            return $result;
         }
+    } else {
+        echo "Error: " . mysqli_error($this->connection);
+        return false;
     }
+    
+}
+function count_nx_manage($nguoidang,$role)
+{
+    $query = "SELECT COUNT(*) AS demnx FROM `nhaxuong`";
+
+    $result = mysqli_query($this->connection, $query);
+
+    if ($result) {
+        if($role == "Admin") {
+            //Đếm trang theo role Admin
+            $row = mysqli_fetch_assoc($result);
+            $demnx = $row['demnx'];
+            return $demnx;
+        } else {
+            //Đếm trang theo các role khác
+            $query = "SELECT COUNT(*) AS demnx FROM `nhaxuong` where nguoidang = $nguoidang";
+            $result = mysqli_query($this->connection, $query);
+            $row = mysqli_fetch_assoc($result);
+            $demnx = $row['demnx'];
+            return $demnx;   
+        }
+        
+    } else {
+        return "Error: " . mysqli_error($this->connection);
+    }
+}
     function count_nx()
     {
         $query = "SELECT COUNT(*) AS demnx FROM `nhaxuong`";

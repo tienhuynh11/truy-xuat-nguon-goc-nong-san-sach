@@ -11,7 +11,11 @@ if (isset($_SESSION['admin_id'])) {
     exit();
 }
 
-
+$vungsanxuat=$obj->vsxShow();
+ $dn = $obj->display_dn();
+ while($dn_ftecth = mysqli_fetch_assoc($dn)){
+    $doanhnghiep[]=$dn_ftecth;
+}
 $product_info = $obj->display_product();
 if (isset($_POST['add_nk'])) {
     $nk_msg =  $obj->add_nhatky($_POST);
@@ -194,11 +198,9 @@ include_once("includes/head.php");
 
     <!-- Page Contain -->
     <div class="page-contain">
-
         <!-- Main content -->
         <div id="main-content" class="main-content">
-
-            <!--Navigation section-->
+            <!-- Navigation section -->
             <div class="container container-x">
                 <div>
                     <form action="nhatky.php" method="post" enctype="multipart/form-data" class="form">
@@ -208,27 +210,46 @@ include_once("includes/head.php");
                             <select name="sanpham" id="sp" class="form-control">
                                 <?php while ($pro = mysqli_fetch_assoc($product_info)) { ?>
                                     <option value="<?php echo $pro['id_sp']; ?>"><?php echo $pro['tensanpham'] ?></option>
-
                                 <?php } ?>
                             </select>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="nguoidang">Người đại diện</label>
-                            <select name="nguoidang" id="nguoidang" class="form-control">
-                                <?php foreach ($users as $user) : ?>
-                                    <?php if ($user['id_acc'] == $nguoidang_id) { ?>
-                                        <option value="<?php echo $user['id_acc'] ?>" selected><?php echo $user['hoten']  . '-' . $user['dienthoai'] ?></option>
-                                    <?php } else { ?>
-                                        <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten']  . '-' .  $user['dienthoai'] ?></option>
-                                    <?php } ?>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+
+                       
+
                         <div class="form-group col-md-6">
                             <label for="tennhatky">Tên nhật ký</label>
                             <input type="text" name="tennhatky" class="form-control">
                         </div>
+
                         <div class="form-group col-md-6">
+                            <label for="vungsanxuat">Vùng sản xuất</label>
+                            <select name="vungsanxuat" id="vungsanxuat" class="form-control">
+                                <option value="">Chọn vùng sản xuất</option>
+                                <?php while($vsx = mysqli_fetch_assoc($vungsanxuat)) { ?>
+                                    <option value="<?php echo $vsx['id_vung']; ?>"><?php echo $vsx['tenvung']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="doanhnghiep">Doanh nghiệp</label>
+                            <select name="doanhnghiep" id="doanhnghiep" class="form-control">
+                                <option value="">Chọn nhà sản xuất</option>
+                                <?php foreach($doanhnghiep as $dn) { ?>
+                                    <option value="<?php echo $dn['id_dn']; ?>"><?php echo $dn['tendoanhnghiep']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                            <!-- Thêm mục thành viên liên quan -->
+                            <div class="form-group col-md-12">
+                            <label for="thanhvien">Thành viên liên quan</label>
+                            <select name="thanhvien[]" id="thanhvien" class="form-control" multiple>
+                                <?php foreach ($users as $user) { ?>
+                                    <option value="<?php echo $user['id_acc']; ?>"><?php echo $user['hoten']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
                             <label for="nk_img">Hình ảnh</label>
                             <input type="file" name="nk_img" class="form-control">
                         </div>
@@ -238,44 +259,40 @@ include_once("includes/head.php");
                             <textarea name="chitiet" id="" cols="30" rows="10" class="form-control"></textarea>
                         </div>
 
-
                         <div class="form-group col-md-12">
-                            <input type="submit" name="add_nk" class="btn btn-primary">
+                            <input type="submit" name="add_nk" class="btn btn-primary" value="Thêm">
                         </div>
                     </form>
                 </div>
-                <script>
-                    $(document).ready(function() {
-                        $("#sp").select2();
-                        $("#nguoidang").select2();
-                    });
-                </script>
             </div>
+        </div>
 
+        <!-- Include footer -->
+        <?php include_once("includes/footer.php"); ?>
+        <!-- Include footer for mobile -->
+        <?php include_once("includes/mobile_footer.php"); ?>
+        <?php include_once("includes/mobile_global.php"); ?>
 
-            <!-- FOOTER -->
+        <!-- Scroll Top Button -->
+        <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
-            <?php
-            include_once("includes/footer.php");
-            ?>
-
-            <!--Footer For Mobile-->
-            <?php
-            include_once("includes/mobile_footer.php");
-            ?>
-
-            <?php
-            include_once("includes/mobile_global.php")
-            ?>
-
-
-            <!-- Scroll Top Button -->
-            <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
-
-            <?php
-            include_once("includes/script.php")
-            ?>
+        <!-- Include script -->
+        <?php include_once("includes/script.php"); ?>
+        <!-- Include Select2 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $("#sp").select2();
+                $("#vungsanxuat").select2();
+                $("#doanhnghiep").select2();
+                $('#thanhvien').select2({
+                placeholder: "Chọn thành viên liên quan",
+                allowClear: true,
+                width: '100%' // Đảm bảo phần tử select chiếm hết chiều rộng của cột
+            });
+            });
+        </script>
+    </div>
 </body>
-
 
 </html>

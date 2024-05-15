@@ -14914,3 +14914,6 @@ body.open-quickview-block .biolife-quickview-block{
    height: 70px;
    width: 100%;
 }
+.form-group .form-control {
+    max-width: 100%;
+}

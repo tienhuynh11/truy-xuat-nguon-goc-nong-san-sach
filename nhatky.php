@@ -201,7 +201,7 @@ include_once("includes/head.php");
                                 </div>
                                 <div class="col-xs-12 log__data">
                                     <div class="single-data">
-                                        <div class="single-data__label" style="margin-left: 20px;">Công việc: <?= $nk['tennhatky']?></div>
+                                        <div class="single-data__label" style="margin-left: 20px;"><u><b>Công việc:</b></u> <?= $nk['tennhatky']?></div>
                                         <div class="single-data__data">
                                             <a href="chitietnhatky.php?id=<?= $nk['id_nk']?>">
                                                 <span style="color: #FF9933;display: inline-block;max-width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; margin-left: 20px;padding-right: 30px;" class="data-view-title"><?= $nk['chitiet']?></span>
@@ -209,6 +209,31 @@ include_once("includes/head.php");
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+                                 if (!is_null($nk['thanhvien'])) : ?>
+                                <div class="col-xs-12 log__data">
+                                    <div class="single-data">
+                                        <div class="single-data__label" style="margin-left: 20px;"><u><b>Thành viên liên quan:</b></u></div>
+                                        <div class="single-data__data">
+                                            <div class="slick-item" id="related-members-slider">
+                                                <?php 
+                                                $relatedMembers = explode(',', $nk['thanhvien']); // Assuming 'thanhvien' is a comma-separated list of member IDs
+                                                foreach ($relatedMembers as $memberId) {
+                                                $member = $obj->show_taikhoanbyid($memberId); // Function to get member details by ID
+                                                ?>
+                                                <div class="slick-item">
+                                                    <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" style="width: 50px; height: 50px; border-radius: 50%;">
+                                                    <div class="slick-tilte">
+                                                    <?= $member['hoten']; ?>
+                                                    </div>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+                                
                                 <div class="col-xs-12 log__data" style="padding-bottom: 10px;">
                                     <div class="profile-img-list">
                                         <div class="profile-img-list-item main">
@@ -260,5 +285,32 @@ include_once("includes/head.php");
 </body>
 
 </html>
+<script>
+    $(document).ready(function(){
+        $('#related-members-slider').slick({
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            dots: true,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+    });
+</script>
 
 

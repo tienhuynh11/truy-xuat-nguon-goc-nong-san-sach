@@ -5,11 +5,11 @@
    } else {
        $trang_hien_tai = 1;
    }
-   $so_ban_ghi =$obj->count_bv();
+   $so_ban_ghi =$obj->count_bv_manage($admin_id, $admin_role);
    $tong_so_trang = ceil($so_ban_ghi / $so_ban_ghi_mot_trang);
    $bat_dau = ($trang_hien_tai - 1) * $so_ban_ghi_mot_trang;
    $ket_thuc = $bat_dau + $so_ban_ghi_mot_trang;
-   $show_baiviet = $obj->display_bv_pagination($bat_dau, $ket_thuc);
+   $show_baiviet = $obj->display_bv_pagination($bat_dau, $ket_thuc, $admin_id, $admin_role);
     $nguoidang_info = $obj->show_admin_user();
 
     // Lưu trữ kết quả truy vấn vào một mảng
@@ -91,8 +91,11 @@
                 ?>
             </tbody>
         </table>
+        <?php  if ($dem == 1) {
+        echo '<p class="text-center">Không có dữ liệu!!</p>';
+    } ?>
 </div>
-<?php 
+<?php
 echo "<div class='pagination'  style='float: right;'> ";
 if($trang_hien_tai > 1){
     echo "<a href='?trang=".($trang_hien_tai - 1)."' class='btn btn-white text-dark ti-angle-left' ></a>";

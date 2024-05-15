@@ -9,11 +9,11 @@ if(isset($_GET['trang'])){
 } else {
     $trang_hien_tai = 1;
 }
-$so_ban_ghi =$obj->count_dn();
+$so_ban_ghi =$obj->count_dn_manage($admin_id, $admin_role);
 $tong_so_trang = ceil($so_ban_ghi / $so_ban_ghi_mot_trang);
 $bat_dau = ($trang_hien_tai - 1) * $so_ban_ghi_mot_trang;
 $ket_thuc = $bat_dau + $so_ban_ghi_mot_trang;
-$arry = $obj->display_dn_pagination($bat_dau, $ket_thuc);
+$arry = $obj->display_dn_pagination($bat_dau, $ket_thuc, $admin_id, $admin_role);
 
     $catadn_array = array();
     while($catadn = mysqli_fetch_assoc($catadn_info)){
@@ -130,6 +130,12 @@ $arry = $obj->display_dn_pagination($bat_dau, $ket_thuc);
         }?>
         </tbody>
     </table>
+    <?php
+    //dem ==1 đồng nghĩa với việc không có dữ liệu!
+    if ($dem == 1) {
+        echo '<p class="text-center">Không có dữ liệu!!</p>';
+    }
+    ?>
 </div>
 
 <?php 

@@ -6,17 +6,26 @@
     } else {
         $trang_hien_tai = 1;
     }
-    $so_ban_ghi =$obj->count_nhatky();
+    $so_ban_ghi =$obj->count_nksp_manage($admin_id, $admin_role);
     $tong_so_trang = ceil($so_ban_ghi / $so_ban_ghi_mot_trang);
     $bat_dau = ($trang_hien_tai - 1) * $so_ban_ghi_mot_trang;
     $ket_thuc = $bat_dau + $so_ban_ghi_mot_trang;
-    $show_nhatky = $obj->display_nksp_pagination($bat_dau, $ket_thuc);
+    $show_nhatky = $obj->display_nksp_pagination($bat_dau, $ket_thuc,$admin_id, $admin_role);
 
 
-    $show_nhatky = $obj->show_nhatky();
+    $vungsanxuat=$obj->vsxShow();
+    $doanhnghiep = $obj->display_dn();
     $nguoidang_info = $obj->show_admin_user();
     $sanpham_info = $obj->display_product();
     // Lưu trữ kết quả truy vấn vào một mảng
+    $vsx_array = array();
+    while($vsx = mysqli_fetch_assoc($vungsanxuat)){
+        $vsx_array[] = $vsx;
+    }
+    $doanhnghiep_array = array();
+    while($dn = mysqli_fetch_assoc($doanhnghiep)){
+        $doanhnghiep_array[] = $dn;
+    }
     $nguoidang_array = array();
     while($nguoidang = mysqli_fetch_assoc($nguoidang_info)){
         $nguoidang_array[] = $nguoidang;
@@ -47,9 +56,12 @@
             <thead>
                 <tr>
                     <th>Stt</th>
-                    <th>Sản phẩm</th>
-                    <th>Người đăng</th>
                     <th>Tên nhật ký</th>
+                    <th>Sản phẩm</th>
+                    <th>Vùng sản xuất</th>
+                    <th>Doanh nghiệp</th>
+                    <th>Người đăng</th>
+                    
                     <th>Chi tiết</th>
                     <th>Hình ảnh</th>
                     <th>Thời gian tạo</th>
@@ -63,6 +75,7 @@
                     ?>
                     <tr>
                         <td><?php echo $dem;?></td>
+                        <td><?php echo $nk['tennhatky'] ?></td>
                         <td>
                             <?php 
                             foreach($sanpham_array as $sanpham){
@@ -74,6 +87,25 @@
                         </td>
                         <td>
                             <?php 
+                            foreach($vsx_array as $vsx){
+                                if($nk['vungsanxuat'] == $vsx['id_vung']){
+                                    echo $vsx['tenvung'];
+                                }
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                            foreach($doanhnghiep_array as $dn){
+                                if($nk['doanhnghiep'] == $dn['id_dn']){
+                                    echo $dn['tendoanhnghiep'];
+                                }
+                            }
+                            ?>
+                        </td>
+                       
+                        <td>
+                            <?php 
                             foreach($nguoidang_array as $nguoidang){
                                 if($nk['nguoidang'] == $nguoidang['id_acc']){
                                     echo $nguoidang['hoten'];
@@ -81,7 +113,7 @@
                             }
                             ?>
                         </td>
-                        <td><?php echo $nk['tennhatky'] ?></td>
+                        
                         <td><?php echo $nk['chitiet'] ?></td>
                         <td><img style="height:60px" src="uploads/<?php echo $nk['hinhanh'] ?>" alt=""></td>
                         <td><?php echo $nk['thoigiantao'] ?></td>
@@ -96,6 +128,12 @@
                 ?>
             </tbody>
         </table>
+        <?php
+    //dem ==1 đồng nghĩa với việc không có dữ liệu!
+    if ($dem == 1) {
+        echo '<p class="text-center">Không có dữ liệu!!</p>';
+    }
+    ?>
 </div>
 <?php 
 echo "<div class='pagination'  style='float: right;'> ";
