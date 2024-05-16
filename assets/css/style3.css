@@ -14890,12 +14890,12 @@ body.open-quickview-block .biolife-quickview-block{
 .slick {
     border: #ccc 1px solid;
     width: 170px;
-    height: 220px;
+    /* height: 220px; */
     border-radius: 3%;
 }
 .slick-item{
-    padding: 10px;
-    height: 150px;
+    padding: 10px;  
+    /* height: 150px; */
     width: 100%;
 }
 .slick-item img{
@@ -14908,15 +14908,13 @@ body.open-quickview-block .biolife-quickview-block{
    text-align: center;
    font-weight: bold;
    color: black;
-   height: 70px;
+   /* height: 70px; */
 }
 .sli-tilte{
    height: 70px;
    width: 100%;
 }
-.form-group .form-control {
-    max-width: 100%;
-}
+
 .profile .profile-img-list {
     list-style-type: none;
     margin: -0.1rem;
@@ -14984,9 +14982,3 @@ body.open-quickview-block .biolife-quickview-block{
     text-shadow: 2px 2px #fff;
 }
 
-.slick-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}

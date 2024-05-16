@@ -293,7 +293,7 @@ include_once("includes/head.php");
     // Khởi tạo Slick slider sau khi tất cả các thành viên liên quan được thêm vào DOM
     $('#related-members-slider').slick({
         infinite: false,
-        slidesToShow: 3,
+        slidesToShow: 4,
         slidesToScroll: 1,
         dots: false,
         arrows: true,

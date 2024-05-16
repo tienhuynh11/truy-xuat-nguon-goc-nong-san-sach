@@ -246,7 +246,7 @@ include_once("includes/head.php");
                             Thuộc doanh nghiệp:
                         </div>
                         <div class="col-md-9" >
-                        <div class="slick" >
+                        <div class="slick"  >
                                 <div class="slick-item">
                                     <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>" >
                                 </div>
