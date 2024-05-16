@@ -218,9 +218,9 @@ include_once("includes/head.php");
                                         <div class="slick-item">
                                             <div id="related-members-slider" class="profile profile-img-list" style="display: flex; flex-direction: row; overflow: hidden;">
                                                 <?php 
-                                                $relatedMembers = explode(',', $nk['thanhvien']); // Assuming 'thanhvien' is a comma-separated list of member IDs
+                                                $relatedMembers = json_decode($nk['thanhvien'], true);
                                                 foreach ($relatedMembers as $memberId) {
-                                                    $member = $obj->show_taikhoanbyid($memberId); // Function to get member details by ID
+                                                    $member = $obj->show_taikhoanbyid($memberId);
                                                     ?>
                                                     <div class="slick-item" style="margin: 10px; text-align: center;">
                                                         <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" style="width: 70px; height: 70px; border-radius: 50%; margin: auto;">
@@ -240,7 +240,7 @@ include_once("includes/head.php");
                                 <div class="col-xs-12 log__data" style="padding-bottom: 10px;">
                                     <div class="profile-img-list">
                                         <div class="profile-img-list-item main">
-                                            <a href="baiviet.php?id=<?php echo $bv['id_bv'] ?>" data-lity="" class="profile-img-list-link">
+                                            <a href="chitietnhatky.php?id=<?php echo $nk['id_nk'] ?>" data-lity="" class="profile-img-list-link">
                                                 <span class="profile-img-content" style="background-image: url(admin/uploads/<?php echo $nk['hinhanh'] ?>); margin-left: 20px;"></span>
                                             </a>
                                         </div>
@@ -292,10 +292,10 @@ include_once("includes/head.php");
   $(document).ready(function() {
     // Khởi tạo Slick slider sau khi tất cả các thành viên liên quan được thêm vào DOM
     $('#related-members-slider').slick({
-        infinite: true,
+        infinite: false,
         slidesToShow: 3,
         slidesToScroll: 1,
-        dots: true,
+        dots: false,
         arrows: true,
         responsive: [
             {

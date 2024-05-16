@@ -403,10 +403,10 @@ include_once("includes/head.php");
     $(document).ready(function() {
         $('.slider-nguoidaidien').slick({
             arrows: true,
-            slidesToShow: 4,
+            slidesToShow: 3,
             slidesToScroll: 1,
             focusOnSelect: true,
-            infinite: true,
+            infinite: false,
 
             responsive: [{
                 breakpoint: 480,

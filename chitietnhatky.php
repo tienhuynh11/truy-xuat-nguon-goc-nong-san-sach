@@ -186,15 +186,14 @@ include_once("includes/head.php");
                                                 <!-- <span class="stock" style="margin-left: 200px;">Stock: <?php //echo $pro_data['product_stock'] ?> </span> -->
                                                 <br>
                                                 <div class="media" style="display: block;">
-                                                    <ul class="biolife-carousel slider-for" data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}'>
-                                                        <img src="admin/uploads/<?php echo $nk['hinhanh'] ?>" style="object-fit: contain;" alt="" width="100%" height="auto">
+                                                    <ul class="biolife-carousel slider-for">
+                                                        <img src="admin/uploads/<?php echo $nk['hinhanh'] ?>" style="object-fit: contain;width: 500px;height: auto;" alt=""  height="auto">
 
                                                     </ul>
                                                     <!--<img style="margin-top: 5%; border: none;border-radius: none;" src="admin/uploads/4141709457821-.png" width="100" height="100" alt="">-->
                                                 </div>
 
                                                 <br>
-                                                <span style="font-size:200%;" >
                                                 <?php 
                                                     if($nk['chitiet'] != null){
                                                                 
@@ -203,7 +202,7 @@ include_once("includes/head.php");
 
                                                         // Duyệt qua từng dòng và tạo thẻ <li>
                                                         foreach ($lines as $line) {
-                                                            echo '<span>' . $line . '</span> <br>';
+                                                            echo '<span style="font-size:20px">' . $line . '</span> <br>';
                                                         }
 
                                                         echo '

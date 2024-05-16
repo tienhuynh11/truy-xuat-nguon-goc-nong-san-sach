@@ -528,7 +528,7 @@ include_once("includes/head.php");
                                         </div>
                                         <div id="tab_3rd" class="tab-contain review-tab">
                                             <div class="container">
-                                                <?php if (!empty($hinhanh)) : ?>
+                                                <?php if (!empty($pro_data[''])) : ?>
                                                     <div class="row" id="vsx" style="padding: 20px 0;">
                                                         <div class="col-md-3">
                                                             Giấy kiểm định:
