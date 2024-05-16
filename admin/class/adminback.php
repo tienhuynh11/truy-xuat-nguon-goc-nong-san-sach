@@ -1985,7 +1985,8 @@ class  adminback
         $chitiet = $data['chitiet'];
         $vungsanxuat = $data['vungsanxuat'];
         $doanhnghiep = $data['doanhnghiep'];
-
+        $thanhvien = json_encode($data['thanhvien']); // Mã hóa thành viên thành chuỗi JSON
+    
         // Kiểm tra xem có tập tin hình ảnh nào được tải lên không
         if (!empty($_FILES['nk_img']['tmp_name'])) {
             $nk_img_name = $_FILES['nk_img']['name'];
@@ -1993,46 +1994,40 @@ class  adminback
             $nk_img_tmp = $_FILES['nk_img']['tmp_name'];
             $img_ext = pathinfo($nk_img_name, PATHINFO_EXTENSION);
             list($width, $height) = getimagesize($nk_img_tmp);
-
+    
             if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
                 if ($nk_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
+                    // Xóa ảnh cũ
                     $select_query = "SELECT * FROM `nhatky` WHERE `id_nk`='$id_nk'";
                     $result = mysqli_query($this->connection, $select_query);
                     $row = mysqli_fetch_assoc($result);
                     $pre_img = $row['hinhanh'];
                     unlink("uploads/" . $pre_img);
-
-                    $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham',`vungsanxuat` = '$vungsanxuat',`doanhnghiep` = '$doanhnghiep', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `hinhanh` = '$nk_img_name' WHERE `id_nk` ='$id_nk';";
+    
+                    // Cập nhật dữ liệu nhật ký và ảnh mới
+                    $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham', `vungsanxuat` = '$vungsanxuat', `doanhnghiep` = '$doanhnghiep', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `hinhanh` = '$nk_img_name', `thanhvien` = '$thanhvien' WHERE `id_nk` ='$id_nk';";
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($nk_img_tmp, "uploads/" . $nk_img_name)) {
-                        echo '<script>
-                            alert("Chỉnh sửa thành công");
-                            window.location.href = "manage_nhatky.php";
-                        </script>';
+                        return "Update successful!";
                     } else {
-                        echo "Thất bại khi đăng";
+                        return "Update failed!";
                     }
                 } else {
-                    $msg = "Sorry !! Pdt image max height: 2701 px and width: 2701 px, but you are trying {$width} px and {$height} px";
-                    return $msg;
+                    return "Sorry !! Pdt image max height: 2701 px and width: 2701 px, but you are trying {$width} px and {$height} px";
                 }
             } else {
-                $msg = "File should be jpg or png format";
-                return $msg;
+                return "File should be jpg or png format";
             }
         } else {
             // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của bài viết
-            $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham',`vungsanxuat` = '$vungsanxuat',`doanhnghiep` = '$doanhnghiep',`tennhatky` = '$tennhatky', `chitiet` = '$chitiet' WHERE `id_nk` ='$id_nk';";
+            $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham', `vungsanxuat` = '$vungsanxuat', `doanhnghiep` = '$doanhnghiep', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `thanhvien` = '$thanhvien' WHERE `id_nk` ='$id_nk';";
             if (mysqli_query($this->connection, $query)) {
-                echo '<script>
-                    alert("Chỉnh sửa thành công");
-                    window.location.href = "manage_nhatky.php";
-                </script>';
+                return "Update successful!";
             } else {
-                echo "Update failed!";
+                return "Update failed!";
             }
         }
     }
-
+    
     function add_nhatky($data)
     {
         $nguoidang = $data['nguoidang'];

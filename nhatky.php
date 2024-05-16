@@ -215,21 +215,24 @@ include_once("includes/head.php");
                                     <div class="single-data">
                                         <div class="single-data__label" style="margin-left: 20px;"><u><b>Thành viên liên quan:</b></u></div>
                                         <div class="single-data__data">
-                                            <div class="slick-item" id="related-members-slider">
+                                        <div class="slick-item">
+                                            <div id="related-members-slider" class="profile profile-img-list" style="display: flex; flex-direction: row; overflow: hidden;">
                                                 <?php 
                                                 $relatedMembers = explode(',', $nk['thanhvien']); // Assuming 'thanhvien' is a comma-separated list of member IDs
                                                 foreach ($relatedMembers as $memberId) {
-                                                $member = $obj->show_taikhoanbyid($memberId); // Function to get member details by ID
-                                                ?>
-                                                <div class="slick-item">
-                                                    <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" style="width: 50px; height: 50px; border-radius: 50%;">
-                                                    <div class="slick-tilte">
-                                                    <?= $member['hoten']; ?>
+                                                    $member = $obj->show_taikhoanbyid($memberId); // Function to get member details by ID
+                                                    ?>
+                                                    <div class="slick-item" style="margin: 10px; text-align: center;">
+                                                        <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" style="width: 70px; height: 70px; border-radius: 50%; margin: auto;">
+                                                        <div class="slick-title">
+                                                            <?= $member['hoten']; ?>
+                                                        </div>
                                                     </div>
-                                                </div>
                                                 <?php } ?>
                                             </div>
                                         </div>
+
+                                        </div>  
                                     </div>
                                 </div>
                                 <?php endif; ?>
@@ -286,31 +289,34 @@ include_once("includes/head.php");
 
 </html>
 <script>
-    $(document).ready(function(){
-        $('#related-members-slider').slick({
-            infinite: true,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            dots: true,
-            arrows: true,
-            responsive: [
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
+  $(document).ready(function() {
+    // Khởi tạo Slick slider sau khi tất cả các thành viên liên quan được thêm vào DOM
+    $('#related-members-slider').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        dots: true,
+        arrows: true,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
                 }
-            ]
-        });
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     });
+});
+
 </script>
+
 
 

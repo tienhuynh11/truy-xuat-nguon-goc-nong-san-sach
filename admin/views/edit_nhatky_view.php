@@ -1,24 +1,34 @@
 <?php 
- $users = $obj->show_admin_user();
+
+ 
     $product_info=$obj->display_product();
     $vungsanxuat=$obj->vsxShow();
  $doanhnghiep = $obj->display_dn();
+ 
+
+
+ 
+ 
     if(isset($_GET['status'])){
         $id_nk = $_GET['id'];
         if($_GET['status']=="nkEdit"){
-           
+            
+             $all_members = $obj->show_admin_user();
            $nk_info= $obj->show_nhatky_by_id($id_nk);
            $nk = mysqli_fetch_assoc($nk_info);
         }
     }
 
     if(isset($_POST['update_nhatky'])){
-       $update_msg =  $obj->update_nhatky($_POST);
-       if($update_msg == "Update successful!") {
-        header("Location: manage_nhatky.php"); 
-        exit(); 
+        $update_msg = $obj->update_nhatky($_POST);
+        if($update_msg == "Update successful!") {
+            echo '<script>
+            alert("cập nhật nhật ký sản phẩm thành công");
+            window.location.href = "manage_nhatky.php";
+            </script>';
+        }
     }
-    }
+    
 ?>
 
 <div class="container">
@@ -72,6 +82,24 @@
         <h4>Tên nhật ký</h4>
         <textarea name="tennhatky" id="" cols="30" rows="10" class="form-control" ><?php echo $nk['tennhatky'] ?></textarea>
     </div>
+  
+    <div class="form-group">
+    <label for="thanhvien">Thành viên </label>
+    <select name="thanhvien[]" id="thanhvien" class="form-control" multiple>
+        <?php
+       
+       $selected_members_str = str_replace(['"', ''], '', $nk['thanhvien']);
+       $selected_members = json_decode($selected_members_str, true);
+        foreach($all_members as $member): ?>
+            <?php if (in_array($member['id_acc'], $selected_members)) { ?>
+                <option value="<?php echo $member['id_acc'] ?>" selected><?php echo $member['hoten'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $member['id_acc'] ?>"><?php echo $member['hoten'] ?></option>
+            <?php } ?>
+        <?php endforeach; ?>
+    </select>
+</div>
+
     <div class="form-group">
         <h4>Chi tiết</h4>
         <textarea name="chitiet" id="" cols="30" rows="10" class="form-control" ><?php echo $nk['chitiet'] ?></textarea>
@@ -92,7 +120,7 @@
 <script>
     $(document).ready(function() {
         $("#sp").select2();
-        $("#nguoidaidien").select2();
+        $("#thanhvien").select2();
         $("#vungsanxuat").select2();
         $("#doanhnghiep").select2();
     });
@@ -109,4 +137,8 @@
     .select2-container--default .select2-selection--single{
         border: none;
     }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+   
+    color: #171717;
+}
 </style>
