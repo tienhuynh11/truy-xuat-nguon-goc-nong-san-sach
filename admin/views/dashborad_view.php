@@ -1,12 +1,12 @@
 <?php
 date_default_timezone_set("Asia/Dhaka");
-$total_products = $obj->count_product();
+$total_products = $obj->count_sp($admin_id,$admin_role);
 $total_products_daduyet = $obj->count_product_daduyet();
-$dembaiviet = $obj->count_bv();
-$demdn = $obj->count_dn();
-$demvsx = $obj->count_vsx();
-$demcg = $obj->count_caygiong();
-$demnx = $obj->count_nx();
+$dembaiviet = $obj->count_bv_manage($admin_id,$admin_role);
+$demdn = $obj->count_dn_manage($admin_id,$admin_role);
+$demvsx = $obj->count_vsx_manage($admin_id,$admin_role);
+$demcg = $obj->count_cg_manage($admin_id,$admin_role);
+$demnx = $obj->count_nx_manage($admin_id,$admin_role);
 
 ?>
 <style>
@@ -150,7 +150,7 @@ $demnx = $obj->count_nx();
     </div>
 
 
-    <div class="col-md-6 col-xl-3">
+    <!-- <div class="col-md-6 col-xl-3">
         <a href="manage_product.php">
             <div class="card bg-c-green order-card">
                 <div class="card-block">
@@ -171,10 +171,10 @@ $demnx = $obj->count_nx();
                 </div>
             </div>
         </a>
-    </div>
+    </div> -->
     <div class="col-md-6 col-xl-3">
         <a href="manage_bv.php">
-            <div class="card bg-c-pink order-card">
+            <div class="card bg-c-green order-card">
                 <div class="card-block">
                     <h6 class="m-b-20">Bài viết</h6>
                     <h2 class="text-right"><i class="ti-book f-left"></i><span id="DeliverOrder"><?php echo  $dembaiviet; ?></span></h2>
