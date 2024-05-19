@@ -14871,6 +14871,7 @@ body.open-quickview-block .biolife-quickview-block{
     /* Hiệu ứng bóng */
     overflow: hidden;
     transition: all 0.4s;
+    z-index: 10000000;
 }
 
 .process {
@@ -14908,7 +14909,7 @@ body.open-quickview-block .biolife-quickview-block{
    text-align: center;
    font-weight: bold;
    color: black;
-   /* height: 70px; */
+   height: 70px;
 }
 .sli-tilte{
    height: 70px;

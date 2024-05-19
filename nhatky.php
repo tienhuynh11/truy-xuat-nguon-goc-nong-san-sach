@@ -222,7 +222,7 @@ include_once("includes/head.php");
                                                 foreach ($relatedMembers as $memberId) {
                                                     $member = $obj->show_taikhoanbyid($memberId);
                                                     ?>
-                                                    <div class="slick-item" style="margin: 10px; text-align: center;">
+                                                    <div class="slick-item slick" style="margin: 10px;margin-top:0px; text-align: center;">
                                                         <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" style="width: 70px; height: 70px; border-radius: 50%; margin: auto;">
                                                         <div class="slick-title">
                                                             <?= $member['hoten']; ?>
@@ -294,7 +294,7 @@ include_once("includes/head.php");
     $('#related-members-slider').slick({
         infinite: false,
         slidesToShow: 4,
-        slidesToScroll: 1,
+        slidesToScroll: 2,
         dots: false,
         arrows: true,
         responsive: [
@@ -302,14 +302,14 @@ include_once("includes/head.php");
                 breakpoint: 768,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 1
+                    slidesToScroll: 2
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
+                    slidesToShow: 2,
+                    slidesToScroll: 2
                 }
             }
         ]

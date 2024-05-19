@@ -191,7 +191,7 @@ $nx_info = $obj->show_nhaxuong();
             </div>
         </div>
 
-        <?php if (($admin_role == 'Admin')) { ?>
+        <?php //if (($admin_role == 'Admin')) { ?>
             <div class="form-group">
                 <label class="col-md-1" style="float: left;">Trạng thái</label>
                 <div class="col-md-3">
@@ -199,7 +199,7 @@ $nx_info = $obj->show_nhaxuong();
                     <input type="radio" name="trangthai" value="khonghoatdong" <?php if ($user['trangthai'] == "khonghoatdong") echo "checked"; ?>> Không hoạt động<br>
                 </div>
             </div>
-        <?php } ?>
+        <?php //} ?>
 
         <div class="form-group">
             <div class="col-md-offset-3 col-md-9">

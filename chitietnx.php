@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
 }
 
 foreach ($nx_datas as $nx) {
-    $id_nx= $nx['id_nx'];
+    $id_nx = $nx['id_nx'];
     $danhmuc_nx = $nx['danhmuc_nx'];
     $nguoidaidien = $nx['nguoidaidien'];
     $doanhnghiep = $nx['doanhnghiep'];
@@ -82,9 +82,10 @@ foreach ($doanhnghiep as $dn) {
 include_once("includes/head.php");
 ?>
 <style>
-    .slick-track{
+    .slick-track {
         width: auto;
     }
+
     .map-container {
         position: relative;
         overflow: hidden;
@@ -233,10 +234,30 @@ include_once("includes/head.php");
                         <div class="col-md-9 ">
                             <div class="slick">
                                 <div class="slick-item">
-                                    <img src="admin/uploads/avatar/<?= $avatar ?>" alt="<?= $avatar ?>" >
+                                    <img src="admin/uploads/avatar/<?= $avatar ?>" alt="<?= $avatar ?>">
                                 </div>
                                 <div class="slick-tilte">
-                                    <span class="sli-tilte"><?php echo $hoten ?></span>
+                                    <?php
+                                    $max_length = 25;
+
+
+                                    if (strlen($hoten) > $max_length) {
+
+                                        $tenrutgon = substr($hoten, 0, $max_length);
+
+
+                                        $last_space = strrpos($tenrutgon, ' ');
+                                        if ($last_space !== false) {
+                                            $tenrutgon = substr($tenrutgon, 0, $last_space);
+                                        }
+
+
+                                        echo '<span class="sli-tilte">' . $hoten . '</span>';
+                                    } else {
+
+                                        echo '<span class="sli-tilte">' . $hoten . '</span>';
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -245,13 +266,33 @@ include_once("includes/head.php");
                         <div class="col-md-3">
                             Thuộc doanh nghiệp:
                         </div>
-                        <div class="col-md-9" >
-                        <div class="slick"  >
+                        <div class="col-md-9">
+                            <div class="slick">
                                 <div class="slick-item">
-                                    <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>" >
+                                    <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>">
                                 </div>
                                 <div class="slick-tilte">
-                                    <span class="sli-tilte"><?php echo $tendoanhnghiep;?></span>
+                                    <?php
+                                    $max_length = 25;
+
+
+                                    if (strlen($tendoanhnghiep) > $max_length) {
+
+                                        $tenrutgon = substr($tendoanhnghiep, 0, $max_length);
+
+
+                                        $last_space = strrpos($tenrutgon, ' ');
+                                        if ($last_space !== false) {
+                                            $tenrutgon = substr($tenrutgon, 0, $last_space);
+                                        }
+
+
+                                        echo '<span class="sli-tilte">' . $tenrutgon . '</span>';
+                                    } else {
+
+                                        echo '<span class="sli-tilte">' . $tendoanhnghiep . '</span>';
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -261,18 +302,30 @@ include_once("includes/head.php");
                             Vùng sản xuất:
                         </div>
                         <div class="col-md-9">
-                        <div class="slick" >
+                            <div class="slick">
                                 <div class="slick-item">
-                                    <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>" >
+                                    <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>">
                                 </div>
                                 <div class="slick-tilte">
-                                    <span class="sli-tilte"><?php echo $tenvung;?></span>
+                                    <?php
+                                    $max_length = 24;
+                                    if (strlen($tenvung) > $max_length) {
+                                        $tenrutgon = substr($tenvung, 0, $max_length);
+                                        $last_space = strrpos($tenrutgon, ' ');
+                                        if ($last_space !== false) {
+                                            $tenrutgon = substr($tenrutgon, 0, $last_space);
+                                        }
+                                        echo '<span class="sli-tilte">' . $tenrutgon . '</span>';
+                                    } else {
+                                        echo '<span class="sli-tilte">' . $tenvung . '</span>';
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
                     </div>
-                  
-                    <div class="row" id="vsx" >
+
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Email:
                         </div>
@@ -341,22 +394,22 @@ include_once("includes/head.php");
                         <div class="col-md-3">
                             Danh sách thành viên:
                         </div>
-                        <div class="col-md-9 slider-nguoidaidien" >
-                            <?php 
+                        <div class="col-md-9 slider-nguoidaidien">
+                            <?php
                             $arry  = $obj->show_admin_user_by_nhaxuong($id_nx);
-                             while($user = mysqli_fetch_assoc($arry)){ ?>
-                            <div class="slick">
-                                <div class="slick-item">
-                                    <img src="admin/uploads/avatar/<?= $user['hinhdaidien'] ?>" alt="<?= $avatar ?>" >
+                            while ($user = mysqli_fetch_assoc($arry)) { ?>
+                                <div class="slick">
+                                    <div class="slick-item">
+                                        <img src="admin/uploads/avatar/<?= $user['hinhdaidien'] ?>" alt="<?= $avatar ?>">
+                                    </div>
+                                    <div class="slick-tilte">
+                                        <span class="sli-tilte"><?php echo  $user['hoten'] ?></span>
+                                    </div>
                                 </div>
-                                <div class="slick-tilte">
-                                    <span class="sli-tilte"><?php echo  $user['hoten'] ?></span>
-                                </div>
-                            </div>
                             <?php } ?>
                         </div>
                     </div>
-                    
+
 
                 </div>
             <?php }
@@ -412,7 +465,7 @@ include_once("includes/head.php");
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 2,
-                    
+
                 }
             }]
         });

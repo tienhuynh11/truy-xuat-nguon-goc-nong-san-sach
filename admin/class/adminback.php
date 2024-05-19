@@ -165,7 +165,7 @@ class  adminback
                     $pre_img = $row['hinhdaidien'];
                     unlink("uploads/avatar/" . $pre_img);
     
-                    $query = "UPDATE `taikhoan` SET `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vungsanxuat', `nhaxuong` = '$nhaxuong', `hoten` = '$name', `dienthoai` = '$sdt', `diachi` = '$diachi', `thongtin` = '$thongtin', `hinhdaidien`,`trangthai` = '$trangthai' = '$hinhdaidien_name' WHERE `id_acc` = '$u_id';";
+                    $query = "UPDATE `taikhoan` SET `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vungsanxuat', `nhaxuong` = '$nhaxuong', `hoten` = '$name', `dienthoai` = '$sdt', `diachi` = '$diachi', `thongtin` = '$thongtin', `hinhdaidien` = '$hinhdaidien_name',`trangthai` = '$trangthai' WHERE `id_acc` = '$u_id';";
     
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($hinhdaidien_tmp, "uploads/avatar/" . $hinhdaidien_name)) {
                         $msg = 1; // Thành công
