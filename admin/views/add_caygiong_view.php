@@ -90,6 +90,10 @@
         <input type="file" name="hinhanh" id="" required>
     </div>
     <div class="form-group">
+        <label for="giaychungnhan">Giấy chứng nhận</label>
+        <input type="file" name="giaychungnhan" id="">
+    </div>
+    <div class="form-group">
         <label for="lienhe">Liên hệ</label>
         <input type="text" name="lienhe" class="form-control">
     </div>

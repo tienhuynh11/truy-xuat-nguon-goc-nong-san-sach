@@ -459,7 +459,7 @@ include_once("includes/head.php");
                                                                 <p class="description"><?= $nx['tennhaxuong'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?= $nx['diachi'] ?></p>
-                                                                <a class="btn btn-info" href="chitietnx.php?id=">Xem chi tiết</a>
+                                                                <a class="btn btn-info" href="chitietnx.php?id=<?= $nhaxuong ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -474,7 +474,7 @@ include_once("includes/head.php");
                                                                 <p class="description"><?= $nsx['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?= $nsx['diachi'] ?></p>
-                                                                <a class="btn btn-info" href="chitietdn.php?id=">Xem chi tiết</a>
+                                                                <a class="btn btn-info" href="chitietdn.php?id=<?= $nhasanxuat ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -489,7 +489,7 @@ include_once("includes/head.php");
                                                                 <p class="description"><?= $nnk['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?= $nnk['diachi'] ?></p>
-                                                                <a class="btn btn-info" href="chitietdn.php?id=">Xem chi tiết</a>
+                                                                <a class="btn btn-info" href="chitietdn.php?id=<?= $nhanhapkhau ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -504,7 +504,7 @@ include_once("includes/head.php");
                                                                 <p class="description"><?= $npp['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?= $npp['diachi'] ?></p>
-                                                                <a class="btn btn-info" href="chitietdn.php?id=">Xem chi tiết</a>
+                                                                <a class="btn btn-info" href="chitietdn.php?id=<?= $nhaphanphoi ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -519,26 +519,39 @@ include_once("includes/head.php");
                                                                 <p class="description"><?= $nvc['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?= $nvc['diachi'] ?></p>
-                                                                <a class="btn btn-info" href="chitietdn.php?id=">Xem chi tiết</a>
+                                                                <a class="btn btn-info" href="chitietdn.php?id=<?= $nhavanchuyen ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="tab_3rd" class="tab-contain review-tab">
-                                            <div class="container">
-                                                <?php if (!empty($pro_data[''])) : ?>
-                                                    <div class="row" id="vsx" style="padding: 20px 0;">
-                                                        <div class="col-md-3">
-                                                            Giấy kiểm định:
-                                                        </div>
-                                                        <div class="col-md-9">
-                                                            <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>">
-                                                        </div>
+                                        <div id="tab_3rd" class="tab-contain review-tab" style="background-color: #fff;border: #e3e3e3 1px;">
+                                        <div class="accodition-tab biolife-accodition">
+                                            <?php if (!empty($pro_data['hinhkiemdinh'])) : ?>
+                                                <div class="row" id="vsx" style="padding: 20px 0;">
+                                                    <div class="col-md-3">
+                                                        Giấy kiểm định:
                                                     </div>
-                                                <?php endif; ?>
+                                                    <div class="col-md-9">
+                                                        <img src="admin/uploads/<?= $pro_data['hinhkiemdinh'] ?>" alt="<?= $pro_data['hinhkiemdinh'] ?>" style="height: 200px;" data-toggle="modal" data-target="#imageModal" class="zoom-img">
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <?php endif; ?>
+                                            <?php if (!empty($pro_data['hinhchungnhan'])) : ?>
+                                                <div class="row" id="vsx" style="padding: 20px 0;">
+                                                    <div class="col-md-3">
+                                                        Giấy chứng nhận:
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <img src="admin/uploads/<?= $pro_data['hinhchungnhan'] ?>" alt="<?= $pro_data['hinhchungnhan'] ?>" style="height: 200px;" data-toggle="modal" data-target="#imageModal" class="zoom-img">
+                                                    </div>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -598,7 +611,36 @@ include_once("includes/head.php");
 
     </div>
     </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <img src="" alt="" id="modalImage" class="img-responsive" style="height: 632px; margin: auto;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    <script>
+    $(document).ready(function () {
+        $('.zoom-img').on('click', function () {
+            $('#modalImage').attr('src', $(this).attr('src'));
+            $('#modalImage').removeClass('zoom-in zoom-out');
+        });
 
+        $('#modalImage').on('click', function () {
+            if ($(this).hasClass('zoom-in')) {
+                $(this).removeClass('zoom-in');
+                $(this).addClass('zoom-out');
+                $(this).css('cursor', 'zoom-in');
+            } else {
+                $(this).removeClass('zoom-out');
+                $(this).addClass('zoom-in');
+                $(this).css('cursor', 'zoom-out');
+            }
+        });
+    });
+</script>
     <!-- FOOTER -->
 
     <?php

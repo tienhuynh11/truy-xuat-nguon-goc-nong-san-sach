@@ -90,6 +90,13 @@
         <input type="file" name="hinhanh" class="form-control">
     </div>
     <div class="form-group">
+        <label for="giaychungnhan">Giấy chứng nhận </label>
+        <div class="mb-3">
+        <img src="uploads/<?php echo $cg['giaychungnhan']?>" style="width: 80px;" >
+    </div>
+        <input type="file" name="giaychungnhan" class="form-control">
+    </div>
+    <div class="form-group">
         <h4>Liên hệ</h4>
         <input type="text" name="lienhe" class="form-control" value="<?php echo $cg['lienhe'] ?>" required>
     </div>

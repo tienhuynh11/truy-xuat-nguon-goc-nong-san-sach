@@ -61,6 +61,7 @@
                 <th>Hướng dẫn sử dụng</th>
                 <th>Hình ảnh</th>
                 <th>Liên hệ</th>
+                <th>Giấy chứng nhận</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -115,7 +116,7 @@
                 <td> <?php echo  $cg['hdsd'] ?> </td>
                 <td><img style="height:60px" src="uploads/<?php echo $cg['hinhanh'] ?>" alt=""></td>
                 <td> <?php echo  $cg['lienhe'] ?> </td>
-                
+                <td><img style="height:60px" src="uploads/<?php echo $cg['giaychungnhan'] ?>" alt=""></td>
             
             
                 <td>  
