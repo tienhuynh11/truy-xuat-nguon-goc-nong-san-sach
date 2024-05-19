@@ -50,7 +50,7 @@
 <form action="" method="post" enctype="multipart/form-data" class="form">
     <div class="form-group">
         <label for="tensanpham">Tên sản phẩm</label>
-        <input type="tensanpham" name="tensanpham" class="form-control">
+        <input type="tensanpham" name="tensanpham" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="danhmuc">Danh mục</label>
@@ -63,7 +63,7 @@
     </div>
     <div class="form-group">
         <label for="mavach">Mã vạch</label>
-        <input type="text" name="mavach" class="form-control">
+        <input type="text" name="mavach" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="pdt_price">Giá</label>
@@ -71,7 +71,7 @@
     </div>
     <div class="form-group">
         <label for="pdt_img">Hình ảnh</label>
-        <input type="file" name="pdt_img" class="form-control">
+        <input type="file" name="pdt_img" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="xuatxu">Xuất xứ</label>
@@ -178,7 +178,13 @@
         <label for="pdt_des">Mô tả</label>
         <textarea name="pdt_des" cols="30" rows="5" class="form-control"></textarea>
     </div>
-
+    <div class="form-group">
+        <label for="hinhchungnhan">Hình chứng nhận</label>
+        <input type="file" name="hinhchungnhan" class="form-control" required >
+    </div><div class="form-group">
+        <label for="hinhkiemdinh">Hình kiểm định</label>
+        <input type="file" name="hinhkiemdinh" class="form-control" required>
+    </div>
     <!-- <div class="form-group">
         <label for="pdt_status">Trạng thái</label>
         <input type="text" name="pdt_status" class="form-control" readonly placeholder="Đã xét duyệt" >

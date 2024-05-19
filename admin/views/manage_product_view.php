@@ -102,7 +102,7 @@ if (isset($_GET['trangthai'])) {
                     <td>
                         <!-- Ở đây m muốn hiển thị dữ liệu nào thì thêm data-tênbiến = "<?= $pdt['tên biến cần lấy'] ?>" bỏ vô dưới -->
 
-                        <a class="btn btn-sm btn-success editbtn" href="#" data-toggle="modal" data-target="#xemchitiet" data-id="<?= $pdt['id_sp'] ?>" data-name="<?= $pdt['tensanpham'] ?>" data-masp="<?php echo  $formatted_id_sp ?>" data-gia="<?= $pdt['gia'] ?>" data-xuatxu="<?= $pdt['xuatxu'] ?>" data-hinhanh="<?= $pdt['hinhanh'] ?>" data-congdung="<?= $pdt['congdung'] ?>" data-caygiong="<?= $cg['tencaygiong'] ?>" data-dieukienbaoquan="<?= $pdt['dieukienbaoquan'] ?>" data-maqr="<?= $pdt['maqr'] ?>" data-mota="<?= $pdt['mota'] ?>" data-hdsd="<?= $pdt['hdsd'] ?>" data-danhmuc="<?= $danhmuc['tendanhmuc'] ?>" data-taikhoan="<?= $tk['hoten'] ?>" data-nhasanxuat="<?= $nsx['tendoanhnghiep'] ?>" data-nhaxuatkhau="<?= $nxk['tendoanhnghiep'] ?>" data-nhanhapkhau="<?= $nnk['tendoanhnghiep'] ?>" data-nhaphanphoi="<?= $npp['tendoanhnghiep'] ?>" data-nhavanchuyen="<?= $nvc['tendoanhnghiep'] ?>" data-nhaxuong="<?= $nx['tennhaxuong'] ?>" data-vungsanxuat="<?= $vsx['tenvung'] ?>">Chi tiết</a>
+                        <a class="btn btn-sm btn-success editbtn" href="#" data-toggle="modal" data-target="#xemchitiet" data-id="<?= $pdt['id_sp'] ?>" data-name="<?= $pdt['tensanpham'] ?>" data-masp="<?php echo  $formatted_id_sp ?>" data-gia="<?= $pdt['gia'] ?>" data-xuatxu="<?= $pdt['xuatxu'] ?>" data-hinhanh="<?= $pdt['hinhanh'] ?>" data-hinhchungnhan="<?= $pdt['hinhchungnhan'] ?>" data-hinhkiemdinh="<?= $pdt['hinhkiemdinh'] ?>" data-congdung="<?= $pdt['congdung'] ?>" data-caygiong="<?= $cg['tencaygiong'] ?>" data-dieukienbaoquan="<?= $pdt['dieukienbaoquan'] ?>" data-maqr="<?= $pdt['maqr'] ?>" data-mota="<?= $pdt['mota'] ?>" data-hdsd="<?= $pdt['hdsd'] ?>" data-danhmuc="<?= $danhmuc['tendanhmuc'] ?>" data-taikhoan="<?= $tk['hoten'] ?>" data-nhasanxuat="<?= $nsx['tendoanhnghiep'] ?>" data-nhaxuatkhau="<?= $nxk['tendoanhnghiep'] ?>" data-nhanhapkhau="<?= $nnk['tendoanhnghiep'] ?>" data-nhaphanphoi="<?= $npp['tendoanhnghiep'] ?>" data-nhavanchuyen="<?= $nvc['tendoanhnghiep'] ?>" data-nhaxuong="<?= $nx['tennhaxuong'] ?>" data-vungsanxuat="<?= $vsx['tenvung'] ?>">Chi tiết</a>
 
                         <!-- <a class="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#exampleModalCenter" data-id="<?php echo $pdt['id_sp'] ?>">Chi tiết</a> -->
                         <a href="edit_product.php?trangthai=edit&&id=<?php echo $pdt['id_sp'] ?>" class="btn btn-sm btn-warning">Sửa</a>
@@ -188,6 +188,8 @@ echo "</div>";
             var nhaphanphoi = $('#xemchitiet').data('nhaphanphoi');
             var nhavanchuyen = $('#xemchitiet').data('nhavanchuyen');
             var nhaxuatkhau = $('#xemchitiet').data('nhaxuatkhau');
+            var hinhchungnhan = $('#xemchitiet').data('hinhchungnhan');
+            var hinhkiemdinh = $('#xemchitiet').data('hinhkiemdinh');
 
 
             $('#id_sp').text(id);
@@ -213,6 +215,8 @@ echo "</div>";
             $('#nhaphanphoi').text(nhaphanphoi);
             $('#nhavanchuyen').text(nhavanchuyen);
             $('#nhaxuatkhau').text(nhaxuatkhau);
+            $('#hinhkiemdinh').html('<img src="uploads/' + hinhkiemdinh + '" style="height: 100px;">');
+            $('#hinhchungnhan').html('<img src="uploads/' + hinhchungnhan + '" style="height: 100px;">');
 
         });
 
@@ -240,6 +244,8 @@ echo "</div>";
             var nhasanxuat = $(this).data('nhasanxuat');
             var nhaphanphoi = $(this).data('nhaphanphoi');
             var nhaxuong = $(this).data('nhaxuong');
+            var hinhkiemdinh = $(this).data('hinhkiemdinh');
+            var hinhchungnhan = $(this).data('hinhchungnhan');
 
             $('#xemchitiet').data('id', id);
             $('#xemchitiet').data('name', name);
@@ -263,6 +269,8 @@ echo "</div>";
             $('#xemchitiet').data('nhasanxuat', nhasanxuat);
             $('#xemchitiet').data('nhaphanphoi', nhaphanphoi);
             $('#xemchitiet').data('nhaxuong', nhaxuong);
+            $('#xemchitiet').data('hinhkiemdinh', hinhkiemdinh);
+            $('#xemchitiet').data('hinhchungnhan', hinhchungnhan);
             // Lưu id vào data-id của modal
         });
     });
@@ -374,6 +382,16 @@ echo "</div>";
                 <div class="row form-group">
                     <label class="col-3">Nhà xưởng</label>
                     <div class="col-9" id="nhaxuong">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-3">Hình chứng nhận</label>
+                    <div class="col-9" id="hinhchungnhan">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-3">Hình kiểm định</label>
+                    <div class="col-9" id="hinhkiemdinh">
                     </div>
                 </div>
                 <div class="row form-group" style="border-bottom: none">

@@ -184,11 +184,29 @@ ini_set("display_erros", "Off");
         <input type="text" name="congdung" class="form-control" value="<?php echo $pdt['congdung'] ?>" >
     </div>
     <div class="form-group">
+        <label for="thanhphan">Thành phần</label>
+        <input type="text" name="thanhphan" class="form-control" value="<?php echo $pdt['thanhphan'] ?>" >
+    </div>
+    <div class="form-group">
         <label for="pdt_img">Hình ảnh </label>
         <div class="mb-3">
         <img src="uploads/<?php echo $pdt['hinhanh']?>" style="width: 80px;" >
     </div>
         <input type="file" name="u_pdt_img" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="hinhchungnhan">Hình chứng nhận </label>
+        <div class="mb-3">
+        <img src="uploads/<?php echo $pdt['hinhchungnhan']?>" style="width: 80px;" >
+    </div>
+        <input type="file" name="hinhchungnhan" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="hinhkiemdinh">Hình kiểm định </label>
+        <div class="mb-3">
+        <img src="uploads/<?php echo $pdt['hinhkiemdinh']?>" style="width: 80px;" >
+    </div>
+        <input type="file" name="hinhkiemdinh" class="form-control">
     </div>
 
     

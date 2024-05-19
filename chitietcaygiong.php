@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
 ?>
 
 
-<style>
+<>
     /* Kích thước chữ mặc định */
     .media img {
         max-width: 100%;
@@ -472,8 +472,20 @@ include_once("includes/head.php");
                                         </div>
                                     </div>
                                 </div>
-                                <div id="tab_4th" class="tab-contain review-tab">
+                                <div id="tab_4th" class="tab-contain review-tab" style="background-color: #fff;border: #e3e3e3 1px;">
                                     <div class="container">
+                                    <div class="accodition-tab biolife-accodition">
+                                        <?php if (!empty($cg_data['giaychungnhan'])) : ?>
+                                            <div class="row" id="vsx" style="padding: 20px 0;">
+                                                <div class="col-md-3">
+                                                    Giấy kiểm định:
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <img src="admin/uploads/<?= $cg_data['giaychungnhan'] ?>" alt="<?= $cg_data['giaychungnhan'] ?>" style="height: 200px;" data-toggle="modal" data-target="#imageModal" class="zoom-img">
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
                                         <div class="row">
                                             <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
                                                 <div class="rating-info">
@@ -701,8 +713,37 @@ include_once("includes/head.php");
 
 
     </div>
-    </div>
 
+   <!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="admin/uploads/<?= $cg_data['giaychungnhan'] ?>" alt="<?= $cg_data['giaychungnhan'] ?>" id="modalImage" class="img-responsive" >
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.zoom-img').on('click', function () {
+            $('#modalImage').attr('src', $(this).attr('src'));
+        });
+
+        $('#modalImage').on('click', function () {
+            if ($(this).hasClass('zoom-in')) {
+                $(this).removeClass('zoom-in');
+                $(this).addClass('zoom-out');
+                $(this).css('cursor', 'zoom-in');
+            } else {
+                $(this).removeClass('zoom-out');
+                $(this).addClass('zoom-in');
+                $(this).css('cursor', 'zoom-out');
+            }
+        });
+    });
+</script>
     <!-- FOOTER -->
 
     <?php
