@@ -459,7 +459,7 @@ include_once("includes/head.php");
                                                                 <p class="description"><?= $nx['tennhaxuong'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?= $nx['diachi'] ?></p>
-                                                                <a class="btn btn-info" href="chitietnx.php?id=">Xem chi tiết</a>
+                                                                <a class="btn btn-info" href="chitietnx.php?id=<?= $nhaxuong ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -474,7 +474,7 @@ include_once("includes/head.php");
                                                                 <p class="description"><?= $nsx['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?= $nsx['diachi'] ?></p>
-                                                                <a class="btn btn-info" href="chitietdn.php?id=">Xem chi tiết</a>
+                                                                <a class="btn btn-info" href="chitietdn.php?id=<?= $nhasanxuat ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -489,7 +489,7 @@ include_once("includes/head.php");
                                                                 <p class="description"><?= $nnk['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?= $nnk['diachi'] ?></p>
-                                                                <a class="btn btn-info" href="chitietdn.php?id=">Xem chi tiết</a>
+                                                                <a class="btn btn-info" href="chitietdn.php?id=<?= $nhanhapkhau ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -504,7 +504,7 @@ include_once("includes/head.php");
                                                                 <p class="description"><?= $npp['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?= $npp['diachi'] ?></p>
-                                                                <a class="btn btn-info" href="chitietdn.php?id=">Xem chi tiết</a>
+                                                                <a class="btn btn-info" href="chitietdn.php?id=<?= $nhaphanphoi ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -519,7 +519,7 @@ include_once("includes/head.php");
                                                                 <p class="description"><?= $nvc['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?= $nvc['diachi'] ?></p>
-                                                                <a class="btn btn-info" href="chitietdn.php?id=">Xem chi tiết</a>
+                                                                <a class="btn btn-info" href="chitietdn.php?id=<?= $nhavanchuyen ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
