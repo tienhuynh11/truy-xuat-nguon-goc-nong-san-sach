@@ -35,7 +35,7 @@ class  adminback
                         $_SESSION['admin_email'] = $admin_info['email'];
                         $_SESSION['role'] = $admin_info['role'];
                         $_SESSION['username'] = $admin_info['hoten'];
-                    }else{
+                    } else {
                         $log_msg = 4;
                         return $log_msg;
                     }
@@ -47,11 +47,10 @@ class  adminback
                 $log_msg = 2;
                 return $log_msg;
             }
-        }else{
+        } else {
             $log_msg = 3;
             return $log_msg;
         }
-        
     }
 
 
@@ -139,7 +138,8 @@ class  adminback
             return $result;
         }
     }
-    function update_hoso($data){
+    function update_hoso($data)
+    {
         $u_id = $data['id_acc'];
         $name = $data['name'];
         $sdt = $data['sdt'];
@@ -148,15 +148,15 @@ class  adminback
         $vungsanxuat = $data['vungsanxuat'];
         $nhaxuong = $data['nhaxuong'];
         $thongtin = $data['thongtin'];
-        $trangthai = $data['trangthai']; 
-        
+        $trangthai = $data['trangthai'];
+
         if (!empty($_FILES['hinhdaidien']['tmp_name'])) {
             $hinhdaidien_name = $_FILES['hinhdaidien']['name'];
             $hinhdaidien_size = $_FILES['hinhdaidien']['size'];
             $hinhdaidien_tmp = $_FILES['hinhdaidien']['tmp_name'];
             $img_ext = pathinfo($hinhdaidien_name, PATHINFO_EXTENSION);
             list($width, $height) = getimagesize($hinhdaidien_tmp);
-    
+
             if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
                 if ($hinhdaidien_size <= 2e+6 && $width < 2701 && $height < 2701) {
                     $select_query = "SELECT * FROM `taikhoan` WHERE id_acc=$u_id";
@@ -164,9 +164,9 @@ class  adminback
                     $row = mysqli_fetch_assoc($result);
                     $pre_img = $row['hinhdaidien'];
                     unlink("uploads/avatar/" . $pre_img);
-    
+
                     $query = "UPDATE `taikhoan` SET `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vungsanxuat', `nhaxuong` = '$nhaxuong', `hoten` = '$name', `dienthoai` = '$sdt', `diachi` = '$diachi', `thongtin` = '$thongtin', `hinhdaidien` = '$hinhdaidien_name',`trangthai` = '$trangthai' WHERE `id_acc` = '$u_id';";
-    
+
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($hinhdaidien_tmp, "uploads/avatar/" . $hinhdaidien_name)) {
                         $msg = 1; // Thành công
                         return $msg;
@@ -185,7 +185,7 @@ class  adminback
         } else {
             // Nếu không có tệp ảnh mới được chọn, chỉ cập nhật thông tin người dùng mà không cần di chuyển tệp ảnh cũ
             $query = "UPDATE `taikhoan` SET `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vungsanxuat', `nhaxuong` = '$nhaxuong', `hoten` = '$name', `dienthoai` = '$sdt', `diachi` = '$diachi', `thongtin` = '$thongtin',`trangthai` = '$trangthai' WHERE `id_acc` = '$u_id';";
-    
+
             if (mysqli_query($this->connection, $query)) {
                 $msg = 5; // Thành công
                 return $msg;
@@ -195,8 +195,8 @@ class  adminback
             }
         }
     }
-    
-    
+
+
     function update_admin($data)
     {
         $u_id = $data['user_id'];
@@ -262,8 +262,8 @@ class  adminback
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch['hinhdaidien'];
-        
-        
+
+
         if (mysqli_query($this->connection, $query)) {
             unlink('uploads/avatar/' . $img_name);
             echo '<script>
@@ -421,84 +421,85 @@ class  adminback
     }
 
     function add_product($data)
-{
-    $tensanpham = $data['tensanpham'];
-    $pdt_ctg = $data['pdt_ctg'];
-    $mavach = $this->thayDoiChu($data['mavach']);
-    $pdt_price = $data['pdt_price'];
-    $pdt_img_name = $_FILES['pdt_img']['name'];
-    $pdt_img_size = $_FILES['pdt_img']['size'];
-    $pdt_img_tmp = $_FILES['pdt_img']['tmp_name'];
-    $img_ext = pathinfo($pdt_img_name, PATHINFO_EXTENSION);
-    $xuatxu = $data['xuatxu'];
-    $caygiong = $data['caygiong'];
-    $vungsanxuat = $data['vungsanxuat'];
-    $nhaxuongsanxuat = $data['nhaxuongsanxuat'];
-    $nhasanxuat = $data['nhasanxuat'];
-    $nhaxuatkhau = $data['nhaxuatkhau'];
-    $nhanhapkhau = $data['nhanhapkhau'];
-    $nhaphanphoi = $data['nhaphanphoi'];
-    $nhavanchuyen = $data['nhavanchuyen'];
-    $taikhoan = $data['taikhoan'];
-    $dkbq = $data['dkbq'];
-    $congdung = $data['congdung'];
-    $hdsd = $data['hdsd'];
-    $thanhphan = $data['thanhphan'];
-    $pdt_des = $data['pdt_des'];
-    
-    
-    $hinhchungnhan_name = $_FILES['hinhchungnhan']['name'];
-    $hinhchungnhan_size = $_FILES['hinhchungnhan']['size'];
-    $hinhchungnhan_tmp = $_FILES['hinhchungnhan']['tmp_name'];
-    $hinhchungnhan_ext = pathinfo($hinhchungnhan_name, PATHINFO_EXTENSION);
+    {
+        $tensanpham = $data['tensanpham'];
+        $pdt_ctg = $data['pdt_ctg'];
+        $mavach = $this->thayDoiChu($data['mavach']);
+        $pdt_price = $data['pdt_price'];
+        $pdt_img_name = $_FILES['pdt_img']['name'];
+        $pdt_img_size = $_FILES['pdt_img']['size'];
+        $pdt_img_tmp = $_FILES['pdt_img']['tmp_name'];
+        $img_ext = pathinfo($pdt_img_name, PATHINFO_EXTENSION);
+        $xuatxu = $data['xuatxu'];
+        $caygiong = $data['caygiong'];
+        $vungsanxuat = $data['vungsanxuat'];
+        $nhaxuongsanxuat = $data['nhaxuongsanxuat'];
+        $nhasanxuat = $data['nhasanxuat'];
+        $nhaxuatkhau = $data['nhaxuatkhau'];
+        $nhanhapkhau = $data['nhanhapkhau'];
+        $nhaphanphoi = $data['nhaphanphoi'];
+        $nhavanchuyen = $data['nhavanchuyen'];
+        $taikhoan = $data['taikhoan'];
+        $dkbq = $data['dkbq'];
+        $congdung = $data['congdung'];
+        $hdsd = $data['hdsd'];
+        $thanhphan = $data['thanhphan'];
+        $pdt_des = $data['pdt_des'];
 
-    $hinhkiemdinh_name = $_FILES['hinhkiemdinh']['name'];
-    $hinhkiemdinh_size = $_FILES['hinhkiemdinh']['size'];
-    $hinhkiemdinh_tmp = $_FILES['hinhkiemdinh']['tmp_name'];
-    $hinhkiemdinh_ext = pathinfo($hinhkiemdinh_name, PATHINFO_EXTENSION);
 
-    list($width, $height) = getimagesize("$pdt_img_tmp");
+        $hinhchungnhan_name = $_FILES['hinhchungnhan']['name'];
+        $hinhchungnhan_size = $_FILES['hinhchungnhan']['size'];
+        $hinhchungnhan_tmp = $_FILES['hinhchungnhan']['tmp_name'];
+        $hinhchungnhan_ext = pathinfo($hinhchungnhan_name, PATHINFO_EXTENSION);
 
-    if (($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") && 
-        ($hinhchungnhan_ext == "jpg" || $hinhchungnhan_ext == 'jpeg' || $hinhchungnhan_ext == "png") &&
-        ($hinhkiemdinh_ext == "jpg" || $hinhkiemdinh_ext == 'jpeg' || $hinhkiemdinh_ext == "png")) {
-        
-        if ($pdt_img_size <= 2e+6 && $hinhchungnhan_size <= 2e+6 && $hinhkiemdinh_size <= 2e+6) {
+        $hinhkiemdinh_name = $_FILES['hinhkiemdinh']['name'];
+        $hinhkiemdinh_size = $_FILES['hinhkiemdinh']['size'];
+        $hinhkiemdinh_tmp = $_FILES['hinhkiemdinh']['tmp_name'];
+        $hinhkiemdinh_ext = pathinfo($hinhkiemdinh_name, PATHINFO_EXTENSION);
 
-            if ($width < 2071 && $height < 2071) {
-                $query = "INSERT INTO `sanpham` (`taikhoan`, `danhmuc`, `caygiong`, `vungsanxuat`, `nhaxuong`, `nhasanxuat`, `nhaxuatkhau`,
+        list($width, $height) = getimagesize("$pdt_img_tmp");
+
+        if (($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") &&
+            ($hinhchungnhan_ext == "jpg" || $hinhchungnhan_ext == 'jpeg' || $hinhchungnhan_ext == "png") &&
+            ($hinhkiemdinh_ext == "jpg" || $hinhkiemdinh_ext == 'jpeg' || $hinhkiemdinh_ext == "png")
+        ) {
+
+            if ($pdt_img_size <= 2e+6 && $hinhchungnhan_size <= 2e+6 && $hinhkiemdinh_size <= 2e+6) {
+
+                if ($width < 2071 && $height < 2071) {
+                    $query = "INSERT INTO `sanpham` (`taikhoan`, `danhmuc`, `caygiong`, `vungsanxuat`, `nhaxuong`, `nhasanxuat`, `nhaxuatkhau`,
                 `nhanhapkhau`, `nhaphanphoi`, `nhavanchuyen`, `tensanpham`, `mavach`, `hinhanh`, `gia`, `xuatxu`, `mota`, `congdung`,
                 `hdsd`, `thanhphan`, `dieukienbaoquan`, `hinhchungnhan`, `hinhkiemdinh`) VALUES ('$taikhoan', '$pdt_ctg', '$caygiong', '$vungsanxuat', 
                 '$nhaxuongsanxuat', '$nhasanxuat', '$nhaxuatkhau','$nhanhapkhau', '$nhaphanphoi', '$nhavanchuyen', '$tensanpham', '$mavach', 
                 '$pdt_img_name', '$pdt_price', '$xuatxu', '$pdt_des', '$congdung', '$hdsd', '$thanhphan', '$dkbq', '$hinhchungnhan_name', 
                 '$hinhkiemdinh_name');";
 
-                if (mysqli_query($this->connection, $query)) {
-                    move_uploaded_file($pdt_img_tmp, "uploads/" . $pdt_img_name);
-                    move_uploaded_file($hinhchungnhan_tmp, "uploads/" . $hinhchungnhan_name);
-                    move_uploaded_file($hinhkiemdinh_tmp, "uploads/" . $hinhkiemdinh_name);
-                    $msg = "Thêm nông sản thành công!!";
-                    echo '<script>
+                    if (mysqli_query($this->connection, $query)) {
+                        move_uploaded_file($pdt_img_tmp, "uploads/" . $pdt_img_name);
+                        move_uploaded_file($hinhchungnhan_tmp, "uploads/" . $hinhchungnhan_name);
+                        move_uploaded_file($hinhkiemdinh_tmp, "uploads/" . $hinhkiemdinh_name);
+                        $msg = "Thêm nông sản thành công!!";
+                        echo '<script>
                     alert("Thêm nông sản thành công");
                     window.location.href = "manage_product.php";
                     </script>';
+                    } else {
+                        $msg = "Lỗi: " . mysqli_error($this->connection);
+                        return $msg;
+                    }
                 } else {
-                    $msg = "Lỗi: " . mysqli_error($this->connection);
+                    $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
                     return $msg;
                 }
             } else {
-                $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
+                $msg = "File size should not be larger than 2MB";
                 return $msg;
             }
         } else {
-            $msg = "File size should not be larger than 2MB";
+            $msg = "Files should be in jpg, jpeg, or png format";
             return $msg;
         }
-    } else {
-        $msg = "Files should be in jpg, jpeg, or png format";
-        return $msg;
     }
-}
 
     function delete_product($id)
     {
@@ -546,129 +547,129 @@ class  adminback
     }
 
     function update_product($data)
-{
-    $pdt_id = $data['pdt_id'];
-    $taikhoan = $data['taikhoan'];
-    $pdt_name = $data['u_pdt_name'];
-    $pdt_price = $data['u_pdt_price'];
-    $pdt_xx = $data['u_pdt_xx'];
-    $pdt_des = $data['u_pdt_des'];
-    $pdt_ctg = $data['u_pdt_ctg'];
-    $caygiong = $data['caygiong'];
-    $hdsd = $data['hdsd'];
-    $thanhphan = $data['thanhphan'];
-    $congdung = $data['congdung'];
-    $dkbq = $data['dkbq'];
-    $vungsanxuat = $data['vungsanxuat'];
-    $nhaxuong = $data['nhaxuong'];
-    $nhasanxuat = $data['nhasanxuat'];
-    $nhaxuatkhau = $data['nhaxuatkhau'];
-    $nhanhapkhau = $data['nhanhapkhau'];
-    $nhaphanphoi = $data['nhaphanphoi'];
-    $nhavanchuyen = $data['nhavanchuyen'];
+    {
+        $pdt_id = $data['pdt_id'];
+        $taikhoan = $data['taikhoan'];
+        $pdt_name = $data['u_pdt_name'];
+        $pdt_price = $data['u_pdt_price'];
+        $pdt_xx = $data['u_pdt_xx'];
+        $pdt_des = $data['u_pdt_des'];
+        $pdt_ctg = $data['u_pdt_ctg'];
+        $caygiong = $data['caygiong'];
+        $hdsd = $data['hdsd'];
+        $thanhphan = $data['thanhphan'];
+        $congdung = $data['congdung'];
+        $dkbq = $data['dkbq'];
+        $vungsanxuat = $data['vungsanxuat'];
+        $nhaxuong = $data['nhaxuong'];
+        $nhasanxuat = $data['nhasanxuat'];
+        $nhaxuatkhau = $data['nhaxuatkhau'];
+        $nhanhapkhau = $data['nhanhapkhau'];
+        $nhaphanphoi = $data['nhaphanphoi'];
+        $nhavanchuyen = $data['nhavanchuyen'];
 
-    // Fetch existing product data
-    $select_query = "SELECT * FROM `sanpham` WHERE id_sp=$pdt_id";
-    $result = mysqli_query($this->connection, $select_query);
-    $row = mysqli_fetch_assoc($result);
-    $pre_img = $row['hinhanh'];
-    $pre_hinhchungnhan = $row['hinhchungnhan'];
-    $pre_hinhkiemdinh = $row['hinhkiemdinh'];
+        // Fetch existing product data
+        $select_query = "SELECT * FROM `sanpham` WHERE id_sp=$pdt_id";
+        $result = mysqli_query($this->connection, $select_query);
+        $row = mysqli_fetch_assoc($result);
+        $pre_img = $row['hinhanh'];
+        $pre_hinhchungnhan = $row['hinhchungnhan'];
+        $pre_hinhkiemdinh = $row['hinhkiemdinh'];
 
-    // Check for new product image
-    if (!empty($_FILES['u_pdt_img']['tmp_name'])) {
-        $pdt_img_name = $_FILES['u_pdt_img']['name'];
-        $pdt_img_size = $_FILES['u_pdt_img']['size'];
-        $pdt_img_tmp = $_FILES['u_pdt_img']['tmp_name'];
-        $img_ext = pathinfo($pdt_img_name, PATHINFO_EXTENSION);
-        list($width, $height) = getimagesize($pdt_img_tmp);
+        // Check for new product image
+        if (!empty($_FILES['u_pdt_img']['tmp_name'])) {
+            $pdt_img_name = $_FILES['u_pdt_img']['name'];
+            $pdt_img_size = $_FILES['u_pdt_img']['size'];
+            $pdt_img_tmp = $_FILES['u_pdt_img']['tmp_name'];
+            $img_ext = pathinfo($pdt_img_name, PATHINFO_EXTENSION);
+            list($width, $height) = getimagesize($pdt_img_tmp);
 
-        if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
-            if ($pdt_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
-                unlink("uploads/" . $pre_img); // Remove old image
+            if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
+                if ($pdt_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
+                    unlink("uploads/" . $pre_img); // Remove old image
+                } else {
+                    $msg = "Sorry !! Pdt image max height: 2701 px and width: 2701 px, but you are trying {$width} px and {$height} px";
+                    return $msg;
+                }
             } else {
-                $msg = "Sorry !! Pdt image max height: 2701 px and width: 2701 px, but you are trying {$width} px and {$height} px";
+                $msg = "File should be jpg or png format";
                 return $msg;
             }
         } else {
-            $msg = "File should be jpg or png format";
-            return $msg;
+            $pdt_img_name = $pre_img; // Retain old image if no new image uploaded
         }
-    } else {
-        $pdt_img_name = $pre_img; // Retain old image if no new image uploaded
-    }
 
-    // Check for new hinhchungnhan image
-    if (!empty($_FILES['hinhchungnhan']['tmp_name'])) {
-        $hinhchungnhan_name = $_FILES['hinhchungnhan']['name'];
-        $hinhchungnhan_size = $_FILES['hinhchungnhan']['size'];
-        $hinhchungnhan_tmp = $_FILES['hinhchungnhan']['tmp_name'];
-        $hinhchungnhan_ext = pathinfo($hinhchungnhan_name, PATHINFO_EXTENSION);
+        // Check for new hinhchungnhan image
+        if (!empty($_FILES['hinhchungnhan']['tmp_name'])) {
+            $hinhchungnhan_name = $_FILES['hinhchungnhan']['name'];
+            $hinhchungnhan_size = $_FILES['hinhchungnhan']['size'];
+            $hinhchungnhan_tmp = $_FILES['hinhchungnhan']['tmp_name'];
+            $hinhchungnhan_ext = pathinfo($hinhchungnhan_name, PATHINFO_EXTENSION);
 
-        if ($hinhchungnhan_ext == "jpg" || $hinhchungnhan_ext == 'jpeg' || $hinhchungnhan_ext == "png") {
-            if ($hinhchungnhan_size <= 2e+6) {
-                unlink("uploads/" . $pre_hinhchungnhan); // Remove old image
+            if ($hinhchungnhan_ext == "jpg" || $hinhchungnhan_ext == 'jpeg' || $hinhchungnhan_ext == "png") {
+                if ($hinhchungnhan_size <= 2e+6) {
+                    unlink("uploads/" . $pre_hinhchungnhan); // Remove old image
+                } else {
+                    $msg = "File size should not be larger than 2MB";
+                    return $msg;
+                }
             } else {
-                $msg = "File size should not be larger than 2MB";
+                $msg = "File should be jpg or png format";
                 return $msg;
             }
         } else {
-            $msg = "File should be jpg or png format";
-            return $msg;
+            $hinhchungnhan_name = $pre_hinhchungnhan; // Retain old image if no new image uploaded
         }
-    } else {
-        $hinhchungnhan_name = $pre_hinhchungnhan; // Retain old image if no new image uploaded
-    }
 
-    // Check for new hinhkiemdinh image
-    if (!empty($_FILES['hinhkiemdinh']['tmp_name'])) {
-        $hinhkiemdinh_name = $_FILES['hinhkiemdinh']['name'];
-        $hinhkiemdinh_size = $_FILES['hinhkiemdinh']['size'];
-        $hinhkiemdinh_tmp = $_FILES['hinhkiemdinh']['tmp_name'];
-        $hinhkiemdinh_ext = pathinfo($hinhkiemdinh_name, PATHINFO_EXTENSION);
+        // Check for new hinhkiemdinh image
+        if (!empty($_FILES['hinhkiemdinh']['tmp_name'])) {
+            $hinhkiemdinh_name = $_FILES['hinhkiemdinh']['name'];
+            $hinhkiemdinh_size = $_FILES['hinhkiemdinh']['size'];
+            $hinhkiemdinh_tmp = $_FILES['hinhkiemdinh']['tmp_name'];
+            $hinhkiemdinh_ext = pathinfo($hinhkiemdinh_name, PATHINFO_EXTENSION);
 
-        if ($hinhkiemdinh_ext == "jpg" || $hinhkiemdinh_ext == 'jpeg' || $hinhkiemdinh_ext == "png") {
-            if ($hinhkiemdinh_size <= 2e+6) {
-                unlink("uploads/" . $pre_hinhkiemdinh); // Remove old image
+            if ($hinhkiemdinh_ext == "jpg" || $hinhkiemdinh_ext == 'jpeg' || $hinhkiemdinh_ext == "png") {
+                if ($hinhkiemdinh_size <= 2e+6) {
+                    unlink("uploads/" . $pre_hinhkiemdinh); // Remove old image
+                } else {
+                    $msg = "File size should not be larger than 2MB";
+                    return $msg;
+                }
             } else {
-                $msg = "File size should not be larger than 2MB";
+                $msg = "File should be jpg or png format";
                 return $msg;
             }
         } else {
-            $msg = "File should be jpg or png format";
-            return $msg;
+            $hinhkiemdinh_name = $pre_hinhkiemdinh; // Retain old image if no new image uploaded
         }
-    } else {
-        $hinhkiemdinh_name = $pre_hinhkiemdinh; // Retain old image if no new image uploaded
-    }
 
-    // Move new files if they were uploaded
-    if (!empty($_FILES['u_pdt_img']['tmp_name'])) {
-        move_uploaded_file($pdt_img_tmp, "uploads/" . $pdt_img_name);
-    }
-    if (!empty($_FILES['hinhchungnhan']['tmp_name'])) {
-        move_uploaded_file($hinhchungnhan_tmp, "uploads/" . $hinhchungnhan_name);
-    }
-    if (!empty($_FILES['hinhkiemdinh']['tmp_name'])) {
-        move_uploaded_file($hinhkiemdinh_tmp, "uploads/" . $hinhkiemdinh_name);
-    }
+        // Move new files if they were uploaded
+        if (!empty($_FILES['u_pdt_img']['tmp_name'])) {
+            move_uploaded_file($pdt_img_tmp, "uploads/" . $pdt_img_name);
+        }
+        if (!empty($_FILES['hinhchungnhan']['tmp_name'])) {
+            move_uploaded_file($hinhchungnhan_tmp, "uploads/" . $hinhchungnhan_name);
+        }
+        if (!empty($_FILES['hinhkiemdinh']['tmp_name'])) {
+            move_uploaded_file($hinhkiemdinh_tmp, "uploads/" . $hinhkiemdinh_name);
+        }
 
-    // Update product information
-    $query = "UPDATE `sanpham` SET `taikhoan` = '$taikhoan',`danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat',`nhaxuong` = '$nhaxuong',  
+        // Update product information
+        $query = "UPDATE `sanpham` SET `taikhoan` = '$taikhoan',`danhmuc` = '$pdt_ctg', `caygiong` = '$caygiong', `vungsanxuat` = '$vungsanxuat',`nhaxuong` = '$nhaxuong',  
     `nhasanxuat` = '$nhasanxuat',  `nhaxuatkhau` = '$nhaxuatkhau' , `nhanhapkhau` = '$nhanhapkhau', `nhaphanphoi` = '$nhaphanphoi', `nhavanchuyen` = '$nhavanchuyen',  
     `tensanpham` = '$pdt_name', `hinhanh` = '$pdt_img_name', `gia` = '$pdt_price', `xuatxu` = '$pdt_xx', `mota` = '$pdt_des', `congdung` = ' $congdung', 
     `hdsd` = '$hdsd', `thanhphan` = '$thanhphan', `dieukienbaoquan` = '$dkbq', `hinhchungnhan` = '$hinhchungnhan_name', `hinhkiemdinh` = '$hinhkiemdinh_name' 
     WHERE `id_sp` = '$pdt_id';";
 
-    if (mysqli_query($this->connection, $query)) {
-        echo '<script>
+        if (mysqli_query($this->connection, $query)) {
+            echo '<script>
             alert("Chỉnh sửa sản phẩm thành công");
             window.location.href = "manage_product.php";
         </script>';
-    } else {
-        echo "Cập nhật thất bại!";
+        } else {
+            echo "Cập nhật thất bại!";
+        }
     }
-}
 
 
     function display_product_byCata($cataId)
@@ -1284,7 +1285,7 @@ class  adminback
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch['hinhanh'];
         if (mysqli_query($this->connection, $query)) {
-            unlink('uploads/baiviet/'. $img_name);
+            unlink('uploads/baiviet/' . $img_name);
             echo '<script>
             alert("Xóa bài viết thành công");
             window.location.href = "manage_bv.php";
@@ -1391,14 +1392,30 @@ class  adminback
         }
     }
 
-
+    function XoaSo($input)
+    {
+        // Sử dụng biểu thức chính quy để loại bỏ các phần có số dính với dấu gạch ngang
+        $output = preg_replace('/\b\d+-/', '', $input);
+        return $output;
+    }
+    function formatChu($input)
+    {
+        $input = mb_strtolower($input);
+        $input = ucwords($input);
+        return $input;
+    }
     function add_vsx($data)
     {
         $nguoidang = $data['nguoidaidien'];
         $tenvung = $data['tenvung'];
         $mavung = $data['mavung'];
         $sdt = $data['sdt'];
-        $diachi = $data['diachi'];
+        $province = $data['province'];
+        $district = $data['district'];
+        ucwords($district);
+        $wards = $data['wards'];
+        ucwords($wards);
+        $ap = $data['diachi'];
         $nhatky = $data['nhatky'];
         $bando = $data['bando'];
         $dientich = $data['dientich'];
@@ -1408,49 +1425,52 @@ class  adminback
         $img_size = $_FILES['img']['size'];
         $img_tmp = $_FILES['img']['tmp_name'];
         $img_ext = pathinfo($img_name, PATHINFO_EXTENSION);
-
-
-
         list($width, $height) = getimagesize("$img_tmp");
 
-        if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
-            if ($img_size <= 2e+6) {
+        if (isset($ap) && isset($wards) && isset($district) && isset($province)) {
+            $full_address = $wards . ', ' . $district . ', ' . $province;
+            if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
+                if ($img_size <= 2e+6) {
 
-                if ($width < 2071 && $height < 2071) {
-                    $query = "INSERT INTO `vungsanxuat`(`nguoidang`,  `nhatky`, `tenvung`,  `mavung`,`hinhanh`, `sdt`, `diachi`, `bando`, `thoigiannuoitrong`,`dientich`,`thongtin`) VALUES ('$nguoidang','$nhatky','$tenvung','$mavung', '$img_name','$sdt','$diachi','$bando','$thoigiantrong','$dientich','$thongtin')";
+                    if ($width < 2071 && $height < 2071) {
+                        $query = "INSERT INTO `vungsanxuat`(`nguoidang`,  `nhatky`, `tenvung`,  `mavung`,`hinhanh`, `sdt`,`ap`, `diachi`, `bando`, `thoigiannuoitrong`,`dientich`,`thongtin`) VALUES ('$nguoidang','$nhatky','$tenvung','$mavung', '$img_name','$sdt','$ap','$full_address','$bando','$thoigiantrong','$dientich','$thongtin')";
 
-                    if (mysqli_query($this->connection, $query)) {
-                        move_uploaded_file($img_tmp, "uploads/" . $img_name);
-                        $msg = "Product uploaded successfully";
-                        echo '<script>
-                            alert(" Thêm Vùng sản xuất thành công");
-                            window.location.href = "manage_vsx.php";
-                            </script>';
+                        if (mysqli_query($this->connection, $query)) {
+                            move_uploaded_file($img_tmp, "uploads/" . $img_name);
+                            $msg = "Product uploaded successfully";
+                            echo '<script>
+                                alert(" Thêm Vùng sản xuất thành công");
+                                window.location.href = "manage_vsx.php";
+                                </script>';
+                        } else {
+                            $msg = "Lỗi upload ảnh: " . mysqli_error($this->connection);
+                            return $msg;
+                        }
                     } else {
-                        $msg = "Lỗi upload ảnh: " . mysqli_error($this->connection);
+                        $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
                         return $msg;
                     }
                 } else {
-                    $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
+                    $msg = "File size should not be large 2MB";
                     return $msg;
                 }
             } else {
-                $msg = "File size should not be large 2MB";
+                $msg = "File should be jpg or png format";
                 return $msg;
             }
         } else {
-            $msg = "File should be jpg or png format";
+            $msg = "Vui lòng nhập địa chỉ!!";
             return $msg;
         }
     }
-    function count_bv_manage($nguoidang,$role)
+    function count_bv_manage($nguoidang, $role)
     {
         $query = "SELECT COUNT(*) AS dembv FROM `baiviet`";
 
         $result = mysqli_query($this->connection, $query);
 
         if ($result) {
-            if($role == "Admin") {
+            if ($role == "Admin") {
                 //Đếm trang theo role Admin
                 $row = mysqli_fetch_assoc($result);
                 $dembv = $row['dembv'];
@@ -1461,9 +1481,8 @@ class  adminback
                 $result = mysqli_query($this->connection, $query);
                 $row = mysqli_fetch_assoc($result);
                 $dembv = $row['dembv'];
-                return $dembv;   
+                return $dembv;
             }
-            
         } else {
             return "Error: " . mysqli_error($this->connection);
         }
@@ -1575,7 +1594,7 @@ class  adminback
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch["hinhanh"];
         if (mysqli_query($this->connection, $query)) {
-            unlink('uploads/'. $img_name);
+            unlink('uploads/' . $img_name);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_caygiong.php";
@@ -1584,64 +1603,64 @@ class  adminback
     }
 
     function add_caygiong($data)
-{
-    $nguoidang = $data['nguoidang'];
-    $tencaygiong = $data['tencaygiong'];
-    $macaygiong = $data['macaygiong'];
-    $mota = $data['mota'];
-    $nhasanxuat = $data['nhasanxuat'];
-    $ngaysanxuat = $data['ngaysanxuat'];
-    $hansudung = $data['hansudung'];
-    $phuongphaptrong = $data['phuongphaptrong'];
-    $lienhe = $data['lienhe'];
-    $nhaphanphoi = $data['nhaphanphoi'];
-    $gia = $data['gia'];
-    $hdsd = $data['hdsd'];
-    $xuatxu = $data['xuatxu'];
+    {
+        $nguoidang = $data['nguoidang'];
+        $tencaygiong = $data['tencaygiong'];
+        $macaygiong = $data['macaygiong'];
+        $mota = $data['mota'];
+        $nhasanxuat = $data['nhasanxuat'];
+        $ngaysanxuat = $data['ngaysanxuat'];
+        $hansudung = $data['hansudung'];
+        $phuongphaptrong = $data['phuongphaptrong'];
+        $lienhe = $data['lienhe'];
+        $nhaphanphoi = $data['nhaphanphoi'];
+        $gia = $data['gia'];
+        $hdsd = $data['hdsd'];
+        $xuatxu = $data['xuatxu'];
 
-    $img_name = $_FILES['hinhanh']['name'];
-    $img_size = $_FILES['hinhanh']['size'];
-    $img_tmp = $_FILES['hinhanh']['tmp_name'];
-    $img_ext = pathinfo($img_name, PATHINFO_EXTENSION);
-    list($width, $height) = getimagesize($img_tmp);
+        $img_name = $_FILES['hinhanh']['name'];
+        $img_size = $_FILES['hinhanh']['size'];
+        $img_tmp = $_FILES['hinhanh']['tmp_name'];
+        $img_ext = pathinfo($img_name, PATHINFO_EXTENSION);
+        list($width, $height) = getimagesize($img_tmp);
 
-    $giaychungnhan_name = $_FILES['giaychungnhan']['name'];
-    $giaychungnhan_size = $_FILES['giaychungnhan']['size'];
-    $giaychungnhan_tmp = $_FILES['giaychungnhan']['tmp_name'];
-    $giaychungnhan_ext = pathinfo($giaychungnhan_name, PATHINFO_EXTENSION);
+        $giaychungnhan_name = $_FILES['giaychungnhan']['name'];
+        $giaychungnhan_size = $_FILES['giaychungnhan']['size'];
+        $giaychungnhan_tmp = $_FILES['giaychungnhan']['tmp_name'];
+        $giaychungnhan_ext = pathinfo($giaychungnhan_name, PATHINFO_EXTENSION);
 
-    // Validate the main image
-    if (($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") && ($giaychungnhan_ext == "jpg" || $giaychungnhan_ext == 'jpeg' || $giaychungnhan_ext == "png")) {
-        if ($img_size <= 2e+6 && $giaychungnhan_size <= 2e+6) {
-            if ($width < 2071 && $height < 2071) {
-                $query = "INSERT INTO `caygiong` (`nguoidang`, `nhasanxuat`, `nhaphanphoi`, `tencaygiong`, `macaygiong`, `mota`, `xuatxu`, `gia`, `ngaysanxuat`, `hansudung`, `hdsd`, `phuongphaptrong`, `hinhanh`, `lienhe`, `giaychungnhan`) 
+        // Validate the main image
+        if (($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") && ($giaychungnhan_ext == "jpg" || $giaychungnhan_ext == 'jpeg' || $giaychungnhan_ext == "png")) {
+            if ($img_size <= 2e+6 && $giaychungnhan_size <= 2e+6) {
+                if ($width < 2071 && $height < 2071) {
+                    $query = "INSERT INTO `caygiong` (`nguoidang`, `nhasanxuat`, `nhaphanphoi`, `tencaygiong`, `macaygiong`, `mota`, `xuatxu`, `gia`, `ngaysanxuat`, `hansudung`, `hdsd`, `phuongphaptrong`, `hinhanh`, `lienhe`, `giaychungnhan`) 
                           VALUES ('$nguoidang', '$nhasanxuat', '$nhaphanphoi', '$tencaygiong', '$macaygiong', '$mota', '$xuatxu', '$gia', '$ngaysanxuat', '$hansudung', '$hdsd', '$phuongphaptrong', '$img_name', '$lienhe', '$giaychungnhan_name');";
 
-                if (mysqli_query($this->connection, $query)) {
-                    move_uploaded_file($img_tmp, "uploads/" . $img_name);
-                    move_uploaded_file($giaychungnhan_tmp, "uploads/" . $giaychungnhan_name);
-                    $msg = "Product uploaded successfully";
-                    echo '<script>
+                    if (mysqli_query($this->connection, $query)) {
+                        move_uploaded_file($img_tmp, "uploads/" . $img_name);
+                        move_uploaded_file($giaychungnhan_tmp, "uploads/" . $giaychungnhan_name);
+                        $msg = "Product uploaded successfully";
+                        echo '<script>
                             alert("Thêm thành công");
                             window.location.href = "manage_caygiong.php";
                           </script>';
+                    } else {
+                        $msg = "Lỗi upload ảnh: " . mysqli_error($this->connection);
+                        return $msg;
+                    }
                 } else {
-                    $msg = "Lỗi upload ảnh: " . mysqli_error($this->connection);
+                    $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
                     return $msg;
                 }
             } else {
-                $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
+                $msg = "File size should not be larger than 2MB";
                 return $msg;
             }
         } else {
-            $msg = "File size should not be larger than 2MB";
+            $msg = "Files should be in jpg or png format";
             return $msg;
         }
-    } else {
-        $msg = "Files should be in jpg or png format";
-        return $msg;
     }
-}
 
     function show_caygiong_by_id($id_cg)
     {
@@ -1667,27 +1686,27 @@ class  adminback
         $gia = $data['gia'];
         $hdsd = $data['hdsd'];
         $xuatxu = $data['xuatxu'];
-    
+
         $img_name = $_FILES['hinhanh']['name'];
         $img_size = $_FILES['hinhanh']['size'];
         $img_tmp = $_FILES['hinhanh']['tmp_name'];
-    
+
         $giaychungnhan_name = $_FILES['giaychungnhan']['name'];
         $giaychungnhan_size = $_FILES['giaychungnhan']['size'];
         $giaychungnhan_tmp = $_FILES['giaychungnhan']['tmp_name'];
-    
+
         // Retrieve current images from the database
         $select_query = "SELECT * FROM `caygiong` WHERE id_cg=$id_cg";
         $result = mysqli_query($this->connection, $select_query);
         $row = mysqli_fetch_assoc($result);
         $pre_img = $row['hinhanh'];
         $pre_giaychungnhan = $row['giaychungnhan'];
-    
+
         // Check and handle `hinhanh` upload
         if (!empty($img_tmp)) {
             $img_ext = pathinfo($img_name, PATHINFO_EXTENSION);
             list($width, $height) = getimagesize($img_tmp);
-    
+
             if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
                 if ($img_size <= 2e+6 && $width < 2701 && $height < 2701) {
                     // Delete old image
@@ -1707,12 +1726,12 @@ class  adminback
             // Keep old image
             $new_img_name = $pre_img;
         }
-    
+
         // Check and handle `giaychungnhan` upload
         if (!empty($giaychungnhan_tmp)) {
             $giaychungnhan_ext = pathinfo($giaychungnhan_name, PATHINFO_EXTENSION);
             list($width, $height) = getimagesize($giaychungnhan_tmp);
-    
+
             if ($giaychungnhan_ext == "jpg" || $giaychungnhan_ext == 'jpeg' || $giaychungnhan_ext == "png") {
                 if ($giaychungnhan_size <= 2e+6 && $width < 2701 && $height < 2701) {
                     // Delete old certificate image
@@ -1732,7 +1751,7 @@ class  adminback
             // Keep old certificate image
             $new_giaychungnhan_name = $pre_giaychungnhan;
         }
-    
+
         // Update product information
         $query = "UPDATE `caygiong` SET  
                     `nhasanxuat` = '$nhasanxuat', 
@@ -1750,7 +1769,7 @@ class  adminback
                     `giaychungnhan` = '$new_giaychungnhan_name', 
                     `lienhe` = '$lienhe' 
                   WHERE `id_cg` = '$id_cg';";
-    
+
         if (mysqli_query($this->connection, $query)) {
             echo '<script>
                     alert("Chỉnh sửa sản phẩm thành công");
@@ -1760,7 +1779,7 @@ class  adminback
             echo "Update failed!";
         }
     }
-    
+
     function display_catagory_dn()
     {
         $query = "SELECT * FROM `danhmuc_dn`";
@@ -1841,7 +1860,7 @@ class  adminback
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch['hinhanh'];
         if (mysqli_query($this->connection, $query)) {
-            unlink('uploads/'. $img_name);
+            unlink('uploads/' . $img_name);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_doanhnghiep.php";
@@ -2075,7 +2094,7 @@ class  adminback
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch['hinhanh'];
         if (mysqli_query($this->connection, $query)) {
-            unlink('uploads/'.$img_name);
+            unlink('uploads/' . $img_name);
             echo '<script>
             alert("Xóa nhật ký sản phẩm thành công");
             window.location.href = "manage_nhatky.php";
@@ -2101,7 +2120,7 @@ class  adminback
         $vungsanxuat = $data['vungsanxuat'];
         $doanhnghiep = $data['doanhnghiep'];
         $thanhvien = json_encode($data['thanhvien']); // Mã hóa thành viên thành chuỗi JSON
-    
+
         // Kiểm tra xem có tập tin hình ảnh nào được tải lên không
         if (!empty($_FILES['nk_img']['tmp_name'])) {
             $nk_img_name = $_FILES['nk_img']['name'];
@@ -2109,7 +2128,7 @@ class  adminback
             $nk_img_tmp = $_FILES['nk_img']['tmp_name'];
             $img_ext = pathinfo($nk_img_name, PATHINFO_EXTENSION);
             list($width, $height) = getimagesize($nk_img_tmp);
-    
+
             if ($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") {
                 if ($nk_img_size <= 2e+6 && $width < 2701 && $height < 2701) {
                     // Xóa ảnh cũ
@@ -2118,7 +2137,7 @@ class  adminback
                     $row = mysqli_fetch_assoc($result);
                     $pre_img = $row['hinhanh'];
                     unlink("uploads/" . $pre_img);
-    
+
                     // Cập nhật dữ liệu nhật ký và ảnh mới
                     $query = "UPDATE `nhatky` SET `sanpham` = '$sanpham', `vungsanxuat` = '$vungsanxuat', `doanhnghiep` = '$doanhnghiep', `tennhatky` = '$tennhatky', `chitiet` = '$chitiet', `hinhanh` = '$nk_img_name', `thanhvien` = '$thanhvien' WHERE `id_nk` ='$id_nk';";
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($nk_img_tmp, "uploads/" . $nk_img_name)) {
@@ -2142,7 +2161,7 @@ class  adminback
             }
         }
     }
-    
+
     function add_nhatky($data)
     {
         $nguoidang = $data['nguoidang'];
@@ -2151,22 +2170,22 @@ class  adminback
         $doanhnghiep = $data['doanhnghiep'];
         $tennhatky = $data['tennhatky'];
         $chitiet = $data['chitiet'];
-    
+
         $nk_img_name = $_FILES['nk_img']['name'];
         $nk_img_size = $_FILES['nk_img']['size'];
         $nk_img_tmp = $_FILES['nk_img']['tmp_name'];
         $img_ext = pathinfo($nk_img_name, PATHINFO_EXTENSION);
-    
+
         list($width, $height) = getimagesize("$nk_img_tmp");
-    
+
         if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
             if ($nk_img_size <= 2e+6) {
                 if ($width < 2071 && $height < 2071) {
                     // Chuyển đổi danh sách các thành viên liên quan thành chuỗi JSON
                     $thanhvien = json_encode($data['thanhvien']);
-    
+
                     $query = "INSERT INTO `nhatky` (`sanpham`, `vungsanxuat`, `doanhnghiep`, `nguoidang`, `tennhatky`, `chitiet`, `hinhanh`, `thanhvien`) VALUES ('$sanpham', '$vungsanxuat', '$doanhnghiep', '$nguoidang', '$tennhatky', '$chitiet', '$nk_img_name', '$thanhvien');";
-    
+
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($nk_img_tmp, "uploads/" . $nk_img_name);
                         echo '<script>
@@ -2190,15 +2209,15 @@ class  adminback
             return $msg;
         }
     }
-    
-    
-    function display_product_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
+
+
+    function display_product_pagination($bat_dau, $ket_thuc, $nguoidang, $role)
     {
         $query = "SELECT * FROM `sanpham` order by id_sp desc LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
             //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
-            if($role == "Admin") {
+            if ($role == "Admin") {
                 return $result;
             } else {
                 //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
@@ -2211,14 +2230,14 @@ class  adminback
             return false;
         }
     }
-    function count_sp($nguoidang,$role)
+    function count_sp($nguoidang, $role)
     {
         $query = "SELECT COUNT(*) AS demsp FROM `sanpham`";
 
         $result = mysqli_query($this->connection, $query);
 
         if ($result) {
-            if($role == "Admin") {
+            if ($role == "Admin") {
                 //Đếm trang theo role Admin
                 $row = mysqli_fetch_assoc($result);
                 $demsp = $row['demsp'];
@@ -2229,21 +2248,20 @@ class  adminback
                 $result = mysqli_query($this->connection, $query);
                 $row = mysqli_fetch_assoc($result);
                 $demsp = $row['demsp'];
-                return $demsp;   
+                return $demsp;
             }
-            
         } else {
             return "Error: " . mysqli_error($this->connection);
         }
     }
-    function count_dn_manage($nguoidang,$role)
+    function count_dn_manage($nguoidang, $role)
     {
         $query = "SELECT COUNT(*) AS demdn FROM `doanhnghiep`";
 
         $result = mysqli_query($this->connection, $query);
 
         if ($result) {
-            if($role == "Admin") {
+            if ($role == "Admin") {
                 //Đếm trang theo role Admin
                 $row = mysqli_fetch_assoc($result);
                 $demdn = $row['demdn'];
@@ -2254,9 +2272,8 @@ class  adminback
                 $result = mysqli_query($this->connection, $query);
                 $row = mysqli_fetch_assoc($result);
                 $demdn = $row['demdn'];
-                return $demdn;   
+                return $demdn;
             }
-            
         } else {
             return "Error: " . mysqli_error($this->connection);
         }
@@ -2336,13 +2353,13 @@ class  adminback
             return "Error: " . mysqli_error($this->connection);
         }
     }
-    function display_bv_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
+    function display_bv_pagination($bat_dau, $ket_thuc, $nguoidang, $role)
     {
         $query = "SELECT * FROM `baiviet` order by id_bv desc LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
             //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
-            if($role == "Admin") {
+            if ($role == "Admin") {
                 return $result;
             } else {
                 //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
@@ -2356,13 +2373,13 @@ class  adminback
         }
     }
 
-    function display_dn_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
+    function display_dn_pagination($bat_dau, $ket_thuc, $nguoidang, $role)
     {
         $query = "SELECT * FROM `doanhnghiep` order by id_dn desc LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
             //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
-            if($role == "Admin") {
+            if ($role == "Admin") {
                 return $result;
             } else {
                 //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
@@ -2375,101 +2392,99 @@ class  adminback
             return false;
         }
     }
-    function display_cg_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
-{
-    $query = "SELECT * FROM `caygiong` order by id_cg desc LIMIT $bat_dau, $ket_thuc";
-    $result = mysqli_query($this->connection, $query);
-    if ($result) {
-        //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
-        if($role == "Admin") {
-            return $result;
+    function display_cg_pagination($bat_dau, $ket_thuc, $nguoidang, $role)
+    {
+        $query = "SELECT * FROM `caygiong` order by id_cg desc LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+            if ($role == "Admin") {
+                return $result;
+            } else {
+                //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+                $query = "SELECT * FROM `caygiong` where nguoidang = '$nguoidang' order by id_cg desc LIMIT $bat_dau, $ket_thuc";
+                $result = mysqli_query($this->connection, $query);
+                return $result;
+            }
         } else {
-            //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
-            $query = "SELECT * FROM `caygiong` where nguoidang = '$nguoidang' order by id_cg desc LIMIT $bat_dau, $ket_thuc";
-            $result = mysqli_query($this->connection, $query);
-            return $result;
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
         }
-    } else {
-        echo "Error: " . mysqli_error($this->connection);
-        return false;
     }
-}
-function count_cg_manage($nguoidang,$role)
-{
-    $query = "SELECT COUNT(*) AS demcg FROM `caygiong`";
+    function count_cg_manage($nguoidang, $role)
+    {
+        $query = "SELECT COUNT(*) AS demcg FROM `caygiong`";
 
-    $result = mysqli_query($this->connection, $query);
+        $result = mysqli_query($this->connection, $query);
 
-    if ($result) {
-        if($role == "Admin") {
-            //Đếm trang theo role Admin
-            $row = mysqli_fetch_assoc($result);
-            $demcg = $row['demcg'];
-            return $demcg;
+        if ($result) {
+            if ($role == "Admin") {
+                //Đếm trang theo role Admin
+                $row = mysqli_fetch_assoc($result);
+                $demcg = $row['demcg'];
+                return $demcg;
+            } else {
+                //Đếm trang theo các role khác
+                $query = "SELECT COUNT(*) AS demcg FROM `caygiong` where nguoidang = $nguoidang";
+                $result = mysqli_query($this->connection, $query);
+                $row = mysqli_fetch_assoc($result);
+                $demcg = $row['demcg'];
+                return $demcg;
+            }
         } else {
-            //Đếm trang theo các role khác
-            $query = "SELECT COUNT(*) AS demcg FROM `caygiong` where nguoidang = $nguoidang";
-            $result = mysqli_query($this->connection, $query);
-            $row = mysqli_fetch_assoc($result);
-            $demcg = $row['demcg'];
-            return $demcg;   
+            return "Error: " . mysqli_error($this->connection);
         }
-        
-    } else {
-        return "Error: " . mysqli_error($this->connection);
     }
-}
-function display_nksp_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
-{
-    $query = "SELECT * FROM `nhatky` order by id_nk desc LIMIT $bat_dau, $ket_thuc";
-    $result = mysqli_query($this->connection, $query);
-    if ($result) {
-        //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
-        if($role == "Admin") {
-            return $result;
+    function display_nksp_pagination($bat_dau, $ket_thuc, $nguoidang, $role)
+    {
+        $query = "SELECT * FROM `nhatky` order by id_nk desc LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+            if ($role == "Admin") {
+                return $result;
+            } else {
+                //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+                $query = "SELECT * FROM `nhatky` where nguoidang = '$nguoidang' order by id_nk desc LIMIT $bat_dau, $ket_thuc";
+                $result = mysqli_query($this->connection, $query);
+                return $result;
+            }
         } else {
-            //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
-            $query = "SELECT * FROM `nhatky` where nguoidang = '$nguoidang' order by id_nk desc LIMIT $bat_dau, $ket_thuc";
-            $result = mysqli_query($this->connection, $query);
-            return $result;
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
         }
-    } else {
-        echo "Error: " . mysqli_error($this->connection);
-        return false;
     }
-}
-function count_nksp_manage($nguoidang,$role)
-{
-    $query = "SELECT COUNT(*) AS demnksp FROM `nhatky`";
+    function count_nksp_manage($nguoidang, $role)
+    {
+        $query = "SELECT COUNT(*) AS demnksp FROM `nhatky`";
 
-    $result = mysqli_query($this->connection, $query);
+        $result = mysqli_query($this->connection, $query);
 
-    if ($result) {
-        if($role == "Admin") {
-            //Đếm trang theo role Admin
-            $row = mysqli_fetch_assoc($result);
-            $demnksp = $row['demnksp'];
-            return $demnksp;
+        if ($result) {
+            if ($role == "Admin") {
+                //Đếm trang theo role Admin
+                $row = mysqli_fetch_assoc($result);
+                $demnksp = $row['demnksp'];
+                return $demnksp;
+            } else {
+                //Đếm trang theo các role khác
+                $query = "SELECT COUNT(*) AS demnksp FROM `nhatky` where nguoidang = $nguoidang";
+                $result = mysqli_query($this->connection, $query);
+                $row = mysqli_fetch_assoc($result);
+                $demnksp = $row['demnksp'];
+                return $demnksp;
+            }
         } else {
-            //Đếm trang theo các role khác
-            $query = "SELECT COUNT(*) AS demnksp FROM `nhatky` where nguoidang = $nguoidang";
-            $result = mysqli_query($this->connection, $query);
-            $row = mysqli_fetch_assoc($result);
-            $demnksp = $row['demnksp'];
-            return $demnksp;   
+            return "Error: " . mysqli_error($this->connection);
         }
-        
-    } else {
-        return "Error: " . mysqli_error($this->connection);
     }
-}
-    function display_vsx_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
+    function display_vsx_pagination($bat_dau, $ket_thuc, $nguoidang, $role)
     {
         $query = "SELECT * FROM `vungsanxuat` order by id_vung desc LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
             //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
-            if($role == "Admin") {
+            if ($role == "Admin") {
                 return $result;
             } else {
                 //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
@@ -2482,14 +2497,14 @@ function count_nksp_manage($nguoidang,$role)
             return false;
         }
     }
-    function count_vsx_manage($nguoidang,$role)
+    function count_vsx_manage($nguoidang, $role)
     {
         $query = "SELECT COUNT(*) AS demvsx FROM `vungsanxuat`";
-    
+
         $result = mysqli_query($this->connection, $query);
-    
+
         if ($result) {
-            if($role == "Admin") {
+            if ($role == "Admin") {
                 //Đếm trang theo role Admin
                 $row = mysqli_fetch_assoc($result);
                 $demvsx = $row['demvsx'];
@@ -2500,9 +2515,8 @@ function count_nksp_manage($nguoidang,$role)
                 $result = mysqli_query($this->connection, $query);
                 $row = mysqli_fetch_assoc($result);
                 $demvsx = $row['demvsx'];
-                return $demvsx;   
+                return $demvsx;
             }
-            
         } else {
             return "Error: " . mysqli_error($this->connection);
         }
@@ -2599,51 +2613,49 @@ function count_nksp_manage($nguoidang,$role)
             </script>';
         }
     }
-    function display_nx_pagination($bat_dau, $ket_thuc,$nguoidang,$role)
-{
-    $query = "SELECT * FROM `nhaxuong` order by id_nx desc LIMIT $bat_dau, $ket_thuc";
-    $result = mysqli_query($this->connection, $query);
-    if ($result) {
-        //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
-        if($role == "Admin") {
-            return $result;
+    function display_nx_pagination($bat_dau, $ket_thuc, $nguoidang, $role)
+    {
+        $query = "SELECT * FROM `nhaxuong` order by id_nx desc LIMIT $bat_dau, $ket_thuc";
+        $result = mysqli_query($this->connection, $query);
+        if ($result) {
+            //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
+            if ($role == "Admin") {
+                return $result;
+            } else {
+                //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
+                $query = "SELECT * FROM `nhaxuong` where nguoidang = '$nguoidang' order by id_nx desc LIMIT $bat_dau, $ket_thuc";
+                $result = mysqli_query($this->connection, $query);
+                return $result;
+            }
         } else {
-            //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
-            $query = "SELECT * FROM `nhaxuong` where nguoidang = '$nguoidang' order by id_nx desc LIMIT $bat_dau, $ket_thuc";
-            $result = mysqli_query($this->connection, $query);
-            return $result;
+            echo "Error: " . mysqli_error($this->connection);
+            return false;
         }
-    } else {
-        echo "Error: " . mysqli_error($this->connection);
-        return false;
     }
-    
-}
-function count_nx_manage($nguoidang,$role)
-{
-    $query = "SELECT COUNT(*) AS demnx FROM `nhaxuong`";
+    function count_nx_manage($nguoidang, $role)
+    {
+        $query = "SELECT COUNT(*) AS demnx FROM `nhaxuong`";
 
-    $result = mysqli_query($this->connection, $query);
+        $result = mysqli_query($this->connection, $query);
 
-    if ($result) {
-        if($role == "Admin") {
-            //Đếm trang theo role Admin
-            $row = mysqli_fetch_assoc($result);
-            $demnx = $row['demnx'];
-            return $demnx;
+        if ($result) {
+            if ($role == "Admin") {
+                //Đếm trang theo role Admin
+                $row = mysqli_fetch_assoc($result);
+                $demnx = $row['demnx'];
+                return $demnx;
+            } else {
+                //Đếm trang theo các role khác
+                $query = "SELECT COUNT(*) AS demnx FROM `nhaxuong` where nguoidang = $nguoidang";
+                $result = mysqli_query($this->connection, $query);
+                $row = mysqli_fetch_assoc($result);
+                $demnx = $row['demnx'];
+                return $demnx;
+            }
         } else {
-            //Đếm trang theo các role khác
-            $query = "SELECT COUNT(*) AS demnx FROM `nhaxuong` where nguoidang = $nguoidang";
-            $result = mysqli_query($this->connection, $query);
-            $row = mysqli_fetch_assoc($result);
-            $demnx = $row['demnx'];
-            return $demnx;   
+            return "Error: " . mysqli_error($this->connection);
         }
-        
-    } else {
-        return "Error: " . mysqli_error($this->connection);
     }
-}
     function count_nx()
     {
         $query = "SELECT COUNT(*) AS demnx FROM `nhaxuong`";
@@ -2665,7 +2677,7 @@ function count_nx_manage($nguoidang,$role)
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch['hinhanh'];
         if (mysqli_query($this->connection, $query)) {
-            unlink('uploads/'.$img_name);
+            unlink('uploads/' . $img_name);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_nhaxuong.php";

@@ -59,29 +59,6 @@ while ($nk = mysqli_fetch_assoc($nhatky)) {
 </h6>
 
 <form action="" method="post" enctype="multipart/form-data" class="form">
-    <div class="row">
-        <div class="col-md-4 form-group">
-            <label for="lblprovince">Tỉnh/Thành phố</label>
-            <select name="province" id="province" class="form-control" onchange="handleChange(this)">
-            </select>
-        </div>
-        <div class="col-md-4 form-group">
-            <label for="lbldistrict">Quận/Huyện</label>
-            <select name="district" id="district" class="form-control" onchange="handleChangeDistrict(this)">
-                <option value="">Chọn quận/huyện</option>
-            </select>
-        </div>
-        <div class="col-md-4 form-group">
-            <label for="lblwards">Phường/Xã</label>
-            <select name="wards" id="wards" class="form-control">
-                <option value="">Chọn xã/phường</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="diachi">Địa chỉ</label>
-        <input class="form-control" type="text" name="diachi" id="diachi">
-    </div>
     <div class="form-group">
         <label for="tenvung">Tên vùng</label>
         <input type="text" name="tenvung" class="form-control">
@@ -121,6 +98,30 @@ while ($nk = mysqli_fetch_assoc($nhatky)) {
     <div class="form-group">
         <label for="lbldienthoai">Điện thoại liên hệ</label>
         <input type="text" name="sdt" class="form-control">
+    </div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label for="lblprovince">Tỉnh/Thành phố</label>
+            <select name="province" id="province" class="form-control" onchange="handleChange(this)">
+                <option value="">Chọn tỉnh/thành phố</option>
+            </select>
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="lbldistrict">Quận/Huyện</label>
+            <select name="district" id="district" class="form-control" onchange="handleChangeDistrict(this)">
+                <option value="">Chọn quận/huyện</option>
+            </select>
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="lblwards">Phường/Xã</label>
+            <select name="wards" id="wards" class="form-control">
+                <option value="">Chọn xã/phường</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="diachi">Địa chỉ</label>
+        <input class="form-control" type="text" name="diachi" id="diachi">
     </div>
     <div class="form-group">
         <label for="bando">Bản đồ</label>
@@ -180,21 +181,23 @@ while ($nk = mysqli_fetch_assoc($nhatky)) {
     });
 
     const getProvince = async () => {
-        let Response = await fetch(`http://localhost/api/getProvince/`);
+        let Response = await fetch(`https://the-best-api.000webhostapp.com/getProvince/`);
         let data = await Response.json();
         return data;
     }
     //Lấy api tỉnh
-    const selectProvince = document.getElementById('province');
-
-    const defaultOptionProvince = document.createElement('option');
-    defaultOptionProvince.value = '';
-    defaultOptionProvince.textContent = 'Chọn tỉnh/thành phố';
-    selectProvince.appendChild(defaultOptionProvince);
     getProvince().then(data => {
+        const selectProvince = document.getElementById('province');
+        selectProvince.innerHTML = '';
+
+        const defaultOptionProvince = document.createElement('option');
+        defaultOptionProvince.value = '';
+        defaultOptionProvince.textContent = 'Chọn tỉnh/thành phố';
+        selectProvince.appendChild(defaultOptionProvince);
+
         data.data.forEach(province => {
             const optionProvince = document.createElement('option');
-            optionProvince.value = province.PROVINCE_ID;
+            optionProvince.value = province.PROVINCE_ID + '-' + province.PROVINCE_NAME;
             optionProvince.textContent = province.PROVINCE_NAME;
             selectProvince.appendChild(optionProvince);
         });
@@ -202,12 +205,13 @@ while ($nk = mysqli_fetch_assoc($nhatky)) {
     //Lấy api xã theo quận huyện
     const handleChangeDistrict = (obj) => {
         const val = obj.value;
-        const getWards = async (val) => {
-            let response = await fetch(`http://localhost/api/getWard/index.php?districtId=${val}`);
+        let id = val.split("-")[0];
+        const getWards = async (id) => {
+            let response = await fetch(`https://the-best-api.000webhostapp.com/getWard/index.php?districtId=${id}`);
             let data = await response.json();
             return data;
         }
-        getWards(val).then(data => {
+        getWards(id).then(data => {
             const selectWards = document.getElementById('wards');
             selectWards.innerHTML = '';
 
@@ -215,43 +219,28 @@ while ($nk = mysqli_fetch_assoc($nhatky)) {
             defaultOptionWards.value = '';
             defaultOptionWards.textContent = 'Chọn xã/phường';
             selectWards.appendChild(defaultOptionWards);
-            
-                data.data.forEach(wards => {
-                    const optionwards = document.createElement('option');
-                    optionwards.value = wards.WARDS_ID;
-                    optionwards.textContent = wards.WARDS_NAME;
-                    selectWards.appendChild(optionwards);
-                });
+
+            data.data.forEach(wards => {
+                const optionwards = document.createElement('option');
+                optionwards.value = wards.WARDS_ID + '-' + wards.WARDS_NAME;
+                optionwards.textContent = wards.WARDS_NAME;
+                selectWards.appendChild(optionwards);
+            });
         })
     }
     //Lấy api quận huyện theo tỉnh/thành phố
     const handleChange = (obj) => { //arrow function đối số là obj
         const val = obj.value
+        let id = val.split("-")[0];
         // lấy value của thẻ option đó
         //sessionStorage.setItem('id') = val // lưu vào session
-        const getDistrict = async (val) => {
-            let Response = await fetch(`http://localhost/api/getDistrict/index.php?provinceId=${val}`);
+        const getDistrict = async (id) => {
+            let Response = await fetch(`https://the-best-api.000webhostapp.com/getDistrict/index.php?provinceId=${id}`);
             let data = await Response.json();
             return data;
         }
-        getProvince().then(data => {
-            const selectProvince = document.getElementById('province');
-            selectProvince.innerHTML = '';
 
-            const defaultOption = document.createElement('option');
-            defaultOption.value = '';
-            defaultOption.textContent = 'Chọn tỉnh/thành phố';
-            selectProvince.appendChild(defaultOption);
-
-            data.data.forEach(province => {
-                const option = document.createElement('option'); // Tạo một option mới
-                option.value = province.PROVINCE_ID;
-                option.textContent = province.PROVINCE_NAME;
-                selectProvince.appendChild(option);
-            })
-        })
-
-        getDistrict(val).then(data => {
+        getDistrict(id).then(data => {
             const selectDistrict = document.getElementById('district');
             selectDistrict.innerHTML = '';
 
@@ -262,7 +251,7 @@ while ($nk = mysqli_fetch_assoc($nhatky)) {
 
             data.data.forEach(district => {
                 const option = document.createElement('option');
-                option.value = district.DISTRICT_ID;
+                option.value = district.DISTRICT_ID + '-' + district.DISTRICT_NAME;
                 option.textContent = district.DISTRICT_NAME;
                 selectDistrict.appendChild(option);
             });

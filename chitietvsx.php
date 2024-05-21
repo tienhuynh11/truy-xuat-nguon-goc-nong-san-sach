@@ -24,6 +24,8 @@ foreach ($vsx_datas as $vsx) {
     $mavung = $vsx['mavung'];
     $hinhanh = $vsx['hinhanh'];
     $nguoidang = $vsx['nguoidang'];
+    $dienthoai = $vsx['sdt'];
+    $ap = $vsx['ap'];
     $diachi = $vsx['diachi'];
     $bando = $vsx['bando'];
     $dientich = $vsx['dientich'];
@@ -39,7 +41,6 @@ $taikhoan[] = $nguoidang_fetch;
 foreach ($taikhoan as $tk) {
     $hoten = $tk['hoten'];
     $email = $tk['email'];
-    $dienthoai = $tk['dienthoai'];
 }
 
 
@@ -172,7 +173,10 @@ include_once("includes/head.php");
             </div>
             <div class="info-1">
                 <h2><?= $tenvung ?></h2>
-                <span>Mã vùng: <strong><?= $mavung ?></strong></span>
+                <?php if (!empty($mavung)) { ?>
+                    <span>Mã vùng: <strong><?= $mavung ?></strong></span>
+                <?php } ?>
+
             </div>
             <div class="head-right">
                 <div class="qrcode">
@@ -224,7 +228,8 @@ include_once("includes/head.php");
                             Địa chỉ:
                         </div>
                         <div class="col-md-9">
-                            <p class="title"><?php echo $diachi ?></p>
+                            <p class="title"><?php $result = $obj->XoaSo($diachi);
+                                                echo $ap . ', ' . $obj->formatChu($result); ?></p>
                         </div>
                     </div>
                     <div class="row" id="vsx">
@@ -258,18 +263,18 @@ include_once("includes/head.php");
                         <div class="col-md-3">
                             Danh sách thành viên:
                         </div>
-                        <div class="col-md-9 slider-nguoidaidien" >
-                            <?php 
+                        <div class="col-md-9 slider-nguoidaidien">
+                            <?php
                             $arry  = $obj->show_admin_user_by_nhaxuong($vsxID);
-                             while($user = mysqli_fetch_assoc($arry)){ ?>
-                            <div class="slick">
-                                <div class="slick-item">
-                                    <img src="admin/uploads/avatar/<?= $user['hinhdaidien'] ?>" alt="<?= $avatar ?>" >
+                            while ($user = mysqli_fetch_assoc($arry)) { ?>
+                                <div class="slick">
+                                    <div class="slick-item">
+                                        <img src="admin/uploads/avatar/<?= $user['hinhdaidien'] ?>" alt="<?= $avatar ?>">
+                                    </div>
+                                    <div class="slick-tilte">
+                                        <span class="sli-tilte"><?php echo  $user['hoten'] ?></span>
+                                    </div>
                                 </div>
-                                <div class="slick-tilte">
-                                    <span class="sli-tilte"><?php echo  $user['hoten'] ?></span>
-                                </div>
-                            </div>
                             <?php } ?>
                         </div>
                     </div>
@@ -334,7 +339,7 @@ include_once("includes/head.php");
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 2,
-                    
+
                 }
             }]
         });
