@@ -1427,7 +1427,7 @@ class  adminback
         $img_ext = pathinfo($img_name, PATHINFO_EXTENSION);
         list($width, $height) = getimagesize("$img_tmp");
 
-        if (isset($ap) && isset($wards) && isset($district) && isset($province)) {
+        if (isset($ap) && isset($wards) && isset($district) && isset($province) && isset($tenvung)) {
             $full_address = $wards . ', ' . $district . ', ' . $province;
             if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
                 if ($img_size <= 2e+6) {
@@ -1459,7 +1459,7 @@ class  adminback
                 return $msg;
             }
         } else {
-            $msg = "Vui lòng nhập địa chỉ!!";
+            $msg = "Vui lòng nhập đầy đủ thông tin!!";
             return $msg;
         }
     }

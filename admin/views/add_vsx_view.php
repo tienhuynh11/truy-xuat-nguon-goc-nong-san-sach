@@ -87,6 +87,7 @@ while ($nk = mysqli_fetch_assoc($nhatky)) {
         <div class="form-group">
             <label for="lblnhatky">Nhật ký</label>
             <select name="nhatky" id="nhatky" class="form-control">
+                <option value="">Chọn nhật ký</option>
                 <?php foreach ($nhatky as $nk) : ?>
                     <option value="<?= $nk['id_nk'] ?>"><?= $nk['tennhatky'] ?></option>
                 <?php endforeach; ?>

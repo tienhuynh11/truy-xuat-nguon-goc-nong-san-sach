@@ -11,10 +11,10 @@ if (isset($_SESSION['admin_id'])) {
     exit();
 }
 
-$vungsanxuat=$obj->vsxShow();
- $dn = $obj->display_dn();
- while($dn_ftecth = mysqli_fetch_assoc($dn)){
-    $doanhnghiep[]=$dn_ftecth;
+$vungsanxuat = $obj->vsxShow();
+$dn = $obj->display_dn();
+while ($dn_ftecth = mysqli_fetch_assoc($dn)) {
+    $doanhnghiep[] = $dn_ftecth;
 }
 $product_info = $obj->display_product();
 if (isset($_POST['add_nk'])) {
@@ -205,43 +205,42 @@ include_once("includes/head.php");
                 <div>
                     <form action="nhatky.php" method="post" enctype="multipart/form-data" class="form">
                         <h2>Thêm Nhật ký</h2>
+                        <div class="form-group col-md-12">
+                            <label for="tennhatky">Tên nhật ký</label>
+                            <input type="text" name="tennhatky" class="form-control">
+                        </div>
                         <div class="form-group col-md-6">
                             <label for="sanpham">Sản phẩm liên quan</label>
                             <select name="sanpham" id="sp" class="form-control">
+                                <option value="">Chọn sản phẩm liên quan</option>
                                 <?php while ($pro = mysqli_fetch_assoc($product_info)) { ?>
                                     <option value="<?php echo $pro['id_sp']; ?>"><?php echo $pro['tensanpham'] ?></option>
                                 <?php } ?>
                             </select>
                         </div>
 
-                       
 
                         <div class="form-group col-md-6">
-                            <label for="tennhatky">Tên nhật ký</label>
-                            <input type="text" name="tennhatky" class="form-control">
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="vungsanxuat">Vùng sản xuất</label>
+                            <label for="vungsanxuat">Vùng sản xuất liên quan</label>
                             <select name="vungsanxuat" id="vungsanxuat" class="form-control">
                                 <option value="">Chọn vùng sản xuất</option>
-                                <?php while($vsx = mysqli_fetch_assoc($vungsanxuat)) { ?>
+                                <?php while ($vsx = mysqli_fetch_assoc($vungsanxuat)) { ?>
                                     <option value="<?php echo $vsx['id_vung']; ?>"><?php echo $vsx['tenvung']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="doanhnghiep">Doanh nghiệp</label>
+                            <label for="doanhnghiep">Doanh nghiệp liên quan</label>
                             <select name="doanhnghiep" id="doanhnghiep" class="form-control">
                                 <option value="">Chọn nhà sản xuất</option>
-                                <?php foreach($doanhnghiep as $dn) { ?>
+                                <?php foreach ($doanhnghiep as $dn) { ?>
                                     <option value="<?php echo $dn['id_dn']; ?>"><?php echo $dn['tendoanhnghiep']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
-                            <!-- Thêm mục thành viên liên quan -->
-                            <div class="form-group col-md-12">
+                        <!-- Thêm mục thành viên liên quan -->
+                        <div class="form-group col-md-6">
                             <label for="thanhvien">Thành viên liên quan</label>
                             <select name="thanhvien[]" id="thanhvien" class="form-control" multiple>
                                 <?php foreach ($users as $user) { ?>
@@ -286,10 +285,10 @@ include_once("includes/head.php");
                 $("#vungsanxuat").select2();
                 $("#doanhnghiep").select2();
                 $('#thanhvien').select2({
-                placeholder: "Chọn thành viên liên quan",
-                allowClear: true,
-                width: '100%' // Đảm bảo phần tử select chiếm hết chiều rộng của cột
-            });
+                    placeholder: "Chọn thành viên liên quan",
+                    allowClear: true,
+                    width: '100%' // Đảm bảo phần tử select chiếm hết chiều rộng của cột
+                });
             });
         </script>
     </div>

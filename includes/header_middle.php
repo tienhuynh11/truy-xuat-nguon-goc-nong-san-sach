@@ -44,7 +44,7 @@
                         <li class="menu-item"><a href="nhaxuong.php">Nhà xưởng</a></li>
                         <li class="menu-item"><a href="caygiong.php">Cây giống</a></li>
                         <li class="menu-item"><a href="nhatky.php">Nhật ký</a></li>
-                        <li class="menu-item"><a href="bangtin.php">Bảng tin</a></li>
+                        <!-- <li class="menu-item"><a href="bangtin.php">Bảng tin</a></li> -->
                     </ul>
                 </div>
             </div>
