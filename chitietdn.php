@@ -239,15 +239,6 @@ include_once("includes/head.php");
                             <p class="title"><?php echo $diachi ?></p>
                         </div>
                     </div>
-                    <div class="row" id="vsx">
-                        <div class="col-md-3">
-                            Diện tích tổng thể:
-                        </div>
-                        <div class="col-md-9">
-                            <p class="title"><?php echo $dientichtongthe ?></p>
-                        </div>
-                    </div>
-
                     <div class="row" id="vsx" style="padding: 20px 0;">
                         <div class="col-md-3">
                             Giấy phép kinh doanh:

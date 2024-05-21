@@ -105,6 +105,24 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
+            <?php if ($admin_role == 'Admin') { ?>
+                <li class="pcoded-hasmenu">
+                    <a href="add_logo.php">
+                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                        <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Logo</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+            <?php } ?>
+            <?php if ($admin_role == 'Admin') { ?>
+                <li class="pcoded-hasmenu">
+                    <a href="add_links.php">
+                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                        <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Links</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+            <?php } ?>
             <li class="pcoded-hasmenu">
                 <a href="../index.php" target="_blank">
 

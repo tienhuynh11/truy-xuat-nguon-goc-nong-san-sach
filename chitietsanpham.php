@@ -311,7 +311,7 @@ include_once("includes/head.php");
                                     </div>
                                     <div class="product-attribute" style="margin-top: 0;">
                                         <div class="price" style="margin-top:0px">
-                                            <ins><span style="font-size:30px;" class="price-amount"><span class="currencySymbol"></span><?php echo $pro_data['tensanpham'] ?></span></ins>
+                                            <ins><span class="price-amount"><span class="currencySymbol"></span><?php echo $pro_data['tensanpham'] ?></span></ins>
                                         </div>
                                         <!-- <div class="rating">
                                                     <p class="star-rating"><span class="width-80percent"></span></p>
@@ -324,7 +324,7 @@ include_once("includes/head.php");
                                         <!-- <span class="stock" style="margin-left: 200px;">Stock: <?php //echo $pro_data['product_stock'] 
                                                                                                     ?> </span> -->
                                         <br>
-                                        <span style="font-weight:bold;color: black;font-size:145%;"><?php echo $formatted_id_sp ?></span>
+                                        <span style="font-weight:bold;color: black;font-size:135%;"><?php echo $formatted_id_sp ?></span>
                                         <br>
                                         <span style="font-size:130%;">Xuất xứ: <?php echo $pro_data['xuatxu'] ?></span>
                                         <br>
@@ -443,7 +443,14 @@ include_once("includes/head.php");
                                                                 <h5 class="title-sub">Tên vùng sản xuất</h5>
                                                                 <p class="description"><?= $tenvsx['tenvung'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
-                                                                <p class="description"><?= $tenvsx['diachi'] ?></p>
+                                                                <p class="description">
+                                                                    <?php $result = $obj->XoaSo($tenvsx['diachi']);
+                                                                    if (!empty($tenvsx['ap'])) {
+                                                                        echo $tenvsx['ap'] . ', ' . $obj->formatChu($result);
+                                                                    } else {
+                                                                        echo $obj->formatChu($result);
+                                                                    } ?>
+                                                                </p>
                                                                 <a class="btn btn-info" href="chitietvsx.php?id=<?= $vungsanxuat ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
@@ -458,7 +465,14 @@ include_once("includes/head.php");
                                                                 <h5 class="title-sub">Tên nhà xưởng</h5>
                                                                 <p class="description"><?= $nx['tennhaxuong'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
-                                                                <p class="description"><?= $nx['diachi'] ?></p>
+                                                                <p class="description">
+                                                                    <?php $result = $obj->XoaSo($nx['diachi']);
+                                                                    if (!empty($nx['ap'])) {
+                                                                        echo $nx['ap'] . ', ' . $obj->formatChu($result);
+                                                                    } else {
+                                                                        echo $obj->formatChu($result);
+                                                                    } ?>
+                                                                </p>
                                                                 <a class="btn btn-info" href="chitietnx.php?id=<?= $nhaxuong ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
@@ -473,7 +487,14 @@ include_once("includes/head.php");
                                                                 <h5 class="title-sub">Tên nhà sản xuất</h5>
                                                                 <p class="description"><?= $nsx['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
-                                                                <p class="description"><?= $nsx['diachi'] ?></p>
+                                                                <p class="description">
+                                                                    <?php $result = $obj->XoaSo($nsx['diachi']);
+                                                                    if (!empty($nsx['ap'])) {
+                                                                        echo $nsx['ap'] . ', ' . $obj->formatChu($result);
+                                                                    } else {
+                                                                        echo $obj->formatChu($result);
+                                                                    } ?>
+                                                                </p>
                                                                 <a class="btn btn-info" href="chitietdn.php?id=<?= $nhasanxuat ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
@@ -488,7 +509,14 @@ include_once("includes/head.php");
                                                                 <h5 class="title-sub">Tên nhà nhập khẩu</h5>
                                                                 <p class="description"><?= $nnk['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
-                                                                <p class="description"><?= $nnk['diachi'] ?></p>
+                                                                <p class="description">
+                                                                    <?php $result = $obj->XoaSo($nnk['diachi']);
+                                                                    if (!empty($nnk['ap'])) {
+                                                                        echo $nnk['ap'] . ', ' . $obj->formatChu($result);
+                                                                    } else {
+                                                                        echo $obj->formatChu($result);
+                                                                    } ?>
+                                                                </p>
                                                                 <a class="btn btn-info" href="chitietdn.php?id=<?= $nhanhapkhau ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
@@ -503,7 +531,14 @@ include_once("includes/head.php");
                                                                 <h5 class="title-sub">Tên nhà phân phối</h5>
                                                                 <p class="description"><?= $npp['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
-                                                                <p class="description"><?= $npp['diachi'] ?></p>
+                                                                <p class="description">
+                                                                    <?php $result = $obj->XoaSo($npp['diachi']);
+                                                                    if (!empty($npp['ap'])) {
+                                                                        echo $npp['ap'] . ', ' . $obj->formatChu($result);
+                                                                    } else {
+                                                                        echo $obj->formatChu($result);
+                                                                    } ?>
+                                                                </p>
                                                                 <a class="btn btn-info" href="chitietdn.php?id=<?= $nhaphanphoi ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
@@ -518,7 +553,14 @@ include_once("includes/head.php");
                                                                 <h5 class="title-sub">Tên nhà vận chuyển</h5>
                                                                 <p class="description"><?= $nvc['tendoanhnghiep'] ?></p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
-                                                                <p class="description"><?= $nvc['diachi'] ?></p>
+                                                                <p class="description">
+                                                                    <?php $result = $obj->XoaSo($nvc['diachi']);
+                                                                    if (!empty($nvc['ap'])) {
+                                                                        echo $nvc['ap'] . ', ' . $obj->formatChu($result);
+                                                                    } else {
+                                                                        echo $obj->formatChu($result);
+                                                                    } ?>
+                                                                </p>
                                                                 <a class="btn btn-info" href="chitietdn.php?id=<?= $nhavanchuyen ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
@@ -527,43 +569,43 @@ include_once("includes/head.php");
                                             </div>
                                         </div>
                                         <div id="tab_3rd" class="tab-contain review-tab" style="background-color: #fff;border: #e3e3e3 1px;">
-                                        <div class="accodition-tab biolife-accodition">
-                                            <?php if (!empty($pro_data['hinhkiemdinh'])) : ?>
-                                                <div class="row" id="vsx" style="padding: 20px 0;">
-                                                    <div class="col-md-3">
-                                                        Giấy kiểm định:
+                                            <div class="accodition-tab biolife-accodition">
+                                                <?php if (!empty($pro_data['hinhkiemdinh'])) : ?>
+                                                    <div class="row" id="vsx" style="padding: 20px 0;">
+                                                        <div class="col-md-3">
+                                                            Giấy kiểm định:
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <img src="admin/uploads/<?= $pro_data['hinhkiemdinh'] ?>" alt="<?= $pro_data['hinhkiemdinh'] ?>" style="height: 200px;" data-toggle="modal" data-target="#imageModal" class="zoom-img">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-9">
-                                                        <img src="admin/uploads/<?= $pro_data['hinhkiemdinh'] ?>" alt="<?= $pro_data['hinhkiemdinh'] ?>" style="height: 200px;" data-toggle="modal" data-target="#imageModal" class="zoom-img">
-                                                    </div>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if (!empty($pro_data['hinhchungnhan'])) : ?>
+                                            <div class="row" id="vsx" style="padding: 20px 0;">
+                                                <div class="col-md-3">
+                                                    Giấy chứng nhận:
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <img src="admin/uploads/<?= $pro_data['hinhchungnhan'] ?>" alt="<?= $pro_data['hinhchungnhan'] ?>" style="height: 200px;" data-toggle="modal" data-target="#imageModal" class="zoom-img">
                                                 </div>
                                             </div>
-                                            <?php endif; ?>
-                                            <?php if (!empty($pro_data['hinhchungnhan'])) : ?>
-                                                <div class="row" id="vsx" style="padding: 20px 0;">
-                                                    <div class="col-md-3">
-                                                        Giấy chứng nhận:
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <img src="admin/uploads/<?= $pro_data['hinhchungnhan'] ?>" alt="<?= $pro_data['hinhchungnhan'] ?>" style="height: 200px;" data-toggle="modal" data-target="#imageModal" class="zoom-img">
-                                                    </div>
-                                                </div>
-                                            <?php endif; ?>
+                                        <?php endif; ?>
                                         </div>
 
 
-                                        </div>
                                     </div>
                                 </div>
+                        </div>
 
-                                <!-- related products -->
-                                <div class="product-related-box single-layout">
-                                    <div class="biolife-title-box lg-margin-bottom-26px-im">
-                                        <span class="biolife-icon icon-organic"></span>
-                                        <span class="subtitle">"Trải nghiệm nông sản nguyên chất - Mỗi sản phẩm đều có câu chuyện của riêng nó."</span>
-                                        <!-- <h3 class="main-title">Sản phẩm tương tự</h3> -->
-                                    </div>
-                                    <!-- <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":20 }},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}'>
+                        <!-- related products -->
+                        <div class="product-related-box single-layout">
+                            <div class="biolife-title-box lg-margin-bottom-26px-im">
+                                <span class="biolife-icon icon-organic"></span>
+                                <span class="subtitle">"Trải nghiệm nông sản nguyên chất - Mỗi sản phẩm đều có câu chuyện của riêng nó."</span>
+                                <!-- <h3 class="main-title">Sản phẩm tương tự</h3> -->
+                            </div>
+                            <!-- <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":20 }},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}'>
                             
 
                                 <?php while ($r_pro = mysqli_fetch_assoc($rel_pro)) {
@@ -594,53 +636,53 @@ include_once("includes/head.php");
                                 <?php }
                                 } ?>
                             </ul> -->
-                                </div>
                         </div>
-
-
-
-
-                    <?php } ?>
                     </div>
+
+
+
+
+                <?php } ?>
                 </div>
             </div>
-
         </div>
 
+    </div>
+
 
 
     </div>
     </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    <img src="" alt="" id="modalImage" class="img-responsive" style="height: 632px; margin: auto;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="" alt="" id="modalImage" class="img-responsive" style="height: 632px; margin: auto;">
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-    $(document).ready(function () {
-        $('.zoom-img').on('click', function () {
-            $('#modalImage').attr('src', $(this).attr('src'));
-            $('#modalImage').removeClass('zoom-in zoom-out');
-        });
+        $(document).ready(function() {
+            $('.zoom-img').on('click', function() {
+                $('#modalImage').attr('src', $(this).attr('src'));
+                $('#modalImage').removeClass('zoom-in zoom-out');
+            });
 
-        $('#modalImage').on('click', function () {
-            if ($(this).hasClass('zoom-in')) {
-                $(this).removeClass('zoom-in');
-                $(this).addClass('zoom-out');
-                $(this).css('cursor', 'zoom-in');
-            } else {
-                $(this).removeClass('zoom-out');
-                $(this).addClass('zoom-in');
-                $(this).css('cursor', 'zoom-out');
-            }
+            $('#modalImage').on('click', function() {
+                if ($(this).hasClass('zoom-in')) {
+                    $(this).removeClass('zoom-in');
+                    $(this).addClass('zoom-out');
+                    $(this).css('cursor', 'zoom-in');
+                } else {
+                    $(this).removeClass('zoom-out');
+                    $(this).addClass('zoom-in');
+                    $(this).css('cursor', 'zoom-out');
+                }
+            });
         });
-    });
-</script>
+    </script>
     <!-- FOOTER -->
 
     <?php

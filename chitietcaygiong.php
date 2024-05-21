@@ -12,11 +12,11 @@ while ($data = mysqli_fetch_assoc($cata_info)) {
 
 
 if (isset($_GET['id'])) {
-    $id_cg = $_GET['id'];   
-	$cg_info = $obj->show_caygiong_by_id($id_cg);
-	$cg_fetch = mysqli_fetch_assoc($cg_info);
-	$cg_datas = array();
-	$cg_datas[] = $cg_fetch;
+    $id_cg = $_GET['id'];
+    $cg_info = $obj->show_caygiong_by_id($id_cg);
+    $cg_fetch = mysqli_fetch_assoc($cg_info);
+    $cg_datas = array();
+    $cg_datas[] = $cg_fetch;
 }
 
 
@@ -240,16 +240,7 @@ include_once("includes/head.php");
                     <ul>
                         <li class="nav-item"><a href="index.php" class="permal-link">Trang chủ</a></li>
 
-                        <li class="nav-item"><span class="current-page">
-
-                                <?php
-                                foreach ($cg_datas as $cg_data) {
-                                    // $tendm = $obj->display_cataByID($pro_data['danhmuc']);
-                                    // $rel_pro = $obj->related_product($pro_data['danhmuc']);
-                                    // echo $tendm['tendanhmuc'];
-                                }
-                                ?>
-                            </span></li>
+                        <li class="nav-item"><a href="caygiong.php" class="permal-link">Cây giống</a></li>
 
                         <li class="nav-item"><span class="current-page">
 
@@ -272,9 +263,9 @@ include_once("includes/head.php");
                         <!-- Main content -->
                         <div id="main-content" class="main-content">
 
-                        <?php
+                            <?php
                             foreach ($cg_datas as $cg_data) {
-                                $formatted_id_cg = 'NSQN'.str_pad($cg_data['id_cg'], 5, '0', STR_PAD_LEFT);
+                                $formatted_id_cg = 'NSQN' . str_pad($cg_data['id_cg'], 5, '0', STR_PAD_LEFT);
 
                             ?>
 
@@ -294,7 +285,7 @@ include_once("includes/head.php");
                                     </div>
                                     <div class="product-attribute" style="margin-top: 0;">
                                         <div class="price" style="margin-top:0px">
-                                            <ins><span style="font-size:30px;" class="price-amount"><span class="currencySymbol"></span><?php echo $cg_data['tencaygiong'] ?></span></ins>
+                                            <ins><span class="price-amount"><span class="currencySymbol"></span><?php echo $cg_data['tencaygiong'] ?></span></ins>
                                         </div>
                                         <!-- <div class="rating">
                                                     <p class="star-rating"><span class="width-80percent"></span></p>
@@ -307,13 +298,11 @@ include_once("includes/head.php");
                                         <!-- <span class="stock" style="margin-left: 200px;">Stock: <?php //echo $pro_data['product_stock'] 
                                                                                                     ?> </span> -->
                                         <br>
-                                        <span style="font-size:130%;" >Nhà sản xuất: <?php  
-                                                        foreach ($cg_datas as $cg_data) {
-                                                            $tenvsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
-                                                            echo $tenvsx['tendoanhnghiep'];
-                                                        }
-                                        ?></span>
-
+                                        <span style="font-weight:bold;color: black;font-size:135%;"><?php echo $formatted_id_cg ?></span>
+                                        <br>
+                                        <span style="font-size:130%;">Xuất xứ: <?php echo $cg_data['xuatxu'] ?></span>
+                                        <br>
+                                        <span style="font-size:130%;">Giá sản phẩm: <?php echo $cg_data['gia'] ?></span>
                                         <!-- <div class="shipping-info">
                                                     <p class="shipping-day">3-Day Shipping</p>
                                                     <p class="for-today">Pree Pickup Today</p>
@@ -404,48 +393,48 @@ include_once("includes/head.php");
                                             }
                                             ?>
 
-<?php 
-                                        if($cg_data['xuatxu'] != null){
-                                            echo '<div class="desc-expand">
+                                            <?php
+                                            if ($cg_data['xuatxu'] != null) {
+                                                echo '<div class="desc-expand">
                                                         <span class="title">Xuất xứ</span>
                                                         
                                                             
                                                             <br><span>' . $cg_data['xuatxu'] . '</span> 
                                                     </div>
                                                     <hr>';
-                                        }
-                                    ?>
-                                    <?php 
-                                        if($cg_data['gia'] != null){
-                                            echo '<div class="desc-expand">
+                                            }
+                                            ?>
+                                            <?php
+                                            if ($cg_data['gia'] != null) {
+                                                echo '<div class="desc-expand">
                                                         <span class="title">Giá</span>
                                                         
                                                             
                                                             <br><span>' . $cg_data['gia'] . '</span> 
                                                     </div>
                                                     <hr>';
-                                        }
-                                    ?>
-                                    <?php 
-                                        if($cg_data['hdsd'] != null){   
-                                            echo '<div class="desc-expand">
+                                            }
+                                            ?>
+                                            <?php
+                                            if ($cg_data['hdsd'] != null) {
+                                                echo '<div class="desc-expand">
                                                         <span class="title">Hướng dẫn sử dụng</span>
                                                         
                                                             
                                                             <br><span>' . $cg_data['hdsd'] . '</span> 
                                                     </div>
                                                     <hr>';
-                                        }
-                                    ?>
-                                    
-                                    <?php 
-                                        if($cg_data['phuongphaptrong'] != null){
-                                            echo '<div class="desc-expand">
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if ($cg_data['phuongphaptrong'] != null) {
+                                                echo '<div class="desc-expand">
                                                         <span class="title">Phương pháp trồng</span>
                                                         <br><span>' . $cg_data['phuongphaptrong'] . '</span>
-                                                    </div>'; 
-                                        }
-                                    ?>
+                                                    </div>';
+                                            }
+                                            ?>
                                         </div>
 
                                         <div id="tab_2nd" class="tab-contain">
@@ -459,20 +448,27 @@ include_once("includes/head.php");
                                                                 </div>
                                                                 <h3 class="title">Nhà sản xuất</h3>
                                                                 <h5 class="title-sub">Tên nhà sản xuất</h5>
-                                                                <p class="description"><?php
+                                                                <p class="description">
+                                                                    <?php
                                                                     foreach ($cg_datas as $cg_data) {
                                                                         $tenvsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
                                                                         echo $tenvsx['tendoanhnghiep'];
                                                                     }
-                                                                ?></p>
+                                                                    ?>
+                                                                </p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"> <?php
-                                                                    foreach ($cg_datas as $cg_data) {
-                                                                        $tenvsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
-                                                                        echo $tenvsx['diachi'];
-                                                                    }
-                                                                ?></p>
-                                                                <a class="btn btn-info" href="chitietvsx.php?id=<?= $cg_data['nhasanxuat'] ?>">Xem chi tiết</a>
+                                                                                        foreach ($cg_datas as $cg_data) {
+                                                                                            $nsx = $obj->display_dnbyID($cg_data['nhasanxuat']);
+                                                                                            $result = $obj->XoaSo($nsx['diachi']);
+                                                                                            if (!empty($nsx['ap'])) {
+                                                                                                echo $nsx['ap'] . ', ' . $obj->formatChu($result);
+                                                                                            } else {
+                                                                                                echo $obj->formatChu($result);
+                                                                                            }
+                                                                                        }
+                                                                                        ?></p>
+                                                                <a class="btn btn-info" href="chitietdn.php?id=<?= $cg_data['nhasanxuat'] ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -485,19 +481,24 @@ include_once("includes/head.php");
                                                                 <h3 class="title">Nhà phân phối</h3>
                                                                 <h5 class="title-sub">Tên nhà phân phối</h5>
                                                                 <p class="description"><?php
-                                                                    foreach ($cg_datas as $cg_data) {
-                                                                        $tenvsx = $obj->display_dnbyID($cg_data['nhaphanphoi']);
-                                                                        echo $tenvsx['tendoanhnghiep'];
-                                                                    }
-                                                                ?>  </p>
+                                                                                        foreach ($cg_datas as $cg_data) {
+                                                                                            $tennpp = $obj->display_dnbyID($cg_data['nhaphanphoi']);
+                                                                                            echo $tennpp['tendoanhnghiep'];
+                                                                                        }
+                                                                                        ?> </p>
                                                                 <h5 class="title-sub">Địa chỉ</h5>
                                                                 <p class="description"><?php
-                                                                    foreach ($cg_datas as $cg_data) {
-                                                                        $tenvsx = $obj->display_dnbyID($cg_data['nhaphanphoi']);
-                                                                        echo $tenvsx['diachi'];
-                                                                    }
-                                                                ?></p>
-                                                                <a class="btn btn-info" href="chitietnx.php?id=">Xem chi tiết</a>
+                                                                                        foreach ($cg_datas as $cg_data) {
+                                                                                            $tennpp = $obj->display_dnbyID($cg_data['nhaphanphoi']);
+                                                                                            $result = $obj->XoaSo($tennpp['diachi']);
+                                                                                            if (!empty($tennpp['ap'])) {
+                                                                                                echo $tennpp['ap'] . ', ' . $obj->formatChu($result);
+                                                                                            } else {
+                                                                                                echo $obj->formatChu($result);
+                                                                                            }
+                                                                                        }
+                                                                                        ?></p>
+                                                                <a class="btn btn-info" href="chitietdn.php?id=<?= $cg_data['nhaphanphoi'] ?>">Xem chi tiết</a>
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -505,34 +506,34 @@ include_once("includes/head.php");
                                             </div>
                                         </div>
                                         <div id="tab_3rd" class="tab-contain review-tab" style="background-color: #fff;border: #e3e3e3 1px;">
-                                        <div class="accodition-tab biolife-accodition">
-                                            <?php if (!empty($cg_data['giaychungnhan'])) : ?>
-                                                <div class="row" id="vsx" style="padding: 20px 0;">
-                                                    <div class="col-md-3">
-                                                        Giấy chứng nhận:
+                                            <div class="accodition-tab biolife-accodition">
+                                                <?php if (!empty($cg_data['giaychungnhan'])) : ?>
+                                                    <div class="row" id="vsx" style="padding: 20px 0;">
+                                                        <div class="col-md-3">
+                                                            Giấy chứng nhận:
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <img src="admin/uploads/<?= $cg_data['giaychungnhan'] ?>" alt="<?= $pro_data['hinhkiemdinh'] ?>" style="height: 200px;" data-toggle="modal" data-target="#imageModal" class="zoom-img">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-9">
-                                                        <img src="admin/uploads/<?= $cg_data['giaychungnhan'] ?>" alt="<?= $pro_data['hinhkiemdinh'] ?>" style="height: 200px;" data-toggle="modal" data-target="#imageModal" class="zoom-img">
-                                                    </div>
-                                                </div>
                                             </div>
-                                            <?php endif; ?>
+                                        <?php endif; ?>
 
                                         </div>
 
 
-                                        </div>
                                     </div>
                                 </div>
+                        </div>
 
-                                <!-- related products -->
-                                <div class="product-related-box single-layout">
-                                    <div class="biolife-title-box lg-margin-bottom-26px-im">
-                                        <span class="biolife-icon icon-organic"></span>
-                                        <span class="subtitle">"Trải nghiệm nông sản nguyên chất - Mỗi sản phẩm đều có câu chuyện của riêng nó."</span>
-                                        <!-- <h3 class="main-title">Sản phẩm tương tự</h3> -->
-                                    </div>
-                                    <!-- <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":20 }},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}'>
+                        <!-- related products -->
+                        <div class="product-related-box single-layout">
+                            <div class="biolife-title-box lg-margin-bottom-26px-im">
+                                <span class="biolife-icon icon-organic"></span>
+                                <span class="subtitle">"Trải nghiệm nông sản nguyên chất - Mỗi sản phẩm đều có câu chuyện của riêng nó."</span>
+                                <!-- <h3 class="main-title">Sản phẩm tương tự</h3> -->
+                            </div>
+                            <!-- <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":20 }},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}'>
                             
 
                                 <?php while ($r_pro = mysqli_fetch_assoc($rel_pro)) {
@@ -563,53 +564,53 @@ include_once("includes/head.php");
                                 <?php }
                                 } ?>
                             </ul> -->
-                                </div>
                         </div>
-
-
-
-
-                    <?php } ?>
                     </div>
+
+
+
+
+                <?php } ?>
                 </div>
             </div>
-
         </div>
 
+    </div>
+
 
 
     </div>
     </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    <img src="" alt="" id="modalImage" class="img-responsive" style="height: 632px; margin: auto;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="" alt="" id="modalImage" class="img-responsive" style="height: 632px; margin: auto;">
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-    $(document).ready(function () {
-        $('.zoom-img').on('click', function () {
-            $('#modalImage').attr('src', $(this).attr('src'));
-            $('#modalImage').removeClass('zoom-in zoom-out');
-        });
+        $(document).ready(function() {
+            $('.zoom-img').on('click', function() {
+                $('#modalImage').attr('src', $(this).attr('src'));
+                $('#modalImage').removeClass('zoom-in zoom-out');
+            });
 
-        $('#modalImage').on('click', function () {
-            if ($(this).hasClass('zoom-in')) {
-                $(this).removeClass('zoom-in');
-                $(this).addClass('zoom-out');
-                $(this).css('cursor', 'zoom-in');
-            } else {
-                $(this).removeClass('zoom-out');
-                $(this).addClass('zoom-in');
-                $(this).css('cursor', 'zoom-out');
-            }
+            $('#modalImage').on('click', function() {
+                if ($(this).hasClass('zoom-in')) {
+                    $(this).removeClass('zoom-in');
+                    $(this).addClass('zoom-out');
+                    $(this).css('cursor', 'zoom-in');
+                } else {
+                    $(this).removeClass('zoom-out');
+                    $(this).addClass('zoom-in');
+                    $(this).css('cursor', 'zoom-out');
+                }
+            });
         });
-    });
-</script>
+    </script>
     <!-- FOOTER -->
 
     <?php

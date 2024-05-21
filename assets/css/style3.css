@@ -4166,8 +4166,8 @@ body.open-overlay #overlay{
 .sumary-product .product-attribute{
     display: inline-block;
     float: left;
-    width: calc( 100% - 38.462% - 270px );
-    padding-left: 20px;
+    /* width: calc( 100% - 20% - 270px ); */
+    /* padding-left: 20px; */
     padding-top: 13px;
 }
 .sumary-product .product-attribute .title{
@@ -14902,7 +14902,9 @@ body.open-quickview-block .biolife-quickview-block{
 .slick-item img{
     width: 100%; 
     height: 100%;
-    object-fit: cover;
+    /* width: 148px;
+    height: 148px; */
+    object-fit: contain;
 }
 .slick-tilte{
    padding: 0px 10px;

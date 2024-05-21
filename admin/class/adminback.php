@@ -148,7 +148,7 @@ class  adminback
         $vungsanxuat = $data['vungsanxuat'];
         $nhaxuong = $data['nhaxuong'];
         $thongtin = $data['thongtin'];
-        $trangthai = $data['trangthai'];
+        // $trangthai = $data['trangthai'];
 
         if (!empty($_FILES['hinhdaidien']['tmp_name'])) {
             $hinhdaidien_name = $_FILES['hinhdaidien']['name'];
@@ -165,7 +165,7 @@ class  adminback
                     $pre_img = $row['hinhdaidien'];
                     unlink("uploads/avatar/" . $pre_img);
 
-                    $query = "UPDATE `taikhoan` SET `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vungsanxuat', `nhaxuong` = '$nhaxuong', `hoten` = '$name', `dienthoai` = '$sdt', `diachi` = '$diachi', `thongtin` = '$thongtin', `hinhdaidien` = '$hinhdaidien_name',`trangthai` = '$trangthai' WHERE `id_acc` = '$u_id';";
+                    $query = "UPDATE `taikhoan` SET `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vungsanxuat', `nhaxuong` = '$nhaxuong', `hoten` = '$name', `dienthoai` = '$sdt', `diachi` = '$diachi', `thongtin` = '$thongtin', `hinhdaidien` = '$hinhdaidien_name' WHERE `id_acc` = '$u_id';";
 
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($hinhdaidien_tmp, "uploads/avatar/" . $hinhdaidien_name)) {
                         $msg = 1; // Thành công
@@ -184,7 +184,7 @@ class  adminback
             }
         } else {
             // Nếu không có tệp ảnh mới được chọn, chỉ cập nhật thông tin người dùng mà không cần di chuyển tệp ảnh cũ
-            $query = "UPDATE `taikhoan` SET `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vungsanxuat', `nhaxuong` = '$nhaxuong', `hoten` = '$name', `dienthoai` = '$sdt', `diachi` = '$diachi', `thongtin` = '$thongtin',`trangthai` = '$trangthai' WHERE `id_acc` = '$u_id';";
+            $query = "UPDATE `taikhoan` SET `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vungsanxuat', `nhaxuong` = '$nhaxuong', `hoten` = '$name', `dienthoai` = '$sdt', `diachi` = '$diachi', `thongtin` = '$thongtin' WHERE `id_acc` = '$u_id';";
 
             if (mysqli_query($this->connection, $query)) {
                 $msg = 5; // Thành công
@@ -276,7 +276,6 @@ class  adminback
     function add_catagory($data)
     {
         $ctg_name = $data['ctg_name'];
-        $ctg_des = $data['ctg_des'];
         $ctg_status = $data['ctg_status'];
 
         $query = "INSERT INTO `danhmuc`( `tendanhmuc`, `trangthai`) VALUES ('$ctg_name', '$ctg_status')";
@@ -882,61 +881,6 @@ class  adminback
         }
     }
 
-    function place_order($data)
-    {
-        $user_id = $data['user_id'];
-        $product_name = $data['product_name'];
-        $product_item = $data['product_item'];
-        $quantity = $data['quan'];
-        $amount = $data['amount'];
-        $order_status = $data['order_status'];
-        $trans_id = $data['txid'];
-        $mobile = $data['shipping_Mobile'];
-
-        $shiping = $data['shiping'];
-
-
-        $query = "INSERT INTO `order_details`(`user_id`, `product_name`, `product_item`, `amount`, `order_status`, `trans_id`,`Shipping_mobile`, `shiping`, `order_time`, `order_date`) VALUES ( $user_id,'$product_name',$product_item, $amount, $order_status,'$trans_id',$mobile,'$shiping',NOW(), CURDATE())";
-
-        if (mysqli_query($this->connection, $query)) {
-
-            unset($_SESSION['cart']);
-            header("location:exist_order.php");
-        }
-    }
-
-
-
-    function order_details_by_id($user_id)
-    {
-        $query = "SELECT * FROM `order_details` WHERE `user_id`=$user_id ORDER BY `order_time` DESC";
-        if (mysqli_query($this->connection, $query)) {
-            $order_query = mysqli_query($this->connection, $query);
-            return $order_query;
-        }
-    }
-
-    function all_order_info()
-    {
-        $query = "SELECT * FROM `all_order_info` ORDER BY `order_time` DESC";
-
-        if (mysqli_query($this->connection, $query)) {
-            $all_order_info = mysqli_query($this->connection, $query);
-            return $all_order_info;
-        }
-    }
-
-    function updat_order_status($data)
-    {
-        $u_pdt_id = $data['order_id'];
-        $u_pdt_status = $data['update_status'];
-        $query = "UPDATE `order_details` SET `order_status`=  $u_pdt_status WHERE `order_id`= $u_pdt_id";
-        if (mysqli_query($this->connection, $query)) {
-            $status_msg = "Order Status updated successfully";
-            return $status_msg;
-        }
-    }
-
     function user_password_recover($recover_email)
     {
         $query = "SELECT * FROM `users` WHERE `user_email`='$recover_email'";
@@ -1176,82 +1120,12 @@ class  adminback
         if (mysqli_query($this->connection, $del_query)) {
             unlink('uploads/' . $img_name);
             echo '<script>
-                                alert("Xóa thành công");
-                                window.location.href = "manage_vsx.php";
-                                </script>';
+                alert("Xóa thành công");
+                window.location.href = "manage_vsx.php";
+                </script>';
         }
     }
 
-    function post_comment($data)
-    {
-        $user_id = $data['user_id'];
-        $user_name = $data['user_name'];
-        $pdt_id = $data['pdt_id'];
-        $user_comment =  $data['comment'];
-
-        $query = "INSERT INTO `customer_feedback`(`user_id`, `user_name`, `pdt_id`, `comment`, `comment_date`) VALUES ($user_id,'$user_name',$pdt_id,'$user_comment',CURDATE())";
-
-        if (mysqli_query($this->connection, $query)) {
-            $msg = "Thanks for your valuable feedback";
-            return $msg;
-        }
-    }
-
-    function view_comment_id($id)
-    {
-        $query = "SELECT * FROM `danhgia` WHERE `id_dg`=$id";
-        if (mysqli_query($this->connection, $query)) {
-            $result = mysqli_query($this->connection, $query);
-
-            if (mysqli_num_rows($result) > 0) {
-                return $result;
-            }
-        }
-    }
-
-    function view_comment_all()
-    {
-        $query = "SELECT * FROM `danhgia`";
-        if (mysqli_query($this->connection, $query)) {
-            $result = mysqli_query($this->connection, $query);
-
-            return $result;
-        }
-    }
-
-    function edit_comment($cmt_id)
-    {
-        $query = "SELECT * FROM `danhgia` WHERE `id_dg` = $cmt_id";
-
-        if (mysqli_query($this->connection, $query)) {
-            $array = mysqli_query($this->connection, $query);
-            return $array;
-        }
-    }
-    function update_comment($data)
-    {
-        $cmt_id = $data['cmt_id'];
-        $comment = $data['comment'];
-        $query = "UPDATE `danhgia` SET `noidung`='$comment' WHERE `id_dg`='$cmt_id'";
-        if (mysqli_query($this->connection, $query)) {
-            echo '<script>
-            alert("Cập nhật đánh giá thành công");
-            window.location.href = "customer_feedback.php";
-            </script>';
-        }
-    }
-
-    function delete_comment($cmt_id)
-    {
-        $query = "DELETE  FROM `danhgia` WHERE `id_dg`=$cmt_id";
-
-        if (mysqli_query($this->connection, $query)) {
-            echo '<script>
-            alert("Xóa đánh giá thành công");
-            window.location.href = "customer_feedback.php";
-            </script>';
-        }
-    }
     function show_baiviet()
     {
         $query = "SELECT * FROM `baiviet`";
@@ -1984,11 +1858,17 @@ class  adminback
         $tendoanhnghiep = $data['tendoanhnghiep'];
         $sdt = $data['sdt'];
         $email = $data['email'];
-        $diachi = $data['diachi'];
+        $province = $data['province'];
+        $district = $data['district'];
+        ucwords($district);
+        $wards = $data['wards'];
+        ucwords($wards);
+        $ap = $data['diachi'];
         $masothue = $data['masothue'];
         $thongtinchung = $data['thongtinchung'];
         $nguoidang = $data['nguoidang'];
 
+        $full_address = $wards . ', ' . $district . ', ' . $province;
         // Xử lý hình ảnh doanh nghiệp
         $dn_img_name = $_FILES['hinhanh']['name'];
         $dn_img_size = $_FILES['hinhanh']['size'];
@@ -2038,7 +1918,7 @@ class  adminback
                             move_uploaded_file($giaykiemdinh_img_tmp, "uploads/" . $giaykiemdinh_img_name);
 
                             // Thực hiện truy vấn INSERT vào cơ sở dữ liệu
-                            $query = "INSERT INTO `doanhnghiep` (`nguoidang`,`danhmuc_dn`, `nguoidaidien`, `tendoanhnghiep`, `hinhanh`, `sdt`, `email`, `diachi`, `masothue`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtinchung`) VALUES ('$nguoidang','$danhmuc_dn', '$nguoidaidien', '$tendoanhnghiep', '$dn_img_name', '$sdt', '$email', '$diachi', '$masothue', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtinchung')";
+                            $query = "INSERT INTO `doanhnghiep` (`nguoidang`,`danhmuc_dn`, `nguoidaidien`, `tendoanhnghiep`, `hinhanh`, `sdt`, `email`,`ap`,`diachi`, `masothue`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtinchung`) VALUES ('$nguoidang','$danhmuc_dn', '$nguoidaidien', '$tendoanhnghiep', '$dn_img_name', '$sdt', '$email','$ap', '$full_address', '$masothue', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtinchung')";
 
                             if (mysqli_query($this->connection, $query)) {
                                 $msg = "Thêm thành công";
@@ -2694,7 +2574,13 @@ class  adminback
         $manhaxuong = $data['manhaxuong'];
         $sdt = $data['sdt'];
         $email = $data['email'];
-        $diachi = $data['diachi'];
+        $province = $data['province'];
+        $district = $data['district'];
+        ucwords($district);
+        $wards = $data['wards'];
+        ucwords($wards);
+        $ap = $data['diachi'];
+        $full_address = $wards . ', ' . $district . ', ' . $province;
         $dientichtongthe = $data['dientichtongthe'];
         $thongtin = $data['thongtin'];
         $nguoidang = $data['nguoidang'];
@@ -2748,7 +2634,7 @@ class  adminback
                             move_uploaded_file($giaykiemdinh_img_tmp, "uploads/" . $giaykiemdinh_img_name);
 
                             // Thực hiện truy vấn INSERT vào cơ sở dữ liệu
-                            $query = "INSERT INTO `nhaxuong` (  `nguoidang`,`danhmuc_nx`, `nguoidaidien`, `doanhnghiep`, `vungsanxuat`, `tennhaxuong`, `manhaxuong`, `hinhanh`, `dienthoai`, `email`, `diachi`, `dientichtongthe`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtin`) VALUES ('$nguoidang','$danhmuc_nx', '$nguoidaidien', '$doanhnghiep', '$vsx', '$tennhaxuong', '$manhaxuong', '$nx_img_name', '$sdt', '$email', '$diachi', '$dientichtongthe', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtin');";
+                            $query = "INSERT INTO `nhaxuong` (  `nguoidang`,`danhmuc_nx`, `nguoidaidien`, `doanhnghiep`, `vungsanxuat`, `tennhaxuong`, `manhaxuong`, `hinhanh`, `dienthoai`, `email`,`ap`, `diachi`, `dientichtongthe`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtin`) VALUES ('$nguoidang','$danhmuc_nx', '$nguoidaidien', '$doanhnghiep', '$vsx', '$tennhaxuong', '$manhaxuong', '$nx_img_name', '$sdt', '$email','$ap', '$full_address', '$dientichtongthe', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtin');";
 
                             if (mysqli_query($this->connection, $query)) {
                                 $msg = "Thêm thành công";

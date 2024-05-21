@@ -29,6 +29,7 @@ foreach ($nx_datas as $nx) {
     $hinhanh = $nx['hinhanh'];
     $dienthoai = $nx['dienthoai'];
     $email = $nx['email'];
+    $ap = $nx['ap'];
     $diachi = $nx['diachi'];
     $dientichtongthe = $nx['dientichtongthe'];
     $giayphepkinhdoanh = $nx['giayphepkinhdoanh'];
@@ -53,6 +54,7 @@ $vungsanxuat = array();
 $vungsanxuat[] = $vsx_fetch;
 
 foreach ($vungsanxuat as $vsx) {
+    $id_vung = $vsx['id_vung'];
     $tenvung = $vsx['tenvung'];
     $anhvsx = $vsx['hinhanh'];
 }
@@ -70,6 +72,7 @@ $doanhnghiep = array();
 $doanhnghiep[] = $dn_fetch;
 
 foreach ($doanhnghiep as $dn) {
+    $id_dn = $dn['id_dn'];
     $tendoanhnghiep = $dn['tendoanhnghiep'];
     $anhdoanhnghiep = $dn['hinhanh'];
 }
@@ -267,62 +270,58 @@ include_once("includes/head.php");
                             Thuộc doanh nghiệp:
                         </div>
                         <div class="col-md-9">
-                            <div class="slick">
-                                <div class="slick-item">
-                                    <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>">
-                                </div>
-                                <div class="slick-tilte">
-                                    <?php
-                                    $max_length = 25;
-
-
-                                    if (strlen($tendoanhnghiep) > $max_length) {
-
-                                        $tenrutgon = substr($tendoanhnghiep, 0, $max_length);
-
-
-                                        $last_space = strrpos($tenrutgon, ' ');
-                                        if ($last_space !== false) {
-                                            $tenrutgon = substr($tenrutgon, 0, $last_space);
+                            <a href="chitietdn.php?id=<?= $id_dn ?>">
+                                <div class="slick">
+                                    <div class="slick-item">
+                                        <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>" style="width: 148px; height: 148px; object-fit: contain;">
+                                    </div>
+                                    <div class="slick-tilte">
+                                        <?php
+                                        $max_length = 25;
+                                        if (strlen($tendoanhnghiep) > $max_length) {
+                                            $tenrutgon = substr($tendoanhnghiep, 0, $max_length);
+                                            $last_space = strrpos($tenrutgon, ' ');
+                                            if ($last_space !== false) {
+                                                $tenrutgon = substr($tenrutgon, 0, $last_space);
+                                            }
+                                            echo '<span class="sli-tilte">' . $tenrutgon . '</span>';
+                                        } else {
+                                            echo '<span class="sli-tilte">' . $tendoanhnghiep . '</span>';
                                         }
-
-
-                                        echo '<span class="sli-tilte">' . $tenrutgon . '</span>';
-                                    } else {
-
-                                        echo '<span class="sli-tilte">' . $tendoanhnghiep . '</span>';
-                                    }
-                                    ?>
+                                        ?>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="row" id="vsx" style="padding: 20px 0;">
-                        <div class="col-md-3">
-                            Vùng sản xuất:
-                        </div>
-                        <div class="col-md-9">
-                            <div class="slick">
-                                <div class="slick-item">
-                                    <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>">
-                                </div>
-                                <div class="slick-tilte">
-                                    <?php
-                                    $max_length = 24;
-                                    if (strlen($tenvung) > $max_length) {
-                                        $tenrutgon = substr($tenvung, 0, $max_length);
-                                        $last_space = strrpos($tenrutgon, ' ');
-                                        if ($last_space !== false) {
-                                            $tenrutgon = substr($tenrutgon, 0, $last_space);
+                        <a href="chitietvsx.php?id=<?= $id_vung ?>">
+                            <div class="col-md-3">
+                                Vùng sản xuất:
+                            </div>
+                            <div class="col-md-9">
+                                <div class="slick">
+                                    <div class="slick-item">
+                                        <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>" style="width: 148px; height: 148px; object-fit: contain;">
+                                    </div>
+                                    <div class="slick-tilte">
+                                        <?php
+                                        $max_length = 24;
+                                        if (strlen($tenvung) > $max_length) {
+                                            $tenrutgon = substr($tenvung, 0, $max_length);
+                                            $last_space = strrpos($tenrutgon, ' ');
+                                            if ($last_space !== false) {
+                                                $tenrutgon = substr($tenrutgon, 0, $last_space);
+                                            }
+                                            echo '<span class="sli-tilte">' . $tenrutgon . '</span>';
+                                        } else {
+                                            echo '<span class="sli-tilte">' . $tenvung . '</span>';
                                         }
-                                        echo '<span class="sli-tilte">' . $tenrutgon . '</span>';
-                                    } else {
-                                        echo '<span class="sli-tilte">' . $tenvung . '</span>';
-                                    }
-                                    ?>
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="row" id="vsx">
@@ -346,7 +345,14 @@ include_once("includes/head.php");
                             Địa chỉ:
                         </div>
                         <div class="col-md-9">
-                            <p class="title"><?php echo $diachi ?></p>
+                            <p class="title">
+                                <?php $result = $obj->XoaSo($diachi);
+                                if (!empty($ap)) {
+                                    echo $ap . ', ' . $obj->formatChu($result);
+                                } else {
+                                    echo $obj->formatChu($result);
+                                } ?>
+                            </p>
                         </div>
                     </div>
                     <div class="row" id="vsx">

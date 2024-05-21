@@ -24,6 +24,8 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
+<script src="assets/js/api.js"></script>
+
 </body>
 
 </html>

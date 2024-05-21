@@ -229,7 +229,11 @@ include_once("includes/head.php");
                         </div>
                         <div class="col-md-9">
                             <p class="title"><?php $result = $obj->XoaSo($diachi);
-                                                echo $ap . ', ' . $obj->formatChu($result); ?></p>
+                            if (!empty($ap)){
+                                echo $ap . ', ' . $obj->formatChu($result);    
+                            }else{
+                                echo $obj->formatChu($result);
+                            }?></p>
                         </div>
                     </div>
                     <div class="row" id="vsx">
