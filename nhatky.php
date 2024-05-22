@@ -210,7 +210,7 @@ include_once("includes/head.php");
                                     </div>
                                 </div>
                                 <?php
-                                 if (!is_null($nk['thanhvien'])) : ?>
+                                 if (!empty($nk['thanhvien'])) : ?>
                                 <div class="col-xs-12 log__data">
                                     <div class="single-data">
                                         <div class="single-data__label" style="margin-left: 20px;"><u><b>Thành viên liên quan:</b></u></div>
