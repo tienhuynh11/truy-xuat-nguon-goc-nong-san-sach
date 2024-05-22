@@ -89,6 +89,22 @@ if (isset($_POST['update_vsx_btn'])) {
         <input type="text" name="dientich" class="form-control" value="<?php echo $slide['dientich'] ?>">
     </div>
     <div class="form-group">
+    <label for="thanhvien">Thành viên </label>
+    <select name="thanhvien[]" id="thanhvien" class="form-control" multiple>
+        <?php
+      
+       $selected_members_str = str_replace(['"', ''], '', $slide['thanhvien']);
+       $selected_members = json_decode($selected_members_str, true);
+        foreach($users as $user): ?>
+            <?php if (in_array($user['id_acc'], $selected_members)) { ?>
+                <option value="<?php echo $user['id_acc'] ?>" selected><?php echo $user['hoten'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten'] ?></option>
+            <?php } ?>
+        <?php endforeach; ?>
+    </select>
+</div>
+    <div class="form-group">
         <label for="thongtin">Thông tin</label>
         <input type="text" name="thongtin" class="form-control" value="<?php echo $slide['thongtin'] ?>">
     </div>
@@ -99,6 +115,7 @@ if (isset($_POST['update_vsx_btn'])) {
     $(document).ready(function() {
         $("#nguoidang").select2();
         $("#nhatky").select2();
+        $("#thanhvien").select2();
     });
 </script>
 <style>
@@ -113,4 +130,8 @@ if (isset($_POST['update_vsx_btn'])) {
     .select2-container--default .select2-selection--single{
         border: none;
     }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+   
+   color: #171717;
+}
 </style>

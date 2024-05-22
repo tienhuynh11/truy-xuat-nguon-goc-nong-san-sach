@@ -122,6 +122,22 @@ ini_set("display_erros", "Off");
         <input type="file" name="giaykiemdinh" class="form-control">
     </div>
     <div class="form-group">
+    <label for="thanhvien">Thành viên </label>
+    <select name="thanhvien[]" id="thanhvien" class="form-control" multiple>
+        <?php
+       
+       $selected_members_str = str_replace(['"', ''], '', $nx['thanhvien']);
+       $selected_members = json_decode($selected_members_str, true);
+        foreach($users as $user): ?>
+            <?php if (in_array($user['id_acc'], $selected_members)) { ?>
+                <option value="<?php echo $user['id_acc'] ?>" selected><?php echo $user['hoten'] ?></option>
+            <?php } else { ?>
+                <option value="<?php echo $user['id_acc'] ?>"><?php echo $user['hoten'] ?></option>
+            <?php } ?>
+        <?php endforeach; ?>
+    </select>
+</div>
+    <div class="form-group">
         <label for="thongtin">Thông tin</label>
         <input type="text" name="thongtin" class="form-control" value="<?php echo $nx['thongtin']; ?>">
     </div>
@@ -135,6 +151,7 @@ ini_set("display_erros", "Off");
         $("#nguoidaidien").select2();
         $("#doanhnghiep").select2();
         $("#vsx").select2();
+        $("#thanhvien").select2();
     });
 
 </script>
@@ -150,4 +167,8 @@ ini_set("display_erros", "Off");
     .select2-container--default .select2-selection--single{
         border: none;
     }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+   
+   color: #171717;
+}
 </style>

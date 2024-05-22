@@ -1056,7 +1056,7 @@ class  adminback
         $thoigiantrong = $data['thoigiantrong'];
         $dientich = $data['dientich'];
         $thongtin = $data['thongtin'];
-
+        $thanhvien = json_encode($data['thanhvien']);
         // Kiểm tra xem có tập tin hình ảnh nào được tải lên không
         if (!empty($_FILES['img']['tmp_name'])) {
             $lg_name = $_FILES['img']['name'];
@@ -1074,7 +1074,7 @@ class  adminback
                     $pre_img = $row['hinhanh'];
                     unlink("uploads/" . $pre_img);
 
-                    $query = "UPDATE `vungsanxuat` SET `nguoidang` = '$nguoidang',`nhatky` = '$nhatky',`tenvung` = '$tenvung', `mavung` = '$mavung', `hinhanh` = '$lg_name', `sdt` = '$sdt', `diachi` = '$dc', `bando` = '$bando', `thoigiannuoitrong` = '$thoigiantrong', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
+                    $query = "UPDATE `vungsanxuat` SET `nguoidang` = '$nguoidang',`nhatky` = '$nhatky',`thanhvien` = '$thanhvien',`tenvung` = '$tenvung', `mavung` = '$mavung', `hinhanh` = '$lg_name', `sdt` = '$sdt', `diachi` = '$dc', `bando` = '$bando', `thoigiannuoitrong` = '$thoigiantrong', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
 
                     if (mysqli_query($this->connection, $query) && move_uploaded_file($lg_tmp, "uploads/" . $lg_name)) {
                         echo ' ;<script>
@@ -1094,7 +1094,7 @@ class  adminback
             }
         } else {
             // Nếu không có tập tin hình ảnh mới được tải lên, giữ nguyên ảnh cũ và chỉ cập nhật thông tin khác của vùng sản xuất
-            $query = "UPDATE `vungsanxuat` SET `nguoidang` = '$nguoidang', `nhatky` = '$nhatky',`tenvung` = '$tenvung', `mavung` = '$mavung', `sdt` = '$sdt', `diachi` = '$dc', `bando` = '$bando', `thoigiannuoitrong` = '$thoigiantrong', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
+            $query = "UPDATE `vungsanxuat` SET `nguoidang` = '$nguoidang', `nhatky` = '$nhatky',`thanhvien` = '$thanhvien',`tenvung` = '$tenvung', `mavung` = '$mavung', `sdt` = '$sdt', `diachi` = '$dc', `bando` = '$bando', `thoigiannuoitrong` = '$thoigiantrong', `dientich` = '$dientich', `thongtin` = '$thongtin' WHERE `id_vung` = '$id_vung';";
 
             if (mysqli_query($this->connection, $query)) {
                 echo '<script>
@@ -1295,6 +1295,7 @@ class  adminback
         $dientich = $data['dientich'];
         $thongtin = $data['thongtin'];
         $thoigiantrong = $data['thoigiantrong'];
+        $thanhvien = json_encode($data['thanhvien']);
         $img_name = $_FILES['img']['name'];
         $img_size = $_FILES['img']['size'];
         $img_tmp = $_FILES['img']['tmp_name'];
@@ -1307,7 +1308,7 @@ class  adminback
                 if ($img_size <= 2e+6) {
 
                     if ($width < 2071 && $height < 2071) {
-                        $query = "INSERT INTO `vungsanxuat`(`nguoidang`,  `nhatky`, `tenvung`,  `mavung`,`hinhanh`, `sdt`,`ap`, `diachi`, `bando`, `thoigiannuoitrong`,`dientich`,`thongtin`) VALUES ('$nguoidang','$nhatky','$tenvung','$mavung', '$img_name','$sdt','$ap','$full_address','$bando','$thoigiantrong','$dientich','$thongtin')";
+                        $query = "INSERT INTO `vungsanxuat`(`nguoidang`,  `nhatky`,`thanhvien`, `tenvung`,  `mavung`,`hinhanh`, `sdt`,`ap`, `diachi`, `bando`, `thoigiannuoitrong`,`dientich`,`thongtin`) VALUES ('$nguoidang','$nhatky','$thanhvien','$tenvung','$mavung', '$img_name','$sdt','$ap','$full_address','$bando','$thoigiantrong','$dientich','$thongtin')";
 
                         if (mysqli_query($this->connection, $query)) {
                             move_uploaded_file($img_tmp, "uploads/" . $img_name);
@@ -1318,7 +1319,7 @@ class  adminback
                                 </script>';
                         } else {
                             $msg = "Lỗi upload ảnh: " . mysqli_error($this->connection);
-                            return $msg;
+                            return $msg;    
                         }
                     } else {
                         $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
@@ -1752,7 +1753,7 @@ class  adminback
         $diachi = $data['diachi'];
         $masothue = $data['masothue'];
         $thongtinchung = $data['thongtinchung'];
-
+        $thanhvien = json_encode($data['thanhvien']);
         // Xử lý tập tin hình ảnh doanh nghiệp nếu có
         if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] === UPLOAD_ERR_OK) {
             $dn_img_name = $_FILES['hinhanh']['name'];
@@ -1822,7 +1823,7 @@ class  adminback
         }
 
         // Thực hiện truy vấn UPDATE vào cơ sở dữ liệu
-        $query = "UPDATE `doanhnghiep` SET `danhmuc_dn` = '$danhmuc_dn', `nguoidaidien` = '$nguoidaidien', `tendoanhnghiep` = '$tendoanhnghiep',";
+        $query = "UPDATE `doanhnghiep` SET `danhmuc_dn` = '$danhmuc_dn', `nguoidaidien` = '$nguoidaidien',`thanhvien` = '$thanhvien', `tendoanhnghiep` = '$tendoanhnghiep',";
 
         if (isset($dn_img)) {
             $query .= " `hinhanh` = '$dn_img',";
@@ -1918,7 +1919,8 @@ class  adminback
                             move_uploaded_file($giaykiemdinh_img_tmp, "uploads/" . $giaykiemdinh_img_name);
 
                             // Thực hiện truy vấn INSERT vào cơ sở dữ liệu
-                            $query = "INSERT INTO `doanhnghiep` (`nguoidang`,`danhmuc_dn`, `nguoidaidien`, `tendoanhnghiep`, `hinhanh`, `sdt`, `email`,`ap`,`diachi`, `masothue`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtinchung`) VALUES ('$nguoidang','$danhmuc_dn', '$nguoidaidien', '$tendoanhnghiep', '$dn_img_name', '$sdt', '$email','$ap', '$full_address', '$masothue', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtinchung')";
+                            $thanhvien = json_encode($data['thanhvien']);
+                            $query = "INSERT INTO `doanhnghiep` (`nguoidang`,`danhmuc_dn`, `nguoidaidien`, `thanhvien`, `tendoanhnghiep`, `hinhanh`, `sdt`, `email`,`ap`,`diachi`, `masothue`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtinchung`) VALUES ('$nguoidang','$danhmuc_dn', '$nguoidaidien','$thanhvien', '$tendoanhnghiep', '$dn_img_name', '$sdt', '$email','$ap', '$full_address', '$masothue', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtinchung')";
 
                             if (mysqli_query($this->connection, $query)) {
                                 $msg = "Thêm thành công";
@@ -2632,9 +2634,9 @@ class  adminback
                             move_uploaded_file($giayphepkinhdoanh_img_tmp, "uploads/" . $giayphepkinhdoanh_img_name);
                             move_uploaded_file($giaychungnhan_img_tmp, "uploads/" . $giaychungnhan_img_name);
                             move_uploaded_file($giaykiemdinh_img_tmp, "uploads/" . $giaykiemdinh_img_name);
-
+                            $thanhvien = json_encode($data['thanhvien']);
                             // Thực hiện truy vấn INSERT vào cơ sở dữ liệu
-                            $query = "INSERT INTO `nhaxuong` (  `nguoidang`,`danhmuc_nx`, `nguoidaidien`, `doanhnghiep`, `vungsanxuat`, `tennhaxuong`, `manhaxuong`, `hinhanh`, `dienthoai`, `email`,`ap`, `diachi`, `dientichtongthe`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtin`) VALUES ('$nguoidang','$danhmuc_nx', '$nguoidaidien', '$doanhnghiep', '$vsx', '$tennhaxuong', '$manhaxuong', '$nx_img_name', '$sdt', '$email','$ap', '$full_address', '$dientichtongthe', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtin');";
+                            $query = "INSERT INTO `nhaxuong` (  `nguoidang`,`danhmuc_nx`, `nguoidaidien`, `doanhnghiep`, `vungsanxuat`, `thanhvien`, `tennhaxuong`, `manhaxuong`, `hinhanh`, `dienthoai`, `email`,`ap`, `diachi`, `dientichtongthe`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtin`) VALUES ('$nguoidang','$danhmuc_nx', '$nguoidaidien', '$doanhnghiep', '$vsx','$thanhvien', '$tennhaxuong', '$manhaxuong', '$nx_img_name', '$sdt', '$email','$ap', '$full_address', '$dientichtongthe', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtin');";
 
                             if (mysqli_query($this->connection, $query)) {
                                 $msg = "Thêm thành công";
@@ -2681,7 +2683,7 @@ class  adminback
         $diachi = $data['diachi'];
         $dientichtongthe = $data['dientichtongthe'];
         $thongtin = $data['thongtin'];
-
+        $thanhvien = json_encode($data['thanhvien']);
         if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] === UPLOAD_ERR_OK) {
             $nx_img_name = $_FILES['hinhanh']['name'];
             $nx_img_size = $_FILES['hinhanh']['size'];
@@ -2750,7 +2752,7 @@ class  adminback
         }
 
         // Thực hiện truy vấn UPDATE vào cơ sở dữ liệu
-        $query = "UPDATE `nhaxuong` SET `danhmuc_nx` = '$danhmuc_nx', `nguoidaidien` = '$nguoidaidien', `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vsx', `tennhaxuong` = '$tennhaxuong', `manhaxuong` = '$manhaxuong',";
+        $query = "UPDATE `nhaxuong` SET `danhmuc_nx` = '$danhmuc_nx', `nguoidaidien` = '$nguoidaidien', `doanhnghiep` = '$doanhnghiep', `vungsanxuat` = '$vsx',`thanhvien` = '$thanhvien', `tennhaxuong` = '$tennhaxuong', `manhaxuong` = '$manhaxuong',";
 
         if (isset($nx_img)) {
             $query .= " `hinhanh` = '$nx_img',";

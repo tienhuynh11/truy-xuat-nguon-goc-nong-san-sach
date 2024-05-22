@@ -140,7 +140,7 @@ while($dn_ftecth = mysqli_fetch_assoc($dn)){
     margin: 0;
     padding: .5rem .75rem;
     width: 100%;
-    height: 20px;
+    height: 25px;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     color: #1b1919;

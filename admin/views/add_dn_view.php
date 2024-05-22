@@ -10,6 +10,17 @@
     .select2-container--default .select2-selection--single{
         border: none;
     }
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: .5rem .75rem;
+    width: 100%;
+    height: 25px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    color: #1b1919;
+}
 </style>
 <?php 
     $catadn_info = $obj->display_catagory_dn();
@@ -120,6 +131,14 @@
         <input type="file" name="giaykiemdinh" class="form-control" >
     </div>
     <div class="form-group">
+        <label for="thanhvien">Thành viên liên quan</label>
+                            <select name="thanhvien[]" id="thanhvien" class="form-control" multiple>
+                                <?php foreach ($users as $user) { ?>
+                                    <option value="<?php echo $user['id_acc']; ?>"><?php echo $user['hoten']; ?></option>
+                                <?php } ?>
+                            </select>
+    </div>  
+    <div class="form-group">
         <label for="thongtinchung">Thông tin chung</label>
         <input type="text" name="thongtinchung" class="form-control">
     </div>
@@ -133,5 +152,6 @@
         $("#province").select2();
         $("#district").select2();
         $("#wards").select2();
+        $("#thanhvien").select2();
     });
 </script>

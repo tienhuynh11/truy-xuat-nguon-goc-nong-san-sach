@@ -20,6 +20,17 @@ if (isset($_SESSION['admin_id'])) {
     .select2-container--default .select2-selection--single {
         border: none;
     }
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: .5rem .75rem;
+    width: 100%;
+    height: 25px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    color: #1b1919;
+}
 </style>
 <?php
 
@@ -160,6 +171,14 @@ while ($nk = mysqli_fetch_assoc($nhatky)) {
         </div>
     <?php endif; ?> -->
     <div class="form-group">
+        <label for="thanhvien">Thành viên liên quan</label>
+                            <select name="thanhvien[]" id="thanhvien" class="form-control" multiple>
+                                <?php foreach ($users as $user) { ?>
+                                    <option value="<?php echo $user['id_acc']; ?>"><?php echo $user['hoten']; ?></option>
+                                <?php } ?>
+                            </select>
+    </div> 
+    <div class="form-group">
         <label for="thongtin">Thông tin</label>
         <textarea name="thongtin" id="thongtin" class="form-control" cols="30" rows="10"></textarea>
     </div>
@@ -171,3 +190,9 @@ while ($nk = mysqli_fetch_assoc($nhatky)) {
 
     <input type="submit" value="Thêm vùng sản xuất" name="add_vsx" class="btn btn-block btn-primary">
 </form>
+<script>
+    $(document).ready(function() {
+        
+        $("#thanhvien").select2();
+    });
+</script>

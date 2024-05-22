@@ -60,7 +60,7 @@ if (isset($_POST['add_nx'])) {
         </div>
         <div class="form-group">
             <label for="vsx">Thuộc vùng sản xuất</label>
-            <option value="">Chọn vùng sản xuất liên quan</option>
+            
             <select name="vsx" id="vsx" class="form-control">
                 <?php while ($vsx = mysqli_fetch_assoc($vsx_info)) { ?>
                     <option value="<?php echo $vsx['id_vung'] ?>"><?php echo $vsx['tenvung'] ?></option>
@@ -130,6 +130,14 @@ if (isset($_POST['add_nx'])) {
                 <input type="file" name="giaykiemdinh" class="form-control" required>
             </div>
             <div class="form-group">
+                <label for="thanhvien">Thành viên liên quan</label>
+                                    <select name="thanhvien[]" id="thanhvien" class="form-control" multiple>
+                                        <?php foreach ($users as $user) { ?>
+                                            <option value="<?php echo $user['id_acc']; ?>"><?php echo $user['hoten']; ?></option>
+                                        <?php } ?>
+                                    </select>
+            </div>  
+            <div class="form-group">
                 <label for="thongtin">Thông tin chung</label>
                 <input type="text" name="thongtin" class="form-control">
             </div>
@@ -149,4 +157,20 @@ if (isset($_POST['add_nx'])) {
     .select2-container--default .select2-selection--single {
         border: none;
     }
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: .5rem .75rem;
+    width: 100%;
+    height: 25px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    color: #1b1919;
+}
 </style>
+<script>
+    $(document).ready(function() {
+        $("#thanhvien").select2();
+    });
+</script>
