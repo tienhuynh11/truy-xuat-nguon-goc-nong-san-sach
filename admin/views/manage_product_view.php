@@ -90,7 +90,7 @@ if (isset($_GET['trangthai'])) {
                     <td><?php echo $pdt['tensanpham'] ?></td>
                     <td><?php echo $formatted_id_sp ?></td>
 
-                    <td><img style="height:60px" src="uploads/<?php echo $pdt['maqr'] ?>" alt=""></td>
+                    <td><img style="height:60px" src="uploads/qrcode_nongsan/<?php echo $pdt['maqr'] ?>" alt=""></td>
                     <td>
                         <?php if ($pdt['trangthai'] == 'dangchoxetduyet') { ?>
                             <a href="#" class="btn btn-sm btn-primary" onclick="updateStatus(<?php echo $pdt['id_sp'] ?>,'daxetduyet')">Đang chờ xét duyệt</a>
@@ -203,7 +203,7 @@ echo "</div>";
             $('#taikhoan').text(taikhoan);
             $('#vungsanxuat').text(vungsanxuat);
             $('#xuatxu').text(xuatxu);
-            $('#maqr').html('<img src="uploads/' + maqr + '" style="height: 100px;">');
+            $('#maqr').html('<img src="uploads/qrcode_nongsan/' + maqr + '" style="height: 100px;margin-bottom:10px">');
             $('#danhmuc').text(danhmuc);
             $('#caygiong').text(caygiong);
             $('#trangthai').text(trangthai);

@@ -18,6 +18,9 @@ if (isset($_GET['id'])) {
     $pro_datas = array();
     $pro_datas[] = $pdt_fetch;
 }
+if(empty($pdt_fetch)){
+    $obj->error404();
+}
 
 foreach ($pro_datas as $pro_data) {
     $vungsanxuat = $pro_data['vungsanxuat'];

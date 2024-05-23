@@ -143,11 +143,31 @@ include_once("includes/head.php");
                                     <label for="user_mobile">Số điện thoại <span class="requite">*</span> </label>
                                     <input type="type" id="sdt" name="sdt" class="form-control">
                                 </p>
-                                <p class="form-row">
-                                    <label for="user_address">Địa chỉ <span class="requite">*</span> </label>
-                                    <textarea name="diachi" id="diachi" cols="10" class="form-control"></textarea>
-                                </p>
+                                <div class="row">
+                                    <div class="col-md-4 form-row">
+                                        <label for="lblprovince">Tỉnh/Thành phố</label>
+                                        <select name="province" id="province" class="form-control" onchange="handleChange(this)">
+                                            <option value="">Chọn tỉnh/thành phố</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 form-row">
+                                        <label for="lbldistrict">Quận/Huyện</label>
+                                        <select name="district" id="district" class="form-control" onchange="handleChangeDistrict(this)">
+                                            <option value="">Chọn quận/huyện</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 form-row">
+                                        <label for="lblwards">Phường/Xã</label>
+                                        <select name="wards" id="wards" class="form-control">
+                                            <option value="">Chọn xã/phường</option>
+                                        </select>
+                                    </div>
+                                </div>
 
+                                <div class="form-row">
+                                    <label for="diachi">Địa chỉ</label>
+                                    <input type="text" name="diachi" class="form-control">
+                                </div>
 
                                 <p class=" wrap-btn ">
 
@@ -208,7 +228,7 @@ include_once("includes/head.php");
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
     <?php
-    include_once("includes/script.php")
+    include_once("includes/script.php");
     ?>
 </body>
 
@@ -221,6 +241,16 @@ include_once("includes/head.php");
             alertElement.style.display = 'none';
         }, 5000);
     }
+
+
+    $(document).ready(function() {
+        $("#nguoidaidien").select2();
+        $("#danhmuc_dn").select2();
+        $("#province").select2();
+        $("#district").select2();
+        $("#wards").select2();
+        $("#thanhvien").select2();
+    });
 </script>
 <style>
     form {

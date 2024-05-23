@@ -1,4 +1,5 @@
 <?php
+@include("./assets/phpqrcode/qrlib.php");
 class  adminback
 {
     protected $connection;
@@ -423,7 +424,7 @@ class  adminback
     {
         $tensanpham = $data['tensanpham'];
         $pdt_ctg = $data['pdt_ctg'];
-        $mavach = $this->thayDoiChu($data['mavach']);
+        $mavach = $this->thayDoiChu($data['tensanpham']);
         $pdt_price = $data['pdt_price'];
         $pdt_img_name = $_FILES['pdt_img']['name'];
         $pdt_img_size = $_FILES['pdt_img']['size'];
@@ -445,6 +446,10 @@ class  adminback
         $thanhphan = $data['thanhphan'];
         $pdt_des = $data['pdt_des'];
 
+        //Tạo đường dẫn và tên qr code
+        $path = 'uploads/qrcode_nongsan/';
+        $qrcode_name = 'NSQN-'. $mavach . time() . ".png";
+        $qrcode = $path . $qrcode_name;
 
         $hinhchungnhan_name = $_FILES['hinhchungnhan']['name'];
         $hinhchungnhan_size = $_FILES['hinhchungnhan']['size'];
@@ -457,45 +462,53 @@ class  adminback
         $hinhkiemdinh_ext = pathinfo($hinhkiemdinh_name, PATHINFO_EXTENSION);
 
         list($width, $height) = getimagesize("$pdt_img_tmp");
+        if (!empty($mavach)) {
+            if (($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") &&
+                ($hinhchungnhan_ext == "jpg" || $hinhchungnhan_ext == 'jpeg' || $hinhchungnhan_ext == "png") &&
+                ($hinhkiemdinh_ext == "jpg" || $hinhkiemdinh_ext == 'jpeg' || $hinhkiemdinh_ext == "png")
+            ) {
 
-        if (($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") &&
-            ($hinhchungnhan_ext == "jpg" || $hinhchungnhan_ext == 'jpeg' || $hinhchungnhan_ext == "png") &&
-            ($hinhkiemdinh_ext == "jpg" || $hinhkiemdinh_ext == 'jpeg' || $hinhkiemdinh_ext == "png")
-        ) {
+                if ($pdt_img_size <= 2e+6 && $hinhchungnhan_size <= 2e+6 && $hinhkiemdinh_size <= 2e+6) {
 
-            if ($pdt_img_size <= 2e+6 && $hinhchungnhan_size <= 2e+6 && $hinhkiemdinh_size <= 2e+6) {
-
-                if ($width < 2071 && $height < 2071) {
-                    $query = "INSERT INTO `sanpham` (`taikhoan`, `danhmuc`, `caygiong`, `vungsanxuat`, `nhaxuong`, `nhasanxuat`, `nhaxuatkhau`,
-                `nhanhapkhau`, `nhaphanphoi`, `nhavanchuyen`, `tensanpham`, `mavach`, `hinhanh`, `gia`, `xuatxu`, `mota`, `congdung`,
+                    if ($width < 2071 && $height < 2071) {
+                        $query = "INSERT INTO `sanpham` (`taikhoan`, `danhmuc`, `caygiong`, `vungsanxuat`, `nhaxuong`, `nhasanxuat`, `nhaxuatkhau`,
+                `nhanhapkhau`, `nhaphanphoi`, `nhavanchuyen`, `tensanpham`, `mavach`, `hinhanh`, `gia`, `xuatxu`,`maqr`, `mota`, `congdung`,
                 `hdsd`, `thanhphan`, `dieukienbaoquan`, `hinhchungnhan`, `hinhkiemdinh`) VALUES ('$taikhoan', '$pdt_ctg', '$caygiong', '$vungsanxuat', 
                 '$nhaxuongsanxuat', '$nhasanxuat', '$nhaxuatkhau','$nhanhapkhau', '$nhaphanphoi', '$nhavanchuyen', '$tensanpham', '$mavach', 
-                '$pdt_img_name', '$pdt_price', '$xuatxu', '$pdt_des', '$congdung', '$hdsd', '$thanhphan', '$dkbq', '$hinhchungnhan_name', 
+                '$pdt_img_name', '$pdt_price', '$xuatxu','$qrcode_name', '$pdt_des', '$congdung', '$hdsd', '$thanhphan', '$dkbq', '$hinhchungnhan_name', 
                 '$hinhkiemdinh_name');";
 
-                    if (mysqli_query($this->connection, $query)) {
-                        move_uploaded_file($pdt_img_tmp, "uploads/" . $pdt_img_name);
-                        move_uploaded_file($hinhchungnhan_tmp, "uploads/" . $hinhchungnhan_name);
-                        move_uploaded_file($hinhkiemdinh_tmp, "uploads/" . $hinhkiemdinh_name);
-                        $msg = "Thêm nông sản thành công!!";
-                        echo '<script>
-                    alert("Thêm nông sản thành công");
-                    window.location.href = "manage_product.php";
-                    </script>';
+                        if (mysqli_query($this->connection, $query)) {
+                            move_uploaded_file($pdt_img_tmp, "uploads/" . $pdt_img_name);
+                            move_uploaded_file($hinhchungnhan_tmp, "uploads/" . $hinhchungnhan_name);
+                            move_uploaded_file($hinhkiemdinh_tmp, "uploads/" . $hinhkiemdinh_name);
+                            //Lấy id vừa thêm gán vào qrcode
+                            $new_insert_id = $this->connection->insert_id;
+                            $url = "http://192.168.99.204/nongsan/chitietsanpham.php?id=".$new_insert_id;
+                            QRcode::png($url,$qrcode,'L', 4,0);
+                            $msg = "Thêm nông sản thành công!!";
+                            echo '<script>
+                            alert("Thêm nông sản thành công");
+                            window.location.href = "manage_product.php";
+                            </script>';
+                        } else {
+                            $msg = "Lỗi: " . mysqli_error($this->connection);
+                            return $msg;
+                        }
                     } else {
-                        $msg = "Lỗi: " . mysqli_error($this->connection);
+                        $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
                         return $msg;
                     }
                 } else {
-                    $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
+                    $msg = "File size should not be larger than 2MB";
                     return $msg;
                 }
             } else {
-                $msg = "File size should not be larger than 2MB";
+                $msg = "Files should be in jpg, jpeg, or png format";
                 return $msg;
             }
         } else {
-            $msg = "Files should be in jpg, jpeg, or png format";
+            $msg = "Vui lòng nhập mã vạch!!";
             return $msg;
         }
     }
@@ -505,12 +518,17 @@ class  adminback
         $sel_query = "SELECT * FROM `sanpham` WHERE id_sp=$id";
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
-        $pdt_name = $fetch['tensanpham'];
         $img_name = $fetch['hinhanh'];
+        $hinhchungnhan = $fetch['hinhchungnhan'];
+        $hinhkiemdinh = $fetch['hinhkiemdinh'];
+        $maqr = $fetch['maqr'];
 
         $del_query = "DELETE FROM `sanpham` WHERE id_sp=$id";
         if (mysqli_query($this->connection, $del_query)) {
             unlink('uploads/' . $img_name);
+            unlink('uploads/' . $hinhchungnhan);
+            unlink('uploads/' . $hinhkiemdinh);
+            unlink('uploads/qrcode_nongsan/' . $maqr);
             echo '<script>
                         alert("Xóa thành công");
                         window.location.href = "manage_product.php";
@@ -883,7 +901,7 @@ class  adminback
 
     function user_password_recover($recover_email)
     {
-        $query = "SELECT * FROM `users` WHERE `user_email`='$recover_email'";
+        $query = "SELECT * FROM `taikhoan` WHERE `email`='$recover_email'";
         if (mysqli_query($this->connection, $query)) {
             $row =  mysqli_query($this->connection, $query);
             return $row;
@@ -1319,7 +1337,7 @@ class  adminback
                                 </script>';
                         } else {
                             $msg = "Lỗi upload ảnh: " . mysqli_error($this->connection);
-                            return $msg;    
+                            return $msg;
                         }
                     } else {
                         $msg = "Sorry !! Pdt image max height: 2071 px and width: 2071 px, but you are trying {$width} px and {$height} px";
@@ -2797,5 +2815,8 @@ class  adminback
             $result = mysqli_query($this->connection, $query);
             return $result;
         }
+    }
+    function error404(){
+        header('location: 404.php');
     }
 }

@@ -61,10 +61,10 @@
             <?php }?>
         </select>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="mavach">Mã vạch</label>
         <input type="text" name="mavach" class="form-control" required>
-    </div>
+    </div> -->
     <div class="form-group">
         <label for="pdt_price">Giá</label>
         <input type="text" name="pdt_price" class="form-control">

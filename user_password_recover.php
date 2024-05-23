@@ -25,10 +25,10 @@ if (isset($_POST['u_pass_recover'])) {
     if ($num_row > 0) {
         $rec_result = mysqli_fetch_assoc($rec_row);
 
-        $rec_id = $rec_result['user_id'];
-        $rec_name = $rec_result['user_firstname'];
-        $rec_email = $rec_result['user_email'];
-        $rec_pass = $rec_result['user_password'];
+        $rec_id = $rec_result['id_acc'];
+        $rec_name = $rec_result['hoten'];
+        $rec_email = $rec_result['email'];
+        $rec_pass = $rec_result['matkhau'];
 
         $to_email = $rec_email;
         $subject = "Recover Password From Fruits Bazar";
