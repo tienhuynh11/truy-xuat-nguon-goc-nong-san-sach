@@ -273,35 +273,31 @@ include_once("includes/head.php");
                         </div>
                     </div>
                     <?php
-                        if (!empty($thanhvien)) : ?>
-                    <div class="row" id="vsx" style="padding: 20px 0; " >
+
+                    if (!empty($thanhvien)) : ?>
+                    <div class="row" id="vsx">
                         <div class="col-md-3">
                             Danh sách thành viên:
                         </div>
-                                <div class="col-xs-9 log__data" >
-                                    <div class="single-data">
-                                        <div class="single-data__data">
-                                        <div class="slick-item"> 
-                                            <div id="related-members-slider" class="profile profile-img-list" style="display: flex; flex-direction: row; overflow: hidden; ">
-                                                <?php 
-                                                $relatedMembers = json_decode($thanhvien, true);
-                                                foreach ($relatedMembers as $memberId) {
-                                                    $member = $obj->show_taikhoanbyid($memberId);
-                                                    ?>
-                                                    <div class="slick-item slick" style="margin: 10px;margin-top:0px; text-align: center;">
-                                                        <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" style="width: 70px; height: 70px; border-radius: 50%; margin: auto;">
-                                                        <div class="slick-title" style="height: 100px;">
-                                                            <?= $member['hoten']; ?>
-                                                        </div>
+                        <div class="col-xs-9 log__data">
+                                    <div id="related-members-slider" class="profile profile-img-list">
+                                        <?php
+                                        $relatedMembers = json_decode($thanhvien, true);
+                                        foreach ($relatedMembers as $memberId) {
+                                            $member = $obj->show_taikhoanbyid($memberId);
+                                            ?>
+                                            <div class="slick-item slick">
+                                                <div class="member-container">
+                                                    <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 120px;">
+                                                    <div class="slick-title" style="text-align: center; height: 60px;  font-weight: bold;">
+                                                        <?= $member['hoten']; ?>
                                                     </div>
-                                                <?php } ?>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        </div>  
+                                        <?php } ?>
                                     </div>
-                                </div>
-                                <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                     </div>
                     
 

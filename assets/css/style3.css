@@ -14888,34 +14888,47 @@ body.open-quickview-block .biolife-quickview-block{
     font-size: 20px;
     color: var(--main-color);
 }
-.slick {
-    border: #ccc 1px solid;
-    width: 170px;
-    /* height: 220px; */
-    border-radius: 3%;
+#vsx {
+    padding: 20px 0;
 }
-.slick-item{
-    padding: 10px;  
-    /* height: 150px; */
+
+#related-members-slider {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+   
+}
+
+.slick-item {
+    text-align: center;
+    flex: 1 0 auto; /* Cho phép các mục linh hoạt nhưng chiếm không gian bằng nhau */
+    max-width: 120px; /* Đặt chiều rộng tối đa để đảm bảo các mục bằng nhau */
+}
+
+.member-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Đảm bảo container chiếm toàn bộ chiều rộng của mục */
+}
+
+.member-container img{
+    width: 70px; /* Chiều rộng cố định cho hình ảnh */
+    height: 70px; /* Chiều cao cố định cho hình ảnh */
+    border-radius: 50%;
+    object-fit: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ khu vực */
+    
+
+}
+
+.slick-title {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     width: 100%;
-}
-.slick-item img{
-    width: 100%; 
-    height: 100%;
-    /* width: 148px;
-    height: 148px; */
-    object-fit: contain;
-}
-.slick-tilte{
-   padding: 0px 10px;
-   text-align: center;
-   font-weight: bold;
-   color: black;
-   height: 70px;
-}
-.sli-tilte{
-   height: 70px;
-   width: 100%;
+    font-weight: bold; /* Làm cho chữ in đậm */
 }
 
 .profile .profile-img-list {

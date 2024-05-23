@@ -276,36 +276,33 @@ include_once("includes/head.php");
                     </div>
 
                     <?php
-                         endif; 
-                        if (!empty($thanhvien)) : ?>
-                    <div class="row" id="vsx" style="padding: 20px 0;" >
-                        <div class="col-md-3">
-                            Danh sách thành viên:
-                        </div>
-                                <div class="col-xs-9 log__data" >
-                                    <div class="single-data">
-                                        <div class="single-data__data">
-                                        <div class="slick-item"> 
-                                            <div id="related-members-slider" class="profile profile-img-list" style="display: flex; flex-direction: row; overflow: hidden;">
-                                                <?php 
-                                                $relatedMembers = json_decode($thanhvien, true);
-                                                foreach ($relatedMembers as $memberId) {
-                                                    $member = $obj->show_taikhoanbyid($memberId);
-                                                    ?>
-                                                    <div class="slick-item slick" style="margin: 10px;margin-top:0px; text-align: center;">
-                                                        <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" style="width: 70px; height: 70px; border-radius: 50%; margin: auto;">
-                                                        <div class="slick-title" style="height: 100px;">
-                                                            <?= $member['hoten']; ?>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-
-                                        </div>  
-                                    </div>
+                    endif;
+if (!empty($thanhvien)) : ?>
+<div class="row" id="vsx">
+    <div class="col-md-3">
+        Danh sách thành viên:
+    </div>
+    <div class="col-xs-9 log__data">
+                <div id="related-members-slider" class="profile profile-img-list">
+                    <?php
+                    $relatedMembers = json_decode($thanhvien, true);
+                    foreach ($relatedMembers as $memberId) {
+                        $member = $obj->show_taikhoanbyid($memberId);
+                        ?>
+                        <div class="slick-item slick">
+                            <div class="member-container">
+                                <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 120px;">
+                                <div class="slick-title" style="text-align: center; height: 60px;  font-weight: bold;">
+                                    <?= $member['hoten']; ?>
                                 </div>
-                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+    </div>
+<?php endif; ?>
+
+
                   
                 </div>
             <?php }
@@ -348,31 +345,37 @@ include_once("includes/head.php");
 
 </html>
 <script>
-  $(document).ready(function() {
-    // Khởi tạo Slick slider sau khi tất cả các thành viên liên quan được thêm vào DOM
+  $(document).ready(function(){
     $('#related-members-slider').slick({
+        slidesToShow: 4,  // Adjust the number to fit your layout
+        slidesToScroll: 1,
         infinite: false,
-        slidesToShow: 4,
-        slidesToScroll: 2,
-        dots: false,
-        arrows: true,
         responsive: [
             {
-                breakpoint: 768,
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: true
+                }
+            },
+            {
+                breakpoint: 600,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2
+                    slidesToScroll: 1
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
+                    slidesToShow: 1,
+                    slidesToScroll: 1
                 }
             }
         ]
     });
 });
+
 
 </script>
