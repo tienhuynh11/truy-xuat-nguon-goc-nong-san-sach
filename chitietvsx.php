@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include_once("admin/class/adminback.php");
+include_once ("admin/class/adminback.php");
 $obj = new adminback();
 
 $cata_info = $obj->p_display_catagory();
@@ -42,6 +42,7 @@ $taikhoan[] = $nguoidang_fetch;
 foreach ($taikhoan as $tk) {
     $hoten = $tk['hoten'];
     $email = $tk['email'];
+    $avatar = $tk['hinhdaidien'];
 }
 
 
@@ -59,7 +60,7 @@ foreach ($taikhoan as $tk) {
 ?>
 
 <?php
-include_once("includes/head.php");
+include_once ("includes/head.php");
 ?>
 <style>
     .map-container {
@@ -144,18 +145,18 @@ include_once("includes/head.php");
     <!-- Preloader -->
 
     <?php
-    include_once("includes/preloader.php");
+    include_once ("includes/preloader.php");
     ?>
 
     <!-- HEADER -->
     <header id="" class="header-area style-01 layout-03">
 
         <?php
-        include_once("includes/header_top.php");
+        include_once ("includes/header_top.php");
         ?>
 
         <?php
-        include_once("includes/header_middle.php");
+        include_once ("includes/header_middle.php");
         ?>
 
         <?php
@@ -190,7 +191,7 @@ include_once("includes/head.php");
             <?php
             if (!is_null($hinhanh)) { ?>
                 <div class="content-vsx">
-                    <?php if (!empty($hinhanh)) : ?>
+                    <?php if (!empty($hinhanh)): ?>
                         <div class="row" id="vsx" style="padding: 20px 0;">
                             <div class="col-md-3">
                                 Hình ảnh:
@@ -200,12 +201,39 @@ include_once("includes/head.php");
                             </div>
                         </div>
                     <?php endif; ?>
-                    <div class="row" id="vsx">
+                    <div class="row" id="vsx" style="padding: 20px 0;">
                         <div class="col-md-3">
                             Người đại diện:
                         </div>
-                        <div class="col-md-9">
-                            <p class="title"><?php echo $hoten ?></p>
+                        <div class="col-md-9 ">
+                            <div class="slick">
+                                <div class="box">
+                                    <img src="admin/uploads/avatar/<?= $avatar ?>" alt="<?= $avatar ?>">
+                                </div>
+                                <div class="box-tilte">
+                                    <?php
+                                    $max_length = 25;
+
+
+                                    if (strlen($hoten) > $max_length) {
+
+                                        $tenrutgon = substr($hoten, 0, $max_length);
+
+
+                                        $last_space = strrpos($tenrutgon, ' ');
+                                        if ($last_space !== false) {
+                                            $tenrutgon = substr($tenrutgon, 0, $last_space);
+                                        }
+
+
+                                        echo '<span class="sli-tilte">' . $hoten . '</span>';
+                                    } else {
+
+                                        echo '<span class="sli-tilte">' . $hoten . '</span>';
+                                    }
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row" id="vsx">
@@ -230,11 +258,11 @@ include_once("includes/head.php");
                         </div>
                         <div class="col-md-9">
                             <p class="title"><?php $result = $obj->XoaSo($diachi);
-                                                if (!empty($ap)) {
-                                                    echo $ap . ', ' . $obj->formatChu($result);
-                                                } else {
-                                                    echo $obj->formatChu($result);
-                                                } ?></p>
+                            if (!empty($ap)) {
+                                echo $ap . ', ' . $obj->formatChu($result);
+                            } else {
+                                echo $obj->formatChu($result);
+                            } ?></p>
                         </div>
                     </div>
                     <div class="row" id="vsx">
@@ -265,7 +293,7 @@ include_once("includes/head.php");
                         </div>
                     </div>
                     <?php
-                    if (!empty($thongtin)) : ?>
+                    if (!empty($thongtin)): ?>
                         <div class="row" id="vsx">
                             <div class="col-md-3">
                                 Thông tin:
@@ -275,9 +303,9 @@ include_once("includes/head.php");
                             </div>
                         </div>
 
-                    <?php
+                        <?php
                     endif;
-                    if (!empty($thanhvien)) : ?>
+                    if (!empty($thanhvien) && $thanhvien!=='null'): ?>
                         <div class="row" id="vsx">
                             <div class="col-md-3">
                                 Danh sách thành viên:
@@ -288,11 +316,13 @@ include_once("includes/head.php");
                                     $relatedMembers = json_decode($thanhvien, true);
                                     foreach ($relatedMembers as $memberId) {
                                         $member = $obj->show_taikhoanbyid($memberId);
-                                    ?>
+                                        ?>
                                         <div class="slick-item slick">
                                             <div class="member-container">
-                                                <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 120px;width: 120px;">
-                                                <div class="slick-title" style="text-align: center; height: 60px;  font-weight: bold;">
+                                                <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>"
+                                                    alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 120px;">
+                                                <div class="slick-title"
+                                                    style="text-align: center; height: 60px;  font-weight: bold;">
                                                     <?= $member['hoten']; ?>
                                                 </div>
                                             </div>
@@ -304,10 +334,10 @@ include_once("includes/head.php");
 
 
 
-                        </div>
-                    <?php }
-                    ?>
-                </div>
+                    </div>
+                <?php }
+            ?>
+            </div>
         </div>
         <!-- Tạo model -->
         <div id="qrcodeModal" class="modal">
@@ -322,57 +352,66 @@ include_once("includes/head.php");
         <!-- FOOTER -->
 
         <?php
-        include_once("includes/footer.php");
+        include_once ("includes/footer.php");
         ?>
 
         <!--Footer For Mobile-->
         <?php
-        include_once("includes/mobile_footer.php");
+        include_once ("includes/mobile_footer.php");
         ?>
 
         <?php
-        include_once("includes/mobile_global.php")
-        ?>
+        include_once ("includes/mobile_global.php")
+            ?>
 
 
         <!-- Scroll Top Button -->
         <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
         <?php
-        include_once("includes/script.php")
-        ?>
+        include_once ("includes/script.php")
+            ?>
 </body>
 
 </html>
 <script>
-    $(document).ready(function() {
-        $('#related-members-slider').slick({
-            slidesToShow: 3, // Adjust the number to fit your layout
-            slidesToScroll: 1,
+    $(document).ready(function () {
+        var slider = $('#related-members-slider');
+        var totalItems = slider.find('.slick-item').length;
+
+        slider.slick({
             infinite: false,
-            responsive: [{
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 1,
-                        infinite: true
-                    }
-                },
+            slidesToShow: 4,
+            slidesToScroll: 2,
+            dots: false,
+            arrows: true,
+            responsive: [
                 {
-                    breakpoint: 600,
+                    breakpoint: 768,
                     settings: {
                         slidesToShow: 2,
-                        slidesToScroll: 1
+                        slidesToScroll: 2
                     }
                 },
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
+                        slidesToShow: 2,
+                        slidesToScroll: 2
                     }
                 }
             ]
         });
+
+        if (totalItems < 4) {
+            slider.slick('slickSetOption', {
+                slidesToShow: totalItems,
+                slidesToScroll: totalItems,
+                infinite: false,
+                dots: false,
+                arrows: false
+            }, true);
+        }
     });
+
 </script>

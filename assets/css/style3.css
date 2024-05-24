@@ -14937,8 +14937,17 @@ body.open-quickview-block .biolife-quickview-block{
     padding: 0;
     display: flex;
     justify-content: center;
+}   
+.slick{
+    width: 150px;
+    border: solid 1px #6a6a6a;
+    padding: 10px;
+    border-radius: 10px;
 }
-
+.box-tilte{
+    text-align: center;
+    font-weight: bold;
+}
 .profile .profile-img-list .profile-img-list-item.main {
     width: 50%;
 }

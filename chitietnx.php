@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include_once("admin/class/adminback.php");
+include_once ("admin/class/adminback.php");
 $obj = new adminback();
 
 $cata_info = $obj->p_display_catagory();
@@ -36,7 +36,7 @@ foreach ($nx_datas as $nx) {
     $giaychungnhan = $nx['giaychungnhan'];
     $giaykiemdinh = $nx['giaykiemdinh'];
     $thongtin = $nx['thongtin'];
-    $thanhvien= $nx['thanhvien'];
+    $thanhvien = $nx['thanhvien'];
 }
 
 $nguoidang_info = $obj->show_admin_user_by_id($nguoidaidien);
@@ -83,7 +83,7 @@ foreach ($doanhnghiep as $dn) {
 ?>
 
 <?php
-include_once("includes/head.php");
+include_once ("includes/head.php");
 ?>
 <style>
     .slick-track {
@@ -172,18 +172,18 @@ include_once("includes/head.php");
     <!-- Preloader -->
 
     <?php
-    include_once("includes/preloader.php");
+    include_once ("includes/preloader.php");
     ?>
 
     <!-- HEADER -->
     <header id="" class="header-area style-01 layout-03">
 
         <?php
-        include_once("includes/header_top.php");
+        include_once ("includes/header_top.php");
         ?>
 
         <?php
-        include_once("includes/header_middle.php");
+        include_once ("includes/header_middle.php");
         ?>
 
         <?php
@@ -223,6 +223,7 @@ include_once("includes/head.php");
                             <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>">
                         </div>
                     </div>
+                
                     <div class="row" id="vsx">
                         <div class="col-md-3">
                             Loại nhà xưởng:
@@ -237,10 +238,10 @@ include_once("includes/head.php");
                         </div>
                         <div class="col-md-9 ">
                             <div class="slick">
-                                <div class="slick-item">
+                                <div class="box">
                                     <img src="admin/uploads/avatar/<?= $avatar ?>" alt="<?= $avatar ?>">
                                 </div>
-                                <div class="slick-tilte">
+                                <div class="box-tilte">
                                     <?php
                                     $max_length = 25;
 
@@ -273,10 +274,11 @@ include_once("includes/head.php");
                         <div class="col-md-9">
                             <a href="chitietdn.php?id=<?= $id_dn ?>">
                                 <div class="slick">
-                                    <div class="slick-item">
-                                        <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>" style="width: 148px; height: 148px; object-fit: contain;">
+                                    <div class="box">
+                                        <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>"
+                                            style="width: 148px; height: 148px; object-fit: contain;">
                                     </div>
-                                    <div class="slick-tilte">
+                                    <div class="box-tilte">
                                         <?php
                                         $max_length = 25;
                                         if (strlen($tendoanhnghiep) > $max_length) {
@@ -296,16 +298,18 @@ include_once("includes/head.php");
                         </div>
                     </div>
                     <div class="row" id="vsx" style="padding: 20px 0;">
-                        <a href="chitietvsx.php?id=<?= $id_vung ?>">
-                            <div class="col-md-3">
-                                Vùng sản xuất:
-                            </div>
-                            <div class="col-md-9">
+
+                        <div class="col-md-3">
+                            Vùng sản xuất:
+                        </div>
+                        <div class="col-md-9">
+                            <a href="chitietvsx.php?id=<?= $id_vung ?>">
                                 <div class="slick">
-                                    <div class="slick-item">
-                                        <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>" style="width: 148px; height: 148px; object-fit: contain;">
+                                    <div class="box">
+                                        <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>"
+                                            style="width: 148px; height: 148px; object-fit: contain;">
                                     </div>
-                                    <div class="slick-tilte">
+                                    <div class="box-tilte">
                                         <?php
                                         $max_length = 24;
                                         if (strlen($tenvung) > $max_length) {
@@ -321,8 +325,9 @@ include_once("includes/head.php");
                                         ?>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
+
                     </div>
 
                     <div class="row" id="vsx">
@@ -399,99 +404,113 @@ include_once("includes/head.php");
                     </div>
                     <?php
 
-                            if (!empty($thanhvien)) : ?>
-                            <div class="row" id="vsx">
-                                <div class="col-md-3">
-                                    Danh sách thành viên:
-                                </div>
-                                <div class="col-xs-9 log__data">
-                                            <div id="related-members-slider" class="profile profile-img-list">
-                                                <?php
-                                                $relatedMembers = json_decode($thanhvien, true);
-                                                foreach ($relatedMembers as $memberId) {
-                                                    $member = $obj->show_taikhoanbyid($memberId);
-                                                    ?>
-                                                    <div class="slick-item slick">
-                                                        <div class="member-container">
-                                                            <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 120px;">
-                                                            <div class="slick-title" style="text-align: center; height: 60px;  font-weight: bold;">
-                                                                <?= $member['hoten']; ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
+                    if (!empty($thanhvien) && $thanhvien !== 'null'): ?>
+                        <div class="row" id="vsx">
+                            <div class="col-md-3">
+                                Danh sách thành viên:
+                            </div>
+                            <div class="col-xs-9 log__data">
+                                <div id="related-members-slider" class="profile profile-img-list">
+                                    <?php
+                                    $relatedMembers = json_decode($thanhvien, true);
+                                    foreach ($relatedMembers as $memberId) {
+                                        $member = $obj->show_taikhoanbyid($memberId);
+                                        ?>
+                                        <div class="slick-item slick">
+                                            <div class="member-container">
+                                                <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>"
+                                                    alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 120px;">
+                                                <div class="slick-title"
+                                                    style="text-align: center; height: 60px;  font-weight: bold;">
+                                                    <?= $member['hoten']; ?>
+                                                </div>
                                             </div>
+                                        </div>
+                                    <?php } ?>
                                 </div>
-                            <?php endif; ?>
+                            </div>
+                                <?php endif; ?>
 
 
-                </div>
-            <?php }
+                    </div>
+                <?php }
             ?>
-        </div>
-    </div>
-    <!-- Tạo model -->
-    <div id="qrcodeModal" class="modal">
-        <span class="close">&times;</span>
-        <div class="modal-content">
-            <img id="qrcodeImg">
-            <div class="download-btn">
-                <a id="downloadLink" download="QRCode.png"><button class="btn btn-info">Tải xuống</button></a>
             </div>
         </div>
-    </div>
-    <!-- FOOTER -->
+        <!-- Tạo model -->
+        <div id="qrcodeModal" class="modal">
+            <span class="close">&times;</span>
+            <div class="modal-content">
+                <img id="qrcodeImg">
+                <div class="download-btn">
+                    <a id="downloadLink" download="QRCode.png"><button class="btn btn-info">Tải xuống</button></a>
+                </div>
+            </div>
+        </div>
+        <!-- FOOTER -->
 
-    <?php
-    include_once("includes/footer.php");
-    ?>
+        <?php
+        include_once ("includes/footer.php");
+        ?>
 
-    <!--Footer For Mobile-->
-    <?php
-    include_once("includes/mobile_footer.php");
-    ?>
+        <!--Footer For Mobile-->
+        <?php
+        include_once ("includes/mobile_footer.php");
+        ?>
 
-    <?php
-    include_once("includes/mobile_global.php")
-    ?>
+        <?php
+        include_once ("includes/mobile_global.php")
+            ?>
 
 
-    <!-- Scroll Top Button -->
-    <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
+        <!-- Scroll Top Button -->
+        <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
-    <?php
-    include_once("includes/script.php")
-    ?>
+        <?php
+        include_once ("includes/script.php")
+            ?>
 </body>
 
 </html>
 
 <script>
-  $(document).ready(function() {
-    // Khởi tạo Slick slider sau khi tất cả các thành viên liên quan được thêm vào DOM
-    $('#related-members-slider').slick({
-        infinite: false,
-        slidesToShow: 4,
-        slidesToScroll: 2,
-        dots: false,
-        arrows: true,
-        responsive: [
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
+    $(document).ready(function () {
+        var slider = $('#related-members-slider');
+        var totalItems = slider.find('.slick-item').length;
+
+        slider.slick({
+            infinite: false,
+            slidesToShow: 4,
+            slidesToScroll: 2,
+            dots: false,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
                 }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
-                }
-            }
-        ]
+            ]
+        });
+
+        if (totalItems < 4) {
+            slider.slick('slickSetOption', {
+                slidesToShow: totalItems,
+                slidesToScroll: totalItems,
+                infinite: false,
+                dots: false,
+                arrows: false
+            }, true);
+        }
     });
-});
 
 </script>
