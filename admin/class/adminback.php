@@ -1172,11 +1172,13 @@ class  adminback
     }
     function delete_baiviet($id_bv)
     {
-        $sel_query = "DELETE FROM `baiviet` WHERE `id_bv`=$id_bv";
+        $sel_query = "SELECT * FROM `baiviet` WHERE `id_bv`=$id_bv";
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch['hinhanh'];
-        if (mysqli_query($this->connection, $query)) {
+
+        $del_query = "DELETE FROM `baiviet` WHERE `id_bv`=$id_bv";
+        if (mysqli_query($this->connection, $del_query)) {
             unlink('uploads/baiviet/' . $img_name);
             echo '<script>
             alert("Xóa bài viết thành công");
@@ -1482,12 +1484,15 @@ class  adminback
 
     function delete_caygiong($id_cg)
     {
-        $sel_query = "DELETE FROM `caygiong` WHERE `id_cg`=$id_cg";
+        $sel_query = "SELECT * FROM `caygiong` WHERE `id_cg`=$id_cg";
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch["hinhanh"];
-        if (mysqli_query($this->connection, $query)) {
+        $giaychungnhan=$fetch['$giaychungnhan'];
+        $del_query = "DELETE FROM `caygiong` WHERE `id_cg`=$id_cg";
+        if (mysqli_query($this->connection, $del_query)) {
             unlink('uploads/' . $img_name);
+            unlink('uploads/' . $giaychungnhan);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_caygiong.php";
@@ -1748,12 +1753,20 @@ class  adminback
     }
     function delete_dn($id_dn)
     {
-        $sel_query = "DELETE FROM `doanhnghiep` WHERE  id_dn = $id_dn";
+
+        $sel_query = "SELECT * FROM `doanhnghiep` WHERE  id_dn = $id_dn";
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch['hinhanh'];
-        if (mysqli_query($this->connection, $query)) {
+        $giayphepkinhdoanh = $fetch['giayphepkinhdoanh'];
+        $giaychungnhan = $fetch['giaychungnhan'];
+        $giaykiemdinh = $fetch['giaykiemdinh'];
+        $del_query = "DELETE FROM `doanhnghiep` WHERE id_dn=$id_dn";
+        if (mysqli_query($this->connection, $del_query)) {
             unlink('uploads/' . $img_name);
+            unlink('uploads/' . $giayphepkinhdoanh);
+            unlink('uploads/' . $giaychungnhan);
+            unlink('uploads/' . $giaykiemdinh);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_doanhnghiep.php";
@@ -1989,11 +2002,13 @@ class  adminback
     }
     function delete_nhatky($id_nk)
     {
-        $sel_query = "DELETE FROM `nhatky` WHERE `id_nk`=$id_nk";
+        $sel_query = "SELECT * FROM `nhatky` WHERE `id_nk`=$id_nk";
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch['hinhanh'];
-        if (mysqli_query($this->connection, $query)) {
+
+        $del_query = "DELETE FROM `nhatky` WHERE `id_nk`=$id_nk";
+        if (mysqli_query($this->connection, $del_query)) {
             unlink('uploads/' . $img_name);
             echo '<script>
             alert("Xóa nhật ký sản phẩm thành công");
@@ -2572,11 +2587,19 @@ class  adminback
     }
     function delete_nx($id_nx)
     {
-        $sel_query = "DELETE FROM `nhaxuong` WHERE  id_dn = $id_nx";
+        $sel_query = "SELECT * FROM `nhaxuong` WHERE  id_nx = $id_nx";
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch['hinhanh'];
-        if (mysqli_query($this->connection, $query)) {
+        $giayphepkinhdoanh = $fetch['giayphepkinhdoanh'];
+        $giaychungnhan = $fetch['giaychungnhan'];
+        $giaykiemdinh = $fetch['giaykiemdinh'];
+
+        $del_query = "DELETE FROM `nhaxuong` WHERE  id_nx = $id_nx";
+        if (mysqli_query($this->connection, $del_query)) {
+            unlink('uploads/' . $giayphepkinhdoanh);
+            unlink('uploads/' . $giaychungnhan);
+            unlink('uploads/' . $giaykiemdinh);
             unlink('uploads/' . $img_name);
             echo '<script>
             alert("Xóa thành công");
