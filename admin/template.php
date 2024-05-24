@@ -81,38 +81,28 @@
                                             include ("views/edit_cata_view.php");
                                         }elseif($views=="edit_product"){
                                             include ("views/edit_product_view.php");
-                                        }elseif($views=="manage_order"){
-                                            include ("views/manage_order_view.php");
-                                        }elseif($views=="add_link"){
+                                        }elseif($views=="add_link" && $admin_role== "Admin"){
                                             include ("views/add_links_view.php");
                                         }elseif($views=="edit_logo" && $admin_role== "Admin"){
                                             include ("views/edit_logo_view.php");
                                         }elseif($views=="add_logo" && $admin_role== "Admin"){
                                             include ("views/add_logo_view.php");
-                                        }elseif($views=="edit_links"){
+                                        }elseif($views=="edit_links" && $admin_role== "Admin"){
                                             include ("views/edit_links_view.php");
                                         }elseif($views=="manage_vsx"){
                                             include ("views/manage_vsx_view.php");
                                         }elseif($views=="edit_vsx"){
                                             include ("views/edit_vsx_view.php");
-                                        }elseif($views=="add_order"){
-                                            include ("views/add_order_view.php");
-                                        }elseif($views=="add_bv"){
+                                        }elseif($views=="add_bv" && $admin_role== "Admin"){
                                             include ("views/add_bv_view.php");
-                                        }elseif($views=="manage_bv"){
+                                        }elseif($views=="manage_bv" && $admin_role== "Admin"){
                                             include ("views/manage_bv_view.php");
-                                        }elseif($views=="edit_bv"){
+                                        }elseif($views=="edit_bv" && $admin_role== "Admin"){
                                             include ("views/edit_bv_view.php");                                   
-                                        }elseif($views=="customer_feedback"){
-                                            include ("views/customer_feedback_view.php");
-                                        }elseif($views=="edit_comment"){
-                                            include ("views/edit_comment_view.php");
                                         }elseif($views=="add-admin-user" && $admin_role== "Admin"){
                                             include ("views/add_admin_user_view.php");
                                         }elseif($views=="edit_admin" && $admin_role== "Admin"){
                                             include ("views/edit_admin_view.php");
-                                        }elseif($views=="make_report"){
-                                            include ("views/make_report_view.php");
                                         }elseif($views=="add-vsx"){
                                             include ("views/add_vsx_view.php");
                                         }elseif($views=="manage_caygiong"){

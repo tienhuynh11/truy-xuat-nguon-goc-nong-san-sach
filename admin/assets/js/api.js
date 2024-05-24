@@ -86,5 +86,5 @@ $(document).ready(function() {
     $("#wards").select2();
     $("#danhmuc_nx").select2();
     $("#doanhnghiep").select2();
-    $("#vsx").select2();
+    // $("#vsx").select2();
 });

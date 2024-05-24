@@ -31,7 +31,7 @@ foreach ($vsx_datas as $vsx) {
     $dientich = $vsx['dientich'];
     $thoigiannuoitrong = $vsx['thoigiannuoitrong'];
     $thongtin = $vsx['thongtin'];
-    $thanhvien=$vsx['thanhvien'];
+    $thanhvien = $vsx['thanhvien'];
 }
 
 $nguoidang_info = $obj->show_admin_user_by_id($nguoidang);
@@ -230,11 +230,11 @@ include_once("includes/head.php");
                         </div>
                         <div class="col-md-9">
                             <p class="title"><?php $result = $obj->XoaSo($diachi);
-                            if (!empty($ap)){
-                                echo $ap . ', ' . $obj->formatChu($result);    
-                            }else{
-                                echo $obj->formatChu($result);
-                            }?></p>
+                                                if (!empty($ap)) {
+                                                    echo $ap . ', ' . $obj->formatChu($result);
+                                                } else {
+                                                    echo $obj->formatChu($result);
+                                                } ?></p>
                         </div>
                     </div>
                     <div class="row" id="vsx">
@@ -265,117 +265,114 @@ include_once("includes/head.php");
                         </div>
                     </div>
                     <?php
-                        if (!empty($thongtin)) : ?>
-                    <div class="row" id="vsx">
-                        <div class="col-md-3">
-                            Thông tin:
+                    if (!empty($thongtin)) : ?>
+                        <div class="row" id="vsx">
+                            <div class="col-md-3">
+                                Thông tin:
+                            </div>
+                            <div class="col-md-9">
+                                <p class="title"><?php echo $thongtin ?></p>
+                            </div>
                         </div>
-                        <div class="col-md-9">
-                            <p class="title"><?php echo $thongtin ?></p>
-                        </div>
-                    </div>
 
                     <?php
                     endif;
-if (!empty($thanhvien)) : ?>
-<div class="row" id="vsx">
-    <div class="col-md-3">
-        Danh sách thành viên:
-    </div>
-    <div class="col-xs-9 log__data">
-                <div id="related-members-slider" class="profile profile-img-list">
-                    <?php
-                    $relatedMembers = json_decode($thanhvien, true);
-                    foreach ($relatedMembers as $memberId) {
-                        $member = $obj->show_taikhoanbyid($memberId);
-                        ?>
-                        <div class="slick-item slick">
-                            <div class="member-container">
-                                <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 120px;">
-                                <div class="slick-title" style="text-align: center; height: 60px;  font-weight: bold;">
-                                    <?= $member['hoten']; ?>
+                    if (!empty($thanhvien)) : ?>
+                        <div class="row" id="vsx">
+                            <div class="col-md-3">
+                                Danh sách thành viên:
+                            </div>
+                            <div class="col-xs-9 log__data">
+                                <div id="related-members-slider" class="profile profile-img-list">
+                                    <?php
+                                    $relatedMembers = json_decode($thanhvien, true);
+                                    foreach ($relatedMembers as $memberId) {
+                                        $member = $obj->show_taikhoanbyid($memberId);
+                                    ?>
+                                        <div class="slick-item slick">
+                                            <div class="member-container">
+                                                <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 120px;width: 120px;">
+                                                <div class="slick-title" style="text-align: center; height: 60px;  font-weight: bold;">
+                                                    <?= $member['hoten']; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
+                        <?php endif; ?>
+
+
+
                         </div>
-                    <?php } ?>
+                    <?php }
+                    ?>
                 </div>
-    </div>
-<?php endif; ?>
-
-
-                  
-                </div>
-            <?php }
-            ?>
         </div>
-    </div>
-    <!-- Tạo model -->
-    <div id="qrcodeModal" class="modal">
-        <span class="close">&times;</span>
-        <div class="modal-content">
-            <img id="qrcodeImg">
-            <div class="download-btn">
-                <a id="downloadLink" download="QRCode.png"><button class="btn btn-info">Tải xuống</button></a>
+        <!-- Tạo model -->
+        <div id="qrcodeModal" class="modal">
+            <span class="close">&times;</span>
+            <div class="modal-content">
+                <img id="qrcodeImg">
+                <div class="download-btn">
+                    <a id="downloadLink" download="QRCode.png"><button class="btn btn-info">Tải xuống</button></a>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- FOOTER -->
+        <!-- FOOTER -->
 
-    <?php
-    include_once("includes/footer.php");
-    ?>
+        <?php
+        include_once("includes/footer.php");
+        ?>
 
-    <!--Footer For Mobile-->
-    <?php
-    include_once("includes/mobile_footer.php");
-    ?>
+        <!--Footer For Mobile-->
+        <?php
+        include_once("includes/mobile_footer.php");
+        ?>
 
-    <?php
-    include_once("includes/mobile_global.php")
-    ?>
+        <?php
+        include_once("includes/mobile_global.php")
+        ?>
 
 
-    <!-- Scroll Top Button -->
-    <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
+        <!-- Scroll Top Button -->
+        <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
-    <?php
-    include_once("includes/script.php")
-    ?>
+        <?php
+        include_once("includes/script.php")
+        ?>
 </body>
 
 </html>
 <script>
-  $(document).ready(function(){
-    $('#related-members-slider').slick({
-        slidesToShow: 4,  // Adjust the number to fit your layout
-        slidesToScroll: 1,
-        infinite: false,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    infinite: true
+    $(document).ready(function() {
+        $('#related-members-slider').slick({
+            slidesToShow: 3, // Adjust the number to fit your layout
+            slidesToScroll: 1,
+            infinite: false,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        infinite: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
                 }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
+            ]
+        });
     });
-});
-
-
 </script>

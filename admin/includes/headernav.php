@@ -52,7 +52,7 @@
                            </li>
                        </ul>
                        <ul class="nav-right">
-                           <li class="header-notification">
+                           <!-- <li class="header-notification">
                                <a href="#!">
                                    <i class="ti-bell"></i>
                                    <span class="badge bg-c-pink"></span>
@@ -93,7 +93,7 @@
                                        </div>
                                    </li>
                                </ul>
-                           </li>
+                           </li> -->
                            
                            <li class="user-profile header-notification">
                                <a href="#!"><?php

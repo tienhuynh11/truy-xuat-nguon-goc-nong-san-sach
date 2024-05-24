@@ -63,13 +63,16 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-            <li class="pcoded-hasmenu">
-                <a href="manage_bv.php">
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                    <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Bài viết</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
+            <?php if ($admin_role == 'Admin') { ?>
+                <li class="pcoded-hasmenu">
+                    <a href="manage_bv.php">
+                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                        <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Bài viết</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+            <?php } ?>
+
             <li class="pcoded-hasmenu">
                 <a href="manage_doanhnghiep.php">
                     <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
