@@ -201,6 +201,12 @@ include_once ("includes/head.php");
                                                             echo '<span class="title-role">Kỹ thuật viên</span>';
                                                         } elseif ($tk['role'] == 'Nguoidanhgia') {
                                                             echo '<span class="title-role">Người đánh giá</span>';
+                                                        }elseif ($tk['role'] == 'Nguoihotro') {
+                                                            echo '<span class="title-role">Người hỗ trợ</span>';
+                                                        }elseif ($tk['role'] == 'Chudoanhnghiep') {
+                                                            echo '<span class="title-role">Chủ doanh nghiệp</span>';
+                                                        }elseif ($tk['role'] == 'Thanhvien') {
+                                                            echo '<span class="title-role">Thành viên</span>';
                                                         }
 
 

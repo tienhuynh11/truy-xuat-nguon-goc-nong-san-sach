@@ -66,6 +66,9 @@
            <option value="Chuyenvien" <?php  if($admin['role']=='Chuyenvien'){echo "Selected";  } ?> >Chuyên viên</option>
            <option value="Kythuatvien" <?php  if($admin['role']=='Kythuatvien'){echo "Selected";  } ?> >Kỹ thuật viên</option>
            <option value="Nguoikiemdinh" <?php  if($admin['role']=='Nguoikiemdinh'){echo "Selected";  } ?> >Người kiểm định</option>
+           <option value="Nguoihotro" <?php  if($admin['role']=='Nguoihotro'){echo "Selected";  } ?> >Người hỗ trợ</option>
+           <option value="Chudoanhnghiep" <?php  if($admin['role']=='Chudoanhnghiep'){echo "Selected";  } ?> >Chủ doanh nghiệp</option>
+           <option value="Thanhvien" <?php  if($admin['role']=='Thanhvien'){echo "Selected";  } ?> >Thành viên</option>
        </select>
     </div>
 

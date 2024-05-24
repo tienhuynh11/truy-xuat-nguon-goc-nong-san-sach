@@ -52,6 +52,9 @@
             <option value="Chuyenvien">Chuyên viên</option>
             <option value="Kythuatvien">Kỹ thuật viên</option>
             <option value="Nguoikiemdinh">Người kiểm định</option>
+            <option value="Nguoihotro">Người hỗ trợ</option>
+            <option value="Chudoanhnghiep">Chủ doanh nghiệp</option>
+            <option value="Thanhvien">Thành viên</option>
         </select>
     </div>
 

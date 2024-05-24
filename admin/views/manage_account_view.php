@@ -70,6 +70,12 @@ $arry  = $obj->display_user_pagination($bat_dau, $ket_thuc);
                     echo "Kỹ thuật viên";
                 }else if($user['role']=='Nguoikiemdinh'){
                     echo "Người kiểm định";
+                }else if($user['role']=='Nguoihotro'){
+                    echo "Người hỗ trợ";
+                }else if($user['role']=='Chudoanhnghiep'){
+                    echo "Chủ doanh nghiệp";
+                }else if($user['role']=='Thanhvien'){
+                    echo "Thành viên";
                 }
                  ?> </td>
             

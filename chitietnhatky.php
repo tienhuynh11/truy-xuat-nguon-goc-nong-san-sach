@@ -182,8 +182,22 @@ include_once ("includes/head.php");
                                             echo 'Nông dân';
                                         } elseif ($tk['role'] == 'Admin') {
                                             echo 'Quản trị';
-                                        } elseif ($tk['role'] == 'Khachhang') {
+                                        } elseif ($tk['role'] == 'Nguoidanhgia') {
                                             echo 'Người đánh giá';
+                                        }elseif ($tk['role'] == 'Nguoikiemdinh') {
+                                            echo 'Người kiểm định';
+                                        }elseif ($tk['role'] == 'Chuyengia') {
+                                            echo 'Chuyên gia';
+                                        }elseif ($tk['role'] == 'Chuyenvien') {
+                                            echo 'Chuyên viên';
+                                        }elseif ($tk['role'] == 'Kythuatvien') {
+                                            echo 'Kỹ thuật viên';
+                                        }elseif ($tk['role'] == 'Nguoihotro') {
+                                            echo 'Người hỗ trợ';
+                                        }elseif ($tk['role'] == 'Chudoanhnghiep') {
+                                            echo 'Chủ doanh nghiệp';
+                                        }elseif ($tk['role'] == 'Thanhvien') {
+                                            echo 'Thành viên';
                                         }
                                         ?>
                                     </i></div>
