@@ -448,7 +448,7 @@ class  adminback
 
         //Tạo đường dẫn và tên qr code
         $path = 'uploads/qrcode_nongsan/';
-        $qrcode_name = 'NSQN-'. $mavach . time() . ".png";
+        $qrcode_name = 'NSQN-' . $mavach . time() . ".png";
         $qrcode = $path . $qrcode_name;
 
         $hinhchungnhan_name = $_FILES['hinhchungnhan']['name'];
@@ -484,8 +484,8 @@ class  adminback
                             move_uploaded_file($hinhkiemdinh_tmp, "uploads/" . $hinhkiemdinh_name);
                             //Lấy id vừa thêm gán vào qrcode
                             $new_insert_id = $this->connection->insert_id;
-                            $url = "http://192.168.99.204/nongsan/chitietsanpham.php?id=".$new_insert_id;
-                            QRcode::png($url,$qrcode,'L', 4,0);
+                            $url = "http://192.169.1.17/nongsan/chitietsanpham.php?id=" . $new_insert_id;
+                            QRcode::png($url, $qrcode, 'L', 4, 4);
                             $msg = "Thêm nông sản thành công!!";
                             echo '<script>
                             alert("Thêm nông sản thành công");
@@ -794,7 +794,7 @@ class  adminback
 
     function view_all_product()
     {
-        $query = "SELECT * FROM `sanpham` where trangthai = 'daxetduyet' ";
+        $query = "SELECT * FROM `sanpham` where trangthai = 'daxetduyet' order by id_sp desc ";
 
         if (mysqli_query($this->connection, $query)) {
             $pdt_info = mysqli_query($this->connection, $query);
@@ -804,7 +804,7 @@ class  adminback
 
     function view_all_product_limit()
     {
-        $query = "SELECT * FROM `sanpham` where trangthai = 'daxetduyet' limit 8";
+        $query = "SELECT * FROM `sanpham` where trangthai = 'daxetduyet' order by id_sp desc limit 8";
 
         if (mysqli_query($this->connection, $query)) {
             $pdt_info = mysqli_query($this->connection, $query);
@@ -843,7 +843,7 @@ class  adminback
 
     function search_nongsan($keyword)
     {
-        $query = "SELECT * FROM `sanpham` WHERE `tensanpham` LIKE '%$keyword%' or `id_sp` LIKE '%$keyword%'";
+        $query = "SELECT * FROM `sanpham` inner join danhmuc on sanpham.danhmuc = danhmuc.id_dm WHERE `sanpham`.`tensanpham` LIKE '%$keyword%' or `danhmuc`.`tendanhmuc` LIKE '%$keyword%'";
 
         if (mysqli_query($this->connection, $query)) {
             $search_query = mysqli_query($this->connection, $query);
@@ -1035,7 +1035,7 @@ class  adminback
 
     function vsxShow()
     {
-        $query = "SELECT * FROM `vungsanxuat`";
+        $query = "SELECT * FROM `vungsanxuat` order by id_vung desc";
         if (mysqli_query($this->connection, $query)) {
             $row = mysqli_query($this->connection, $query);
             return $row;
@@ -1131,12 +1131,13 @@ class  adminback
         $sel_query = "SELECT * FROM `vungsanxuat` WHERE id_vung=$id";
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
-        $mavung = $fetch['mavung'];
         $img_name = $fetch['hinhanh'];
+        $maqr = $fetch['maqr'];
 
         $del_query = "DELETE FROM `vungsanxuat` WHERE id_vung=$id";
         if (mysqli_query($this->connection, $del_query)) {
             unlink('uploads/' . $img_name);
+            unlink('uploads/qrcode_vsx/' . $maqr);
             echo '<script>
                 alert("Xóa thành công");
                 window.location.href = "manage_vsx.php";
@@ -1322,17 +1323,25 @@ class  adminback
         $img_ext = pathinfo($img_name, PATHINFO_EXTENSION);
         list($width, $height) = getimagesize("$img_tmp");
 
+        //Tạo đường dẫn và tên qr code
+        $path = 'uploads/qrcode_vsx/';
+        $qrcode_name = 'NSQN-' . time() . ".png";
+        $qrcode = $path . $qrcode_name;
+
         if (isset($ap) && isset($wards) && isset($district) && isset($province) && isset($tenvung)) {
             $full_address = $wards . ', ' . $district . ', ' . $province;
             if ($img_ext == "jpg" ||  $img_ext == 'jpeg' || $img_ext == "png") {
                 if ($img_size <= 2e+6) {
 
                     if ($width < 2071 && $height < 2071) {
-                        $query = "INSERT INTO `vungsanxuat`(`nguoidang`,  `nhatky`,`thanhvien`, `tenvung`,  `mavung`,`hinhanh`, `sdt`,`ap`, `diachi`, `bando`, `thoigiannuoitrong`,`dientich`,`thongtin`) VALUES ('$nguoidang','$nhatky','$thanhvien','$tenvung','$mavung', '$img_name','$sdt','$ap','$full_address','$bando','$thoigiantrong','$dientich','$thongtin')";
+                        $query = "INSERT INTO `vungsanxuat`(`nguoidang`,  `nhatky`,`thanhvien`, `tenvung`,  `mavung`,`hinhanh`,`maqr`, `sdt`,`ap`, `diachi`, `bando`, `thoigiannuoitrong`,`dientich`,`thongtin`) VALUES ('$nguoidang','$nhatky','$thanhvien','$tenvung','$mavung', '$img_name','$qrcode_name','$sdt','$ap','$full_address','$bando','$thoigiantrong','$dientich','$thongtin')";
 
                         if (mysqli_query($this->connection, $query)) {
                             move_uploaded_file($img_tmp, "uploads/" . $img_name);
-                            $msg = "Product uploaded successfully";
+                            $new_insert_id = $this->connection->insert_id;
+                            $url = "http://192.169.1.17/nongsan/chitietvsx.php?id=" . $new_insert_id;
+                            QRcode::png($url, $qrcode, 'L', 4, 4);
+                            $msg = "Thêm vùng sản xuất thành công!!";
                             echo '<script>
                                 alert(" Thêm Vùng sản xuất thành công");
                                 window.location.href = "manage_vsx.php";
@@ -1466,7 +1475,7 @@ class  adminback
 
     function show_caygiong()
     {
-        $query = "SELECT * FROM `caygiong`";
+        $query = "SELECT * FROM `caygiong` order by id_cg desc";
         if (mysqli_query($this->connection, $query)) {
             $result = mysqli_query($this->connection, $query);
             return $result;
@@ -1487,12 +1496,14 @@ class  adminback
         $sel_query = "SELECT * FROM `caygiong` WHERE `id_cg`=$id_cg";
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
+        $maqr = $fetch["maqr"];
         $img_name = $fetch["hinhanh"];
-        $giaychungnhan=$fetch['$giaychungnhan'];
+        $giaychungnhan = $fetch['$giaychungnhan'];
         $del_query = "DELETE FROM `caygiong` WHERE `id_cg`=$id_cg";
         if (mysqli_query($this->connection, $del_query)) {
             unlink('uploads/' . $img_name);
             unlink('uploads/' . $giaychungnhan);
+            unlink('uploads/qrcode_caygiong/' . $maqr);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_caygiong.php";
@@ -1504,10 +1515,10 @@ class  adminback
     {
         $nguoidang = $data['nguoidang'];
         $tencaygiong = $data['tencaygiong'];
-        $macaygiong = $data['macaygiong'];
+        $macaygiong = $this->thayDoiChu($tencaygiong);
         $mota = $data['mota'];
         $nhasanxuat = $data['nhasanxuat'];
-        $ngaysanxuat = $data['ngaysanxuat'];
+        $ngaysanxuat = date("d/m/Y", strtotime($data['ngaysanxuat']));
         $hansudung = $data['hansudung'];
         $phuongphaptrong = $data['phuongphaptrong'];
         $lienhe = $data['lienhe'];
@@ -1527,17 +1538,25 @@ class  adminback
         $giaychungnhan_tmp = $_FILES['giaychungnhan']['tmp_name'];
         $giaychungnhan_ext = pathinfo($giaychungnhan_name, PATHINFO_EXTENSION);
 
+        //Tạo đường dẫn và tên qr code
+        $path = 'uploads/qrcode_caygiong/';
+        $qrcode_name = 'NSQN-'. time() . ".png";
+        $qrcode = $path . $qrcode_name;
+
         // Validate the main image
         if (($img_ext == "jpg" || $img_ext == 'jpeg' || $img_ext == "png") && ($giaychungnhan_ext == "jpg" || $giaychungnhan_ext == 'jpeg' || $giaychungnhan_ext == "png")) {
             if ($img_size <= 2e+6 && $giaychungnhan_size <= 2e+6) {
                 if ($width < 2071 && $height < 2071) {
-                    $query = "INSERT INTO `caygiong` (`nguoidang`, `nhasanxuat`, `nhaphanphoi`, `tencaygiong`, `macaygiong`, `mota`, `xuatxu`, `gia`, `ngaysanxuat`, `hansudung`, `hdsd`, `phuongphaptrong`, `hinhanh`, `lienhe`, `giaychungnhan`) 
-                          VALUES ('$nguoidang', '$nhasanxuat', '$nhaphanphoi', '$tencaygiong', '$macaygiong', '$mota', '$xuatxu', '$gia', '$ngaysanxuat', '$hansudung', '$hdsd', '$phuongphaptrong', '$img_name', '$lienhe', '$giaychungnhan_name');";
+                    $query = "INSERT INTO `caygiong` (`nguoidang`, `nhasanxuat`, `nhaphanphoi`, `tencaygiong`, `macaygiong`, `maqr`,`mota`, `xuatxu`, `gia`, `ngaysanxuat`, `hansudung`, `hdsd`, `phuongphaptrong`, `hinhanh`, `lienhe`, `giaychungnhan`) 
+                          VALUES ('$nguoidang', '$nhasanxuat', '$nhaphanphoi', '$tencaygiong', '$macaygiong','$qrcode_name', '$mota', '$xuatxu', '$gia', '$ngaysanxuat', '$hansudung', '$hdsd', '$phuongphaptrong', '$img_name', '$lienhe', '$giaychungnhan_name');";
 
                     if (mysqli_query($this->connection, $query)) {
                         move_uploaded_file($img_tmp, "uploads/" . $img_name);
                         move_uploaded_file($giaychungnhan_tmp, "uploads/" . $giaychungnhan_name);
-                        $msg = "Product uploaded successfully";
+                        //Lấy id vừa thêm gán vào qrcode
+                        $new_insert_id = $this->connection->insert_id;
+                        $url = "http://192.169.1.17/nongsan/chitietcaygiong.php?id=" . $new_insert_id;
+                        QRcode::png($url, $qrcode, 'L', 4, 4);
                         echo '<script>
                             alert("Thêm thành công");
                             window.location.href = "manage_caygiong.php";
@@ -1761,12 +1780,14 @@ class  adminback
         $giayphepkinhdoanh = $fetch['giayphepkinhdoanh'];
         $giaychungnhan = $fetch['giaychungnhan'];
         $giaykiemdinh = $fetch['giaykiemdinh'];
+        $maqr = $fetch['maqr'];
         $del_query = "DELETE FROM `doanhnghiep` WHERE id_dn=$id_dn";
         if (mysqli_query($this->connection, $del_query)) {
             unlink('uploads/' . $img_name);
             unlink('uploads/' . $giayphepkinhdoanh);
             unlink('uploads/' . $giaychungnhan);
             unlink('uploads/' . $giaykiemdinh);
+            unlink('uploads/qrcode_doanhnghiep/' . $maqr);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_doanhnghiep.php";
@@ -1909,6 +1930,11 @@ class  adminback
 
         list($width, $height) = getimagesize($dn_img_tmp);
 
+        //Tạo đường dẫn và tên qr code
+        $path = 'uploads/qrcode_doanhnghiep/';
+        $qrcode_name = 'NSQN-' . time() . ".png";
+        $qrcode = $path . $qrcode_name;
+
         if (in_array($img_ext, ['jpg', 'jpeg', 'png'])) {
             if ($dn_img_size <= 2e+6) {
                 if ($width < 2071 && $height < 2071) {
@@ -1951,9 +1977,13 @@ class  adminback
 
                             // Thực hiện truy vấn INSERT vào cơ sở dữ liệu
                             $thanhvien = json_encode($data['thanhvien']);
-                            $query = "INSERT INTO `doanhnghiep` (`nguoidang`,`danhmuc_dn`, `nguoidaidien`, `thanhvien`, `tendoanhnghiep`, `hinhanh`, `sdt`, `email`,`ap`,`diachi`, `masothue`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtinchung`) VALUES ('$nguoidang','$danhmuc_dn', '$nguoidaidien','$thanhvien', '$tendoanhnghiep', '$dn_img_name', '$sdt', '$email','$ap', '$full_address', '$masothue', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtinchung')";
+                            $query = "INSERT INTO `doanhnghiep` (`nguoidang`,`danhmuc_dn`, `nguoidaidien`, `thanhvien`, `tendoanhnghiep`, `hinhanh`, `maqr`,`sdt`, `email`,`ap`,`diachi`, `masothue`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtinchung`) VALUES ('$nguoidang','$danhmuc_dn', '$nguoidaidien','$thanhvien', '$tendoanhnghiep', '$dn_img_name','$qrcode_name', '$sdt', '$email','$ap', '$full_address', '$masothue', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtinchung')";
 
                             if (mysqli_query($this->connection, $query)) {
+                                //Lấy id vừa thêm gán vào qrcode
+                                $new_insert_id = $this->connection->insert_id;
+                                $url = "http://192.169.1.17/nongsan/chitietdn.php?id=" . $new_insert_id;
+                                QRcode::png($url, $qrcode, 'L', 4, 4);
                                 $msg = "Thêm thành công";
                                 echo '<script>
                                 alert("' . $msg . '");
@@ -1986,7 +2016,7 @@ class  adminback
     }
     function show_nhaxuong()
     {
-        $query = "SELECT * FROM `nhaxuong`";
+        $query = "SELECT * FROM `nhaxuong` order by id_nx desc";
         if (mysqli_query($this->connection, $query)) {
             $result = mysqli_query($this->connection, $query);
             return $result;
@@ -2273,11 +2303,9 @@ class  adminback
         $query = "SELECT * FROM `baiviet` order by id_bv desc LIMIT $bat_dau, $ket_thuc";
         $result = mysqli_query($this->connection, $query);
         if ($result) {
-            //Nếu role là Admin thì sẽ hiển thị tất cả nông sản
             if ($role == "Admin") {
                 return $result;
             } else {
-                //Ngược lại, nếu không phải là admin thì hiển thị nông sản theo role
                 $query = "SELECT * FROM `baiviet` where nguoidang = '$nguoidang' order by id_bv desc LIMIT $bat_dau, $ket_thuc";
                 $result = mysqli_query($this->connection, $query);
                 return $result;
@@ -2591,6 +2619,7 @@ class  adminback
         $query = mysqli_query($this->connection, $sel_query);
         $fetch = mysqli_fetch_assoc($query);
         $img_name = $fetch['hinhanh'];
+        $maqr = $fetch['maqr'];
         $giayphepkinhdoanh = $fetch['giayphepkinhdoanh'];
         $giaychungnhan = $fetch['giaychungnhan'];
         $giaykiemdinh = $fetch['giaykiemdinh'];
@@ -2601,6 +2630,7 @@ class  adminback
             unlink('uploads/' . $giaychungnhan);
             unlink('uploads/' . $giaykiemdinh);
             unlink('uploads/' . $img_name);
+            unlink('uploads/qrcode_nhaxuong/' . $maqr);
             echo '<script>
             alert("Xóa thành công");
             window.location.href = "manage_nhaxuong.php";
@@ -2635,6 +2665,11 @@ class  adminback
         $img_ext = pathinfo($nx_img_name, PATHINFO_EXTENSION);
 
         list($width, $height) = getimagesize($nx_img_tmp);
+
+        //Tạo đường dẫn và tên qr code
+        $path = 'uploads/qrcode_nhaxuong/';
+        $qrcode_name = 'NSQN-' . time() . ".png";
+        $qrcode = $path . $qrcode_name;
 
         if (in_array($img_ext, ['jpg', 'jpeg', 'png'])) {
             if ($nx_img_size <= 2e+6) {
@@ -2677,9 +2712,14 @@ class  adminback
                             move_uploaded_file($giaykiemdinh_img_tmp, "uploads/" . $giaykiemdinh_img_name);
                             $thanhvien = json_encode($data['thanhvien']);
                             // Thực hiện truy vấn INSERT vào cơ sở dữ liệu
-                            $query = "INSERT INTO `nhaxuong` (  `nguoidang`,`danhmuc_nx`, `nguoidaidien`, `doanhnghiep`, `vungsanxuat`, `thanhvien`, `tennhaxuong`, `manhaxuong`, `hinhanh`, `dienthoai`, `email`,`ap`, `diachi`, `dientichtongthe`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtin`) VALUES ('$nguoidang','$danhmuc_nx', '$nguoidaidien', '$doanhnghiep', '$vsx','$thanhvien', '$tennhaxuong', '$manhaxuong', '$nx_img_name', '$sdt', '$email','$ap', '$full_address', '$dientichtongthe', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtin');";
+                            $query = "INSERT INTO `nhaxuong` (  `nguoidang`,`danhmuc_nx`, `nguoidaidien`, `doanhnghiep`, `vungsanxuat`, `thanhvien`, `tennhaxuong`, `manhaxuong`, `hinhanh`,`maqr`, `dienthoai`, `email`,`ap`, `diachi`, `dientichtongthe`, `giayphepkinhdoanh`, `giaychungnhan`, `giaykiemdinh`, `thongtin`) VALUES ('$nguoidang','$danhmuc_nx', '$nguoidaidien', '$doanhnghiep', '$vsx','$thanhvien', '$tennhaxuong', '$manhaxuong', '$nx_img_name','$qrcode_name', '$sdt', '$email','$ap', '$full_address', '$dientichtongthe', '$giayphepkinhdoanh_img_name', '$giaychungnhan_img_name', '$giaykiemdinh_img_name', '$thongtin');";
 
                             if (mysqli_query($this->connection, $query)) {
+                                //Lấy id vừa thêm gán vào qrcode
+                                $new_insert_id = $this->connection->insert_id;
+                                $url = "http://192.169.1.17/nongsan/chitietnx.php?id=" . $new_insert_id;
+                                QRcode::png($url, $qrcode, 'L', 4, 4);
+
                                 $msg = "Thêm thành công";
                                 echo '<script>
                                 alert("' . $msg . '");
@@ -2721,10 +2761,18 @@ class  adminback
         $manhaxuong = $data['manhaxuong'];
         $sdt = $data['sdt'];
         $email = $data['email'];
-        $diachi = $data['diachi'];
+        $province = $data['province'];
+        ucwords($province);
+        $district = $data['district'];
+        ucwords($district);
+        $wards = $data['wards'];
+        ucwords($wards);
+        $ap = $data['diachi'];
         $dientichtongthe = $data['dientichtongthe'];
         $thongtin = $data['thongtin'];
         $thanhvien = json_encode($data['thanhvien']);
+
+        $full_address = $wards . ', ' . $district . ', ' . $province;
         if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] === UPLOAD_ERR_OK) {
             $nx_img_name = $_FILES['hinhanh']['name'];
             $nx_img_size = $_FILES['hinhanh']['size'];
@@ -2811,7 +2859,7 @@ class  adminback
             $query .= " `giaykiemdinh` = '$giaykiemdinh_img_new_name',";
         }
 
-        $query .= "`dienthoai` = '$sdt', `email` = '$email', `diachi` = '$diachi', `dientichtongthe` = '$dientichtongthe', `thongtin` = '$thongtin' WHERE `id_nx` = $id_nx;";
+        $query .= "`dienthoai` = '$sdt', `email` = '$email',`ap`='$ap', `diachi` = '$full_address', `dientichtongthe` = '$dientichtongthe', `thongtin` = '$thongtin' WHERE `id_nx` = $id_nx;";
 
         if (mysqli_query($this->connection, $query)) {
             echo '<script>
@@ -2839,7 +2887,8 @@ class  adminback
             return $result;
         }
     }
-    function error404(){
+    function error404()
+    {
         header('location: 404.php');
     }
 }

@@ -126,7 +126,7 @@ ini_set("display_erros", "Off");
 </div>
     <div class="form-group">
         <label for="thongtinchung">Thông tin chung</label>
-        <input type="text" name="thongtinchung" class="form-control" value="<?php echo $dn['thongtinchung']; ?>">
+        <textarea name="thongtinchung" id="thongtinchung" rows="10" class="form-control"><?php echo $dn['thongtinchung']; ?></textarea>
     </div>
     <input type="submit" value="Cập nhật" name="update_dn" class="btn btn-block btn-primary">
 </form>

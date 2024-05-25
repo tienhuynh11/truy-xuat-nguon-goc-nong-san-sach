@@ -75,14 +75,14 @@ if (isset($_GET['status'])) {
 
                 <tr>
                     <td> <?php echo $dem ?></td>
-                    <td style="white-space: normal;"> <?php echo $row['tenvung'] ?></td>
+                    <td> <?php echo $row['tenvung'] ?></td>
                     <td> <?php echo $row['mavung'] ?></td>
                     <td> <?php foreach ($nhatky_array as $nk) {
                                 if ($row['nhatky'] == $nk['id_nk']) {
                                     echo $nk['tennhatky'];
                                 }
                             } ?></td>
-                    <td> <?php echo $row['maqr'] ?></td>
+                    <td><div class="qrcode"><a href="#"><img style="height:60px" src="uploads/qrcode_vsx/<?php echo $row['maqr'] ?>" alt="<?= $row['maqr'] ?>"></a></div></td>
                     <td> <img src="uploads/<?php echo $row['hinhanh'] ?>" width="60px"> </td>
 
                     <td> <?php foreach ($nguoidang_array as $nguoidang) {
@@ -92,16 +92,20 @@ if (isset($_GET['status'])) {
                             } ?></td>
 
                     <td> <?php echo $row['sdt'] ?></td>
-                    <td style="white-space: normal;">
-                    <?php
+                    <td>
+                        <?php
                         $result = $obj->XoaSo($row['diachi']);
                         $diachi = mb_convert_encoding($result, "UTF-8", "auto");
-                        echo $row['ap'].', '.$obj->formatChu($result);
-                    ?></td>
+                        if (!empty($row['ap'])) {
+                            echo $row['ap'] . ', ' . $obj->formatChu($result);
+                        } else {
+                            echo $obj->formatChu($result);
+                        }
+                        ?></td>
                     <td style="width: 200px;"><?php echo $row['bando'] ?></td>
                     <td> <?php echo $row['thoigiannuoitrong'] ?></td>
                     <td> <?php echo $row['dientich'] ?></td>
-                    <td style="white-space: normal;"> <?php echo $row['thongtin'] ?></td>
+                    <td> <?php echo $row['thongtin'] ?></td>
                     <td>
                         <a href="edit_vsx.php?status=edit&&id=<?php echo $row['id_vung'] ?>" class="btn btn-sm btn-warning">Sửa</a>
                         <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $row['id_vung'] ?>)">Xóa</a>
@@ -109,7 +113,15 @@ if (isset($_GET['status'])) {
 
                     </td>
                 </tr>
-
+                <div id="qrcodeModal" class="modalx">
+                    <div class="modal-contentx">
+                        <span class="close">&times;</span>
+                        <img style="height: 300px;" id="qrcodeImg">
+                        <div class="download-btnx">
+                            <a id="downloadLink" download="<?= $row['maqr'] ?>-QRCODE.png"><button class="btn btn-info">Tải xuống</button></a>
+                        </div>
+                    </div>
+                </div>
             <?php
                 $dem++;
             } ?>

@@ -106,7 +106,7 @@ if (isset($_POST['update_vsx_btn'])) {
 </div>
     <div class="form-group">
         <label for="thongtin">Thông tin</label>
-        <input type="text" name="thongtin" class="form-control" value="<?php echo $slide['thongtin'] ?>">
+        <textarea name="thongtin" id="thongtin" class="form-control"><?php echo $slide['thongtin'] ?></textarea>
     </div>
     <input type="submit" value="Cập nhật" name="update_vsx_btn" class="btn btn-primary">
 

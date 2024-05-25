@@ -54,6 +54,12 @@ include_once("includes/head.php");
                 <ion-icon name="shield-checkmark-outline"></ion-icon>
                 <span>Mật khẩu không trùng khớp!</span>
             </div>
+        <?php } elseif ($reg_msg == 5) { ?>
+            <div class="alert">
+                <div class="process"></div>
+                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                <span>Hình ảnh phải có định dạng là jpg hoặc png!</span>
+            </div>
         <?php } ?>
     <?php } ?>
 
@@ -102,6 +108,9 @@ include_once("includes/head.php");
                                         <option value="Chuyenvien">Chuyên viên</option>
                                         <option value="Kythuatvien">Kỹ thuật viên</option>
                                         <option value="Nguoikiemdinh">Người kiểm định</option>
+                                        <option value="Nguoihotro">Người hỗ trợ</option>
+                                        <option value="Chudoanhnghiep">Chủ doanh nghiệp</option>
+                                        <option value="Thanhvien">Thành viên</option>
                                     </select>
                                 </p>
 
@@ -113,7 +122,7 @@ include_once("includes/head.php");
 
                                 <p class="form-row">
                                     <label for="avatar">Avatar</label>
-                                    <input style="padding:0;" type="file" name="fileField" id="fileField">
+                                    <input style="padding:0;" type="file" name="avatar" id="avatar">
                                 </p>
 
                                 <p class="form-row">

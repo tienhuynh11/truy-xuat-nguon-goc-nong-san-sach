@@ -222,7 +222,7 @@ include_once("includes/head.php");
                             <div class="contain-product layout-default">
                                 <div class="product-thumb">
                                     <a href="chitietsanpham.php?id=<?php echo $pdt_data['id_sp'] ?>" class="link-to-product">
-                                        <img style="border-radius: 10px; width: 270px; height: 200px; object-fit: contain;" src="admin/uploads/<?php echo $pdt_data['hinhanh'] ?>" alt="dd" width="270" height="270" class="product-thumnail">
+                                        <img style="border-radius: 10px; width: 270px; height: 200px; object-fit: cover;" src="admin/uploads/<?php echo $pdt_data['hinhanh'] ?>" alt="dd" width="270" height="270" class="product-thumnail">
                                     </a>
                                 </div>
                                 <div class="info">
@@ -302,7 +302,7 @@ include_once("includes/head.php");
                             <div class="contain-product layout-default">
                                 <div class="product-thumb">
                                     <a href="chitietvsx.php?id=<?php echo $vsx['id_vung'] ?>" class="link-to-product">
-                                        <img style="border-radius: 10px; width: 270px; height: 200px; object-fit: contain;" src="admin/uploads/<?php echo $vsx['hinhanh'] ?>" alt="dd" class="product-thumnail">
+                                        <img style="border-radius: 10px; width: 270px; height: 200px; object-fit: cover;" src="admin/uploads/<?php echo $vsx['hinhanh'] ?>" alt="dd" class="product-thumnail">
                                     </a>
                                 </div>
                                 <div class="info">
@@ -384,7 +384,7 @@ include_once("includes/head.php");
                             <div class="contain-product layout-default">
                                 <div class="product-thumb">
                                     <a href="chitietcaygiong.php?id=<?php echo $cg_data['id_cg'] ?>" class="link-to-product">
-                                        <img style="border-radius: 10px; width: 270px; height: 200px; object-fit: contain;" src="admin/uploads/<?php echo $cg_data['hinhanh'] ?>" alt="dd" class="product-thumnail">
+                                        <img style="border-radius: 10px; width: 270px; height: 200px; object-fit: cover;" src="admin/uploads/<?php echo $cg_data['hinhanh'] ?>" alt="dd" class="product-thumnail">
                                     </a>
                                 </div>
                                 <div class="info">

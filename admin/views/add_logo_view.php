@@ -25,7 +25,7 @@
          
             <th>Logo</th>
          
-            <th>Action</th>
+            <th>Hành động</th>
         </tr>
     </thead>
 
@@ -46,7 +46,7 @@
             <td>  <img style="height:60px" src="uploads/<?php echo $logo['img']; ?>" alt=""> </td>
             
            
-            <td>    <a href="edit_logo.php?status=edit&&id=<?php echo $logo['id']; ?>" class="btn btn-sm btn-warning">Edit</a></td>
+            <td>    <a href="edit_logo.php?status=edit&&id=<?php echo $logo['id']; ?>" class="btn btn-sm btn-warning">Sửa</a></td>
 
         </tr>
         <?php }?>

@@ -19,20 +19,9 @@ if (isset($_GET['id'])) {
     $cg_datas[] = $cg_fetch;
 }
 
-
-
-
-
-// if(isset($_POST['post_comment'])){
-//     $cmt_msg = $obj->post_comment($_POST);
-// }
-
-
-// $cmt_fetch = $obj->view_comment_id($_GET['id']);
-// if(isset($cmt_fetch)){
-//     $cmt_row = mysqli_num_rows($cmt_fetch);
-// }
-
+if(empty($cg_fetch)){
+    $obj->error404();
+}
 ?>
 
 
@@ -513,7 +502,7 @@ include_once("includes/head.php");
                                                             Giấy chứng nhận:
                                                         </div>
                                                         <div class="col-md-9">
-                                                            <img src="admin/uploads/<?= $cg_data['giaychungnhan'] ?>" alt="<?= $pro_data['hinhkiemdinh'] ?>" style="height: 200px;" data-toggle="modal" data-target="#imageModal" class="zoom-img">
+                                                            <a href="#"><img src="admin/uploads/<?= $cg_data['giaychungnhan'] ?>" alt="<?= $pro_data['hinhkiemdinh'] ?>" style="height: 180px;" data-toggle="modal" data-target="#imageModal" class="zoom-img"></a>
                                                         </div>
                                                     </div>
                                             </div>

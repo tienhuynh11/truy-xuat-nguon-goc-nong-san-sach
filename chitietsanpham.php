@@ -307,7 +307,7 @@ include_once("includes/head.php");
                                 <div class="sumary-product single-layout" style="text-align:center;display: flex; flex-direction: column;">
                                     <div class="media">
                                         <ul class="biolife-carousel slider-for" data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}'>
-                                            <img src="admin/uploads/<?php echo $pro_data['hinhanh'] ?>" alt="" width="150" height="150">
+                                            <img src="admin/uploads/<?php echo $pro_data['hinhanh'] ?>" alt="">
 
                                         </ul>
                                         <!--<img style="margin-top: 5%; border: none;border-radius: none;" src="admin/uploads/4141709457821-.png" width="100" height="100" alt="">-->

@@ -58,7 +58,7 @@
         <input type="file" name="bv_img" class="form-control">
     </div>
     <div class="form-group">
-        <input type="submit" name="update_baiviet" class="btn btn-primary">
+        <input type="submit" name="update_baiviet" class="btn btn-primary" value="Sửa">
     </div>
 </form>
 </div>

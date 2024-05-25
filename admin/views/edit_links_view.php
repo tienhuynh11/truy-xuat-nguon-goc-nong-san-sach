@@ -13,7 +13,7 @@
 ?>
 
 
-<h2>Update Links</h2>
+<h2>Cập nhật link</h2>
 
 <h6 class="">
     <?php if(isset($up_msg)){ echo $up_msg;} ?>
@@ -50,6 +50,6 @@
 
     <input type="hidden" name="id" value="<?php echo $link['id'] ?>" >
 
-    <input type="submit" value="Update Links" name="update_link" class="btn btn-primary" >
+    <input type="submit" value="Sửa" name="update_link" class="btn btn-primary" >
 
 </form>

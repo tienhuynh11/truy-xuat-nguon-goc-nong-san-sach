@@ -5,7 +5,7 @@ $user_info = $obj->show_admin_user();
 $dn_info = $obj->display_dn();
 $vsx_info = $obj->vsxShow();
 
-$so_ban_ghi_mot_trang = 7;
+$so_ban_ghi_mot_trang = 5;
 if (isset($_GET['trang'])) {
     $trang_hien_tai = $_GET['trang'];
 } else {
@@ -66,10 +66,12 @@ if (isset($_GET['status'])) {
                 <th>Danh mục nhà xưởng</th>
 
                 <th>Người đại diện </th>
+                <th>Mã qr</th>
                 <th>Doanh nghiệp</th>
                 <th>Vùng sản xuất</th>
 
                 <th>Hình ảnh</th>
+
                 <th>Số điện thoại</th>
                 <th>Email</th>
                 <th>Địa chỉ</th>
@@ -118,6 +120,7 @@ if (isset($_GET['status'])) {
                             }
 
                             ?> </td>
+                    <td><div class="qrcode"><a href="#"><img style="height:60px" src="uploads/qrcode_nhaxuong/<?php echo $nx['maqr'] ?>" alt="<?= $nx['maqr'] ?>"></a></div></td>
                     <td> <?php
 
                             foreach ($dn_array as $dn) {
@@ -138,20 +141,25 @@ if (isset($_GET['status'])) {
                             ?> </td>
 
                     <td><img style="height:60px" src="uploads/<?php echo $nx['hinhanh'] ?>" alt=""></td>
+
                     <td> <?php echo $nx['dienthoai'] ?> </td>
                     <td> <?php echo $nx['email'] ?> </td>
-                    <td style="white-space: normal;">
+                    <td>
                         <?php
                         $result = $obj->XoaSo($nx['diachi']);
                         $result = mb_convert_encoding($result, "UTF-8", "auto");
-                        echo $nx['ap'] . ', ' . $obj->formatChu($result);
+                        if (!empty($nx['ap'])) {
+                            echo $nx['ap'] . ', ' . $obj->formatChu($result);
+                        } else {
+                            echo $obj->formatChu($result);
+                        }
                         ?>
                     </td>
                     <td> <?php echo $nx['dientichtongthe'] ?> </td>
                     <td><img style="height:60px" src="uploads/<?php echo $nx['giayphepkinhdoanh'] ?>" alt=""></td>
                     <td><img style="height:60px" src="uploads/<?php echo $nx['giaychungnhan'] ?>" alt=""></td>
                     <td><img style="height:60px" src="uploads/<?php echo $nx['giaykiemdinh'] ?>" alt=""></td>
-                    <td style="white-space: normal;"> <?php echo $nx['thongtin'] ?> </td>
+                    <td> <?php echo $nx['thongtin'] ?> </td>
 
 
                     <td>
@@ -161,7 +169,15 @@ if (isset($_GET['status'])) {
                     </td>
                 </tr>
 
-
+                <div id="qrcodeModal" class="modalx">
+                    <div class="modal-contentx">
+                        <span class="close">&times;</span>
+                        <img style="height: 300px;" id="qrcodeImg">
+                        <div class="download-btnx">
+                            <a id="downloadLink" download="<?= $nx['maqr'] ?>-QRCODE.png"><button class="btn btn-info">Tải xuống</button></a>
+                        </div>
+                    </div>
+                </div>
 
             <?php
                 $dem++;

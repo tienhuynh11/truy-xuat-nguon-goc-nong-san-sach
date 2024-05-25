@@ -91,7 +91,7 @@ include_once("includes/head.php");
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
                                             <a href="chitietvsx.php?id=<?php echo $pdt_data['id_vung'] ?>" class="link-to-product">
-                                                <img style="border-radius: 10px; width: 270px; height: 270px; object-fit: contain;" src="admin/uploads/<?php echo $pdt_data['hinhanh'] ?>" alt="dd" class="product-thumnail">
+                                                <img style="border-radius: 10px; width: 270px;object-fit: cover;" src="admin/uploads/<?php echo $pdt_data['hinhanh'] ?>" alt="dd" class="product-thumnail">
                                             </a>
                                         </div>
                                         <div class="info">

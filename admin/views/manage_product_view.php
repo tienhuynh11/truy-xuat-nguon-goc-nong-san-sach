@@ -90,7 +90,7 @@ if (isset($_GET['trangthai'])) {
                     <td><?php echo $pdt['tensanpham'] ?></td>
                     <td><?php echo $formatted_id_sp ?></td>
 
-                    <td><img style="height:60px" src="uploads/qrcode_nongsan/<?php echo $pdt['maqr'] ?>" alt=""></td>
+                    <td><div class="qrcode"><a href="#"><img style="height:60px" src="uploads/qrcode_nongsan/<?php echo $pdt['maqr'] ?>" alt="<?= $pdt['maqr'] ?>"></a></div></td>
                     <td>
                         <?php if ($pdt['trangthai'] == 'dangchoxetduyet') { ?>
                             <a href="#" class="btn btn-sm btn-primary" onclick="updateStatus(<?php echo $pdt['id_sp'] ?>,'daxetduyet')">Đang chờ xét duyệt</a>
@@ -109,6 +109,15 @@ if (isset($_GET['trangthai'])) {
                         <a href="javascript:void(0);" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $pdt['id_sp'] ?>)">Xóa</a>
                     </td>
                 </tr>
+                <div id="qrcodeModal" class="modalx">
+                    <div class="modal-contentx">
+                        <span class="close">&times;</span>
+                        <img style="height: 300px;" id="qrcodeImg">
+                        <div class="download-btnx">
+                            <a id="downloadLink" download="<?= $pdt['maqr'] ?>-QRCODE.png"><button class="btn btn-info">Tải xuống</button></a>
+                        </div>
+                    </div>
+                </div>
             <?php
 
                 $dem++;

@@ -67,7 +67,7 @@ $users = $obj->show_admin_user();
 
     <div class="form-group">
        
-        <input type="submit" name="bv_add" class="btn btn-primary">
+        <input type="submit" name="bv_add" class="btn btn-primary" value="Thêm">
     </div>
 
 

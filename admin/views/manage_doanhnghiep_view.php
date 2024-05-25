@@ -55,6 +55,7 @@ if (isset($_GET['status'])) {
                 <th>Người đại diện </th>
                 <th>Tên doanh nghiệp</th>
                 <th>Hình ảnh</th>
+                <th>Mã qr</th>
                 <th>Số điện thoại</th>
                 <th>Email</th>
                 <th>Địa chỉ</th>
@@ -103,20 +104,25 @@ if (isset($_GET['status'])) {
                             ?> </td>
                     <td> <?php echo $dn['tendoanhnghiep'] ?> </td>
                     <td><img style="height:60px" src="uploads/<?php echo $dn['hinhanh'] ?>" alt=""></td>
+                    <td><div class="qrcode"><a href="#"><img style="height:60px" src="uploads/qrcode_doanhnghiep/<?php echo $dn['maqr'] ?>" alt="<?= $dn['maqr'] ?>"></a></div></td>
                     <td> <?php echo $dn['sdt'] ?> </td>
                     <td> <?php echo $dn['email'] ?> </td>
-                    <td style="white-space: normal;">
+                    <td>
                         <?php
                         $result = $obj->XoaSo($dn['diachi']);
                         $result = mb_convert_encoding($result, "UTF-8", "auto");
-                        echo $dn['ap'] . ', ' . $obj->formatChu($result);
+                        if (!empty($dn['ap'])) {
+                            echo $dn['ap'] . ', ' . $obj->formatChu($result);
+                        } else {
+                            echo $obj->formatChu($result);
+                        }
                         ?>
                     </td>
                     <td> <?php echo $dn['masothue'] ?> </td>
                     <td><img style="height:60px" src="uploads/<?php echo $dn['giayphepkinhdoanh'] ?>" alt=""></td>
                     <td><img style="height:60px" src="uploads/<?php echo $dn['giaychungnhan'] ?>" alt=""></td>
                     <td><img style="height:60px" src="uploads/<?php echo $dn['giaykiemdinh'] ?>" alt=""></td>
-                    <td style="white-space: normal;"> <?php echo $dn['thongtinchung'] ?> </td>
+                    <td> <?php echo $dn['thongtinchung'] ?> </td>
 
 
                     <td>
@@ -126,7 +132,15 @@ if (isset($_GET['status'])) {
                     </td>
                 </tr>
 
-
+                <div id="qrcodeModal" class="modalx">
+                    <div class="modal-contentx">
+                        <span class="close">&times;</span>
+                        <img style="height: 300px;" id="qrcodeImg">
+                        <div class="download-btnx">
+                            <a id="downloadLink" download="<?= $dn['maqr'] ?>-QRCODE.png"><button class="btn btn-info">Tải xuống</button></a>
+                        </div>
+                    </div>
+                </div>
 
             <?php
                 $dem++;

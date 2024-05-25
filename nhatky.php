@@ -88,7 +88,7 @@
 </style>
 <?php
 session_start();
-include_once ("admin/class/adminback.php");
+include_once("admin/class/adminback.php");
 $obj = new adminback();
 
 if (isset($_GET['search'])) {
@@ -120,29 +120,29 @@ if (isset($_GET['search'])) {
 
 
 <?php
-include_once ("includes/head.php");
+include_once("includes/head.php");
 ?>
 
 <body class="biolife-body">
     <!-- Preloader -->
 
     <?php
-    include_once ("includes/preloader.php");
+    include_once("includes/preloader.php");
     ?>
 
     <!-- HEADER -->
     <header id="" class="header-area style-01 layout-03">
 
         <?php
-        include_once ("includes/header_top.php");
+        include_once("includes/header_top.php");
         ?>
 
         <?php
-        include_once ("includes/header_middle.php");
+        include_once("includes/header_middle.php");
         ?>
 
         <?php
-        include_once ("includes/header_bottom.php");
+        include_once("includes/header_bottom.php");
         ?>
 
     </header>
@@ -154,8 +154,7 @@ include_once ("includes/head.php");
             <div class="head-info text-center" style="padding-bottom: 0px;padding: 20px 0;">
                 <div class="row" style="width: 100%;">
                     <div class="col-md-6 col-xs-6">
-                        <div class="c-product-detail__title-sm"
-                            style="font-size: 18px;font-weight: bold;line-height: 33.6px;">Nhật ký hoạt động</div>
+                        <div class="c-product-detail__title-sm" style="font-size: 18px;font-weight: bold;line-height: 33.6px;">Nhật ký hoạt động</div>
                     </div>
                     <div class="col-md-6 col-xs-6">
                         <a href="add_nhatky.php" class="">
@@ -167,72 +166,69 @@ include_once ("includes/head.php");
             <?php
             foreach ($nhatky as $nk) {
                 $tk = $obj->show_taikhoanbyid($nk["nguoidang"]);
-                ?>
+            ?>
                 <div class="row" style=" margin-bottom:5px;">
 
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="single-product-log">
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-2 log__user-avatar"
-                                        style="display: flex;justify-content: center;align-items: center;margin-top:10px">
-                                        <img style="display: block;width: 60px;height: 60px;object-fit: cover;border-radius: 50%;"
-                                            src="admin/uploads/avatar/<?= $tk['hinhdaidien'] ?>" alt="">
+                                    <div class="col-xs-12 col-sm-2 log__user-avatar" style="display: flex;justify-content: center;align-items: center;margin-top:10px">
+                                        <img style="display: block;width: 60px;height: 60px;object-fit: cover;border-radius: 50%;" src="admin/uploads/avatar/<?= $tk['hinhdaidien'] ?>" alt="">
                                     </div>
                                     <div class="col-xs-12 col-sm-10 log__main-content">
                                         <div class="row">
                                             <div class="col-xs-12 log__main-top">
                                                 <div class="log__user-info">
                                                     <h4 class="log__user-info__title" style="margin-left: 20px;">
-                                                        <a style="color: #009900;font-weight: bold;"
-                                                            href="#"><?= $tk['hoten'] ?></a>
+                                                        <a style="color: #009900;font-weight: bold;" href="#"><?= $tk['hoten'] ?></a>
                                                         - <?php
-                                                        if ($tk['role'] == 'Admin') {
-                                                            echo '<span class="title-role">Admin</span>';
-                                                        } elseif ($tk['role'] == 'Nongdan') {
-                                                            echo '<span class="title-role">Nông dân</span>';
-                                                        } elseif ($tk['role'] == 'Chuyengia') {
-                                                            echo '<span class="title-role">Chuyên gia</span>';
-                                                        } elseif ($tk['role'] == 'Nguoikiemdinh') {
-                                                            echo '<span class="title-role">Người kiểm định</span>';
-                                                        } elseif ($tk['role'] == 'Chuyenvien') {
-                                                            echo '<span class="title-role">Chuyên viên</span>';
-                                                        } elseif ($tk['role'] == 'Kythuatvien') {
-                                                            echo '<span class="title-role">Kỹ thuật viên</span>';
-                                                        } elseif ($tk['role'] == 'Nguoidanhgia') {
-                                                            echo '<span class="title-role">Người đánh giá</span>';
-                                                        }elseif ($tk['role'] == 'Nguoihotro') {
-                                                            echo '<span class="title-role">Người hỗ trợ</span>';
-                                                        }elseif ($tk['role'] == 'Chudoanhnghiep') {
-                                                            echo '<span class="title-role">Chủ doanh nghiệp</span>';
-                                                        }elseif ($tk['role'] == 'Thanhvien') {
-                                                            echo '<span class="title-role">Thành viên</span>';
-                                                        }
+                                                            if ($tk['role'] == 'Admin') {
+                                                                echo '<span class="title-role">Admin</span>';
+                                                            } elseif ($tk['role'] == 'Nongdan') {
+                                                                echo '<span class="title-role">Nông dân</span>';
+                                                            } elseif ($tk['role'] == 'Chuyengia') {
+                                                                echo '<span class="title-role">Chuyên gia</span>';
+                                                            } elseif ($tk['role'] == 'Nguoikiemdinh') {
+                                                                echo '<span class="title-role">Người kiểm định</span>';
+                                                            } elseif ($tk['role'] == 'Chuyenvien') {
+                                                                echo '<span class="title-role">Chuyên viên</span>';
+                                                            } elseif ($tk['role'] == 'Kythuatvien') {
+                                                                echo '<span class="title-role">Kỹ thuật viên</span>';
+                                                            } elseif ($tk['role'] == 'Nguoidanhgia') {
+                                                                echo '<span class="title-role">Người đánh giá</span>';
+                                                            } elseif ($tk['role'] == 'Nguoihotro') {
+                                                                echo '<span class="title-role">Người hỗ trợ</span>';
+                                                            } elseif ($tk['role'] == 'Chudoanhnghiep') {
+                                                                echo '<span class="title-role">Chủ doanh nghiệp</span>';
+                                                            } elseif ($tk['role'] == 'Thanhvien') {
+                                                                echo '<span class="title-role">Thành viên</span>';
+                                                            }
 
 
-                                                        ?>
+                                                            ?>
                                                     </h4>
                                                 </div>
                                                 <div class="log__meta-info">
-                                                    <span class="log__user-info__meta"
-                                                        style="margin-left: 20px;"><?= $nk['thoigiantao'] ?></span>
+                                                    <span class="log__user-info__meta" style="margin-left: 20px;"><?= $nk['thoigiantao'] ?></span>
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 log__data">
                                                 <div class="single-data">
-                                                    <div class="single-data__label" style="margin-left: 20px;"><u><b>Công
-                                                                việc:</b></u> <?= $nk['tennhatky'] ?></div>
+                                                    <a href="chitietnhatky.php?id=<?= $nk['id_nk'] ?>">
+                                                        <div class="single-data__label" style="margin-left: 20px;"><u><b>Công
+                                                                    việc:</b></u> <?= $nk['tennhatky'] ?></div>
+                                                    </a>
                                                     <div class="single-data__data">
                                                         <a href="chitietnhatky.php?id=<?= $nk['id_nk'] ?>">
-                                                            <span
-                                                                style="color: #FF9933;display: inline-block;max-width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; margin-left: 20px;padding-right: 30px;"
-                                                                class="data-view-title"><?= $nk['chitiet'] ?></span>
+                                                            <span style="color: #FF9933;display: inline-block;max-width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; margin-left: 20px;padding-right: 30px;" class="data-view-title"><?= $nk['chitiet'] ?></span>
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
+                                            </a>
                                             <?php
-                                            if (!empty($nk['thanhvien']) && $nk['thanhvien']!=='null'): ?>
+                                            if (!empty($nk['thanhvien']) && $nk['thanhvien'] !== 'null') : ?>
                                                 <div class="col-xs-12 log__data">
                                                     <div class="single-data__label" style="margin-left: 20px;"><u><b>Thành viên
                                                                 liên quan:</b></u></div>
@@ -241,14 +237,11 @@ include_once ("includes/head.php");
                                                         $relatedMembers = json_decode($nk['thanhvien'], true);
                                                         foreach ($relatedMembers as $memberId) {
                                                             $member = $obj->show_taikhoanbyid($memberId);
-                                                            ?>
-                                                            <div class="slick-item slick">
+                                                        ?>
+                                                            <div class="slick-item slick" style="height: 150px">
                                                                 <div class="member-container">
-                                                                    <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>"
-                                                                        alt="<?= $member['hoten']; ?>" class="profile-img"
-                                                                        style="height: 120px;">
-                                                                    <div class="slick-title"
-                                                                        style="text-align: center; height: 60px;  font-weight: bold;">
+                                                                    <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 70px;width: 70px;">
+                                                                    <div class="slick-title" style="height: 70px;width: 70px;">
                                                                         <?= $member['hoten']; ?>
                                                                     </div>
                                                                 </div>
@@ -258,14 +251,11 @@ include_once ("includes/head.php");
                                                 </div>
                                             <?php endif; ?>
 
-                                            <div class="col-xs-12 log__data"
-                                                style="padding-bottom: 10px; padding-top: 20px;margin: auto;">
+                                            <div class="col-xs-12 log__data" style="padding-bottom: 10px; padding-top: 20px;margin: auto;">
                                                 <div class="profile-img-list">
                                                     <div class="profile-img-list-item main">
-                                                        <a href="chitietnhatky.php?id=<?php echo $nk['id_nk'] ?>"
-                                                            data-lity="" class="profile-img-list-link">
-                                                            <span class="profile-img-content"
-                                                                style="background-image: url(admin/uploads/<?php echo $nk['hinhanh'] ?>); margin-left: 20px;"></span>
+                                                        <a href="chitietnhatky.php?id=<?php echo $nk['id_nk'] ?>" data-lity="" class="profile-img-list-link">
+                                                            <span class="profile-img-content" style="background-image: url(admin/uploads/<?php echo $nk['hinhanh'] ?>); margin-left: 20px;"></span>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -278,8 +268,8 @@ include_once ("includes/head.php");
                     </div>
 
                 </div><?php
-            }
-            ?>
+                    }
+                        ?>
         </div>
         <div id="main-content" class="main-content">
 
@@ -290,52 +280,51 @@ include_once ("includes/head.php");
         <!-- FOOTER -->
 
         <?php
-        include_once ("includes/footer.php");
+        include_once("includes/footer.php");
         ?>
 
         <!--Footer For Mobile-->
         <?php
-        include_once ("includes/mobile_footer.php");
+        include_once("includes/mobile_footer.php");
         ?>
 
         <?php
-        include_once ("includes/mobile_global.php")
-            ?>
+        include_once("includes/mobile_global.php")
+        ?>
 
 
         <!-- Scroll Top Button -->
         <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
         <?php
-        include_once ("includes/script.php")
-            ?>
+        include_once("includes/script.php")
+        ?>
 </body>
 
 </html>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         var slider = $('#related-members-slider');
         var totalItems = slider.find('.slick-item').length;
 
         slider.slick({
             infinite: false,
-            slidesToShow: 4,
-            slidesToScroll: 2,
+            slidesToShow: 3,
+            slidesToScroll: 1,
             dots: false,
-            arrows: true,
-            responsive: [
-                {
+            arrows: false,
+            responsive: [{
                     breakpoint: 768,
                     settings: {
                         slidesToShow: 2,
-                        slidesToScroll: 2
+                        slidesToScroll: 1
                     }
                 },
                 {
                     breakpoint: 480,
                     settings: {
                         slidesToShow: 2,
-                        slidesToScroll: 2
+                        slidesToScroll: 1
                     }
                 }
             ]
@@ -351,5 +340,4 @@ include_once ("includes/head.php");
             }, true);
         }
     });
-
 </script>

@@ -29,7 +29,7 @@
                 <th>Facebook</th>
                 <th>Pinterest</th>
                 <th>Phone</th>
-                <th>Action</th>
+                <th>Hành động</th>
             </tr>
         </thead>
 
@@ -44,7 +44,7 @@
                 <td><?php echo $ctg['phone'] ?></td>
                
                 <td>
-                    <a href="edit_links.php?status=edit&&id=<?php echo $ctg['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="edit_links.php?status=edit&&id=<?php echo $ctg['id'] ?>" class="btn btn-sm btn-warning">Sửa</a>
                   
                 </td>
                

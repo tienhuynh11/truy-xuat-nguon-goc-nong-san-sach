@@ -51,7 +51,7 @@ if (isset($_POST['add_nx'])) {
         <div class="form-group">
             <label for="doanhnghiep">Thuộc doanh nghiệp</label>
             <select name="doanhnghiep" id="doanhnghiep" class="form-control">
-            <option value="">Chọn người doanh nghiệp</option>
+            <option value="">Chọn doanh nghiệp</option>
                 <?php while ($dn = mysqli_fetch_assoc($dn_info)) { ?>
                     <option value="<?php echo $dn['id_dn'] ?>"><?php echo $dn['tendoanhnghiep'] ?></option>
 
@@ -62,6 +62,7 @@ if (isset($_POST['add_nx'])) {
             <label for="vsx">Thuộc vùng sản xuất</label>
             
             <select name="vsx" id="vsx" class="form-control">
+            <option value="">Chọn vùng sản xuất</option>
                 <?php while ($vsx = mysqli_fetch_assoc($vsx_info)) { ?>
                     <option value="<?php echo $vsx['id_vung'] ?>"><?php echo $vsx['tenvung'] ?></option>
 
@@ -139,7 +140,7 @@ if (isset($_POST['add_nx'])) {
             </div>  
             <div class="form-group">
                 <label for="thongtin">Thông tin chung</label>
-                <input type="text" name="thongtin" class="form-control">
+                <textarea name="thongtin" id="thongtin" rows="10" class="form-control"></textarea>
             </div>
 
             <input type="submit" value="Thêm nhà xưởng" name="add_nx" class="btn btn-block btn-primary">

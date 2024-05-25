@@ -140,7 +140,7 @@
     </div>  
     <div class="form-group">
         <label for="thongtinchung">Thông tin chung</label>
-        <input type="text" name="thongtinchung" class="form-control">
+        <textarea name="thongtinchung" id="thongtinchung" rows="10" class="form-control"></textarea>
     </div>
 
     <input type="submit" value="Thêm doanh nghiệp" name="add_dn" class="btn btn-block btn-primary">

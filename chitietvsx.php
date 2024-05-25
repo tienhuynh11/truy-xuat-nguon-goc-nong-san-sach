@@ -19,11 +19,17 @@ if (isset($_GET['id'])) {
     $vsx_datas[] = $vsx_fetch;
 }
 
+if(empty($vsx_fetch)){
+    $obj->error404();
+}
+
+
 foreach ($vsx_datas as $vsx) {
     $tenvung = $vsx['tenvung'];
     $mavung = $vsx['mavung'];
     $hinhanh = $vsx['hinhanh'];
     $nguoidang = $vsx['nguoidang'];
+    $maqr = $vsx['maqr'];
     $dienthoai = $vsx['sdt'];
     $ap = $vsx['ap'];
     $diachi = $vsx['diachi'];
@@ -182,7 +188,7 @@ include_once ("includes/head.php");
             </div>
             <div class="head-right">
                 <div class="qrcode">
-                    <a href="#"><img src="admin/uploads/QR.png" alt="<?= $qrcode ?>"></a>
+                    <a href="#"><img src="admin/uploads/qrcode_vsx/<?= $maqr ?>" alt="<?= $maqr ?>"></a>
                 </div>
             </div>
         </div>
@@ -210,7 +216,7 @@ include_once ("includes/head.php");
                                 <div class="box">
                                     <img src="admin/uploads/avatar/<?= $avatar ?>" alt="<?= $avatar ?>">
                                 </div>
-                                <div class="box-tilte">
+                                <div class="box-tilte" style="font-size: 14px;">
                                     <?php
                                     $max_length = 25;
 
@@ -226,10 +232,10 @@ include_once ("includes/head.php");
                                         }
 
 
-                                        echo '<span class="sli-tilte">' . $hoten . '</span>';
+                                        echo '<span>' . $hoten . '</span>';
                                     } else {
 
-                                        echo '<span class="sli-tilte">' . $hoten . '</span>';
+                                        echo '<span>' . $hoten . '</span>';
                                     }
                                     ?>
                                 </div>
@@ -310,7 +316,7 @@ include_once ("includes/head.php");
                             <div class="col-md-3">
                                 Danh sách thành viên:
                             </div>
-                            <div class="col-xs-9 log__data">
+                            <div class="col-md-9">
                                 <div id="related-members-slider" class="profile profile-img-list">
                                     <?php
                                     $relatedMembers = json_decode($thanhvien, true);
@@ -320,9 +326,9 @@ include_once ("includes/head.php");
                                         <div class="slick-item slick">
                                             <div class="member-container">
                                                 <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>"
-                                                    alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 120px;">
+                                                    alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 70px;">
                                                 <div class="slick-title"
-                                                    style="text-align: center; height: 60px;  font-weight: bold;">
+                                                    style="text-align: center; height: 60px;  font-weight: bold;font-size: 14px;">
                                                     <?= $member['hoten']; ?>
                                                 </div>
                                             </div>
@@ -343,9 +349,9 @@ include_once ("includes/head.php");
         <div id="qrcodeModal" class="modal">
             <span class="close">&times;</span>
             <div class="modal-content">
-                <img id="qrcodeImg">
+                <img style="height: 300px;" id="qrcodeImg">
                 <div class="download-btn">
-                    <a id="downloadLink" download="QRCode.png"><button class="btn btn-info">Tải xuống</button></a>
+                    <a id="downloadLink" download="NSQN-<?= $tenvung ?>-QRCODE.png"><button class="btn btn-info">Tải xuống</button></a>
                 </div>
             </div>
         </div>
@@ -381,7 +387,7 @@ include_once ("includes/head.php");
 
         slider.slick({
             infinite: false,
-            slidesToShow: 4,
+            slidesToShow: 3,
             slidesToScroll: 2,
             dots: false,
             arrows: true,
@@ -389,14 +395,14 @@ include_once ("includes/head.php");
                 {
                     breakpoint: 768,
                     settings: {
-                        slidesToShow: 2,
+                        slidesToShow: 3,
                         slidesToScroll: 2
                     }
                 },
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow: 2,
+                        slidesToShow: 3,
                         slidesToScroll: 2
                     }
                 }

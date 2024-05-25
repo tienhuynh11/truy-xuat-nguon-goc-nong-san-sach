@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include_once ("admin/class/adminback.php");
+include_once("admin/class/adminback.php");
 $obj = new adminback();
 
 $cata_info = $obj->p_display_catagory();
@@ -18,6 +18,10 @@ if (isset($_GET['id'])) {
     $nx_datas[] = $nx_fetch;
 }
 
+if (empty($nx_fetch)) {
+    $obj->error404();
+}
+
 foreach ($nx_datas as $nx) {
     $id_nx = $nx['id_nx'];
     $danhmuc_nx = $nx['danhmuc_nx'];
@@ -27,6 +31,7 @@ foreach ($nx_datas as $nx) {
     $tennhaxuong = $nx['tennhaxuong'];
     $manhaxuong = $nx['manhaxuong'];
     $hinhanh = $nx['hinhanh'];
+    $maqr = $nx['maqr'];
     $dienthoai = $nx['dienthoai'];
     $email = $nx['email'];
     $ap = $nx['ap'];
@@ -83,7 +88,7 @@ foreach ($doanhnghiep as $dn) {
 ?>
 
 <?php
-include_once ("includes/head.php");
+include_once("includes/head.php");
 ?>
 <style>
     .slick-track {
@@ -172,18 +177,18 @@ include_once ("includes/head.php");
     <!-- Preloader -->
 
     <?php
-    include_once ("includes/preloader.php");
+    include_once("includes/preloader.php");
     ?>
 
     <!-- HEADER -->
     <header id="" class="header-area style-01 layout-03">
 
         <?php
-        include_once ("includes/header_top.php");
+        include_once("includes/header_top.php");
         ?>
 
         <?php
-        include_once ("includes/header_middle.php");
+        include_once("includes/header_middle.php");
         ?>
 
         <?php
@@ -202,11 +207,13 @@ include_once ("includes/head.php");
             </div>
             <div class="info-1">
                 <h2><?= $tennhaxuong ?></h2>
-                <span>Mã nhà xưởng: <strong><?= $manhaxuong ?></strong></span>
+                <?php if (!empty($manhaxuong)) : ?>
+                    <span>Mã nhà xưởng: <strong><?= $manhaxuong ?></strong></span>
+                <?php endif; ?>
             </div>
             <div class="head-right">
                 <div class="qrcode">
-                    <a href="#"><img src="admin/uploads/QR.png" alt="aaaa"></a>
+                    <a href="#"><img src="admin/uploads/qrcode_nhaxuong/<?= $maqr ?>" alt="<?= $maqr ?>"></a>
                 </div>
             </div>
         </div>
@@ -223,7 +230,7 @@ include_once ("includes/head.php");
                             <img src="admin/uploads/<?= $hinhanh ?>" alt="<?= $hinhanh ?>">
                         </div>
                     </div>
-                
+
                     <div class="row" id="vsx">
                         <div class="col-md-3">
                             Loại nhà xưởng:
@@ -232,103 +239,106 @@ include_once ("includes/head.php");
                             <p class="title"><?php echo $loainhaxuong ?></p>
                         </div>
                     </div>
-                    <div class="row" id="vsx" style="padding: 20px 0;">
-                        <div class="col-md-3">
-                            Người đại diện:
-                        </div>
-                        <div class="col-md-9 ">
-                            <div class="slick">
-                                <div class="box">
-                                    <img src="admin/uploads/avatar/<?= $avatar ?>" alt="<?= $avatar ?>">
-                                </div>
-                                <div class="box-tilte">
-                                    <?php
-                                    $max_length = 25;
-
-
-                                    if (strlen($hoten) > $max_length) {
-
-                                        $tenrutgon = substr($hoten, 0, $max_length);
-
-
-                                        $last_space = strrpos($tenrutgon, ' ');
-                                        if ($last_space !== false) {
-                                            $tenrutgon = substr($tenrutgon, 0, $last_space);
-                                        }
-
-
-                                        echo '<span class="sli-tilte">' . $hoten . '</span>';
-                                    } else {
-
-                                        echo '<span class="sli-tilte">' . $hoten . '</span>';
-                                    }
-                                    ?>
-                                </div>
+                    <?php if (!empty($avatar)) : ?>
+                        <div class="row" id="vsx" style="padding: 20px 0;">
+                            <div class="col-md-3">
+                                Người đại diện:
                             </div>
-                        </div>
-                    </div>
-                    <div class="row" id="vsx" style="padding: 20px 0;">
-                        <div class="col-md-3">
-                            Thuộc doanh nghiệp:
-                        </div>
-                        <div class="col-md-9">
-                            <a href="chitietdn.php?id=<?= $id_dn ?>">
+                            <div class="col-md-9 ">
                                 <div class="slick">
                                     <div class="box">
-                                        <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>"
-                                            style="width: 148px; height: 148px; object-fit: contain;">
+                                        <img src="admin/uploads/avatar/<?= $avatar ?>" alt="<?= $avatar ?>" style="width: 130px;height: 130px;;object-fit: cover;">
                                     </div>
                                     <div class="box-tilte">
                                         <?php
                                         $max_length = 25;
-                                        if (strlen($tendoanhnghiep) > $max_length) {
-                                            $tenrutgon = substr($tendoanhnghiep, 0, $max_length);
+
+
+                                        if (strlen($hoten) > $max_length) {
+
+                                            $tenrutgon = substr($hoten, 0, $max_length);
+
+
                                             $last_space = strrpos($tenrutgon, ' ');
                                             if ($last_space !== false) {
                                                 $tenrutgon = substr($tenrutgon, 0, $last_space);
                                             }
-                                            echo '<span class="sli-tilte">' . $tenrutgon . '</span>';
+
+
+                                            echo '<span class="sli-tilte">' . $hoten . '</span>';
                                         } else {
-                                            echo '<span class="sli-tilte">' . $tendoanhnghiep . '</span>';
+
+                                            echo '<span class="sli-tilte">' . $hoten . '</span>';
                                         }
                                         ?>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" id="vsx" style="padding: 20px 0;">
-
-                        <div class="col-md-3">
-                            Vùng sản xuất:
-                        </div>
-                        <div class="col-md-9">
-                            <a href="chitietvsx.php?id=<?= $id_vung ?>">
-                                <div class="slick">
-                                    <div class="box">
-                                        <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>"
-                                            style="width: 148px; height: 148px; object-fit: contain;">
-                                    </div>
-                                    <div class="box-tilte">
-                                        <?php
-                                        $max_length = 24;
-                                        if (strlen($tenvung) > $max_length) {
-                                            $tenrutgon = substr($tenvung, 0, $max_length);
-                                            $last_space = strrpos($tenrutgon, ' ');
-                                            if ($last_space !== false) {
-                                                $tenrutgon = substr($tenrutgon, 0, $last_space);
+                    <?php endif; ?>
+                    <?php if (!empty($anhdoanhnghiep)) : ?>
+                        <div class="row" id="vsx" style="padding: 20px 0;">
+                            <div class="col-md-3">
+                                Thuộc doanh nghiệp:
+                            </div>
+                            <div class="col-md-9">
+                                <a href="chitietdn.php?id=<?= $id_dn ?>">
+                                    <div class="slick">
+                                        <div class="box">
+                                            <img src="admin/uploads/<?= $anhdoanhnghiep ?>" alt="<?= $anhdoanhnghiep ?>" style="width: 148px; height: 148px; object-fit: contain;">
+                                        </div>
+                                        <div class="box-tilte" style="font-size: 14px;">
+                                            <?php
+                                            $max_length = 25;
+                                            if (strlen($tendoanhnghiep) > $max_length) {
+                                                $tenrutgon = substr($tendoanhnghiep, 0, $max_length);
+                                                $last_space = strrpos($tenrutgon, ' ');
+                                                if ($last_space !== false) {
+                                                    $tenrutgon = substr($tenrutgon, 0, $last_space);
+                                                }
+                                                echo '<span>' . $tenrutgon . '</span>';
+                                            } else {
+                                                echo '<span>' . $tendoanhnghiep . '</span>';
                                             }
-                                            echo '<span class="sli-tilte">' . $tenrutgon . '</span>';
-                                        } else {
-                                            echo '<span class="sli-tilte">' . $tenvung . '</span>';
-                                        }
-                                        ?>
+                                            ?>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
+                    <?php endif; ?>
+                    <?php if (!empty($anhvsx)) : ?>
+                        <div class="row" id="vsx" style="padding: 20px 0;">
 
-                    </div>
+                            <div class="col-md-3">
+                                Vùng sản xuất:
+                            </div>
+                            <div class="col-md-9">
+                                <a href="chitietvsx.php?id=<?= $id_vung ?>">
+                                    <div class="slick">
+                                        <div class="box">
+                                            <img src="admin/uploads/<?= $anhvsx ?>" alt="<?= $anhvsx ?>" style="width: 148px; height: auto; object-fit: contain;">
+                                        </div>
+                                        <div class="box-tilte" style="font-size: 14px;">
+                                            <?php
+                                            $max_length = 24;
+                                            if (strlen($tenvung) > $max_length) {
+                                                $tenrutgon = substr($tenvung, 0, $max_length);
+                                                $last_space = strrpos($tenrutgon, ' ');
+                                                if ($last_space !== false) {
+                                                    $tenrutgon = substr($tenrutgon, 0, $last_space);
+                                                }
+                                                echo '<span>' . $tenrutgon . '</span>';
+                                            } else {
+                                                echo '<span>' . $tenvung . '</span>';
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="row" id="vsx">
                         <div class="col-md-3">
@@ -375,7 +385,7 @@ include_once ("includes/head.php");
                             Giấy phép kinh doanh:
                         </div>
                         <div class="col-md-9">
-                            <img src="admin/uploads/<?= $giayphepkinhdoanh ?>" alt="<?= $hinhanh ?>">
+                            <img src="admin/uploads/<?= $giayphepkinhdoanh ?>" alt="<?= $giayphepkinhdoanh ?>">
                         </div>
                     </div>
                     <div class="row" id="vsx" style="padding: 20px 0;">
@@ -383,7 +393,7 @@ include_once ("includes/head.php");
                             Giấy chứng nhận:
                         </div>
                         <div class="col-md-9">
-                            <img src="admin/uploads/<?= $giaychungnhan ?>" alt="<?= $hinhanh ?>">
+                            <img src="admin/uploads/<?= $giaychungnhan ?>" alt="<?= $giaychungnhan ?>">
                         </div>
                     </div>
                     <div class="row" id="vsx" style="padding: 20px 0;">
@@ -391,7 +401,7 @@ include_once ("includes/head.php");
                             Giấy kiểm định:
                         </div>
                         <div class="col-md-9">
-                            <img src="admin/uploads/<?= $giaykiemdinh ?>" alt="<?= $hinhanh ?>">
+                            <img src="admin/uploads/<?= $giaykiemdinh ?>" alt="<?= $giaykiemdinh ?>">
                         </div>
                     </div>
                     <div class="row" id="vsx">
@@ -404,24 +414,22 @@ include_once ("includes/head.php");
                     </div>
                     <?php
 
-                    if (!empty($thanhvien) && $thanhvien !== 'null'): ?>
+                    if (!empty($thanhvien) && $thanhvien !== 'null') : ?>
                         <div class="row" id="vsx">
                             <div class="col-md-3">
                                 Danh sách thành viên:
                             </div>
-                            <div class="col-xs-9 log__data">
+                            <div class="col-md-9">
                                 <div id="related-members-slider" class="profile profile-img-list">
                                     <?php
                                     $relatedMembers = json_decode($thanhvien, true);
                                     foreach ($relatedMembers as $memberId) {
                                         $member = $obj->show_taikhoanbyid($memberId);
-                                        ?>
-                                        <div class="slick-item slick">
+                                    ?>
+                                        <div class="slick-item slick" style="height: 150px;">
                                             <div class="member-container">
-                                                <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>"
-                                                    alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 120px;">
-                                                <div class="slick-title"
-                                                    style="text-align: center; height: 60px;  font-weight: bold;">
+                                                <img src="admin/uploads/avatar/<?= $member['hinhdaidien']; ?>" alt="<?= $member['hoten']; ?>" class="profile-img" style="height: 70px;width: 70px;">
+                                                <div class="slick-title" style="text-align: center; height: 60px;  font-weight: bold;font-size: 13px;line-height: normal;">
                                                     <?= $member['hoten']; ?>
                                                 </div>
                                             </div>
@@ -429,52 +437,52 @@ include_once ("includes/head.php");
                                     <?php } ?>
                                 </div>
                             </div>
-                                <?php endif; ?>
+                        <?php endif; ?>
 
 
-                    </div>
-                <?php }
-            ?>
-            </div>
+                        </div>
+                    <?php }
+                    ?>
+                </div>
         </div>
         <!-- Tạo model -->
         <div id="qrcodeModal" class="modal">
-            <span class="close">&times;</span>
             <div class="modal-content">
+                <span class="close">&times;</span>
                 <img id="qrcodeImg">
                 <div class="download-btn">
-                    <a id="downloadLink" download="QRCode.png"><button class="btn btn-info">Tải xuống</button></a>
+                    <a id="downloadLink" download="<?= $maqr ?>.png"><button class="btn btn-info">Tải xuống</button></a>
                 </div>
             </div>
         </div>
         <!-- FOOTER -->
 
         <?php
-        include_once ("includes/footer.php");
+        include_once("includes/footer.php");
         ?>
 
         <!--Footer For Mobile-->
         <?php
-        include_once ("includes/mobile_footer.php");
+        include_once("includes/mobile_footer.php");
         ?>
 
         <?php
-        include_once ("includes/mobile_global.php")
-            ?>
+        include_once("includes/mobile_global.php")
+        ?>
 
 
         <!-- Scroll Top Button -->
         <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
         <?php
-        include_once ("includes/script.php")
-            ?>
+        include_once("includes/script.php")
+        ?>
 </body>
 
 </html>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         var slider = $('#related-members-slider');
         var totalItems = slider.find('.slick-item').length;
 
@@ -484,8 +492,7 @@ include_once ("includes/head.php");
             slidesToScroll: 2,
             dots: false,
             arrows: true,
-            responsive: [
-                {
+            responsive: [{
                     breakpoint: 768,
                     settings: {
                         slidesToShow: 2,
@@ -512,5 +519,67 @@ include_once ("includes/head.php");
             }, true);
         }
     });
-
 </script>
+<style>
+    /* CSS cho modal */
+    .modal {
+        display: none;
+        /* Mặc định ẩn modal */
+        position: fixed;
+        /* Vị trí cố định */
+        z-index: 1;
+        /* Hiển thị trên các phần tử khác */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* Cho phép cuộn nếu nội dung dài hơn kích thước màn hình */
+        background-color: rgba(0, 0, 0, 0.9);
+        /* Màu nền đen với độ trong suốt */
+    }
+
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 300px;
+        /* Thay đổi từ max-width thành width để căn giữa theo chiều ngang */
+        max-height: 80%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* Di chuyển modal về giữa màn hình */
+    }
+
+    .modal-content img {
+        width: auto;
+        /* Thay đổi từ max-width thành width để căn giữa theo chiều ngang */
+        max-height: 80%;
+        margin-bottom: 20px;
+        /* Khoảng cách giữa hình ảnh và nút tải xuống */
+        height: 300px;
+    }
+
+    .download-btn {
+        position: absolute;
+        bottom: 0px;
+        /* Đặt vị trí nút dưới cùng */
+        left: 50%;
+        /* Canh giữa nút */
+        transform: translateX(-50%);
+        /* Canh giữa nút theo chiều ngang */
+        padding-bottom: 5px;
+    }
+
+    /* Đóng modal khi nhấn vào nút đóng hoặc nền đen */
+    .modal .close {
+        position: absolute;
+        top: -2px;
+        right: 8px;
+        color: black;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
